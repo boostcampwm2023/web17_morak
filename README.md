@@ -17,7 +17,7 @@
 
 ### [🤝 협업 전략](https://ttaerrim.notion.site/223334009f4a4035a9eba6d584e18a4a?pvs=4)
 
-### [📜 기획서](https://ttaerrim.notion.site/db3fae6e91d0427f87efa2324d67ce58?pvs=4)
+### [📜 기획서](https://ttaerrim.notion.site/af66c77dc0f648ce9317a33a37510f24?pvs=4)
 
 ### [🎨 디자인]()
 
