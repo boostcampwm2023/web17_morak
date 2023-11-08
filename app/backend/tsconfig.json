@@ -1,0 +1,3 @@
+{
+  "extends": "@mokak/tsconfig/backend.json",
+}

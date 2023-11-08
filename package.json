@@ -1,0 +1,19 @@
+{
+  "name": "morak",
+  "version": "1.0.0",
+  "description": "네이버 부스트캠프 내 모각코 모집/관리 플랫폼",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*",
+    "app/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.16"
+  }
+}
