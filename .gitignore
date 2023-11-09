@@ -1,4 +1,6 @@
-# compiled output
+# compiledoutput
+**/dist
+**/node_modules
 /dist
 /node_modules
 
@@ -13,5 +15,7 @@ lerna-debug.log*
 
 # OS
 .DS_Store
+**/DS_Store
 
 .env
+**/.env
