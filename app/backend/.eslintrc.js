@@ -9,7 +9,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    '@mokak/eslint-config/backend'
+    '@morak/eslint-config/backend'
   ],
   root: true,
   env: {
