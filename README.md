@@ -22,3 +22,21 @@
 ### [🎨 디자인]()
 
 ### [🔍 위키](https://github.com/boostcampwm2023/web17_morak/wiki)
+
+## 🧑🏻‍💻 `command`
+
+### package install
+
+```bash
+$ npm install <package-name> -w=backend
+$ npm install <package-name> -w=frontend
+```
+
+### run
+
+```bash
+$ npm run start:dev -w=backend
+$ npm run dev -w=frontend
+```
+
+- 이외 명령어들도 각 app 내의 script 명령어를 root(web17_morak)에서  `npm run <command> -w=<app>` 형태로 입력하여 실행하면 됩니다.
