@@ -19,7 +19,7 @@
 
 ### [📜 기획서](https://ttaerrim.notion.site/af66c77dc0f648ce9317a33a37510f24?pvs=4)
 
-### [🎨 디자인]()
+### [🎨 디자인](https://www.figma.com/file/ekdMdDQqhXwJBAf2bus6xJ/%EB%B6%80%EC%8A%A4%ED%8A%B8%EC%BA%A0%ED%94%84-%EB%AA%A8%EB%9D%BD?type=design&node-id=0%3A1&mode=design&t=14H3Ga1raoE4cj9L-1)
 
 ### [🔍 위키](https://github.com/boostcampwm2023/web17_morak/wiki)
 
