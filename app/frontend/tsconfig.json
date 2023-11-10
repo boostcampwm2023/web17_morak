@@ -1,3 +1,5 @@
 {
   "extends": "@morak/tsconfig/frontend.json",
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
