@@ -7,7 +7,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     '@morak/eslint-config/frontend',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
