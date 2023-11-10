@@ -31,7 +31,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: Profile,
     done: VerifyCallback,
   ): Promise<any> {
-    console.log('확인용', request, accessToken, refreshToken, profile);
     const { name, emails, photos } = profile;
     const user = {
       firstName: name?.givenName,
