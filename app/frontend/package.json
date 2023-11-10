@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.8.1",
+    "@tanstack/react-query-devtools": "^5.8.1",
     "@vanilla-extract/css": "^1.14.0",
     "axios": "^1.6.1",
     "jotai": "^2.5.1",
