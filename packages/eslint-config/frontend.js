@@ -6,6 +6,7 @@ module.exports = {
     'airbnb/hooks',
     'airbnb-typescript',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
