@@ -12,6 +12,7 @@ datasource db {
 
 model  Member {
   id    Int      @id @default(autoincrement())
+  provider_id String @unique
   email String @unique
   nickname  String
   social_type String
