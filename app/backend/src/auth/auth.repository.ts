@@ -16,10 +16,10 @@ export class AuthRepository {
     });
   }
 
-  async findUserByIdentifier(email: string): Promise<Member | null> {
+  async findUserByIdentifier(provider_id: string): Promise<Member | null> {
     return this.prisma.member.findUnique({
       where: {
-        email,
+        provider_id,
       },
     });
   }

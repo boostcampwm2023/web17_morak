@@ -8,13 +8,13 @@ export class AuthService {
   constructor(private authRepository: AuthRepository) {}
 
   async createGoogleUser(userDto: CreateUserDto): Promise<Member> {
-    const { email, nickname, social_type } = userDto;
+    const { provider_id, email, nickname, social_type } = userDto;
 
-    const existingUser = await this.authRepository.findUserByIdentifier(email);
+    const existingUser = await this.authRepository.findUserByIdentifier(provider_id);
     if (existingUser) {
       throw new ConflictException('User with this identifier already exists');
     }
 
-    return this.authRepository.saveUser({ email, nickname, social_type });
+    return this.authRepository.saveUser({ provider_id, email, nickname, social_type });
   }
 }
