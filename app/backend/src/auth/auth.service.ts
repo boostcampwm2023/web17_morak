@@ -1,4 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { AuthRepository } from './auth.repository';
+import { CreateUserDto } from './dto/user.dto';
+import { Member } from '@prisma/client';
 
 @Injectable()
-export class AuthService {}
+export class AuthService {
+  constructor(private authRepository: AuthRepository) {}
+
+  async createGoogleUser(userDto: CreateUserDto): Promise<Member> {
+    const { email, nickname, social_type } = userDto;
+
+    const existingUser = await this.authRepository.findUserByIdentifier(email);
+    if (existingUser) {
+      throw new ConflictException('User with this identifier already exists');
+    }
+
+    return this.authRepository.saveUser({ email, nickname, social_type });
+  }
+}
