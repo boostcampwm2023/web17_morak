@@ -22,13 +22,20 @@ export class AuthController {
   @UseGuards(GoogleOauthGuard)
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     const { user } = req;
-    const { providerId, firstName, lastName, email } = user;
-    const nickname = lastName + firstName;
+    const { providerId, socialType, name, email } = user;
     const provider_id = providerId;
-    const social_type = 'google';
+    const social_type = socialType;
+    const nickname = name;
 
-    const createdUser = await this.authService.createGoogleUser({ provider_id, email, nickname, social_type });
-
-    return res.send(createdUser);
+    const serverAccessToken = await this.authService.createOrLoginGoogleUser({
+      provider_id,
+      email,
+      nickname,
+      social_type,
+    });
+    return res.json({
+      user: user,
+      serverAccessToken,
+    });
   }
 }
