@@ -11,7 +11,6 @@ export class AuthRepository {
     return this.prisma.member.create({
       data: {
         ...userDto,
-        social_type: 'google',
       },
     });
   }
