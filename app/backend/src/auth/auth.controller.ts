@@ -27,15 +27,17 @@ export class AuthController {
     const social_type = socialType;
     const nickname = name;
 
-    const serverAccessToken = await this.authService.handleLogin({
+    const { accessToken, refreshToken } = await this.authService.handleLogin({
       provider_id,
       email,
       nickname,
       social_type,
     });
+
     return res.json({
       user: user,
-      serverAccessToken,
+      accessToken,
+      refreshToken,
     });
   }
 }

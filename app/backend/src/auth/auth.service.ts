@@ -10,25 +10,37 @@ export class AuthService {
     private authRepository: AuthRepository,
   ) {}
 
-  async handleLogin(userDto: CreateUserDto): Promise<string> {
+  async handleLogin(userDto: CreateUserDto): Promise<{ accessToken: string; refreshToken: string }> {
     const { provider_id } = userDto;
     const existingUser = await this.authRepository.findUserByIdentifier(provider_id);
 
     if (!existingUser) {
-      this.signUp(userDto);
+      await this.signUp(userDto);
     }
+
     return this.signIn(userDto);
   }
 
-  generateJwt(payload: object) {
-    return this.jwtService.sign(payload);
+  generateJwt(payload: object): { accessToken: string; refreshToken: string } {
+    const accessToken = this.jwtService.sign(payload, {
+      expiresIn: '2h',
+      secret: process.env.JWT_ACCESS_SECRET,
+    });
+
+    const refreshToken = this.jwtService.sign(payload, {
+      expiresIn: '7d',
+      secret: process.env.JWT_REFRESH_SECRET,
+    });
+
+    return { accessToken, refreshToken };
   }
 
-  async signIn(userDto: CreateUserDto): Promise<string | null> {
+  async signIn(userDto: CreateUserDto): Promise<{ accessToken: string; refreshToken: string } | null> {
     const token = this.generateJwt({
       sub: userDto.provider_id,
       socialType: userDto.social_type,
     });
+
     return token;
   }
 
