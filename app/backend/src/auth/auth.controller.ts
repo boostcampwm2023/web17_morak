@@ -27,7 +27,7 @@ export class AuthController {
     const social_type = socialType;
     const nickname = name;
 
-    const serverAccessToken = await this.authService.createOrLoginGoogleUser({
+    const serverAccessToken = await this.authService.handleLogin({
       provider_id,
       email,
       nickname,
