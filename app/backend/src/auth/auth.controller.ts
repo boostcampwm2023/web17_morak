@@ -22,6 +22,20 @@ export class AuthController {
   @UseGuards(GoogleOauthGuard)
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     const { user } = req;
-    return res.send(user);
+    const { providerId, socialType, name, email } = user;
+    const provider_id = providerId;
+    const social_type = socialType;
+    const nickname = name;
+
+    const serverAccessToken = await this.authService.handleLogin({
+      provider_id,
+      email,
+      nickname,
+      social_type,
+    });
+    return res.json({
+      user: user,
+      serverAccessToken,
+    });
   }
 }
