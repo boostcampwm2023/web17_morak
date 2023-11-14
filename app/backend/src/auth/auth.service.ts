@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { Payload } from './types';
+import { Payload, Tokens } from './types';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +11,7 @@ export class AuthService {
     private authRepository: AuthRepository,
   ) {}
 
-  async handleLogin(userDto: CreateUserDto): Promise<{ accessToken: string; refreshToken: string }> {
+  async handleLogin(userDto: CreateUserDto): Promise<Tokens> {
     const { provider_id } = userDto;
     const existingUser = await this.authRepository.findUserByIdentifier(provider_id);
 
@@ -22,7 +22,7 @@ export class AuthService {
     return this.signIn(userDto);
   }
 
-  generateJwt(payload: Payload): { accessToken: string; refreshToken: string } {
+  generateJwt(payload: Payload): Tokens {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: '2h',
       secret: process.env.JWT_ACCESS_SECRET,
@@ -33,16 +33,16 @@ export class AuthService {
       secret: process.env.JWT_REFRESH_SECRET,
     });
 
-    return { accessToken, refreshToken };
+    return { access_token: accessToken, refresh_token: refreshToken };
   }
 
-  async signIn(userDto: CreateUserDto): Promise<{ accessToken: string; refreshToken: string } | null> {
+  async signIn(userDto: CreateUserDto): Promise<Tokens | null> {
     const token = this.generateJwt({
       providerId: userDto.provider_id,
       socialType: userDto.social_type,
     });
 
-    await this.authRepository.addRefreshToken(userDto.provider_id, token.refreshToken);
+    await this.authRepository.addRefreshToken(userDto.provider_id, token.refresh_token);
     return token;
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
 
       const token = this.generateJwt({ providerId: provider_id, socialType: social_type });
 
-      return token.accessToken;
+      return token.access_token;
     } catch (error) {
       throw new UnauthorizedException('Invalid refresh token');
     }

@@ -30,7 +30,7 @@ export class AuthController {
       const social_type = socialType;
       const nickname = name;
 
-      const { accessToken, refreshToken } = await this.authService.handleLogin({
+      const tokens = await this.authService.handleLogin({
         provider_id,
         email,
         nickname,
@@ -39,14 +39,10 @@ export class AuthController {
 
       const maxAgeAccessToken = 2 * 60 * 60 * 1000;
       const maxAgeRefreshToken = 7 * 24 * 60 * 60 * 1000;
-      res.cookie('access_token', accessToken, { httpOnly: true, maxAge: maxAgeAccessToken });
-      res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: maxAgeRefreshToken });
+      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: maxAgeAccessToken });
+      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: maxAgeRefreshToken });
 
-      return res.json({
-        user,
-        accessToken,
-        refreshToken,
-      });
+      return res.json({ user, ...tokens });
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
