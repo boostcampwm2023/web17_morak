@@ -11,7 +11,14 @@ type InputProps = {
   disabled?: boolean;
 };
 
-export function Input({ label, type, placeholder, errorMessage, disabled, maxLength }: InputProps) {
+export function Input({
+  label,
+  type = 'input',
+  placeholder = '',
+  errorMessage = '',
+  disabled = false,
+  maxLength,
+}: InputProps) {
   return (
     <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
       <div className={styles.titleWrapper}>
@@ -23,10 +30,3 @@ export function Input({ label, type, placeholder, errorMessage, disabled, maxLen
     </div>
   );
 }
-
-Input.defaultProps = {
-  placeholder: '',
-  errorMessage: '',
-  type: 'input',
-  disabled: false,
-};
