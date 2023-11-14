@@ -1,7 +1,7 @@
 import reactLogo from '@assets/react.svg';
 import { useState } from 'react';
 
-import { logo, rotateLogo, card, reactTheDocs } from './App.css.ts';
+import { logo, rotateLogo, card, reactTheDocs, themeText } from './App.css.ts';
 import viteLogo from '../public/vite.svg';
 
 // import './App.css';
@@ -27,6 +27,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <div className={themeText}>안녕하세요, theme이 적용된 텍스트에요.</div>
       </div>
       <p className={reactTheDocs}>Click on the Vite and React logos to learn more</p>
     </>

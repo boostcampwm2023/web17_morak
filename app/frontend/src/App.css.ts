@@ -1,5 +1,7 @@
 import { style, globalStyle, globalKeyframes } from '@vanilla-extract/css';
 
+import { vars } from './styles/theme.css';
+
 globalStyle('#root', {
   maxWidth: '1280px',
   margin: '0 auto',
@@ -50,4 +52,10 @@ export const reactTheDocs = style({
 
 export const spin = style({
   animation: `${logoSpin} infinite 20s linear`,
+});
+
+export const themeText = style({
+  color: vars.color.morakGreen,
+  backgroundColor: vars.color.grayscale50,
+  fontFamily: vars.font.pretendardRegular,
 });
