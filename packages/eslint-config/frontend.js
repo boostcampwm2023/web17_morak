@@ -94,5 +94,6 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+    'import/prefer-default-export': 'off',
   },
 };
