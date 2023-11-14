@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { Payload } from './types';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
     return this.signIn(userDto);
   }
 
-  generateJwt(payload: object): { accessToken: string; refreshToken: string } {
+  generateJwt(payload: Payload): { accessToken: string; refreshToken: string } {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: '2h',
       secret: process.env.JWT_ACCESS_SECRET,
@@ -37,10 +38,11 @@ export class AuthService {
 
   async signIn(userDto: CreateUserDto): Promise<{ accessToken: string; refreshToken: string } | null> {
     const token = this.generateJwt({
-      sub: userDto.provider_id,
+      providerId: userDto.provider_id,
       socialType: userDto.social_type,
     });
 
+    await this.authRepository.addRefreshToken(userDto.provider_id, token.refreshToken);
     return token;
   }
 
@@ -53,11 +55,15 @@ export class AuthService {
       const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: process.env.JWT_REFRESH_SECRET });
       const { provider_id, social_type } = decodedRefreshToken;
 
-      const token = this.generateJwt({ sub: provider_id, socialType: social_type });
+      const token = this.generateJwt({ providerId: provider_id, socialType: social_type });
 
       return token.accessToken;
     } catch (error) {
       throw new UnauthorizedException('Invalid refresh token');
     }
+  }
+
+  async logout(provider_id: string) {
+    await this.authRepository.removeRefreshToken(provider_id);
   }
 }
