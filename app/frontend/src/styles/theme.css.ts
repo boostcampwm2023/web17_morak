@@ -1,14 +1,5 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
-import {
-  pretendardRegular,
-  pretendardSemibold,
-  pretendardBold,
-  poppinsRegular,
-  poppinsSemibold,
-  poppinsBold,
-} from './fontFace.css';
-
 export const vars = createGlobalTheme(':root', {
   color: {
     morakGreen: '#1FAB70',
@@ -25,11 +16,14 @@ export const vars = createGlobalTheme(':root', {
     grayscaleBlack: '#0E1F18',
   },
   font: {
-    pretendardRegular,
-    pretendardSemibold,
-    pretendardBold,
-    poppinsRegular,
-    poppinsSemibold,
-    poppinsBold,
+    family: {
+      pretendard: 'Pretendard',
+      poppins: 'Poppins',
+    },
+    weight: {
+      regular: '400',
+      semibold: '600',
+      bold: '700',
+    },
   },
 });

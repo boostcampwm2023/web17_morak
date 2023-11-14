@@ -1,3 +1,4 @@
+import { sansRegular16 } from '@styles/font.css';
 import { vars } from '@styles/theme.css';
 import { style, globalStyle, globalKeyframes } from '@vanilla-extract/css';
 
@@ -53,8 +54,10 @@ export const spin = style({
   animation: `${logoSpin} infinite 20s linear`,
 });
 
-export const themeText = style({
-  color: vars.color.morakGreen,
-  backgroundColor: vars.color.grayscale50,
-  fontFamily: vars.font.pretendardRegular,
-});
+export const themeText = style([
+  sansRegular16,
+  {
+    color: vars.color.morakGreen,
+    backgroundColor: vars.color.grayscale50,
+  },
+]);
