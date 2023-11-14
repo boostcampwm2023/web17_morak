@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -46,5 +46,18 @@ export class AuthService {
 
   async signUp(userDto: CreateUserDto): Promise<void> {
     await this.authRepository.saveUser(userDto);
+  }
+
+  async refresh(refreshToken: string): Promise<string> {
+    try {
+      const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: process.env.JWT_REFRESH_SECRET });
+      const { provider_id, social_type } = decodedRefreshToken;
+
+      const token = this.generateJwt({ sub: provider_id, socialType: social_type });
+
+      return token.accessToken;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }

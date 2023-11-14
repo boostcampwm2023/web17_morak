@@ -1,7 +1,8 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
+import { Request, Response } from 'express';
 
 @ApiTags('GoogleOauth API')
 @ApiSecurity('google')
@@ -34,10 +35,32 @@ export class AuthController {
       social_type,
     });
 
+    const maxAgeAccessToken = 2 * 60 * 60 * 1000;
+    const maxAgeRefreshToken = 7 * 24 * 60 * 60 * 1000;
+    res.cookie('access_token', accessToken, { httpOnly: true, maxAge: maxAgeAccessToken });
+    res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: maxAgeRefreshToken });
+
     return res.json({
-      user: user,
+      user,
       accessToken,
       refreshToken,
     });
+  }
+
+  @Get('refresh')
+  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    try {
+      const cookieRefreshToken = req['cookies']['refresh_token'];
+      const newAccessToken = await this.authService.refresh(cookieRefreshToken);
+
+      const maxAgeAccessToken = 2 * 60 * 60 * 1000;
+      res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: maxAgeAccessToken });
+
+      return res.json({ newAccessToken });
+    } catch (err) {
+      res.clearCookie('access_token');
+      res.clearCookie('refresh_token');
+      throw new UnauthorizedException();
+    }
   }
 }
