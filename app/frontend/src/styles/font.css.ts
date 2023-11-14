@@ -15,69 +15,69 @@ const sansBold = style({
 export const sansRegular12 = style([
   sansRegular,
   {
-    fontSize: 12,
+    fontSize: '1.2rem',
   },
 ]);
 
 export const sansRegular14 = style([
   sansRegular,
   {
-    fontSize: 14,
+    fontSize: '1.4rem',
   },
 ]);
 
 export const sansRegular16 = style([
   sansRegular,
   {
-    fontSize: 16,
+    fontSize: '1.6rem',
   },
 ]);
 
 export const sansRegular18 = style([
   sansRegular,
   {
-    fontSize: 18,
+    fontSize: '1.8rem',
   },
 ]);
 
 export const sansRegular24 = style([
   sansRegular,
   {
-    fontSize: 24,
+    fontSize: '2.4rem',
   },
 ]);
 
 export const sansBold12 = style([
   sansBold,
   {
-    fontSize: 12,
+    fontSize: '1.2rem',
   },
 ]);
 
 export const sansBold14 = style([
   sansBold,
   {
-    fontSize: 14,
+    fontSize: '1.4rem',
   },
 ]);
 
 export const sansBold16 = style([
   sansBold,
   {
-    fontSize: 16,
+    fontSize: '1.6rem',
   },
 ]);
 
 export const sansBold18 = style([
   sansBold,
   {
-    fontSize: 18,
+    fontSize: '1.8rem',
   },
 ]);
 
 export const sansBold24 = style([
   sansBold,
   {
-    fontSize: 24,
+    fontSize: '2.4rem',
   },
 ]);
