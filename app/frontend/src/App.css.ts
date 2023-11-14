@@ -1,6 +1,5 @@
+import { vars } from '@styles/theme.css';
 import { style, globalStyle, globalKeyframes } from '@vanilla-extract/css';
-
-import { vars } from './styles/theme.css';
 
 globalStyle('#root', {
   maxWidth: '1280px',
