@@ -1,4 +1,5 @@
 import reactLogo from '@assets/react.svg';
+import '@styles/reset.css';
 import { useState } from 'react';
 
 import { logo, rotateLogo, card, reactTheDocs } from './App.css.ts';
