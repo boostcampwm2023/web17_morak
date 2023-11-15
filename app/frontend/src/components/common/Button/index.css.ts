@@ -8,7 +8,9 @@ export const button = recipe({
     alignItems: 'center',
     fontFamily: vars.font.family.pretendard,
     fontWeight: vars.font.weight.semibold,
+    border: '1px solid transparent',
     borderRadius: '0.8rem',
+    cursor: 'pointer',
     ':hover': {
       filter: 'brightness(1.1)',
     },
