@@ -25,11 +25,11 @@ export class AuthService {
   generateJwt(payload: Payload): Tokens {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: process.env.MAX_AGE_ACCESS_TOKEN,
-      secret: process.env.MAX_AGE_REFRESH_TOKEN,
+      secret: process.env.JWT_ACCESS_SECRET,
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: process.env.MAX_AGE_ACCESS_TOKEN,
+      expiresIn: process.env.MAX_AGE_REFRESH_TOKEN,
       secret: process.env.JWT_REFRESH_SECRET,
     });
 
