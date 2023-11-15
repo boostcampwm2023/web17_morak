@@ -22,7 +22,16 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'index', 'object', 'type', 'unknown'],
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling'],
+          'index',
+          'object',
+          'type',
+          'unknown',
+        ],
         pathGroups: [
           {
             pattern: '{react*, react*/**}',
@@ -37,5 +46,11 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'import/prefer-default-export': 'off',
+    'react/button-has-type': 'off',
   },
 };
