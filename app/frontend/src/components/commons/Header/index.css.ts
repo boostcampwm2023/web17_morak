@@ -1,5 +1,5 @@
-import { vars } from '@styles/index.css';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { vars, fontStyle } from '@styles/index.css';
+import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
@@ -21,12 +21,8 @@ export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.4rem',
-
   color: vars.color.morakGreen,
   textAlign: 'center',
-  fontFamily: vars.font.family.poppins,
-  fontWeight: vars.font.weight.bold,
-  fontSize: '3rem',
 });
 
 export const logo = style({
@@ -36,14 +32,17 @@ export const logo = style({
   boxSizing: 'border-box',
 });
 
-export const logoTitle = style({
-  display: 'flex',
-  width: '10.3rem',
-  height: '4.5rem',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
+export const logoTitle = style([
+  fontStyle.poppinsBold30,
+  {
+    display: 'flex',
+    width: '10.3rem',
+    height: '4.5rem',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+]);
 
 export const sideMenu = style({
   display: 'flex',
@@ -52,15 +51,17 @@ export const sideMenu = style({
   gap: '3.6rem',
 });
 
-export const sideMenuButton = style({
-  color: vars.color.grayscale200,
-  fontFamily: vars.font.family.poppins,
-  fontWeight: vars.font.weight.regular,
-  fontSize: '1.8rem',
-});
+export const sideMenuButton = style([
+  fontStyle.poppinsRegular18,
+  {
+    color: vars.color.grayscale200,
+  },
+]);
 
-globalStyle('.active', {
-  color: vars.color.morakGreen,
-  fontWeight: vars.font.weight.bold,
-  fill: vars.color.morakGreen,
-});
+export const active = style([
+  fontStyle.poppinsBold18,
+  {
+    color: vars.color.morakGreen,
+    fontWeight: vars.font.weight.bold,
+  },
+]);
