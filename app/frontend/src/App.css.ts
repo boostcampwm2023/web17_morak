@@ -1,5 +1,4 @@
-import { sansRegular16 } from '@styles/font.css';
-import { vars } from '@styles/theme.css';
+import { fontStyle, vars } from '@styles/index.css';
 import { style, globalStyle, globalKeyframes } from '@vanilla-extract/css';
 
 globalStyle('#root', {
@@ -55,7 +54,7 @@ export const spin = style({
 });
 
 export const themeText = style([
-  sansRegular16,
+  fontStyle.sansRegular16,
   {
     color: vars.color.morakGreen,
     backgroundColor: vars.color.grayscale50,
