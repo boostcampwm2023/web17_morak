@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import { button } from './index.css';
+import * as styles from './index.css';
 
 type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
@@ -25,7 +25,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={button({
+      className={styles.button({
         theme,
         shape,
         size,
