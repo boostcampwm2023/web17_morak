@@ -9,6 +9,12 @@ export const button = recipe({
     fontFamily: vars.font.family.pretendard,
     fontWeight: vars.font.weight.semibold,
     borderRadius: '0.8rem',
+    ':hover': {
+      filter: 'brightness(1.1)',
+    },
+    ':active': {
+      filter: 'brightness(0.9)',
+    },
   },
 
   variants: {
