@@ -26,7 +26,7 @@ module.exports = {
         pathGroups: [
           {
             pattern: '{react*, react*/**}',
-            group: 'external',
+            group: 'builtin',
             position: 'before',
           },
         ],
@@ -35,6 +35,8 @@ module.exports = {
           caseInsensitive: true,
         },
         'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: [],
+        warnOnUnassignedImports: true,
       },
     ],
   },
