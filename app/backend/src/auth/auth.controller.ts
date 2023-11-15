@@ -37,10 +37,8 @@ export class AuthController {
         social_type,
       });
 
-      const maxAgeAccessToken = 2 * 60 * 60 * 1000;
-      const maxAgeRefreshToken = 7 * 24 * 60 * 60 * 1000;
-      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: maxAgeAccessToken });
-      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: maxAgeRefreshToken });
+      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
+      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: process.env.MAX_AGE_REFRESH_TOKEN });
 
       return res.json({ user, ...tokens });
     } catch (error) {
