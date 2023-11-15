@@ -29,7 +29,8 @@ export class AuthRepository {
   }
 
   async addRefreshToken(provider_id: string, refreshToken: string): Promise<void> {
-    await this.cacheManager.set(provider_id, refreshToken, 7 * 24 * 60 * 60 * 1000);
+    const REDIS_MAX_AGE_REFRESH_TOKEN: number = Number(process.env.REDIS_MAX_AGE_REFRESH_TOKEN);
+    await this.cacheManager.set(provider_id, refreshToken, { ttl: REDIS_MAX_AGE_REFRESH_TOKEN } as any);
   }
 
   async removeRefreshToken(provider_id: string): Promise<void> {
