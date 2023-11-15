@@ -16,6 +16,10 @@ globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup
   display: 'block',
 });
 
+globalStyle('html', {
+  fontSize: '62.5%',
+});
+
 globalStyle('body', {
   lineHeight: 1,
 });

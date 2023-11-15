@@ -1,3 +1,4 @@
+import { fontStyle, vars } from '@styles/index.css';
 import { style, globalStyle, globalKeyframes } from '@vanilla-extract/css';
 
 globalStyle('#root', {
@@ -51,3 +52,11 @@ export const reactTheDocs = style({
 export const spin = style({
   animation: `${logoSpin} infinite 20s linear`,
 });
+
+export const themeText = style([
+  fontStyle.sansRegular16,
+  {
+    color: vars.color.morakGreen,
+    backgroundColor: vars.color.grayscale50,
+  },
+]);
