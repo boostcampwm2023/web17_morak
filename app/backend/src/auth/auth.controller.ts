@@ -1,11 +1,22 @@
-import { Body, Controller, Get, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UnauthorizedException,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBearerAuth, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
 import { RtGuard } from './guards/rt.guard';
+import { LogoutDto } from './dto/user.dto';
 
-@ApiTags('GoogleOauth API')
+@ApiTags('Oauth API')
 @ApiSecurity('google')
 @Controller('auth')
 export class AuthController {
@@ -18,10 +29,18 @@ export class AuthController {
     description: 'Google OAuth API에 로그인 요청',
   })
   @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async googleLogin(): Promise<void> {}
 
   @Get('/google/callback')
   @UseGuards(GoogleOauthGuard)
+  @ApiOperation({
+    summary: 'Google OAuth 콜백 처리',
+    description: '로그인을 진행하여 Access, Refresh Token 발급',
+  })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     try {
       const { user } = req;
@@ -48,6 +67,12 @@ export class AuthController {
 
   @Post('/refresh')
   @UseGuards(RtGuard)
+  @ApiOperation({
+    summary: 'Refresh Token을 이용하여 Access Token 재갱신',
+    description: 'cookie에 있는 Refresh Token을 이용해서 새로운 Access Token을 반환',
+  })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<void> {
     try {
       const cookieRefreshToken = req['cookies']['refresh_token'];
@@ -65,7 +90,19 @@ export class AuthController {
   }
 
   @Post('/logout')
-  async logout(@Body() body: { providerId: string }, @Res({ passthrough: true }) res: Response): Promise<void> {
+  @ApiOperation({
+    summary: '로그아웃',
+    description: '로그아웃 작업을 수행하여 cookie에 있는 Access, Refresh Token 제거',
+  })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBody({
+    type: LogoutDto,
+  })
+  async logout(
+    @Body(ValidationPipe) body: { providerId: string },
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
     try {
       const { providerId } = body;
       await this.authService.logout(providerId);

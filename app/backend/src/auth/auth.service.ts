@@ -29,7 +29,7 @@ export class AuthService {
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: '7d',
+      expiresIn: process.env.MAX_AGE_ACCESS_TOKEN,
       secret: process.env.JWT_REFRESH_SECRET,
     });
 
