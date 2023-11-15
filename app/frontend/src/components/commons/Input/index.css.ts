@@ -1,3 +1,4 @@
+import * as css from '@styles/index.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -14,71 +15,72 @@ export const titleWrapper = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  marginBottom: '4px',
+  marginBottom: '0.4rem',
 });
 
-export const label = style({
-  // color: var(--grayscale-black, #0E1F18);
-  /* sans-regular-9 */
-  // fontFamily: Poppins;
-  color: '#0E1F18',
-  fontSize: '12px',
-  fontWeight: 400,
-
-  selectors: {
-    [`${disabled} &`]: {
-      color: '#9AA9A2',
+export const label = style([
+  css.fontStyle.sansRegular12,
+  {
+    color: css.vars.color.grayscaleBlack,
+    selectors: {
+      [`${disabled} &`]: {
+        color: css.vars.color.grayscale200,
+      },
     },
   },
+]);
+
+export const required = style({
+  paddingLeft: '0.2rem',
+  color: css.vars.color.morakRed,
 });
 
-export const input = style({
-  padding: '8px',
-  color: '#25362E',
-  fontSize: '12px',
-  fontWeight: 400,
-  width: '100%',
-  maxWidth: '-webkit-fill-available',
-  outline: 'none',
-  border: '2px solid #9AA9A2',
-  borderRadius: '4px',
+export const input = style([
+  css.fontStyle.sansRegular12,
+  {
+    padding: '0.8rem',
+    color: css.vars.color.grayscale500,
+    width: '100%',
+    maxWidth: '-webkit-fill-available',
+    outline: 'none',
+    border: `2px solid ${css.vars.color.grayscale200}`,
+    borderRadius: '0.4rem',
 
-  selectors: {
-    '&:focus': {
-      border: '2px solid #1FAB70',
-    },
-    '&::placeholder': {
-      color: '#9AA9A2',
-    },
-    [`${error} &`]: {
-      border: '2px solid #F24242',
-    },
-    [`${disabled} &`]: {
-      border: '2px solid #9AA9A2',
-      cursor: 'not-allowed',
+    selectors: {
+      '&:focus': {
+        border: `2px solid ${css.vars.color.morakGreen}`,
+      },
+      '&::placeholder': {
+        color: css.vars.color.grayscale200,
+      },
+      [`${error} &`]: {
+        border: `2px solid ${css.vars.color.morakRed}`,
+      },
+      [`${disabled} &`]: {
+        border: `2px solid ${css.vars.color.grayscale200}`,
+        cursor: 'not-allowed',
+      },
     },
   },
-});
+]);
 
-export const count = style({
-  /* sans-regular-9 */
-  // fontFamily: Poppins;
-  color: '#0E1F18',
-  fontSize: '12px',
-  fontWeight: 400,
-  display: 'none',
+export const count = style([
+  css.fontStyle.sansRegular12,
+  {
+    display: 'none',
 
-  selectors: {
-    [`${container}:focus-within &`]: {
-      display: 'block',
+    selectors: {
+      [`${container}:focus-within &`]: {
+        display: 'block',
+      },
     },
   },
-});
+]);
 
-export const errorMessage = style({
-  color: '#F24242',
-  /* sans-regular-9 */ // fontFamily: Poppins;
-  fontSize: '12px',
-  fontWeight: 400,
-  marginTop: '4px',
-});
+export const errorMessage = style([
+  css.fontStyle.sansRegular12,
+  {
+    color: css.vars.color.morakRed,
+    marginTop: '0.4rem',
+  },
+]);
