@@ -1,8 +1,11 @@
-import logo from '@assets/icons/morak.svg';
-import profile from '@assets/icons/profile.svg';
 import { NavLink } from 'react-router-dom';
 
+import logo from '@assets/icons/morak.svg';
+import profile from '@assets/icons/profile.svg';
+
 import * as styles from './index.css';
+
+const SIDE_MENU = ['mogaco', 'calendar', 'map'];
 
 export function Header() {
   return (
@@ -13,15 +16,17 @@ export function Header() {
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
         <div className={styles.sideMenu}>
-          <NavLink to="/calendar" className={styles.sideMenuButton}>
-            calendar
-          </NavLink>
-          <NavLink to="/mogaco" className={styles.sideMenuButton}>
-            mogaco
-          </NavLink>
-          <NavLink to="/map" className={styles.sideMenuButton}>
-            map
-          </NavLink>
+          {SIDE_MENU.map((menu) => (
+            <NavLink
+              key={menu}
+              to={menu}
+              className={({ isActive }) =>
+                isActive ? `${styles.sideMenuButton} ${styles.active}` : styles.sideMenuButton
+              }
+            >
+              {menu}
+            </NavLink>
+          ))}
           <NavLink to="/profile">
             <img src={profile} alt="" />
           </NavLink>
