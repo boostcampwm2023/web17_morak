@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+
 import { vars, fontStyle } from '@styles/index.css';
 
 export const container = style({
@@ -58,7 +59,7 @@ export const sideMenuButton = style([
   },
 ]);
 
-export const active = style([
+export const sideMenuButtonActive = style([
   fontStyle.sansBold18,
   {
     color: vars.color.morakGreen,
