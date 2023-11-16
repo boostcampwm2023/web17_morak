@@ -89,7 +89,7 @@ module.exports = {
           order: 'asc',
           caseInsensitive: true,
         },
-        'newlines-between': 'ignore',
+        'newlines-between': 'always',
         pathGroupsExcludedImportTypes: [],
         warnOnUnassignedImports: true,
       },
