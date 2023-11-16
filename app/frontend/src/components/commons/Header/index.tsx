@@ -20,7 +20,7 @@ export function Header() {
             <NavLink
               key={menu}
               to={menu}
-              className={({ isActive }) => `${styles.sideMenuButton} ${isActive && styles.active}`}
+              className={({ isActive }) => (isActive ? styles.active : styles.sideMenuButton)}
             >
               {menu}
             </NavLink>
