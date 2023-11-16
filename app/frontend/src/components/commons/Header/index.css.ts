@@ -1,5 +1,5 @@
-import { vars, fontStyle } from '@styles/index.css';
 import { style } from '@vanilla-extract/css';
+import { vars, fontStyle } from '@styles/index.css';
 
 export const container = style({
   display: 'flex',
@@ -52,16 +52,15 @@ export const sideMenu = style({
 });
 
 export const sideMenuButton = style([
-  fontStyle.poppinsRegular18,
+  fontStyle.sansRegular18,
   {
     color: vars.color.grayscale200,
   },
 ]);
 
 export const active = style([
-  fontStyle.poppinsBold18,
+  fontStyle.sansBold18,
   {
     color: vars.color.morakGreen,
-    fontWeight: vars.font.weight.bold,
   },
 ]);

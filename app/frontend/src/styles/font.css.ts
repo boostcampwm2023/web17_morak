@@ -12,11 +12,6 @@ const sansBold = style({
   fontWeight: vars.font.weight.bold,
 });
 
-const poppinsRegular = style({
-  fontFamily: vars.font.family.poppins,
-  fontWeight: vars.font.weight.regular,
-});
-
 const poppinsBold = style({
   fontFamily: vars.font.family.poppins,
   fontWeight: vars.font.weight.bold,
@@ -87,76 +82,6 @@ export const sansBold18 = style([
 
 export const sansBold24 = style([
   sansBold,
-  {
-    fontSize: '2.4rem',
-  },
-]);
-
-export const poppinsRegular12 = style([
-  poppinsRegular,
-  {
-    fontSize: '1.2rem',
-  },
-]);
-
-export const poppinsRegular14 = style([
-  poppinsRegular,
-  {
-    fontSize: '1.4rem',
-  },
-]);
-
-export const poppinsRegular16 = style([
-  poppinsRegular,
-  {
-    fontSize: '1.6rem',
-  },
-]);
-
-export const poppinsRegular18 = style([
-  poppinsRegular,
-  {
-    fontSize: '1.8rem',
-  },
-]);
-
-export const poppinsRegular24 = style([
-  poppinsRegular,
-  {
-    fontSize: '2.4rem',
-  },
-]);
-
-export const poppinsBold12 = style([
-  poppinsBold,
-  {
-    fontSize: '1.2rem',
-  },
-]);
-
-export const poppinsBold14 = style([
-  poppinsBold,
-  {
-    fontSize: '1.4rem',
-  },
-]);
-
-export const poppinsBold16 = style([
-  poppinsBold,
-  {
-    fontSize: '1.6rem',
-  },
-]);
-
-export const poppinsBold18 = style([
-  poppinsBold,
-  {
-    fontSize: '1.8rem',
-  },
-]);
-
-export const poppinsBold24 = style([
-  poppinsBold,
   {
     fontSize: '2.4rem',
   },
