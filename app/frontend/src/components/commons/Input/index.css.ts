@@ -1,4 +1,4 @@
-import * as css from '@styles/index.css';
+import { vars, fontStyle } from '@styles/index.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -19,12 +19,12 @@ export const titleWrapper = style({
 });
 
 export const label = style([
-  css.fontStyle.sansRegular12,
+  fontStyle.sansRegular12,
   {
-    color: css.vars.color.grayscaleBlack,
+    color: vars.color.grayscaleBlack,
     selectors: {
       [`${disabled} &`]: {
-        color: css.vars.color.grayscale200,
+        color: vars.color.grayscale200,
       },
     },
   },
@@ -32,32 +32,32 @@ export const label = style([
 
 export const required = style({
   paddingLeft: '0.2rem',
-  color: css.vars.color.morakRed,
+  color: vars.color.morakRed,
 });
 
 export const input = style([
-  css.fontStyle.sansRegular12,
+  fontStyle.sansRegular12,
   {
     padding: '0.8rem',
-    color: css.vars.color.grayscale500,
+    color: vars.color.grayscale500,
     width: '100%',
     maxWidth: '-webkit-fill-available',
     outline: 'none',
-    border: `2px solid ${css.vars.color.grayscale200}`,
+    border: `2px solid ${vars.color.grayscale200}`,
     borderRadius: '0.4rem',
 
     selectors: {
       '&:focus': {
-        border: `2px solid ${css.vars.color.morakGreen}`,
+        border: `2px solid ${vars.color.morakGreen}`,
       },
       '&::placeholder': {
-        color: css.vars.color.grayscale200,
+        color: vars.color.grayscale200,
       },
       [`${error} &`]: {
-        border: `2px solid ${css.vars.color.morakRed}`,
+        border: `2px solid ${vars.color.morakRed}`,
       },
       [`${disabled} &`]: {
-        border: `2px solid ${css.vars.color.grayscale200}`,
+        border: `2px solid ${vars.color.grayscale200}`,
         cursor: 'not-allowed',
       },
     },
@@ -65,7 +65,7 @@ export const input = style([
 ]);
 
 export const count = style([
-  css.fontStyle.sansRegular12,
+  fontStyle.sansRegular12,
   {
     display: 'none',
 
@@ -78,9 +78,9 @@ export const count = style([
 ]);
 
 export const errorMessage = style([
-  css.fontStyle.sansRegular12,
+  fontStyle.sansRegular12,
   {
-    color: css.vars.color.morakRed,
+    color: vars.color.morakRed,
     marginTop: '0.4rem',
   },
 ]);
