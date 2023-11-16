@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import logo from '@assets/icons/morak.svg';
 import profile from '@assets/icons/profile.svg';
 
-import * as styles from './index.css';
+import { SIDE_MENU } from '@constants/index';
 
-const SIDE_MENU = ['mogaco', 'calendar', 'map'];
+import * as styles from './index.css';
 
 export function Header() {
   return (
@@ -16,13 +16,11 @@ export function Header() {
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
         <div className={styles.sideMenu}>
-          {SIDE_MENU.map((menu) => (
+          {SIDE_MENU.map((menu: string) => (
             <NavLink
               key={menu}
               to={menu}
-              className={({ isActive }) =>
-                isActive ? `${styles.sideMenuButton} ${styles.active}` : styles.sideMenuButton
-              }
+              className={({ isActive }) => `${styles.sideMenuButton} ${isActive && styles.active}`}
             >
               {menu}
             </NavLink>
