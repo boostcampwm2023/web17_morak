@@ -26,8 +26,63 @@ module.exports = {
         pathGroups: [
           {
             pattern: '{react*, react*/**}',
-            group: 'external',
+            group: 'builtin',
             position: 'before',
+          },
+          {
+            pattern: '@assets/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@components/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@constants/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@hooks/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@pages/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@queries/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@services/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@stores/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@styles/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@types/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@utils/*',
+            group: 'internal',
+            position: 'after',
           },
         ],
         alphabetize: {
@@ -35,6 +90,8 @@ module.exports = {
           caseInsensitive: true,
         },
         'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: [],
+        warnOnUnassignedImports: true,
       },
     ],
   },
