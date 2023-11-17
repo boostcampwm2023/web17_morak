@@ -10,20 +10,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [react(), vanillaExtractPlugin(), svgr()],
   resolve: {
-    alias: [
-      { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
-      { find: '@components', replacement: path.resolve(__dirname, 'src/components') },
-      { find: '@constants', replacement: path.resolve(__dirname, 'src/constants') },
-      { find: '@hooks', replacement: path.resolve(__dirname, 'src/hooks') },
-      { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
-      { find: '@queries', replacement: path.resolve(__dirname, 'src/queries') },
-      { find: '@services', replacement: path.resolve(__dirname, 'src/services') },
-      { find: '@stores', replacement: path.resolve(__dirname, 'src/stores') },
-      { find: '@styles', replacement: path.resolve(__dirname, 'src/styles') },
-      { find: '@types', replacement: path.resolve(__dirname, 'src/types') },
-      { find: '@utils', replacement: path.resolve(__dirname, 'src/utils') },
-    ],
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.css.ts'],
   },
 });
