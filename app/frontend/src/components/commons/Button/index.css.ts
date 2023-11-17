@@ -11,12 +11,6 @@ export const button = recipe({
     border: '1px solid transparent',
     borderRadius: '0.8rem',
     cursor: 'pointer',
-    ':hover': {
-      filter: 'brightness(1.1)',
-    },
-    ':active': {
-      filter: 'brightness(0.9)',
-    },
   },
 
   variants: {
@@ -44,8 +38,15 @@ export const button = recipe({
       },
     },
     disabled: {
-      true: {},
-      false: {},
+      true: { cursor: 'not-allowed' },
+      false: {
+        ':hover': {
+          filter: 'brightness(1.1)',
+        },
+        ':active': {
+          filter: 'brightness(0.9)',
+        },
+      },
     },
     fullWidth: {
       true: {
