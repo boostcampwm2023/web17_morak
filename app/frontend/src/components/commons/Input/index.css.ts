@@ -1,5 +1,6 @@
-import { vars, fontStyle } from '@styles/index.css';
 import { style } from '@vanilla-extract/css';
+
+import { vars, fontStyle } from '@styles/index.css';
 
 export const container = style({
   display: 'flex',
@@ -40,8 +41,7 @@ export const input = style([
   {
     padding: '0.8rem',
     color: vars.color.grayscale500,
-    width: '100%',
-    maxWidth: '-webkit-fill-available',
+    width: ['100%', '-webkit-fill-available'],
     outline: 'none',
     border: `2px solid ${vars.color.grayscale200}`,
     borderRadius: '0.4rem',
