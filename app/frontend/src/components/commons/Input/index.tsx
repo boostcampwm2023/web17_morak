@@ -36,7 +36,7 @@ export function Input({
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
-        required
+        required={required}
       />
       {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
