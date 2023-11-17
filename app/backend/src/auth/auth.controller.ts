@@ -59,7 +59,7 @@ export class AuthController {
       res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
       res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: process.env.MAX_AGE_REFRESH_TOKEN });
 
-      return res.json({ user, ...tokens });
+      res.redirect(process.env.DOMAIN);
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
@@ -75,7 +75,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<void> {
     try {
-      const cookieRefreshToken = req['cookies']['refresh_token'];
+      const cookieRefreshToken = req.cookies.refresh_token;
       const newAccessToken = await this.authService.refresh(cookieRefreshToken);
 
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
@@ -112,6 +112,24 @@ export class AuthController {
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');
+    }
+  }
+
+  @Get('/me')
+  @ApiOperation({
+    summary: '사용자 정보 조회',
+    description: '현재 로그인한 사용자의 정보 조회',
+  })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getProviderId(@Req() req: Request, @Res() res: Response): Promise<void> {
+    try {
+      const encryptedToken = req.cookies.access_token;
+      const userData = await this.authService.getProviderId(encryptedToken);
+
+      res.json({ provider_id: userData });
+    } catch (error) {
+      throw new UnauthorizedException('Failed to get user profile');
     }
   }
 }
