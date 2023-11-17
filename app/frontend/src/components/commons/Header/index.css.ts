@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars, fontStyle } from '@styles/index.css';
+import { vars, fontStyle } from '@/styles';
 
 export const container = style({
   display: 'flex',
