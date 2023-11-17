@@ -23,6 +23,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
+      // eslint-disable-next-line react/button-has-type
       type={type}
       className={styles.button({
         theme,
