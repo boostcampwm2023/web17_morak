@@ -94,6 +94,8 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'import/prefer-default-export': 'off',
+    'react/require-default-props': 'off',
   },
 };
