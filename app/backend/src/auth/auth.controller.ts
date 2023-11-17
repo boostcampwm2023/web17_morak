@@ -59,7 +59,7 @@ export class AuthController {
       res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
       res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: process.env.MAX_AGE_REFRESH_TOKEN });
 
-      return res.json({ user, ...tokens });
+      res.redirect(process.env.DOMAIN);
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
@@ -112,6 +112,18 @@ export class AuthController {
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');
+    }
+  }
+
+  @Get('/me')
+  async getProviderId(@Req() req: Request, @Res() res: Response): Promise<void> {
+    try {
+      const encryptedToken = req['cookies']['access_token'];
+      const userData = await this.authService.getProviderId(encryptedToken);
+
+      res.json({ provider_id: userData });
+    } catch (error) {
+      throw new UnauthorizedException('Failed to get user profile');
     }
   }
 }

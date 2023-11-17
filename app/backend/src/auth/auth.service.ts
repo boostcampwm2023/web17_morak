@@ -66,4 +66,11 @@ export class AuthService {
   async logout(provider_id: string) {
     await this.authRepository.removeRefreshToken(provider_id);
   }
+
+  async getProviderId(encryptedToken: string): Promise<string> {
+    const decodedAccessToken = this.jwtService.verify(encryptedToken, { secret: process.env.JWT_ACCESS_SECRET });
+    const { providerId } = decodedAccessToken;
+
+    return providerId;
+  }
 }
