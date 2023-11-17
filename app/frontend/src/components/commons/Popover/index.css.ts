@@ -1,5 +1,6 @@
-import * as css from '@styles/index.css';
 import { style } from '@vanilla-extract/css';
+
+import { vars } from '@styles';
 
 export const left = style({});
 export const center = style({});
@@ -10,18 +11,16 @@ export const container = style({
   padding: '0.8rem',
   width: 'fit-content',
   borderRadius: '8px',
-  background: css.vars.color.grayscaleWhite,
+  background: vars.color.grayscaleWhite,
   boxShadow: '0px 0px 8px 0px rgba(0 0 0 / 0.25)',
 
   selectors: {
     '&:before': {
       position: 'absolute',
-      top: '-0.5rem',
+      top: '-1.2rem',
       content: '',
-      borderBottom: `0.6rem solid ${css.vars.color.grayscaleWhite}`,
-      borderLeft: '0.6rem solid transparent',
-      borderRight: '0.6rem solid transparent',
-      borderTop: '0.6rem solid transparent',
+      border: '0.6rem solid transparent',
+      borderBottom: `0.6rem solid ${vars.color.grayscaleWhite}`,
     },
     [`${left}&:before`]: {
       left: '0.8rem',
