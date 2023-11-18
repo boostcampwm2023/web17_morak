@@ -5,7 +5,6 @@ import { container } from './index.css';
 type LabelProps = {
   theme: 'primary' | 'danger';
   shape: 'fill' | 'line';
-  // eslint-disable-next-line react/require-default-props
   disabled?: boolean;
   children: React.ReactNode;
 };
