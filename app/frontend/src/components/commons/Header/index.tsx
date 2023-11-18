@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
-import logo from '@assets/icons/morak.svg';
-import profile from '@assets/icons/profile.svg';
+import { ReactComponent as Logo } from '@assets/icons/morak.svg';
+import { ReactComponent as Profile } from '@assets/icons/profile.svg';
 
 import { SIDE_MENU } from '@constants/index';
 
@@ -12,7 +12,7 @@ export function Header() {
     <div className={styles.container}>
       <div className={styles.header}>
         <NavLink to="/" className={styles.title}>
-          <img src={logo} alt="logo" className={styles.logo} />
+          <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
         <div className={styles.sideMenu}>
@@ -26,7 +26,7 @@ export function Header() {
             </NavLink>
           ))}
           <NavLink to="/profile">
-            <img src={profile} alt="" />
+            <Profile className={styles.profile} />
           </NavLink>
         </div>
       </div>
