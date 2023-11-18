@@ -15,6 +15,7 @@ import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
 import { RtGuard } from './guards/rt.guard';
 import { LogoutDto } from './dto/user.dto';
+import { getSecret } from 'vault';
 
 @ApiTags('Oauth API')
 @ApiSecurity('google')
@@ -54,8 +55,8 @@ export class AuthController {
         profilePicture,
       });
 
-      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
-      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: process.env.MAX_AGE_REFRESH_TOKEN });
+      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
+      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_REFRESH_TOKEN') });
 
       res.redirect(process.env.AUTH_REDIRECT_URL);
     } catch (error) {
@@ -77,7 +78,7 @@ export class AuthController {
       const newAccessToken = await this.authService.refresh(cookieRefreshToken);
 
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
-      res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: Number(process.env.MAX_AGE_ACCESS_TOKEN) });
+      res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: Number(getSecret('MAX_AGE_ACCESS_TOKEN')) });
 
       res.json({ newAccessToken });
     } catch (err) {

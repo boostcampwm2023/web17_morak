@@ -1,0 +1,14 @@
+{
+  "name": "vault",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vault.js",
+  "devDependencies": {
+    "node-vault": "^0.10.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
