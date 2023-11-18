@@ -18,10 +18,16 @@ globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup
 
 globalStyle('html', {
   fontSize: '62.5%',
+  height: '100%',
 });
 
 globalStyle('body', {
   lineHeight: 1,
+  height: '100%',
+});
+
+globalStyle('#root', {
+  height: '100%',
 });
 
 globalStyle('ol, ul', {
