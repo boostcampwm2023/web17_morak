@@ -5,6 +5,8 @@ export const wrapper = style({
   display: 'flex',
   alignItems: 'center',
   position: 'absolute',
+  top: 0,
+  left: 0,
   zIndex: 100,
   height: '100%',
   transition: 'transform 0.5s',
@@ -19,6 +21,7 @@ export const panel = style({
   width: '40rem',
   height: '100%',
   borderRight: `1px solid ${vars.color.grayscale100}`,
+  background: vars.color.grayscaleWhite,
 });
 
 export const closeButton = style({
