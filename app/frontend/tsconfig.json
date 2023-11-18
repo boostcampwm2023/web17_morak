@@ -2,7 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@*": ["src/*/index.js", "src/*/index.ts", "src/*/index.jsx", "src/*/index.tsx", "src/*/index.css", "src/*/index.css.ts"],
+      "@*": [
+        "src/*/index.js",
+        "src/*/index.ts",
+        "src/*/index.jsx",
+        "src/*/index.tsx",
+        "src/*/index.css",
+        "src/*/index.css.ts"
+      ],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
@@ -14,9 +21,9 @@
       "@styles/*": ["src/styles/*"],
       "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"]
-    },
+    }
   },
   "extends": "@morak/tsconfig/frontend.json",
-  "include": ["src", "src/types/custom.d.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
