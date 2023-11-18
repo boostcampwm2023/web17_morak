@@ -65,3 +65,7 @@ export const sideMenuButtonActive = style([
     color: vars.color.morakGreen,
   },
 ]);
+
+export const profile = style({
+  fill: vars.color.grayscale200,
+});
