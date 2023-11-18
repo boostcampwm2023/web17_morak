@@ -18,14 +18,6 @@ export const header = style({
   boxSizing: 'border-box',
 });
 
-export const title = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.4rem',
-  color: vars.color.morakGreen,
-  textAlign: 'center',
-});
-
 export const logo = style({
   width: '3.6rem',
   height: '3.6rem',
@@ -65,3 +57,11 @@ export const sideMenuButtonActive = style([
     color: vars.color.morakGreen,
   },
 ]);
+
+export const title = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+  color: vars.color.morakGreen,
+  textAlign: 'center',
+});
