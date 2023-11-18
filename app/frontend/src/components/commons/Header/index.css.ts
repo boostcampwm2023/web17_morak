@@ -37,6 +37,10 @@ export const logoTitle = style([
   },
 ]);
 
+export const profile = style({
+  fill: vars.color.grayscale200,
+});
+
 export const sideMenu = style({
   display: 'flex',
   justifyContent: 'flex-end',
