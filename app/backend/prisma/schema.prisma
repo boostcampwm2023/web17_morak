@@ -10,11 +10,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model  Member {
-  id    Int      @id @default(autoincrement())
+model User {
+  user_id     Int      @id @default(autoincrement())
   provider_id String @unique
-  email String @unique
-  nickname  String
+  email       String?
+  created_at  DateTime @default(now())
   social_type String
-  created_at DateTime @default(now())
+  nickname    String
+
+  mogakos     Mogako[]
+  groupToUsers GroupToUser[]
+  participants Participant[]
+}
+
+model Mogako {
+  post_id     Int      @id @default(autoincrement()) @unique
+  user_id     Int
+  group_id    Int
+  title       String?
+  contents    String?
+  date        DateTime
+  max_human_count Int     @default(0)
+  human_count Int     @default(0)
+  address     String?
+  status      String?
+  view_count  Int     @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  author      User     @relation(fields: [user_id], references: [user_id])
+  participants Participant[]
+
+  @@index([group_id], name: "group_id")
+}
+
+model GroupToUser {
+  group_id    Int
+  user_id     Int
+
+  group       Group    @relation(fields: [group_id], references: [group_id])
+  user        User     @relation(fields: [user_id], references: [user_id])
+
+  @@id([group_id, user_id])
+}
+
+model Group {
+  group_id    Int          @id @default(autoincrement())
+  title       String
+  mogakos     GroupToUser[]
+}
+
+model Participant {
+  post_id     Int
+  user_id     Int
+
+  post        Mogako   @relation(fields: [post_id], references: [post_id])
+  user        User     @relation(fields: [user_id], references: [user_id])
+
+  @@id([post_id, user_id])
 }
