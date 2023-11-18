@@ -12,7 +12,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'sort-exports'],
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.js', '.jsx', '.ts', '.tsx'],
@@ -94,5 +94,6 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+    'sort-exports/sort-exports': ['error', { sortDir: 'asc' }],
   },
 };
