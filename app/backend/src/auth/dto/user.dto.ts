@@ -19,6 +19,10 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   social_type: string;
+
+  @ApiProperty()
+  @IsString()
+  profilePicture: string;
 }
 
 export class LogoutDto {
