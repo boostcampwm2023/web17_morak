@@ -18,14 +18,6 @@ export const header = style({
   boxSizing: 'border-box',
 });
 
-export const title = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.4rem',
-  color: vars.color.morakGreen,
-  textAlign: 'center',
-});
-
 export const logo = style({
   width: '3.6rem',
   height: '3.6rem',
@@ -44,6 +36,10 @@ export const logoTitle = style([
     alignItems: 'center',
   },
 ]);
+
+export const profile = style({
+  fill: vars.color.grayscale200,
+});
 
 export const sideMenu = style({
   display: 'flex',
@@ -66,6 +62,10 @@ export const sideMenuButtonActive = style([
   },
 ]);
 
-export const profile = style({
-  fill: vars.color.grayscale200,
+export const title = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+  color: vars.color.morakGreen,
+  textAlign: 'center',
 });

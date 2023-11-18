@@ -17,6 +17,48 @@ const poppinsBold = style({
   fontWeight: vars.font.weight.bold,
 });
 
+export const sansBold12 = style([
+  sansBold,
+  {
+    fontSize: '1.2rem',
+  },
+]);
+
+export const poppinsBold30 = style([
+  poppinsBold,
+  {
+    fontSize: '3rem',
+  },
+]);
+
+export const sansBold14 = style([
+  sansBold,
+  {
+    fontSize: '1.4rem',
+  },
+]);
+
+export const sansBold16 = style([
+  sansBold,
+  {
+    fontSize: '1.6rem',
+  },
+]);
+
+export const sansBold18 = style([
+  sansBold,
+  {
+    fontSize: '1.8rem',
+  },
+]);
+
+export const sansBold24 = style([
+  sansBold,
+  {
+    fontSize: '2.4rem',
+  },
+]);
+
 export const sansRegular12 = style([
   sansRegular,
   {
@@ -49,47 +91,5 @@ export const sansRegular24 = style([
   sansRegular,
   {
     fontSize: '2.4rem',
-  },
-]);
-
-export const sansBold12 = style([
-  sansBold,
-  {
-    fontSize: '1.2rem',
-  },
-]);
-
-export const sansBold14 = style([
-  sansBold,
-  {
-    fontSize: '1.4rem',
-  },
-]);
-
-export const sansBold16 = style([
-  sansBold,
-  {
-    fontSize: '1.6rem',
-  },
-]);
-
-export const sansBold18 = style([
-  sansBold,
-  {
-    fontSize: '1.8rem',
-  },
-]);
-
-export const sansBold24 = style([
-  sansBold,
-  {
-    fontSize: '2.4rem',
-  },
-]);
-
-export const poppinsBold30 = style([
-  poppinsBold,
-  {
-    fontSize: '3rem',
   },
 ]);
