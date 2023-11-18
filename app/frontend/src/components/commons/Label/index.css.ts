@@ -6,7 +6,8 @@ export const container = recipe({
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '0.4rem 2rem',
+    minWidth: '3.5rem',
+    padding: '0.4rem 1.5rem',
     borderRadius: 100,
   },
 
