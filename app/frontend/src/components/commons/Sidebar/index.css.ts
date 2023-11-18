@@ -2,9 +2,10 @@ import { vars } from '@styles';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
-  position: 'absolute',
   display: 'flex',
   alignItems: 'center',
+  position: 'absolute',
+  zIndex: 100,
   height: '100%',
   transition: 'transform 0.5s',
 });
@@ -38,4 +39,8 @@ export const closeButton = style({
   ':active': {
     filter: 'brightness(0.9)',
   },
+});
+
+export const flip = style({
+  transform: 'rotate(180deg)',
 });
