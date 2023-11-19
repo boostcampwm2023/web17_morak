@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@styles/font.css';
 
-export const container = style({ display: 'flex', flexDirection: 'column', maxWidth: '100%' });
+export const container = style({ display: 'flex', flexDirection: 'column', width: '100%' });
 
 export const header = style({
   display: 'flex',
@@ -41,7 +41,7 @@ export const talkSection = style({
   padding: '1.6rem 2.4rem',
   borderTop: `1px solid ${vars.color.grayscale100}`,
   borderBottom: `1px solid ${vars.color.grayscale100}`,
-  overflow: 'scroll',
+  overflowY: 'scroll',
 });
 
 export const footer = style({

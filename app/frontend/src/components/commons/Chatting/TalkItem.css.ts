@@ -55,6 +55,7 @@ export const content = style([
 export const datetime = style([
   sansRegular12,
   {
+    padding: '0 0.4rem',
     alignSelf: 'start',
     color: vars.color.grayscale200,
 
