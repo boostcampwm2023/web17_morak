@@ -17,17 +17,17 @@ const poppinsBold = style({
   fontWeight: vars.font.weight.bold,
 });
 
-export const sansBold12 = style([
-  sansBold,
-  {
-    fontSize: '1.2rem',
-  },
-]);
-
 export const poppinsBold30 = style([
   poppinsBold,
   {
     fontSize: '3rem',
+  },
+]);
+
+export const sansBold12 = style([
+  sansBold,
+  {
+    fontSize: '1.2rem',
   },
 ]);
 
@@ -56,6 +56,13 @@ export const sansBold24 = style([
   sansBold,
   {
     fontSize: '2.4rem',
+  },
+]);
+
+export const sansBold96 = style([
+  sansBold,
+  {
+    fontSize: '9.6rem',
   },
 ]);
 
