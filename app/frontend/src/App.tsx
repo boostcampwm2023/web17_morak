@@ -1,13 +1,28 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Header } from '@components/index.ts';
+
+import { Auth } from '@pages/Auth';
+import { Home } from '@pages/Home';
+
 import '@styles/reset.css';
+
+// import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Header />,
+    element: (
+      <div>
+        <Header />
+        <Outlet />
+      </div>
+    ),
     children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
       {
         path: 'mogaco',
         element: <>모각코</>,
@@ -23,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <>프로필</>,
+      },
+      {
+        path: 'auth',
+        element: <Auth />,
       },
     ],
   },

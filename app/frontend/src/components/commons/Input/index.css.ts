@@ -8,33 +8,29 @@ export const container = style({
   alignItems: 'flex-start',
 });
 
-export const error = style({});
-export const disabled = style({});
-
-export const titleWrapper = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  marginBottom: '0.4rem',
-});
-
-export const label = style([
+export const count = style([
   fontStyle.sansRegular12,
   {
-    color: vars.color.grayscaleBlack,
+    display: 'none',
+
     selectors: {
-      [`${disabled} &`]: {
-        color: vars.color.grayscale200,
+      [`${container}:focus-within &`]: {
+        display: 'block',
       },
     },
   },
 ]);
+export const disabled = style({});
 
-export const required = style({
-  paddingLeft: '0.2rem',
-  color: vars.color.morakRed,
-});
+export const error = style({});
+
+export const errorMessage = style([
+  fontStyle.sansRegular12,
+  {
+    color: vars.color.morakRed,
+    marginTop: '0.4rem',
+  },
+]);
 
 export const input = style([
   fontStyle.sansRegular12,
@@ -64,23 +60,27 @@ export const input = style([
   },
 ]);
 
-export const count = style([
+export const label = style([
   fontStyle.sansRegular12,
   {
-    display: 'none',
-
+    color: vars.color.grayscaleBlack,
     selectors: {
-      [`${container}:focus-within &`]: {
-        display: 'block',
+      [`${disabled} &`]: {
+        color: vars.color.grayscale200,
       },
     },
   },
 ]);
 
-export const errorMessage = style([
-  fontStyle.sansRegular12,
-  {
-    color: vars.color.morakRed,
-    marginTop: '0.4rem',
-  },
-]);
+export const required = style({
+  paddingLeft: '0.2rem',
+  color: vars.color.morakRed,
+});
+
+export const titleWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  marginBottom: '0.4rem',
+});
