@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Header } from '@/components';
+import { Main, Auth } from '@/pages';
 import '@/styles/reset.css';
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <>프로필</>,
+      },
+      {
+        path: 'auth',
+        element: <Auth />,
       },
     ],
   },
