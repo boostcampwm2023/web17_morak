@@ -36,6 +36,7 @@ WORKDIR /app
 COPY --from=builder /app/app/backend/dist /app/dist
 COPY --from=builder /app/app/backend/prisma /app/prisma
 COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/packages /app/packages
 
 # 필요한 경우, 런타임에 필요한 추가 파일 복사
 # 예: 환경변수 파일, 정적 파일 등

@@ -1,2 +1,2 @@
-npx prisma migrate dev --name test
+npx prisma migrate deploy
 node dist/src/main.js
