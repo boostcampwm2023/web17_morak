@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { Header } from '@/components/index.ts';
+import { Header } from '@/components';
 import '@/styles/reset.css';
 
 const router = createBrowserRouter([
