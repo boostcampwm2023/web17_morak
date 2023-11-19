@@ -1,9 +1,9 @@
-import { vars } from '@styles';
 import { style } from '@vanilla-extract/css';
 
-import { sansRegular12, sansRegular14 } from '@styles/font.css';
+import { vars } from '@/styles';
+import { sansRegular12, sansRegular14 } from '@/styles/font.css';
 
-export const isMine = style({});
+const isMine = style({});
 
 export const container = style({
   display: 'flex',
@@ -11,23 +11,6 @@ export const container = style({
   alignItems: 'stretch',
   gap: '0.8rem',
   width: '100%',
-});
-
-export const userInfo = style([
-  sansRegular12,
-  {
-    display: 'flex',
-    gap: '0.4rem',
-    alignItems: 'center',
-  },
-]);
-
-export const profileImage = style({
-  display: 'flex',
-  width: '2.4rem',
-  height: '2.4rem',
-  borderRadius: '50%',
-  overflow: 'hidden',
 });
 
 export const content = style([
@@ -64,5 +47,24 @@ export const datetime = style([
         alignSelf: 'end',
       },
     },
+  },
+]);
+
+export { isMine };
+
+export const profileImage = style({
+  display: 'flex',
+  width: '2.4rem',
+  height: '2.4rem',
+  borderRadius: '50%',
+  overflow: 'hidden',
+});
+
+export const userInfo = style([
+  sansRegular12,
+  {
+    display: 'flex',
+    gap: '0.4rem',
+    alignItems: 'center',
   },
 ]);

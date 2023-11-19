@@ -1,9 +1,17 @@
-import { vars } from '@styles';
 import { style } from '@vanilla-extract/css';
 
-import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@styles/font.css';
+import { vars } from '@/styles';
+import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@/styles/font.css';
 
 export const container = style({ display: 'flex', flexDirection: 'column', width: '100%' });
+
+export const footer = style({
+  display: 'flex',
+  alignItems: 'stretch',
+  gap: '0.8rem',
+  padding: '2.4rem 1.6rem',
+  background: vars.color.grayscale50,
+});
 
 export const header = style({
   display: 'flex',
@@ -14,22 +22,23 @@ export const header = style({
   background: vars.color.grayscale50,
 });
 
-export const title = style([
-  sansBold24,
-  {
-    flexGrow: 0,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-  },
-]);
-
 export const participants = style([
   sansRegular16,
   {
     display: 'flex',
     alignItems: 'center',
     gap: '0.4rem',
+  },
+]);
+
+export const submitButton = style([
+  sansBold14,
+  {
+    border: 'none',
+    borderRadius: '0.8rem',
+    padding: '2.4rem',
+    color: vars.color.grayscaleWhite,
+    background: vars.color.morakGreen,
   },
 ]);
 
@@ -44,14 +53,6 @@ export const talkSection = style({
   overflowY: 'scroll',
 });
 
-export const footer = style({
-  display: 'flex',
-  alignItems: 'stretch',
-  gap: '0.8rem',
-  padding: '2.4rem 1.6rem',
-  background: vars.color.grayscale50,
-});
-
 export const textarea = style([
   sansRegular12,
   {
@@ -62,13 +63,12 @@ export const textarea = style([
   },
 ]);
 
-export const submitButton = style([
-  sansBold14,
+export const title = style([
+  sansBold24,
   {
-    border: 'none',
-    borderRadius: '0.8rem',
-    padding: '2.4rem',
-    color: vars.color.grayscaleWhite,
-    background: vars.color.morakGreen,
+    flexGrow: 0,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 ]);

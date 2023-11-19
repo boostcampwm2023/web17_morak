@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { Header } from '@/components';
-import { Main } from '@/pages';
+import '@styles/reset.css';
+
+import { Header } from '@/components/index.ts';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,6 @@ const router = createBrowserRouter([
       </>
     ),
     children: [
-      { path: '/', element: <Main /> },
       {
         path: 'mogaco',
         element: <>모각코</>,
