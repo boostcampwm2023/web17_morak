@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { Payload, Tokens, UserData } from './types';
+import { Payload, Tokens } from './interface';
 
 @Injectable()
 export class AuthService {
@@ -68,12 +68,5 @@ export class AuthService {
 
   async logout(provider_id: string) {
     await this.authRepository.removeRefreshToken(provider_id);
-  }
-
-  async getUserData(encryptedToken: string): Promise<UserData> {
-    const decodedAccessToken = this.jwtService.verify(encryptedToken, { secret: process.env.JWT_ACCESS_SECRET });
-    const { providerId, email, nickname, profilePicture } = decodedAccessToken;
-
-    return { providerId, email, nickname, profilePicture };
   }
 }
