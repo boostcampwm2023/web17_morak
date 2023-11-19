@@ -1,16 +1,12 @@
+import { Talk, User } from '@types';
+
 import * as styles from './index.css';
+import { TalkItem } from './TalkItem';
 
 type ChattingProps = {
   title: string;
-  participants: {
-    username: string;
-    profileSrc: string;
-  }[];
-  talks: {
-    username: string;
-    datetime: Date;
-    content: string;
-  }[];
+  participants: User[];
+  talks: Talk[];
   currentUsername: string;
 };
 
@@ -38,7 +34,9 @@ export function Chatting({ title, participants, talks, currentUsername }: Chatti
         </div>
       </div>
       <ul className={styles.talkSection}>
-        {talks.map((talk) => (talk.username === currentUsername ? <li>{talk.content}</li> : <li>{talk.content}</li>))}
+        {talks.map((talk) => (
+          <TalkItem key={talk.id} talk={talk} isMine={talk.user.username === currentUsername} />
+        ))}
       </ul>
       <form className={styles.footer}>
         <textarea className={styles.textarea} rows={4} />
