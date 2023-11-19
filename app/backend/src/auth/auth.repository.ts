@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../libs/utils/prisma.service';
 import { CreateUserDto } from './dto/user.dto';
-import { User } from '@prisma/client';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { Member } from '@prisma/client';
 
 @Injectable()
 export class AuthRepository {
@@ -12,19 +12,17 @@ export class AuthRepository {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async saveUser(userDto: CreateUserDto): Promise<User> {
-    return this.prisma.user.create({
+  async saveUser(userDto: CreateUserDto): Promise<Member> {
+    return this.prisma.member.create({
       data: {
         provider_id: userDto.provider_id,
-        email: userDto.email,
         social_type: userDto.social_type,
-        nickname: userDto.nickname,
       },
     });
   }
 
-  async findUserByIdentifier(provider_id: string): Promise<User | null> {
-    return this.prisma.user.findUnique({
+  async findUserByIdentifier(provider_id: string): Promise<Member | null> {
+    return this.prisma.member.findUnique({
       where: {
         provider_id,
       },
