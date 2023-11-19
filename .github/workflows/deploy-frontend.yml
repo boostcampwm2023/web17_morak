@@ -1,4 +1,4 @@
-name: Deploy on Backend Development Branch Changes
+name: Deploy on Frontend Development Branch Changes
 
 on:
   workflow_dispatch:
@@ -21,10 +21,10 @@ jobs:
     
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_REGISTRY }}/morak_backend:${{ github.sha }} -f ./app/backend/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile .
     - name: Push Docker Image to Registry
       run: |
-        docker push ${{ secrets.DOCKER_REGISTRY }}/morak_backend:${{ github.sha }}
+        docker push ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }}
     
     - name: Set up SSH key
       run: |
@@ -36,6 +36,6 @@ jobs:
     - name: Deploy to Server
       run: |
           ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            cd morak/backend
+            cd morak/frontend
             ./deploy.sh ${{ github.sha }}
           "

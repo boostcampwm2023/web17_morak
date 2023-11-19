@@ -14,7 +14,7 @@ for (const key in process.env) {
 const vault = NodeVault({
   apiVersion: 'v1',
   endpoint: process.env.VAULT_ADDR,
-  token: process.env.VAULT_TOKEN
+   token: process.env.VAULT_TOKEN
 });
 
 async function loadSecrets() {
