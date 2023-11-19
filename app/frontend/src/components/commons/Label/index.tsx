@@ -1,4 +1,4 @@
-import { sansBold12 } from '@styles/font.css';
+import { sansBold12 } from '@/styles/font.css';
 
 import { container } from './index.css';
 
