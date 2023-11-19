@@ -1,0 +1,74 @@
+import { vars } from '@styles';
+import { style } from '@vanilla-extract/css';
+
+import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@styles/font.css';
+
+export const container = style({ display: 'flex', flexDirection: 'column', maxWidth: '100%' });
+
+export const header = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: '1.6rem',
+  padding: '2.4rem 1.6rem',
+  background: vars.color.grayscale50,
+});
+
+export const title = style([
+  sansBold24,
+  {
+    flexGrow: 0,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+]);
+
+export const participants = style([
+  sansRegular16,
+  {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.4rem',
+  },
+]);
+
+export const talkSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  gap: '1.6rem',
+  padding: '1.6rem 2.4rem',
+  borderTop: `1px solid ${vars.color.grayscale100}`,
+  borderBottom: `1px solid ${vars.color.grayscale100}`,
+  overflow: 'scroll',
+});
+
+export const footer = style({
+  display: 'flex',
+  alignItems: 'stretch',
+  gap: '0.8rem',
+  padding: '2.4rem 1.6rem',
+  background: vars.color.grayscale50,
+});
+
+export const textarea = style([
+  sansRegular12,
+  {
+    border: `1px solid ${vars.color.grayscale200}`,
+    borderRadius: '0.4rem',
+    flexGrow: 1,
+    resize: 'none',
+  },
+]);
+
+export const submitButton = style([
+  sansBold14,
+  {
+    border: 'none',
+    borderRadius: '0.8rem',
+    padding: '2.4rem',
+    color: vars.color.grayscaleWhite,
+    background: vars.color.morakGreen,
+  },
+]);
