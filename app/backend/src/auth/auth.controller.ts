@@ -57,7 +57,7 @@ export class AuthController {
       res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
       res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: process.env.MAX_AGE_REFRESH_TOKEN });
 
-      res.redirect(process.env.DOMAIN);
+      res.redirect(process.env.AUTH_REDIRECT_URL);
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
@@ -110,24 +110,6 @@ export class AuthController {
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');
-    }
-  }
-
-  @Get('/me')
-  @ApiOperation({
-    summary: '사용자 정보 조회',
-    description: '현재 로그인한 사용자의 정보 조회',
-  })
-  @ApiResponse({ status: 200, description: 'Successful operation' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getUserData(@Req() req: Request, @Res() res: Response): Promise<void> {
-    try {
-      const encryptedToken = req.cookies.access_token;
-      const userData = await this.authService.getUserData(encryptedToken);
-
-      res.json(userData);
-    } catch (error) {
-      throw new UnauthorizedException('Failed to get user profile');
     }
   }
 }
