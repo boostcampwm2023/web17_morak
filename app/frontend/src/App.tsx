@@ -1,13 +1,19 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Header } from '@/components';
-import '@/styles/reset.css';
+import { Main } from '@/pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Header />,
+    element: (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    ),
     children: [
+      { path: '/', element: <Main /> },
       {
         path: 'mogaco',
         element: <>모각코</>,
