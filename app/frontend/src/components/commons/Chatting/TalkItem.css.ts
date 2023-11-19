@@ -50,6 +50,11 @@ export const datetime = style([
   },
 ]);
 
+export const defaultProfileImage = style({
+  border: `1px solid ${vars.color.morakGreen}`,
+  borderRadius: '50%',
+});
+
 export { isMine };
 
 export const profileImage = style({
