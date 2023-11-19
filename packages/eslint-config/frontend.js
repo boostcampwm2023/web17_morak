@@ -22,16 +22,7 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          ['parent', 'sibling'],
-          'index',
-          'object',
-          'type',
-          'unknown',
-        ],
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'index', 'object', 'type', 'unknown'],
         pathGroups: [
           {
             pattern: '{react*, react*/**}',
@@ -39,57 +30,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@assets/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@components/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@constants/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@hooks/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@pages/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@queries/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@services/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@stores/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@styles/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@types/*',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@utils/*',
+            pattern: '@/**',
             group: 'internal',
             position: 'after',
           },
@@ -107,5 +48,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
     'sort-exports/sort-exports': ['error', { sortDir: 'asc' }],
+    'import/extensions': 'off',
   },
 };

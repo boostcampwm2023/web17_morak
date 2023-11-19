@@ -2,25 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@*": [
-        "src/*/index.js",
-        "src/*/index.ts",
-        "src/*/index.jsx",
-        "src/*/index.tsx",
-        "src/*/index.css",
-        "src/*/index.css.ts"
-      ],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@constants/*": ["src/constants/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
-      "@queries/*": ["src/queries/*"],
-      "@services/*": ["src/services/*"],
-      "@stores/*": ["src/stores/*"],
-      "@styles/*": ["src/styles/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/*": ["src/*"]
     }
   },
   "extends": "@morak/tsconfig/frontend.json",
