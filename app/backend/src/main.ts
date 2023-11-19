@@ -7,7 +7,10 @@ import { setupSwagger } from '../libs/utils/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.DOMAIN,
+    credentials: true,
+  });
   setupSwagger(app);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
