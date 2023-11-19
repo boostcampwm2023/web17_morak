@@ -3,6 +3,17 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles';
 import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@/styles/font.css';
 
+export const chatList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  gap: '1.6rem',
+  padding: '1.6rem 2.4rem',
+  borderTop: `1px solid ${vars.color.grayscale100}`,
+  borderBottom: `1px solid ${vars.color.grayscale100}`,
+  overflowY: 'scroll',
+});
+
 export const container = style({ display: 'flex', flexDirection: 'column', width: '100%' });
 
 export const footer = style({
@@ -41,17 +52,6 @@ export const submitButton = style([
     background: vars.color.morakGreen,
   },
 ]);
-
-export const talkSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  flexGrow: 1,
-  gap: '1.6rem',
-  padding: '1.6rem 2.4rem',
-  borderTop: `1px solid ${vars.color.grayscale100}`,
-  borderBottom: `1px solid ${vars.color.grayscale100}`,
-  overflowY: 'scroll',
-});
 
 export const textarea = style([
   sansRegular12,

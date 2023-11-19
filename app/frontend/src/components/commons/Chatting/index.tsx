@@ -1,18 +1,19 @@
 import { ReactComponent as People } from '@assets/icons/people.svg';
 import { vars } from '@styles';
-import { Talk, User } from '@types';
+import { Chat, User } from '@types';
 
 import * as styles from './index.css';
+import { NotificationItem } from './NotificationItem';
 import { TalkItem } from './TalkItem';
 
 type ChattingProps = {
   title: string;
   participants: User[];
-  talks: Talk[];
+  chatItems: Chat[];
   currentUsername: string;
 };
 
-export function Chatting({ title, participants, talks, currentUsername }: ChattingProps) {
+export function Chatting({ title, participants, chatItems, currentUsername }: ChattingProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -22,10 +23,14 @@ export function Chatting({ title, participants, talks, currentUsername }: Chatti
           <span>{participants.length}</span>
         </div>
       </div>
-      <ul className={styles.talkSection}>
-        {talks.map((talk) => (
-          <TalkItem key={talk.id} talk={talk} isMine={talk.user.username === currentUsername} />
-        ))}
+      <ul className={styles.chatList}>
+        {chatItems.map((chatItem) =>
+          chatItem.type === 'talk' ? (
+            <TalkItem key={chatItem.id} talk={chatItem} isMine={chatItem.user.username === currentUsername} />
+          ) : (
+            <NotificationItem key={chatItem.id} notification={chatItem} />
+          ),
+        )}
       </ul>
       <form className={styles.footer}>
         <textarea className={styles.textarea} rows={4} />

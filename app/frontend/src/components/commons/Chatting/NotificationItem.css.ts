@@ -8,9 +8,11 @@ export const container = style([
   {
     display: 'flex',
     alignItems: 'center',
+    alignSelf: 'center',
     padding: '0.4rem 1.6rem',
     border: `1px solid ${vars.color.grayscale100}`,
     borderRadius: 100,
+    margin: '1rem 0',
     background: vars.color.grayscaleWhite,
   },
 ]);
