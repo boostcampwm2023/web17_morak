@@ -14,12 +14,10 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
-      "eslint --report-unused-disable-directives --quiet --fix",
-      "git add"
+      "eslint --report-unused-disable-directives --quiet --fix"
     ],
     "*.{json,md,html,js,jsx,ts,tsx}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "dependencies": {
