@@ -1,6 +1,6 @@
 export function Home() {
   const onClickGoogleLogin = () => {
-    window.location.href = `${import.meta.env.API_URL}/auth/google/login`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
   };
 
   return (
