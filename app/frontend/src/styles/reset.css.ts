@@ -16,9 +16,12 @@ globalStyle(
   },
 );
 
-globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {
-  display: 'block',
-});
+globalStyle(
+  'article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section',
+  {
+    display: 'block',
+  },
+);
 
 globalStyle('html', {
   fontSize: '62.5%',

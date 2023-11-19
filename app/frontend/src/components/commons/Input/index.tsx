@@ -22,7 +22,11 @@ export function Input({
   required = false,
 }: InputProps) {
   return (
-    <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
+    <div
+      className={`${styles.container} ${errorMessage && styles.error} ${
+        disabled && styles.disabled
+      }`}
+    >
       <div className={styles.titleWrapper}>
         <span className={`${styles.label} ${!label && styles.hide}`}>
           {label}
@@ -38,7 +42,9 @@ export function Input({
         maxLength={maxLength}
         required={required}
       />
-      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {!disabled && errorMessage && (
+        <p className={styles.errorMessage}>{errorMessage}</p>
+      )}
     </div>
   );
 }
