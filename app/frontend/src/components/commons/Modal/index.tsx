@@ -1,5 +1,7 @@
-/* eslint-disable react/require-default-props */
+import { sansBold24, sansRegular16 } from '@/styles/font.css';
+
 import * as styles from './index.css';
+import { Button } from '../Button';
 
 type ModalProps = {
   title: string;
@@ -21,17 +23,24 @@ export function Modal({
   return (
     <dialog className={styles.container}>
       <div className={styles.textArea}>
-        <div className={styles.title}>{title}</div>
-        {content && <div className={styles.content}>{content}</div>}
+        <div className={sansBold24}>{title}</div>
+        {content && <div className={sansRegular16}>{content}</div>}
       </div>
       <div className={styles.buttonArea}>
-        <button type="button" onClick={buttonType === 'double' ? onClickConfirm : undefined} className={styles.button}>
+        <Button
+          type="button"
+          theme="primary"
+          shape="fill"
+          size="large"
+          fullWidth
+          onClick={buttonType === 'double' ? onClickConfirm : undefined}
+        >
           {confirmButtonText}
-        </button>
+        </Button>
         {buttonType === 'double' && (
-          <button type="button" className={styles.button}>
+          <Button type="button" theme="primary" shape="line" size="large" fullWidth>
             {cancelButtonText}
-          </button>
+          </Button>
         )}
       </div>
     </dialog>

@@ -1,13 +1,23 @@
 import { style } from '@vanilla-extract/css';
 
+export const buttonArea = style({
+  display: 'flex',
+  justifyContent: 'stretch',
+  gap: '1.6rem',
+});
+
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  minWidth: '32rem',
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
   minHeight: '20rem',
-  border: 'none',
+  minWidth: '32rem',
+  padding: '1.6rem',
   borderRadius: '0.8rem',
   boxShadow: '0 0.4rem 0.8rem rgba(0, 0, 0, 0.25)',
+  transform: 'translate(-50%, -50%)',
 });
 
 export const textArea = style({
@@ -15,24 +25,6 @@ export const textArea = style({
   flexDirection: 'column',
   flexGrow: 1,
   justifyContent: 'center',
+  alignItems: 'center',
   gap: '0.8rem',
-});
-
-export const title = style({
-  fontSize: '2.4rem',
-});
-
-export const content = style({
-  fontSize: '1.6rem',
-});
-
-export const buttonArea = style({
-  display: 'flex',
-  justifyContent: 'stretch',
-  gap: '1.6rem',
-});
-
-export const button = style({
-  width: '100%',
-  fontSize: '1.6rem',
 });
