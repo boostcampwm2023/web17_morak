@@ -12,7 +12,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'sort-exports'],
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.js', '.jsx', '.ts', '.tsx'],
@@ -35,8 +35,13 @@ module.exports = {
         pathGroups: [
           {
             pattern: '{react*, react*/**}',
-            group: 'external',
+            group: 'builtin',
             position: 'before',
+          },
+          {
+            pattern: '@/**',
+            group: 'internal',
+            position: 'after',
           },
         ],
         alphabetize: {
@@ -44,13 +49,14 @@ module.exports = {
           caseInsensitive: true,
         },
         'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: [],
+        warnOnUnassignedImports: true,
       },
     ],
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
+    'sort-exports/sort-exports': ['error', { sortDir: 'asc' }],
+    'import/extensions': 'off',
   },
 };

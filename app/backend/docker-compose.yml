@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../..
+      dockerfile: app/backend/Dockerfile
+    ports:
+      - "8080:8080" # 호스트의 포트:컨테이너의 포트
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_SECRET=${GOOGLE_SECRET}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - DATABASE_URL=mysql://mokak:_mokak123@db:3306/testDB
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_HOST=redis
+      - REDIS_MAX_AGE_REFRESH_TOKEN=${REDIS_MAX_AGE_REFRESH_TOKEN}
+      - MAX_AGE_ACCESS_TOKEN=${MAX_AGE_ACCESS_TOKEN}
+      - MAX_AGE_REFRESH_TOKEN=${MAX_AGE_REFRESH_TOKEN}
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: ccxz84/mokak-mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=anl@oiq12^&()
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "${REDIS_PORT}:6379"
+
+volumes:
+  mysql-data:
