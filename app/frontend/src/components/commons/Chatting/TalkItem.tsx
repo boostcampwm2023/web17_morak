@@ -1,9 +1,9 @@
-import { ReactComponent as Profile } from '@assets/icons/profile.svg';
-import { vars } from '@styles';
-import { Talk } from '@types';
 import dayjs from 'dayjs';
 
+import { Talk } from '@/types';
+
 import * as styles from './TalkItem.css';
+import { TalkItemHeader } from './TalkItemHeader';
 
 type TalkItemProps = {
   talk: Talk;
@@ -20,18 +20,7 @@ export function TalkItem({
 }: TalkItemProps) {
   return (
     <div className={styles.container}>
-      {!isMine && (
-        <div className={styles.userInfo}>
-          <div className={`${styles.profileImage} ${!profileSrc && styles.defaultProfileImage}`}>
-            {profileSrc ? (
-              <img src={profileSrc} alt={`${username}의 프로필 사진`} />
-            ) : (
-              <Profile fill={vars.color.morakGreen} />
-            )}
-          </div>
-          <span>{username}</span>
-        </div>
-      )}
+      {!isMine && <TalkItemHeader username={username} profileSrc={profileSrc} />}
       <div className={`${styles.content} ${isMine && styles.isMine}`}>{content}</div>
       <div className={`${styles.datetime} ${isMine && styles.isMine}`}>{dayjs(datetime).format('MM.DD h:mm A')}</div>
     </div>

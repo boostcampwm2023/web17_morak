@@ -1,10 +1,9 @@
-import { ReactComponent as People } from '@assets/icons/people.svg';
-import { vars } from '@styles';
-import { Chat, User } from '@types';
+import { Chat, User } from '@/types';
 
+import { ChatList } from './ChatList';
+import { ChattingFooter } from './ChattingFooter';
+import { ChattingHeader } from './ChattingHeader';
 import * as styles from './index.css';
-import { NotificationItem } from './NotificationItem';
-import { TalkItem } from './TalkItem';
 
 type ChattingProps = {
   title: string;
@@ -16,28 +15,9 @@ type ChattingProps = {
 export function Chatting({ title, participants, chatItems, currentUsername }: ChattingProps) {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <span className={styles.title}>{title}</span>
-        <div className={styles.participants}>
-          <People fill={vars.color.grayscale200} />
-          <span>{participants.length}</span>
-        </div>
-      </div>
-      <ul className={styles.chatList}>
-        {chatItems.map((chatItem) =>
-          chatItem.type === 'talk' ? (
-            <TalkItem key={chatItem.id} talk={chatItem} isMine={chatItem.user.username === currentUsername} />
-          ) : (
-            <NotificationItem key={chatItem.id} notification={chatItem} />
-          ),
-        )}
-      </ul>
-      <form className={styles.footer}>
-        <textarea className={styles.textarea} rows={4} />
-        <button type="submit" className={styles.submitButton}>
-          보내기
-        </button>
-      </form>
+      <ChattingHeader title={title} participants={participants} />
+      <ChatList chatItems={chatItems} currentUsername={currentUsername} />
+      <ChattingFooter />
     </div>
   );
 }

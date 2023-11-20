@@ -9,7 +9,7 @@ export const container = recipe({
     alignItems: 'center',
     minWidth: '3.5rem',
     padding: '0.4rem 1.5rem',
-    borderRadius: 100,
+    borderRadius: '100rem',
   },
 
   variants: {
