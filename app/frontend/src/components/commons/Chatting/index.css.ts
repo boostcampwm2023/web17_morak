@@ -39,12 +39,19 @@ export const participants = style([
     display: 'flex',
     alignItems: 'center',
     gap: '0.4rem',
+    height: '100%',
     position: 'relative',
   },
 ]);
 
 export const popover = style({
+  display: 'none',
   top: '3rem',
+  selectors: {
+    [`${participants}:hover &, ${participants}:active &`]: {
+      display: 'flex',
+    },
+  },
 });
 
 export const submitButton = style([
