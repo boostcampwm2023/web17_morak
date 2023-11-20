@@ -44,16 +44,14 @@ export class AuthController {
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     try {
       const { user } = req;
-      const { providerId, socialType, name, email } = user;
-      const provider_id = providerId;
-      const social_type = socialType;
-      const nickname = name;
+      const { providerId, socialType, name, email, profilePicture } = user;
 
       const tokens = await this.authService.handleLogin({
-        provider_id,
+        provider_id: providerId,
         email,
-        nickname,
-        social_type,
+        nickname: name,
+        social_type: socialType,
+        profilePicture,
       });
 
       res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: process.env.MAX_AGE_ACCESS_TOKEN });
@@ -122,12 +120,12 @@ export class AuthController {
   })
   @ApiResponse({ status: 200, description: 'Successful operation' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getProviderId(@Req() req: Request, @Res() res: Response): Promise<void> {
+  async getUserData(@Req() req: Request, @Res() res: Response): Promise<void> {
     try {
       const encryptedToken = req.cookies.access_token;
-      const userData = await this.authService.getProviderId(encryptedToken);
+      const userData = await this.authService.getUserData(encryptedToken);
 
-      res.json({ provider_id: userData });
+      res.json(userData);
     } catch (error) {
       throw new UnauthorizedException('Failed to get user profile');
     }
