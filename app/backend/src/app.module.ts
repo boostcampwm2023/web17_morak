@@ -4,14 +4,15 @@ import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { MemberModule } from './member/member.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { getSecret } from 'vault';
 
 @Module({
   imports: [
     CacheModule.register({
       isGlobal: true,
       store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
+      host: getSecret('REDIS_HOST'),
+      port: getSecret('REDIS_PORT'),
     }),
     AuthModule,
     MemberModule,

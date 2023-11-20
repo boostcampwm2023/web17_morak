@@ -1,0 +1,54 @@
+name: All Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend_changed: ${{ steps.filter_backend.outputs.backend_changed }}
+      frontend_changed: ${{ steps.filter_frontend.outputs.frontend_changed }}
+      other_changed: ${{ steps.filter_other.outputs.other_changed }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # 모든 히스토리와 태그를 가져오도록 설정합니다.
+      - id: filter_backend
+        run: |
+          BACKEND_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -q 'app/backend/' && echo true || echo false)
+          echo "backend_changed=$BACKEND_CHANGED" >> $GITHUB_OUTPUT
+      - id: filter_frontend
+        run: |
+          FRONTEND_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -q 'app/frontend/' && echo true || echo false)
+          echo "frontend_changed=$FRONTEND_CHANGED" >> $GITHUB_OUTPUT
+      - id: filter_other
+        run: |
+          OTHER_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -qvE 'app/(backend|frontend)/' && echo true || echo false)
+          echo "other_changed=$OTHER_CHANGED" >> $GITHUB_OUTPUT
+  trigger-backend-deploy:
+    if: ${{ needs.check-changes.outputs.backend_changed == 'true' || needs.check-changes.outputs.other_changed == 'true' }}
+    needs: check-changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deploy Backend Workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy-backend.yml/dispatches \
+            -d '{"ref":"develop"}';
+  trigger-frontend-deploy:
+    if: ${{ needs.check-changes.outputs.frontend_changed == 'true' || needs.check-changes.outputs.other_changed == 'true' }}
+    needs: check-changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deploy Frontend Workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy-frontend.yml/dispatches \
+            -d '{"ref":"develop"}';

@@ -1,0 +1,41 @@
+name: Deploy on Frontend Development Branch Changes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Configure Docker to Use Non-HTTPS Registry
+      run: |
+        echo '{ "insecure-registries" : ["${{ secrets.DOCKER_REGISTRY }}"] }' | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker
+    
+    - name: Check Docker Daemon Configuration
+      run: cat /etc/docker/daemon.json
+    
+    - name: Build Docker Image
+      run: |
+        docker build -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile .
+    - name: Push Docker Image to Registry
+      run: |
+        docker push ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }}
+    
+    - name: Set up SSH key
+      run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to Server
+      run: |
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd morak/frontend
+            ./deploy.sh ${{ github.sha }}
+          "

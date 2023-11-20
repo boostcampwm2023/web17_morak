@@ -3,6 +3,7 @@ import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Payload, Tokens } from './interface';
+import { getSecret } from 'vault';
 
 @Injectable()
 export class AuthService {
@@ -24,13 +25,13 @@ export class AuthService {
 
   generateJwt(payload: Payload): Tokens {
     const accessToken = this.jwtService.sign(payload, {
-      expiresIn: process.env.MAX_AGE_ACCESS_TOKEN,
-      secret: process.env.JWT_ACCESS_SECRET,
+      expiresIn: getSecret('MAX_AGE_ACCESS_TOKEN'),
+      secret: getSecret('MAX_AGE_ACCESS_TOKEN'),
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: process.env.MAX_AGE_REFRESH_TOKEN,
-      secret: process.env.JWT_REFRESH_SECRET,
+      expiresIn: getSecret('MAX_AGE_REFRESH_TOKEN'),
+      secret: getSecret('JWT_REFRESH_SECRET'),
     });
 
     return { access_token: accessToken, refresh_token: refreshToken };
@@ -55,7 +56,7 @@ export class AuthService {
 
   async refresh(refreshToken: string): Promise<string> {
     try {
-      const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: process.env.JWT_REFRESH_SECRET });
+      const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: getSecret('JWT_REFRESH_SECRET') });
       const { provider_id, social_type } = decodedRefreshToken;
 
       const token = this.generateJwt({ providerId: provider_id, socialType: social_type });
