@@ -3,8 +3,8 @@ import { Button } from '../Button';
 
 type FooterProps = {
   buttonType: 'single' | 'double';
-  confirmButtonText?: string;
-  cancelButtonText?: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
   onClickConfirm: () => void;
 };
 
