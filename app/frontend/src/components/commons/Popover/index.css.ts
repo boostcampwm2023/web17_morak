@@ -9,14 +9,25 @@ const center = style({});
 export { center, left, right };
 
 export const container = style({
-  position: 'relative',
+  position: 'absolute',
   padding: '0.8rem',
   width: 'fit-content',
+  top: '0.8rem',
   borderRadius: '8px',
   background: vars.color.grayscaleWhite,
   boxShadow: '0px 0px 8px 0px rgba(0 0 0 / 0.25)',
 
   selectors: {
+    [`${left}&`]: {
+      left: '0.4rem',
+    },
+    [`${center}&`]: {
+      left: '50%',
+      transform: 'translate(-50%)',
+    },
+    [`${right}&`]: {
+      right: '0.4rem',
+    },
     '&:before': {
       position: 'absolute',
       top: '-1.2rem',
