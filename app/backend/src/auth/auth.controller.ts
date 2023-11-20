@@ -58,6 +58,12 @@ export class AuthController {
           type: 'string',
         },
       },
+      Authorization: {
+        description: 'Bearer token for authorization',
+        schema: {
+          type: 'string',
+        },
+      },
     },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -73,6 +79,8 @@ export class AuthController {
         social_type: socialType,
         profilePicture,
       });
+
+      res.setHeader('Authorization', 'Bearer ' + [tokens.access_token, tokens.refresh_token]);
 
       res.cookie('access_token', tokens.access_token, { httpOnly: false, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
       res.cookie('refresh_token', tokens.refresh_token, {
