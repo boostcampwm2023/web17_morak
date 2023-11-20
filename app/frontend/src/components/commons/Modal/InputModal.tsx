@@ -18,19 +18,22 @@ export function InputModal({
   onClickConfirm,
 }: InputModalProps) {
   return (
-    <dialog className={styles.container}>
-      <div className={styles.inputArea}>
-        <div className={sansRegular16}>{description}</div>
-        <Input maxLength={10} />
-      </div>
-      <div className={styles.buttonArea}>
-        <Button type="button" theme="primary" shape="fill" size="large" fullWidth onClick={onClickConfirm}>
-          {confirmButtonText}
-        </Button>
-        <Button type="button" theme="primary" shape="line" size="large" fullWidth>
-          {cancelButtonText}
-        </Button>
-      </div>
-    </dialog>
+    <>
+      <div className={styles.background} />
+      <dialog className={styles.container}>
+        <div className={styles.inputArea}>
+          <div className={sansRegular16}>{description}</div>
+          <Input maxLength={10} />
+        </div>
+        <div className={styles.buttonArea}>
+          <Button type="button" theme="primary" shape="fill" size="large" fullWidth onClick={onClickConfirm}>
+            {confirmButtonText}
+          </Button>
+          <Button type="button" theme="primary" shape="line" size="large" fullWidth>
+            {cancelButtonText}
+          </Button>
+        </div>
+      </dialog>
+    </>
   );
 }
