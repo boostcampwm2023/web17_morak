@@ -59,6 +59,7 @@ export { isMine };
 
 export const profileImage = style({
   display: 'flex',
+  flexShrink: 0,
   width: '2.4rem',
   height: '2.4rem',
   borderRadius: '50%',
@@ -69,7 +70,10 @@ export const userInfo = style([
   sansRegular12,
   {
     display: 'flex',
-    gap: '0.4rem',
     alignItems: 'center',
+    flexShrink: 0,
+    gap: '0.4rem',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
   },
 ]);

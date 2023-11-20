@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { Talk } from '@/types';
 
 import * as styles from './TalkItem.css';
-import { TalkItemHeader } from './TalkItemHeader';
+import { UserInfo } from './UserInfo';
 
 type TalkItemProps = {
   talk: Talk;
@@ -20,7 +20,7 @@ export function TalkItem({
 }: TalkItemProps) {
   return (
     <div className={styles.container}>
-      {!isMine && <TalkItemHeader username={username} profileSrc={profileSrc} />}
+      {!isMine && <UserInfo username={username} profileSrc={profileSrc} />}
       <div className={`${styles.content} ${isMine && styles.isMine}`}>{content}</div>
       <div className={`${styles.datetime} ${isMine && styles.isMine}`}>{dayjs(datetime).format('MM.DD h:mm A')}</div>
     </div>

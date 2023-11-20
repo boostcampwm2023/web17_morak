@@ -16,6 +16,7 @@ export type Talk = {
 };
 
 export type User = {
+  id: string;
   username: string;
   profileSrc: string;
 };

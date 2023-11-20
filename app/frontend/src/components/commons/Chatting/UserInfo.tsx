@@ -3,12 +3,12 @@ import { vars } from '@/styles';
 
 import * as styles from './TalkItem.css';
 
-type TalkItemHeaderProps = {
+type UserInfoProps = {
   username: string;
   profileSrc?: string;
 };
 
-export function TalkItemHeader({ username, profileSrc }: TalkItemHeaderProps) {
+export function UserInfo({ username, profileSrc }: UserInfoProps) {
   return (
     <div className={styles.userInfo}>
       <div className={`${styles.profileImage} ${!profileSrc && styles.defaultProfileImage}`}>

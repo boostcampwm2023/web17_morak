@@ -39,8 +39,13 @@ export const participants = style([
     display: 'flex',
     alignItems: 'center',
     gap: '0.4rem',
+    position: 'relative',
   },
 ]);
+
+export const popover = style({
+  top: '3rem',
+});
 
 export const submitButton = style([
   sansBold14,
@@ -72,3 +77,13 @@ export const title = style([
     textOverflow: 'ellipsis',
   },
 ]);
+
+export const userList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  gap: '0.8rem',
+  maxWidth: '15rem',
+  maxHeight: '30rem',
+  overflowY: 'scroll',
+});
