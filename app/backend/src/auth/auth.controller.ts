@@ -58,6 +58,12 @@ export class AuthController {
           type: 'string',
         },
       },
+      Authorization: {
+        description: 'Bearer token for authorization',
+        schema: {
+          type: 'string',
+        },
+      },
     },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -74,8 +80,13 @@ export class AuthController {
         profilePicture,
       });
 
-      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
-      res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_REFRESH_TOKEN') });
+      res.setHeader('Authorization', 'Bearer ' + [tokens.access_token, tokens.refresh_token]);
+
+      res.cookie('access_token', tokens.access_token, { httpOnly: false, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
+      res.cookie('refresh_token', tokens.refresh_token, {
+        httpOnly: false,
+        maxAge: getSecret('MAX_AGE_REFRESH_TOKEN'),
+      });
 
       res.redirect(getSecret(`AUTH_REDIRECT_URL`));
     } catch (error) {
@@ -108,12 +119,15 @@ export class AuthController {
       const newAccessToken = await this.authService.refresh(cookieRefreshToken);
 
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
-      res.cookie('access_token', newAccessToken, { httpOnly: true, maxAge: Number(getSecret('MAX_AGE_ACCESS_TOKEN')) });
+      res.cookie('access_token', newAccessToken, {
+        httpOnly: false,
+        maxAge: Number(getSecret('MAX_AGE_ACCESS_TOKEN')),
+      });
 
       res.json({ newAccessToken });
     } catch (err) {
-      res.clearCookie('access_token', { httpOnly: true });
-      res.clearCookie('refresh_token', { httpOnly: true });
+      res.clearCookie('access_token', { httpOnly: false });
+      res.clearCookie('refresh_token', { httpOnly: false });
       throw new UnauthorizedException('Failed to refresh token');
     }
   }
@@ -136,8 +150,8 @@ export class AuthController {
       const { providerId } = body;
       await this.authService.logout(providerId);
 
-      res.clearCookie('access_token', { httpOnly: true });
-      res.clearCookie('refresh_token', { httpOnly: true });
+      res.clearCookie('access_token', { httpOnly: false });
+      res.clearCookie('refresh_token', { httpOnly: false });
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');
