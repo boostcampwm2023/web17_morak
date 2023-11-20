@@ -24,7 +24,7 @@ export function Input({
   return (
     <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
       <div className={styles.titleWrapper}>
-        <span className={styles.label}>
+        <span className={`${styles.label} ${!label && styles.hide}`}>
           {label}
           {required && <span className={styles.required}>*</span>}
         </span>

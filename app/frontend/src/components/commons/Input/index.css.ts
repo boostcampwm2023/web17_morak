@@ -32,6 +32,8 @@ export const errorMessage = style([
   },
 ]);
 
+export const hide = style({});
+
 export const input = style([
   fontStyle.sansRegular12,
   {
@@ -59,7 +61,6 @@ export const input = style([
     },
   },
 ]);
-
 export const label = style([
   fontStyle.sansRegular12,
   {
@@ -67,6 +68,9 @@ export const label = style([
     selectors: {
       [`${disabled} &`]: {
         color: vars.color.grayscale200,
+      },
+      [`${hide} &`]: {
+        visibility: 'hidden',
       },
     },
   },
@@ -82,5 +86,6 @@ export const titleWrapper = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
+  minHeight: '1.2rem',
   marginBottom: '0.4rem',
 });
