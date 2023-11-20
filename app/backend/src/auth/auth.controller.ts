@@ -10,7 +10,15 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
 import { RtGuard } from './guards/rt.guard';
@@ -39,7 +47,18 @@ export class AuthController {
     summary: 'Google OAuth 콜백 처리',
     description: '로그인을 진행하여 Access, Refresh Token 발급',
   })
-  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiCreatedResponse({
+    status: 201,
+    description: 'Google login callback successful',
+    headers: {
+      'Set-Cookie': {
+        description: 'Access and refresh tokens in cookies',
+        schema: {
+          type: 'string',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async googleLoginCallback(@Req() req, @Res() res): Promise<void> {
     try {
@@ -69,7 +88,18 @@ export class AuthController {
     summary: 'Refresh Token을 이용하여 Access Token 재갱신',
     description: 'cookie에 있는 Refresh Token을 이용해서 새로운 Access Token을 반환',
   })
-  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @ApiCreatedResponse({
+    status: 201,
+    description: 'AccessToken Reissue successful',
+    headers: {
+      'Set-Cookie': {
+        description: 'new AccessToken in cookies',
+        schema: {
+          type: 'string',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<void> {
     try {
