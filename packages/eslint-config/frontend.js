@@ -58,6 +58,5 @@ module.exports = {
     'react/require-default-props': 'off',
     'sort-exports/sort-exports': ['error', { sortDir: 'asc' }],
     'import/extensions': 'off',
-    'react/jsx-props-no-spreading': 'off',
   },
 };
