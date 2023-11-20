@@ -1,10 +1,12 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars } from '@styles';
+import { vars } from '@/styles';
 
-export const left = style({});
-export const center = style({});
-export const right = style({});
+const left = style({});
+const right = style({});
+const center = style({});
+
+export { center, left, right };
 
 export const container = style({
   position: 'relative',
