@@ -5,7 +5,6 @@ import { vars, fontStyle } from '@/styles';
 export const container = style([
   fontStyle.sansRegular12,
   {
-    margin: '2rem auto',
     display: 'flex',
     padding: '2rem',
     width: '73.5rem',
