@@ -1,1 +1,1 @@
-// export * from "";
+export { Main } from './Main';

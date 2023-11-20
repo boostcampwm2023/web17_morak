@@ -7,6 +7,7 @@ export const button = recipe({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: '1rem',
     fontFamily: vars.font.family.pretendard,
     fontWeight: vars.font.weight.semibold,
     border: '1px solid transparent',
