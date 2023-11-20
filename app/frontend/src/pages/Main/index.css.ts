@@ -39,7 +39,7 @@ export const text = style([
   {
     color: vars.color.grayscale400,
     textAlign: 'right',
-    lineHeight: 'normal',
+    lineHeight: '3.5rem',
   },
 ]);
 
