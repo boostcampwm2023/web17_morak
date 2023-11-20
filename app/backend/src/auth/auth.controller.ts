@@ -77,7 +77,7 @@ export class AuthController {
       res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
       res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_REFRESH_TOKEN') });
 
-      res.redirect(process.env.AUTH_REDIRECT_URL);
+      res.redirect(getSecret(`AUTH_REDIRECT_URL`));
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
