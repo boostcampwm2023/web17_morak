@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold14, sansBold24, sansRegular12, sansRegular16 } from '@/styles/font.css';
+import { sansBold14, sansBold24, sansRegular14, sansRegular16 } from '@/styles/font.css';
 
 export const chatList = style({
   display: 'flex',
@@ -54,7 +54,7 @@ export const submitButton = style([
 ]);
 
 export const textarea = style([
-  sansRegular12,
+  sansRegular14,
   {
     border: `1px solid ${vars.color.grayscale200}`,
     borderRadius: '0.4rem',
