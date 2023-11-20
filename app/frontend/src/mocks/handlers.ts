@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
+  // member
   http.get('/member/me', () =>
     HttpResponse.json({
       providerId: '1234',
