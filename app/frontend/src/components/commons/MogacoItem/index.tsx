@@ -19,7 +19,7 @@ type MogacoProps = {
   date: string;
 };
 
-export function MogacoList({
+export function MogacoItem({
   id,
   disabled = false,
   title,
