@@ -1,4 +1,4 @@
-import { vars } from '@styles';
+import { vars } from '@/styles';
 
 import * as styles from './index.css';
 
