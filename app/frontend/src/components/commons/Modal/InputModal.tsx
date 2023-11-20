@@ -1,7 +1,7 @@
-import { Button } from '@/components/commons/Button';
 import { Input } from '@/components/commons/Input';
 import { sansRegular16 } from '@/styles/font.css';
 
+import { Footer } from './Footer';
 import * as styles from './index.css';
 
 type InputModalProps = {
@@ -25,14 +25,12 @@ export function InputModal({
           <div className={sansRegular16}>{description}</div>
           <Input maxLength={10} />
         </div>
-        <div className={styles.buttonArea}>
-          <Button type="button" theme="primary" shape="fill" size="large" fullWidth onClick={onClickConfirm}>
-            {confirmButtonText}
-          </Button>
-          <Button type="button" theme="primary" shape="line" size="large" fullWidth>
-            {cancelButtonText}
-          </Button>
-        </div>
+        <Footer
+          buttonType="double"
+          confirmButtonText={confirmButtonText}
+          cancelButtonText={cancelButtonText}
+          onClickConfirm={onClickConfirm}
+        />
       </dialog>
     </>
   );

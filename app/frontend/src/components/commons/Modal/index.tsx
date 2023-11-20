@@ -1,7 +1,7 @@
 import { sansBold24, sansRegular16 } from '@/styles/font.css';
 
+import { Footer } from './Footer';
 import * as styles from './index.css';
-import { Button } from '../Button';
 
 type ModalProps = {
   title: string;
@@ -28,23 +28,12 @@ export function Modal({
           <div className={sansBold24}>{title}</div>
           {content && <div className={sansRegular16}>{content}</div>}
         </div>
-        <div className={styles.buttonArea}>
-          <Button
-            type="button"
-            theme="primary"
-            shape="fill"
-            size="large"
-            fullWidth
-            onClick={buttonType === 'double' ? onClickConfirm : undefined}
-          >
-            {confirmButtonText}
-          </Button>
-          {buttonType === 'double' && (
-            <Button type="button" theme="primary" shape="line" size="large" fullWidth>
-              {cancelButtonText}
-            </Button>
-          )}
-        </div>
+        <Footer
+          buttonType={buttonType}
+          confirmButtonText={confirmButtonText}
+          cancelButtonText={cancelButtonText}
+          onClickConfirm={onClickConfirm}
+        />
       </dialog>
     </>
   );
