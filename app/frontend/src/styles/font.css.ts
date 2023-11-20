@@ -24,6 +24,13 @@ export const poppinsBold30 = style([
   },
 ]);
 
+export const poppinsBold96 = style([
+  poppinsBold,
+  {
+    fontSize: '9.6rem',
+  },
+]);
+
 export const sansBold12 = style([
   sansBold,
   {
@@ -56,13 +63,6 @@ export const sansBold24 = style([
   sansBold,
   {
     fontSize: '2.4rem',
-  },
-]);
-
-export const sansBold96 = style([
-  sansBold,
-  {
-    fontSize: '9.6rem',
   },
 ]);
 

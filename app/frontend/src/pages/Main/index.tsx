@@ -1,4 +1,4 @@
-import { ReactComponent as Google } from '@/assets/icons/google.svg';
+import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import { Button } from '@/components';
 import { MAIN_IMAGE } from '@/constants';
 
@@ -9,14 +9,18 @@ export function Main() {
     <div className={styles.container}>
       <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
       <div className={styles.textArea}>
-        <div className={styles.title}>Morak</div>
+        <div className={styles.title}>morak</div>
         <div className={styles.text}>
-          모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코
+          함께라서 더 빛나는 코드의 세계
+          <br />
+          모락과 함께하세요
         </div>
-        <Button type="button" theme="primary" shape="line" size="large" onClick={() => {}}>
-          <Google />
-          Google로 시작하기
-        </Button>
+        <div className={styles.login}>
+          <Button type="button" theme="primary" shape="line" size="large" onClick={() => {}}>
+            <GoogleIcon />
+            Google로 시작하기
+          </Button>
+        </div>
       </div>
     </div>
   );

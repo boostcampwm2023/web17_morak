@@ -12,20 +12,11 @@ export const container = style({
   background: vars.color.grayscaleWhite,
 });
 
-export const login = style([
-  fontStyle.sansBold16,
-  {
-    display: 'flex',
-    padding: '0.8rem 3.6rem',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '1rem',
-    borderRadius: '0.8rem',
-    color: vars.color.morakGreen,
-    border: `1px solid ${vars.color.morakGreen}`,
-    background: vars.color.grayscale50,
-  },
-]);
+export const login = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 export const mainImage = style({
   width: '69.7rem',
@@ -47,20 +38,17 @@ export const textArea = style({
   position: 'absolute',
   right: '0',
   display: 'flex',
-  width: '49.6rem',
   flexDirection: 'column',
   alignItems: 'flex-end',
   gap: '1.2rem',
 });
 
 export const title = style([
-  fontStyle.sansBold96,
+  fontStyle.poppinsBold96,
   {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
-    width: '31.5rem',
-    height: '7rem',
+    textAlign: 'center',
     color: vars.color.morakGreen,
   },
 ]);
