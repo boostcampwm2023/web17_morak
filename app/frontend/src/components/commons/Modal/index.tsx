@@ -21,28 +21,31 @@ export function Modal({
   onClickConfirm,
 }: ModalProps) {
   return (
-    <dialog className={styles.container}>
-      <div className={styles.textArea}>
-        <div className={sansBold24}>{title}</div>
-        {content && <div className={sansRegular16}>{content}</div>}
-      </div>
-      <div className={styles.buttonArea}>
-        <Button
-          type="button"
-          theme="primary"
-          shape="fill"
-          size="large"
-          fullWidth
-          onClick={buttonType === 'double' ? onClickConfirm : undefined}
-        >
-          {confirmButtonText}
-        </Button>
-        {buttonType === 'double' && (
-          <Button type="button" theme="primary" shape="line" size="large" fullWidth>
-            {cancelButtonText}
+    <>
+      <div className={styles.background} />
+      <dialog className={styles.container}>
+        <div className={styles.textArea}>
+          <div className={sansBold24}>{title}</div>
+          {content && <div className={sansRegular16}>{content}</div>}
+        </div>
+        <div className={styles.buttonArea}>
+          <Button
+            type="button"
+            theme="primary"
+            shape="fill"
+            size="large"
+            fullWidth
+            onClick={buttonType === 'double' ? onClickConfirm : undefined}
+          >
+            {confirmButtonText}
           </Button>
-        )}
-      </div>
-    </dialog>
+          {buttonType === 'double' && (
+            <Button type="button" theme="primary" shape="line" size="large" fullWidth>
+              {cancelButtonText}
+            </Button>
+          )}
+        </div>
+      </dialog>
+    </>
   );
 }
