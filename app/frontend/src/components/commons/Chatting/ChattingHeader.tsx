@@ -1,5 +1,4 @@
-import { ReactComponent as People } from '@assets/icons/people.svg';
-
+import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { vars } from '@/styles';
 import { User } from '@/types';
 

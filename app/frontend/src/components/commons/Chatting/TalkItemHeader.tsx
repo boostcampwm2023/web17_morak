@@ -1,5 +1,4 @@
-import { ReactComponent as Profile } from '@assets/icons/profile.svg';
-
+import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
 import { vars } from '@/styles';
 
 import * as styles from './TalkItem.css';
