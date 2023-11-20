@@ -1,4 +1,5 @@
 import { ReactComponent as Google } from '@/assets/icons/google.svg';
+import { Button } from '@/components';
 import { MAIN_IMAGE } from '@/constants';
 
 import * as styles from './index.css';
@@ -12,10 +13,10 @@ export function Main() {
         <div className={styles.text}>
           모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코 모락모락 모각코
         </div>
-        <button type="button" className={styles.login}>
+        <Button type="button" theme="primary" shape="line" size="large" onClick={() => {}}>
           <Google />
           Google로 시작하기
-        </button>
+        </Button>
       </div>
     </div>
   );
