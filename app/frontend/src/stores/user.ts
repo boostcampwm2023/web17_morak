@@ -1,6 +1,6 @@
 import { atom, useAtom } from 'jotai';
 
-import { User } from '@/types';
+import { UserInfo } from '@/types';
 
-const userStore = atom<User | null>(null);
+const userStore = atom<UserInfo | null>(null);
 export const useUserAtom = () => useAtom(userStore);

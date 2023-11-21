@@ -1,6 +1,6 @@
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { vars } from '@/styles';
-import { User } from '@/types';
+import { ChatUser } from '@/types';
 
 import * as styles from './index.css';
 import { UserInfo } from './UserInfo';
@@ -8,7 +8,7 @@ import { Popover } from '../Popover';
 
 type ChattingHeaderProps = {
   title: string;
-  participants: User[];
+  participants: ChatUser[];
 };
 
 export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
