@@ -10,9 +10,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model  Member {
-  id    Int      @id @default(autoincrement())
-  provider_id String @unique
-  social_type String
-  created_at DateTime @default(now())
+model Member {
+  id           BigInt     @id @default(autoincrement()) @db.BigInt
+  provider_id  String     @unique @db.VarChar(191)
+  created_at   DateTime   @default(now())
+  social_type  String     @db.VarChar(191)
+  users GroupToUser[]
+  members Participant[]
+  
+  @@map("Member")
+}
+
+model Mogaco {
+  id               BigInt     @id @default(autoincrement()) @db.BigInt
+  group_id         BigInt     @db.BigInt
+  title            String     @db.VarChar(191)
+  contents         String     @db.VarChar(191)
+  date             DateTime   @db.DateTime
+  max_human_count  Int        @default(1) @db.TinyInt
+  address          String     @db.VarChar(191)
+  status           String     @db.VarChar(191)
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt()
+  deleted_at       DateTime   @db.DateTime
+  mogacos Participant[]
+  
+  @@map("Mogaco")
+}
+
+model Group {
+  id     BigInt  @id @default(autoincrement()) @db.BigInt
+  title  String  @db.VarChar(191)
+  groups GroupToUser[]
+  
+  @@map("Group")
+}
+
+model GroupToUser {
+  group_id BigInt  @db.BigInt
+  user_id  BigInt  @db.BigInt
+
+  @@id([group_id, user_id])
+  @@map("GroupToUser")
+
+  group Group @relation(fields: [group_id], references: [id])
+  user  Member @relation(fields: [user_id], references: [id])
+}
+
+model Participant {
+  post_id BigInt  @db.BigInt
+  user_id  BigInt  @db.BigInt
+
+  @@id([post_id, user_id])
+  @@map("Participant")
+
+  mogaco Mogaco @relation(fields: [post_id], references: [id])
+  member Member @relation(fields: [user_id], references: [id])
 }
