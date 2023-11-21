@@ -8,6 +8,14 @@ type PopoverProps = {
   className?: string;
 };
 
-export function Popover({ children, type = 'center', className }: PopoverProps) {
-  return <div className={`${styles[type]} ${styles.container} ${className || ''}`}>{children}</div>;
+export function Popover({
+  children,
+  type = 'center',
+  className,
+}: PopoverProps) {
+  return (
+    <div className={`${styles[type]} ${styles.container} ${className || ''}`}>
+      {children}
+    </div>
+  );
 }

@@ -9,6 +9,15 @@ type LabelProps = {
   children: React.ReactNode;
 };
 
-export function Label({ theme, shape, disabled = false, children }: LabelProps) {
-  return <div className={`${container({ theme, shape, disabled })} ${sansBold12}`}>{children}</div>;
+export function Label({
+  theme,
+  shape,
+  disabled = false,
+  children,
+}: LabelProps) {
+  return (
+    <div className={`${container({ theme, shape, disabled })} ${sansBold12}`}>
+      {children}
+    </div>
+  );
 }

@@ -6,6 +6,8 @@ type NotificationItemProps = {
   notification: Notification;
 };
 
-export function NotificationItem({ notification: { content } }: NotificationItemProps) {
+export function NotificationItem({
+  notification: { content },
+}: NotificationItemProps) {
   return <div className={styles.container}>{content}</div>;
 }

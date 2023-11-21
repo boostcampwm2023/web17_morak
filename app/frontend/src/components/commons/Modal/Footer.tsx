@@ -9,7 +9,13 @@ type FooterProps = {
   onClickConfirm: () => void;
 };
 
-export function Footer({ buttonType, confirmButtonText, cancelButtonText, closeModal, onClickConfirm }: FooterProps) {
+export function Footer({
+  buttonType,
+  confirmButtonText,
+  cancelButtonText,
+  closeModal,
+  onClickConfirm,
+}: FooterProps) {
   const confirmModal = () => {
     onClickConfirm();
     closeModal();
@@ -28,7 +34,14 @@ export function Footer({ buttonType, confirmButtonText, cancelButtonText, closeM
         {confirmButtonText}
       </Button>
       {buttonType === 'double' && (
-        <Button type="button" theme="primary" shape="line" size="large" fullWidth onClick={closeModal}>
+        <Button
+          type="button"
+          theme="primary"
+          shape="line"
+          size="large"
+          fullWidth
+          onClick={closeModal}
+        >
           {cancelButtonText}
         </Button>
       )}

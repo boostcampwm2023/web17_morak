@@ -21,8 +21,12 @@ export function TalkItem({
   return (
     <div className={styles.container}>
       {!isMine && <UserInfo username={username} profileSrc={profileSrc} />}
-      <div className={`${styles.content} ${isMine && styles.isMine}`}>{content}</div>
-      <div className={`${styles.datetime} ${isMine && styles.isMine}`}>{dayjs(datetime).format('MM.DD h:mm A')}</div>
+      <div className={`${styles.content} ${isMine && styles.isMine}`}>
+        {content}
+      </div>
+      <div className={`${styles.datetime} ${isMine && styles.isMine}`}>
+        {dayjs(datetime).format('MM.DD h:mm A')}
+      </div>
     </div>
   );
 }

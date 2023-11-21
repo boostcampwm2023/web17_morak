@@ -14,7 +14,11 @@ export const chatList = style({
   overflowY: 'scroll',
 });
 
-export const container = style({ display: 'flex', flexDirection: 'column', width: '100%' });
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+});
 
 export const footer = style({
   display: 'flex',
