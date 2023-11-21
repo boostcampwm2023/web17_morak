@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-type User = {
-  providerId: string;
-  email: string;
-  nickname: string;
-  profilePicture: string;
-};
+import { User } from '@/types';
 
 export const getMyUserInfo = async () => {
-  const response = await axios.get<User>(`/member/me`);
-  return response.data;
+  try {
+    const response = await axios.get<User>(`/member/me`);
+    return response.data;
+  } catch (error) {
+    //
+  }
+  return undefined;
 };
