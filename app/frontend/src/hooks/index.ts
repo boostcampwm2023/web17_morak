@@ -1,2 +1,2 @@
-export * from './useGetMyUserInfo';
 export * from './useRouter';
+export * from './useSetUserInfo';
