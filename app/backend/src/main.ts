@@ -4,6 +4,7 @@ import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from '../libs/utils/swagger';
 import { getSecret, loadSecrets } from 'vault';
+import '../libs/utils/bigIntToJson';
 
 async function bootstrap() {
   await loadSecrets();
