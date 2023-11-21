@@ -1,4 +1,4 @@
-import { Chat, User } from '@/types';
+import { Chat, ChatUser } from '@/types';
 
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
@@ -7,7 +7,7 @@ import * as styles from './index.css';
 
 type ChattingProps = {
   title: string;
-  participants: User[];
+  participants: ChatUser[];
   chatItems: Chat[];
   currentUsername: string;
 };

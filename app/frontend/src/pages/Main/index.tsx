@@ -1,10 +1,16 @@
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import { Button } from '@/components';
 import { MAIN_IMAGE } from '@/constants';
+import { useUserAtom } from '@/stores';
 
 import * as styles from './index.css';
 
 export function Main() {
+  const onClickGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
+  };
+  const [user] = useUserAtom();
+
   return (
     <div className={styles.container}>
       <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
@@ -16,16 +22,18 @@ export function Main() {
           모락과 함께하세요
         </div>
         <div className={styles.login}>
-          <Button
-            type="button"
-            theme="primary"
-            shape="line"
-            size="large"
-            onClick={() => {}}
-          >
-            <GoogleIcon />
-            Google로 시작하기
-          </Button>
+          {!user && (
+            <Button
+              type="button"
+              theme="primary"
+              shape="line"
+              size="large"
+              onClick={onClickGoogleLogin}
+            >
+              <GoogleIcon />
+              Google로 시작하기
+            </Button>
+          )}
         </div>
       </div>
     </div>

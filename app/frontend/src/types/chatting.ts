@@ -1,5 +1,11 @@
 export type Chat = Talk | Notification;
 
+export type ChatUser = {
+  id: string;
+  username: string;
+  profileSrc: string;
+};
+
 export type Notification = {
   type: 'notification';
   id: string;
@@ -10,13 +16,7 @@ export type Notification = {
 export type Talk = {
   type: 'talk';
   id: string;
-  user: User;
+  user: ChatUser;
   content: string;
   datetime: Date;
-};
-
-export type User = {
-  id: string;
-  username: string;
-  profileSrc: string;
 };
