@@ -12,7 +12,7 @@ export const useSetUserInfo = () => {
       try {
         const accessToken = getCookies('access_token');
         if (!accessToken) {
-          return false;
+          return;
         }
 
         const userInfo = await member.myInfo();
@@ -23,7 +23,6 @@ export const useSetUserInfo = () => {
       } catch (error) {
         // console.error('Failed to decode access token:', error);
       }
-      return true;
     };
 
     if (!user) {
