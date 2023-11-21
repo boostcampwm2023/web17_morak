@@ -1,26 +1,22 @@
-import { HTMLInputTypeAttribute } from 'react';
+import * as styles from './Textarea.css';
 
-import * as styles from './index.css';
-
-type InputProps = {
-  label: string;
+type TextareaProps = {
+  label?: string;
   maxLength: number;
   placeholder?: string;
   errorMessage?: string;
-  type?: HTMLInputTypeAttribute;
   disabled?: boolean;
   required?: boolean;
 };
 
-export function Input({
+export function Textarea({
   label,
-  type = 'input',
   placeholder = '',
   errorMessage = '',
   disabled = false,
   maxLength,
   required = false,
-}: InputProps) {
+}: TextareaProps) {
   return (
     <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
       <div className={styles.titleWrapper}>
@@ -30,9 +26,8 @@ export function Input({
         </span>
         <span className={styles.count}>0/{maxLength}</span>
       </div>
-      <input
-        className={styles.input}
-        type={type}
+      <textarea
+        className={styles.textarea}
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
