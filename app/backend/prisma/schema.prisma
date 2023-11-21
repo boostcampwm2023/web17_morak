@@ -31,8 +31,8 @@ model Mogaco {
   address          String     @db.VarChar(191)
   status           String     @db.VarChar(191)
   created_at       DateTime   @default(now())
-  updated_at       DateTime   @updatedAt()
-  deleted_at       DateTime   @db.DateTime
+  updated_at       DateTime?   @updatedAt()
+  deleted_at       DateTime?   @db.DateTime
   mogacos Participant[]
   
   @@map("Mogaco")
