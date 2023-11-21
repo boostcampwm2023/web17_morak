@@ -4,20 +4,9 @@ import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Label } from '@/components';
+import { MogacoProps } from '@/types';
 
 import * as styles from './index.css';
-
-type MogacoProps = {
-  id: number;
-  disabled?: boolean;
-  title: string;
-  group: string;
-  detail: string;
-  people: number;
-  maxPeople: number;
-  location: string;
-  date: string;
-};
 
 export function MogacoItem({
   id,
