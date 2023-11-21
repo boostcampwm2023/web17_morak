@@ -3,10 +3,16 @@ import { style } from '@vanilla-extract/css';
 import { vars, fontStyle } from '@/styles';
 
 export const container = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  background: vars.color.grayscaleWhite,
   borderBottom: `1px solid ${vars.color.grayscale100}`,
+  zIndex: '999',
 });
 
 export const header = style({
