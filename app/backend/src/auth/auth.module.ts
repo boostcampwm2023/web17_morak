@@ -10,6 +10,6 @@ import { AtStrategy, GoogleStrategy, RtStrategy } from './strategies';
   imports: [JwtModule.register({})],
   controllers: [AuthController],
   providers: [AuthService, AuthRepository, PrismaService, GoogleStrategy, AtStrategy, RtStrategy],
-  exports: [AuthService],
+  exports: [AuthService, AtStrategy],
 })
 export class AuthModule {}
