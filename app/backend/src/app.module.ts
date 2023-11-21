@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { MemberModule } from './member/member.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { getSecret } from 'vault';
+import { MogacoModule } from './mogaco/mogaco.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { getSecret } from 'vault';
     }),
     AuthModule,
     MemberModule,
+    MogacoModule,
   ],
   controllers: [AppController],
   providers: [],
