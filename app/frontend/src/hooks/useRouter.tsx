@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Layout } from '@/components';
-import { Main } from '@/pages';
+import { Main, Mogaco } from '@/pages';
 
 export const useRouter = () =>
   createBrowserRouter([
@@ -12,7 +12,7 @@ export const useRouter = () =>
         { index: true, element: <Main /> },
         {
           path: 'mogaco',
-          element: <>모각코</>,
+          element: <Mogaco />,
         },
         {
           path: 'calendar',
