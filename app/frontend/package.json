@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "prettier": "prettier --write .",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0",
     "prepare": "cd ../.. && husky install app/frontend/.husky",
     "lint-front": "lint-staged"
   },
