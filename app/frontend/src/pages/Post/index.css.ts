@@ -39,12 +39,34 @@ export const infoItem = style({
   alignItems: 'center',
 });
 
+const shown = style({});
+
+export const participants = style({
+  display: 'none',
+  gap: '0.8rem',
+  overflowX: 'scroll',
+
+  selectors: {
+    [`${shown}&`]: {
+      display: 'flex',
+    },
+  },
+});
+
+export { shown };
+
 export const togglePeopleButton = style({
   display: 'flex',
   padding: 0,
   border: 'none',
   background: 'none',
   cursor: 'pointer',
+
+  selectors: {
+    [`${shown}&`]: {
+      transform: 'rotate(180deg)',
+    },
+  },
 });
 
 export const wrapper = style({

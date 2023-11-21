@@ -12,6 +12,7 @@ export const container = style([
     gap: '0.4rem',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+    lineHeight: 0,
   },
 ]);
 
