@@ -1,4 +1,4 @@
-import { ReactComponent as LeftArrow } from '@/assets/icons/leftArrow.svg';
+import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left_large.svg';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
@@ -18,7 +18,7 @@ export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
         className={styles.closeButton}
         onClick={toggleClosed}
       >
-        <LeftArrow
+        <ArrowLeft
           className={closed ? styles.flip : ''}
           fill={vars.color.grayscale200}
         />
