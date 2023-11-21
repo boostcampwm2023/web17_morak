@@ -17,6 +17,7 @@ model Member {
   social_type  String     @db.VarChar(191)
   users GroupToUser[]
   members Participant[]
+  mogacos Mogaco[]
   
   @@map("Member")
 }
@@ -24,6 +25,7 @@ model Member {
 model Mogaco {
   id               BigInt     @id @default(autoincrement()) @db.BigInt
   group_id         BigInt     @db.BigInt
+  memberId         BigInt     @db.BigInt
   title            String     @db.VarChar(191)
   contents         String     @db.VarChar(191)
   date             DateTime   @db.DateTime
@@ -36,6 +38,8 @@ model Mogaco {
   mogacos Participant[]
   
   @@map("Mogaco")
+
+  member Member @relation(fields: [memberId], references: [id])
 }
 
 model Group {
