@@ -3,8 +3,8 @@ import { vars } from '@/styles';
 import { ChatUser } from '@/types';
 
 import * as styles from './index.css';
-import { UserInfo } from './UserInfo';
 import { Popover } from '../Popover';
+import { UserChip } from '../UserChip';
 
 type ChattingHeaderProps = {
   title: string;
@@ -21,7 +21,7 @@ export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
         <Popover type="right" className={styles.popover}>
           <div className={styles.userList}>
             {participants.map(({ id, username, profileSrc }) => (
-              <UserInfo key={id} username={username} profileSrc={profileSrc} />
+              <UserChip key={id} username={username} profileSrc={profileSrc} />
             ))}
           </div>
         </Popover>

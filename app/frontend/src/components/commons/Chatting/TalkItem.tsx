@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { Talk } from '@/types';
 
 import * as styles from './TalkItem.css';
-import { UserInfo } from './UserInfo';
+import { UserChip } from '../UserChip';
 
 type TalkItemProps = {
   talk: Talk;
@@ -20,7 +20,7 @@ export function TalkItem({
 }: TalkItemProps) {
   return (
     <div className={styles.container}>
-      {!isMine && <UserInfo username={username} profileSrc={profileSrc} />}
+      {!isMine && <UserChip username={username} profileSrc={profileSrc} />}
       <div className={`${styles.content} ${isMine && styles.isMine}`}>
         {content}
       </div>
