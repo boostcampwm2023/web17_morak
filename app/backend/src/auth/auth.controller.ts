@@ -84,7 +84,7 @@ export class AuthController {
 
       res.cookie('access_token', tokens.access_token, { httpOnly: false, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
       res.cookie('refresh_token', tokens.refresh_token, {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: getSecret('MAX_AGE_REFRESH_TOKEN'),
       });
 

@@ -26,7 +26,7 @@ export class AuthService {
   generateJwt(payload: Payload): Tokens {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: getSecret('MAX_AGE_ACCESS_TOKEN'),
-      secret: getSecret('MAX_AGE_ACCESS_TOKEN'),
+      secret: getSecret('JWT_ACCESS_SECRET'),
     });
 
     const refreshToken = this.jwtService.sign(payload, {
