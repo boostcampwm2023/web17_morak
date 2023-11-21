@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { getMyUserInfo } from '@/services';
+import { member } from '@/services';
 import { useUserAtom } from '@/stores';
 import { getCookies } from '@/utils';
 
@@ -15,7 +15,7 @@ export const useSetUserInfo = () => {
           return false;
         }
 
-        const userInfo = await getMyUserInfo();
+        const userInfo = await member.myInfo();
 
         if (userInfo) {
           setUser({ ...userInfo });
