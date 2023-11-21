@@ -1,6 +1,11 @@
-import { IsDateString, IsNotEmpty } from 'class-validator';
+import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
+import { MogacoStatus } from './mogaco-status.enum';
 
 export class CreateMogacoDto {
+  @IsNotEmpty()
+  @IsInt()
+  group_id: number;
+
   @IsNotEmpty()
   title: string;
 
@@ -17,5 +22,7 @@ export class CreateMogacoDto {
   @IsNotEmpty()
   address: string;
 
-  status: string;
+  @IsOptional()
+  @IsEnum(MogacoStatus, { message: 'Invalid status' })
+  status?: string;
 }
