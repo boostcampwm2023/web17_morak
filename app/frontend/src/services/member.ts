@@ -1,6 +1,6 @@
-import axios from 'axios';
-
 import { User } from '@/types';
+
+import { morakAPI } from './morakAPI';
 
 export const member = {
   endPoint: {
@@ -8,7 +8,7 @@ export const member = {
   },
 
   myInfo: async () => {
-    const { data } = await axios.get<User>(member.endPoint.me);
+    const { data } = await morakAPI.get<User>(member.endPoint.me);
     return data;
   },
 };
