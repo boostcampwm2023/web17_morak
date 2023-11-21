@@ -3,8 +3,10 @@ import { style } from '@vanilla-extract/css';
 import { vars, fontStyle } from '@/styles';
 
 export const container = style({
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
+  left: 0,
+  right: 0,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
