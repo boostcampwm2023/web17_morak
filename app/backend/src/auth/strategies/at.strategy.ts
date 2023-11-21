@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Payload } from '../interface';
 import { getSecret } from 'vault';
+import { Member } from '@prisma/client';
+import { AuthRepository } from '../auth.repository';
 
 @Injectable()
 export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor() {
+  constructor(private authRepository: AuthRepository) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: getSecret('JWT_ACCESS_SECRET'),
@@ -14,6 +16,13 @@ export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: Payload) {
-    return payload;
+    const { providerId } = payload;
+    const member: Member = await this.authRepository.findUserByIdentifier(providerId);
+
+    if (!member) {
+      throw new UnauthorizedException();
+    }
+
+    return member;
   }
 }
