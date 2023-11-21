@@ -3,17 +3,21 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles';
 import { sansRegular16 } from '@/styles/font.css';
 
+export const buttons = style({
+  display: 'flex',
+  gap: '0.4rem',
+});
+
 export const container = style([
   sansRegular16,
   {
     display: 'flex',
     flexDirection: 'column',
     gap: '2.4rem',
-    width: '72rem',
+    width: '80rem',
     lineHeight: '1.6',
   },
 ]);
-
 export const header = style({
   display: 'flex',
   justifyContent: 'space-between',

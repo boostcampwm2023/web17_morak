@@ -1,4 +1,4 @@
-export * from './Mogaco';
+export * from './Post';
 export * from './commons/Button';
 export * from './commons/Chatting';
 export * from './commons/Header';
@@ -8,3 +8,4 @@ export * from './commons/Layout';
 export * from './commons/MogacoItem';
 export * from './commons/Popover';
 export * from './commons/Sidebar';
+export * from './commons/UserChip';

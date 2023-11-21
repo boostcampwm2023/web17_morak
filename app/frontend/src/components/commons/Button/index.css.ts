@@ -27,16 +27,19 @@ export const button = recipe({
     },
     size: {
       small: {
-        padding: '0.2rem 1.6rem',
+        padding: '0.2rem 0.4rem',
         fontSize: '1.4rem',
+        minWidth: '5.8rem',
       },
       medium: {
-        padding: '0.4rem 2.4rem',
+        padding: '0.4rem 0.8rem',
         fontSize: '1.4rem',
+        minWidth: '7.4rem',
       },
       large: {
-        padding: '0.8rem 3.6rem',
+        padding: '0.8rem 1.6rem',
         fontSize: '1.6rem',
+        minWidth: '10.2rem',
       },
     },
     disabled: {
