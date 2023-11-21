@@ -3,17 +3,17 @@ import { HTMLInputTypeAttribute } from 'react';
 import * as styles from './index.css';
 
 type InputProps = {
-  label: string;
-  maxLength: number;
+  label?: string;
   placeholder?: string;
   errorMessage?: string;
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
+  maxLength: number;
   required?: boolean;
 };
 
 export function Input({
-  label,
+  label = '',
   type = 'input',
   placeholder = '',
   errorMessage = '',

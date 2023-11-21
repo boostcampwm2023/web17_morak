@@ -11,11 +11,11 @@ export const container = style({
 export const count = style([
   fontStyle.sansRegular12,
   {
-    display: 'none',
+    visibility: 'hidden',
 
     selectors: {
       [`${container}:focus-within &`]: {
-        display: 'block',
+        visibility: 'visible',
       },
     },
   },
