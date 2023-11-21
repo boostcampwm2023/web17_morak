@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
 import { sansBold16, sansRegular16 } from '@/styles/font.css';
@@ -28,3 +28,11 @@ export const selected = style([
     },
   },
 ]);
+
+globalStyle(`${filter} span`, {
+  cursor: 'pointer',
+});
+
+globalStyle(`${filter} span:not(${selected})`, {
+  cursor: 'not-allowed',
+});
