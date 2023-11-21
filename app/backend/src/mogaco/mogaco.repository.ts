@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../libs/utils/prisma.service';
-import { Mogaco } from '@prisma/client';
+import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './dto/mogaco-status.enum';
 import { CreateMogacoDto, MogacoDto } from './dto';
 
@@ -33,7 +33,7 @@ export class MogacoRepository {
     };
   }
 
-  async createMogaco(createMogacoDto: CreateMogacoDto): Promise<Mogaco> {
+  async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     try {
       const { group_id, title, contents, max_human_count, address, date } = createMogacoDto;
 
@@ -46,6 +46,12 @@ export class MogacoRepository {
           address,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
+          member: {
+            connect: { id: Number(member.id) },
+          },
+        },
+        include: {
+          member: true,
         },
       });
 

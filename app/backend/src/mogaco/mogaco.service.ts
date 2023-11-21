@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MogacoRepository } from './mogaco.repository';
-import { Mogaco } from '@prisma/client';
+import { Member, Mogaco } from '@prisma/client';
 import { CreateMogacoDto, MogacoDto } from './dto';
 import { MogacoStatus } from './dto/mogaco-status.enum';
 
@@ -16,8 +16,8 @@ export class MogacoService {
     return this.mogacoRepository.getMogacoById(id);
   }
 
-  async createMogaco(createMogaco: CreateMogacoDto): Promise<Mogaco> {
-    return this.mogacoRepository.createMogaco(createMogaco);
+  async createMogaco(createMogaco: CreateMogacoDto, member: Member): Promise<Mogaco> {
+    return this.mogacoRepository.createMogaco(createMogaco, member);
   }
 
   async deleteMogaco(id: number): Promise<void> {

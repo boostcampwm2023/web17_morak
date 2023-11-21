@@ -1,11 +1,14 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { MogacoService } from './mogaco.service';
-import { Mogaco } from '@prisma/client';
+import { Member, Mogaco } from '@prisma/client';
 import { CreateMogacoDto, MogacoDto } from './dto';
 import { MogacoStatusValidationPipe } from './pipes/mogaco-status-validation.pipe';
 import { MogacoStatus } from './dto/mogaco-status.enum';
+import { AtGuard } from 'src/auth/guards/at.guard';
+import { GetUser } from 'libs/decorators/get-user.decorator';
 
 @Controller('mogaco')
+@UseGuards(AtGuard)
 export class MogacoController {
   constructor(private readonly mogacoService: MogacoService) {}
 
@@ -20,8 +23,8 @@ export class MogacoController {
   }
 
   @Post('/')
-  async createMogaco(@Body() createMogacoDto: CreateMogacoDto): Promise<Mogaco> {
-    return this.mogacoService.createMogaco(createMogacoDto);
+  async createMogaco(@Body() createMogacoDto: CreateMogacoDto, @GetUser() member: Member): Promise<Mogaco> {
+    return this.mogacoService.createMogaco(createMogacoDto, member);
   }
 
   @Delete('/:id')
