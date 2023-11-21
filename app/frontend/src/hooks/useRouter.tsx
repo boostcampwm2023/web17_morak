@@ -1,20 +1,15 @@
-import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-import { Header } from '@/components';
+import { Layout } from '@/components';
 import { Main, Auth } from '@/pages';
 
 export const useRouter = () =>
   createBrowserRouter([
     {
       path: '/',
-      element: (
-        <>
-          <Header />
-          <Outlet />
-        </>
-      ),
+      element: <Layout />,
       children: [
-        { path: '/', element: <Main /> },
+        { index: true, element: <Main /> },
         {
           path: 'mogaco',
           element: <>모각코</>,
