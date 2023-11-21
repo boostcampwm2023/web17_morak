@@ -1,1 +1,1 @@
-export const MAIN_IMAGE = '/src/assets/images/main.png';
+export const MAIN_IMAGE = 'assets/images/main.png';
