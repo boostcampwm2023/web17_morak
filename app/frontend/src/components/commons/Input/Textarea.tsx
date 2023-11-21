@@ -21,9 +21,9 @@ export function Textarea({
 }: TextareaProps) {
   return (
     <div
-      className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled} ${
-        fullWidth && styles.fullWidth
-      }`}
+      className={`${styles.container} ${errorMessage && styles.error} ${
+        disabled && styles.disabled
+      } ${fullWidth && styles.fullWidth}`}
     >
       <div className={styles.titleWrapper}>
         <span className={`${styles.label} ${!label && styles.hide}`}>
@@ -39,7 +39,9 @@ export function Textarea({
         maxLength={maxLength}
         required={required}
       />
-      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {!disabled && errorMessage && (
+        <p className={styles.errorMessage}>{errorMessage}</p>
+      )}
     </div>
   );
 }

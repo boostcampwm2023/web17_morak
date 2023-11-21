@@ -14,7 +14,11 @@ export function ChatList({ chatItems, currentUsername }: ChatListProps) {
     <ul className={styles.chatList}>
       {chatItems.map((chatItem) =>
         chatItem.type === 'talk' ? (
-          <TalkItem key={chatItem.id} talk={chatItem} isMine={chatItem.user.username === currentUsername} />
+          <TalkItem
+            key={chatItem.id}
+            talk={chatItem}
+            isMine={chatItem.user.username === currentUsername}
+          />
         ) : (
           <NotificationItem key={chatItem.id} notification={chatItem} />
         ),

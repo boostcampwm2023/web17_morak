@@ -16,7 +16,13 @@ export function Main() {
           모락과 함께하세요
         </div>
         <div className={styles.login}>
-          <Button type="button" theme="primary" shape="line" size="large" onClick={() => {}}>
+          <Button
+            type="button"
+            theme="primary"
+            shape="line"
+            size="large"
+            onClick={() => {}}
+          >
             <GoogleIcon />
             Google로 시작하기
           </Button>
