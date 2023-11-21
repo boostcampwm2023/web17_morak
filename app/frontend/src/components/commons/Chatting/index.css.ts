@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold14, sansBold24, sansRegular14, sansRegular16 } from '@/styles/font.css';
+import { sansBold24, sansRegular14, sansRegular16 } from '@/styles/font.css';
 
 export const chatList = style({
   display: 'flex',
@@ -18,9 +18,9 @@ export const container = style({ display: 'flex', flexDirection: 'column', width
 
 export const footer = style({
   display: 'flex',
-  alignItems: 'stretch',
+  alignItems: 'end',
   gap: '0.8rem',
-  padding: '2.4rem 1.6rem',
+  padding: '1rem 1.6rem 2.4rem',
   background: vars.color.grayscale50,
 });
 
@@ -54,16 +54,9 @@ export const popover = style({
   },
 });
 
-export const submitButton = style([
-  sansBold14,
-  {
-    border: 'none',
-    borderRadius: '0.8rem',
-    padding: '2.4rem',
-    color: vars.color.grayscaleWhite,
-    background: vars.color.morakGreen,
-  },
-]);
+export const submitButton = style({
+  height: '4.8rem',
+});
 
 export const textarea = style([
   sansRegular14,

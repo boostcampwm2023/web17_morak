@@ -9,6 +9,7 @@ type ButtonProps = {
   fullWidth?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
+  className?: string;
 };
 
 export function Button({
@@ -20,18 +21,19 @@ export function Button({
   fullWidth = false,
   onClick,
   children,
+  className,
 }: ButtonProps) {
   return (
     <button
       // eslint-disable-next-line react/button-has-type
       type={type}
-      className={styles.button({
+      className={`${styles.button({
         theme,
         shape,
         size,
         disabled,
         fullWidth,
-      })}
+      })} ${className || ''}`}
       onClick={onClick}
       disabled={disabled}
     >

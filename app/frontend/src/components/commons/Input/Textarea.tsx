@@ -7,6 +7,7 @@ type TextareaProps = {
   errorMessage?: string;
   disabled?: boolean;
   required?: boolean;
+  fullWidth?: boolean;
 };
 
 export function Textarea({
@@ -16,9 +17,14 @@ export function Textarea({
   disabled = false,
   maxLength,
   required = false,
+  fullWidth = false,
 }: TextareaProps) {
   return (
-    <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
+    <div
+      className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled} ${
+        fullWidth && styles.fullWidth
+      }`}
+    >
       <div className={styles.titleWrapper}>
         <span className={`${styles.label} ${!label && styles.hide}`}>
           {label}

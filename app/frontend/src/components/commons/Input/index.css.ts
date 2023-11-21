@@ -32,8 +32,11 @@ export const errorMessage = style([
   },
 ]);
 
-export const hide = style({});
+export const fullWidth = style({
+  flexGrow: 1,
+});
 
+export const hide = style({});
 export const input = style([
   fontStyle.sansRegular12,
   {
@@ -61,6 +64,7 @@ export const input = style([
     },
   },
 ]);
+
 export const label = style([
   fontStyle.sansRegular12,
   {
