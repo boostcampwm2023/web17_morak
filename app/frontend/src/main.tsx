@@ -1,4 +1,5 @@
 import React from 'react';
+import { CookiesProvider } from 'react-cookie';
 
 import ReactDOM from 'react-dom/client';
 
@@ -17,7 +18,9 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <App />
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
     </React.StrictMode>,
   );
 });
