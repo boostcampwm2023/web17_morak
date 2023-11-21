@@ -39,6 +39,14 @@ export const infoItem = style({
   alignItems: 'center',
 });
 
+export const map = style({
+  width: '32rem',
+  height: '20rem',
+  objectFit: 'cover',
+  borderRadius: '0.8rem',
+  imageRendering: 'crisp-edges',
+});
+
 const shown = style({});
 
 export const participants = style({
@@ -57,10 +65,11 @@ export { shown };
 
 export const togglePeopleButton = style({
   display: 'flex',
-  padding: 0,
+  padding: '0.25rem',
   border: 'none',
   background: 'none',
   cursor: 'pointer',
+  ':hover': { background: vars.color.grayscale50, borderRadius: '50%' },
 
   selectors: {
     [`${shown}&`]: {
@@ -73,4 +82,5 @@ export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  paddingTop: '8rem',
 });

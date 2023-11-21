@@ -6,6 +6,7 @@ import { ReactComponent as Map } from '@/assets/icons/map_large.svg';
 import { ReactComponent as People } from '@/assets/icons/people_large.svg';
 import { Button } from '@/components';
 import { UserChip } from '@/components/commons/UserChip';
+import { MAP_SAMPLE_IMAGE } from '@/constants';
 import { vars } from '@/styles';
 import { sansBold24 } from '@/styles/font.css';
 import { UserInfo } from '@/types';
@@ -87,6 +88,11 @@ export function Post() {
             <Map fill={vars.color.grayscale200} />
             <span>서울 관악구 남현3길 71 크레이저 커피</span>
           </div>
+          <img
+            src={MAP_SAMPLE_IMAGE}
+            alt="맵 샘플 이미지"
+            className={styles.map}
+          />
         </div>
         <div>
           사당역에서 부스트캠프 모락 팀이 모입니다 사당역에서 부스트캠프 모락
