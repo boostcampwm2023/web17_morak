@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 
 import { vars, fontStyle } from '@/styles';
 
@@ -63,17 +64,19 @@ export const info = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+  width: '100%',
   gap: '0.4rem',
 });
 
 export const infoContent = style({
   display: 'flex',
+  width: '100%',
   alignItems: 'center',
   gap: '0.4rem',
 });
 
 export const infoText = style({
-  width: '67.5rem',
+  width: calc.subtract('100%'),
   alignItems: 'center',
   gap: '0.4rem',
   overflow: 'hidden',
