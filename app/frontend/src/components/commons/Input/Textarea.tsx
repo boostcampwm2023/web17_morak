@@ -10,9 +10,8 @@ type TextareaProps = {
   disabled?: boolean;
   required?: boolean;
   fullWidth?: boolean;
+  rows: number;
 };
-
-const MIN_HEIGHT = '10rem';
 
 export function Textarea({
   label,
@@ -22,6 +21,7 @@ export function Textarea({
   maxLength,
   required = false,
   fullWidth = false,
+  rows,
 }: TextareaProps) {
   const [textCount, setTextCount] = useState<number>(0);
   const textRef = useRef<HTMLTextAreaElement | null>(null);
@@ -29,8 +29,6 @@ export function Textarea({
   const handleInput = () => {
     if (textRef && textRef.current) {
       setTextCount(textRef.current.value.length);
-      textRef.current.style.height = MIN_HEIGHT;
-      textRef.current.style.height = `${textRef.current.scrollHeight}px`;
     }
   };
 
@@ -50,6 +48,7 @@ export function Textarea({
         </span>
       </div>
       <textarea
+        rows={rows}
         ref={textRef}
         className={styles.textarea}
         placeholder={placeholder}

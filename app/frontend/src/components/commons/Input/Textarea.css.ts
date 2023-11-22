@@ -6,8 +6,6 @@ export * from './index.css';
 export const textarea = style([
   input,
   {
-    minHeight: '10rem',
     resize: 'none',
-    overflow: 'hidden',
   },
 ]);
