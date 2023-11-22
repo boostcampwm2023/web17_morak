@@ -7,6 +7,7 @@ export const container = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  padding: '1rem',
 });
 
 export const filter = style([
