@@ -7,7 +7,7 @@ export const container = style({
   flexDirection: 'column',
   gap: '24px',
   maxWidth: '75rem',
-  margin: '8rem auto 0',
+  margin: '0 auto',
   padding: '1.5rem',
 });
 
