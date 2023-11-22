@@ -4,15 +4,16 @@ import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
 
 type DetailHeaderProps = {
-  state: 'not-participated' | 'participated' | 'hosted';
+  title: string;
+  status: string;
 };
 
-export function DetailHeader({ state }: DetailHeaderProps) {
+export function DetailHeader({ title, status }: DetailHeaderProps) {
   return (
     <div className={styles.header}>
-      <div className={sansBold24}>모각코 함께 해요</div>
+      <div className={sansBold24}>{title}</div>
       <div className={styles.buttons}>
-        <DetailHeaderButtons state={state} />
+        <DetailHeaderButtons status={status} />
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import { Button } from '@/components';
 
 type DetailHeaderButtonsProps = {
-  state: 'not-participated' | 'participated' | 'hosted';
+  status: string;
 };
 
-export function DetailHeaderButtons({ state }: DetailHeaderButtonsProps) {
-  if (state === 'not-participated') {
+export function DetailHeaderButtons({ status }: DetailHeaderButtonsProps) {
+  if (status === '모집 중') {
     return (
       <Button theme="primary" shape="fill" size="large">
         참석하기
@@ -13,7 +13,7 @@ export function DetailHeaderButtons({ state }: DetailHeaderButtonsProps) {
     );
   }
 
-  if (state === 'participated') {
+  if (status === '마감') {
     return (
       <>
         <Button theme="primary" shape="fill" size="large">
@@ -26,7 +26,7 @@ export function DetailHeaderButtons({ state }: DetailHeaderButtonsProps) {
     );
   }
 
-  if (state === 'hosted') {
+  if (status === '종료') {
     return (
       <>
         <Button theme="primary" shape="line" size="large">

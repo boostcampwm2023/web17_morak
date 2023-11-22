@@ -7,12 +7,12 @@ import { ReactComponent as People } from '@/assets/icons/people_large.svg';
 import { UserChip } from '@/components';
 import { MAP_SAMPLE_IMAGE } from '@/constants';
 import { vars } from '@/styles';
-import { UserInfo } from '@/types';
+import { Participant } from '@/types';
 
 import * as styles from './index.css';
 
 type DetailInfoProps = {
-  participants: UserInfo[];
+  participants: Participant[];
   maxParticipantsNumber: number;
   datetime: string;
   location: string;
@@ -54,9 +54,9 @@ export function DetailInfo({
       >
         {participants.map((participant) => (
           <UserChip
-            key={participant.providerId}
+            key={participant.id}
             username={participant.nickname}
-            profileSrc={participant.profilePicture}
+            profileSrc={participant.profile}
           />
         ))}
       </div>
