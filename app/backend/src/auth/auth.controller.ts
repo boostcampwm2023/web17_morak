@@ -73,10 +73,10 @@ export class AuthController {
       const { providerId, socialType, name, email, profilePicture } = user;
 
       const tokens = await this.authService.handleLogin({
-        provider_id: providerId,
+        providerId,
         email,
         nickname: name,
-        social_type: socialType,
+        socialType,
         profilePicture,
       });
 
