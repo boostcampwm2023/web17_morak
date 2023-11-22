@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+
 import * as styles from './Textarea.css';
 
 type TextareaProps = {
@@ -8,6 +10,7 @@ type TextareaProps = {
   disabled?: boolean;
   required?: boolean;
   fullWidth?: boolean;
+  rows?: number;
 };
 
 export function Textarea({
@@ -18,7 +21,17 @@ export function Textarea({
   maxLength,
   required = false,
   fullWidth = false,
+  rows = 2,
 }: TextareaProps) {
+  const [textCount, setTextCount] = useState<number>(0);
+  const textRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleInput = () => {
+    if (textRef && textRef.current) {
+      setTextCount(textRef.current.value.length);
+    }
+  };
+
   return (
     <div
       className={`${styles.container} ${errorMessage && styles.error} ${
@@ -30,14 +43,19 @@ export function Textarea({
           {label}
           {required && <span className={styles.required}>*</span>}
         </span>
-        <span className={styles.count}>0/{maxLength}</span>
+        <span className={styles.count}>
+          {textCount}/{maxLength}
+        </span>
       </div>
       <textarea
+        rows={rows}
+        ref={textRef}
         className={styles.textarea}
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
         required={required}
+        onChange={handleInput}
       />
       {!disabled && errorMessage && (
         <p className={styles.errorMessage}>{errorMessage}</p>
