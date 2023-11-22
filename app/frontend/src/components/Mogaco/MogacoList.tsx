@@ -1,15 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { MogacoItem } from '@/components';
-import { mogaco } from '@/services';
+import { queryKeys } from '@/queries';
 
 import * as styles from './MogacoList.css';
 
 export function MogacoList() {
-  const { data: mogacoList } = useQuery({
-    queryKey: ['mogaco', 'list'],
-    queryFn: async () => mogaco.list(),
-  });
+  const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
 
   return (
     <div className={styles.container}>
