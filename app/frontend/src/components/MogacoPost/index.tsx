@@ -6,10 +6,10 @@ export function MogacoPostPage() {
   return (
     <form className={styles.container}>
       <div className={styles.formContent}>
-        <Input
-          label="제목"
+        <input
+          type="text"
+          className={styles.title}
           placeholder="모각코 함께해요"
-          maxLength={64}
           required
         />
       </div>
