@@ -1,11 +1,11 @@
+import dayjs from 'dayjs';
+
 import { Input, Button, Textarea } from '@/components';
 
 import * as styles from './index.css';
 
 export function MogacoPostPage() {
-  const today = new Date();
-  const offset = today.getTimezoneOffset() * 60000;
-  const date = new Date(today.getTime() - offset).toISOString().slice(0, 16);
+  const date = dayjs(new Date()).format('YYYY-MM-DD HH:mm');
 
   return (
     <form className={styles.container}>
