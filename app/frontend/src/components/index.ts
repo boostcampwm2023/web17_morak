@@ -1,3 +1,4 @@
+export * from './Mogaco';
 export * from './commons/Button';
 export * from './commons/Chatting';
 export * from './commons/Header';

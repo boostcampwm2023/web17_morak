@@ -7,8 +7,7 @@ export const container = style([
   {
     display: 'flex',
     padding: '2rem',
-    width: '73.5rem',
-    height: '19.6rem',
+    width: '100%',
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: '1.2rem',
@@ -31,12 +30,13 @@ export const content = style([
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: '0.8rem',
+    width: '100%',
     color: vars.color.grayscaleBlack,
   },
 ]);
 
 export const detail = style({
-  width: '69.5rem',
+  width: '100%',
   height: '3.5rem',
   lineHeight: '1.8rem',
   display: '-webkit-box',
@@ -63,17 +63,19 @@ export const info = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+  width: '100%',
   gap: '0.4rem',
 });
 
 export const infoContent = style({
   display: 'flex',
+  width: '100%',
   alignItems: 'center',
   gap: '0.4rem',
 });
 
 export const infoText = style({
-  width: '67.5rem',
+  width: '100%',
   alignItems: 'center',
   gap: '0.4rem',
   overflow: 'hidden',
@@ -84,7 +86,6 @@ export const infoText = style({
 export const title = style([
   fontStyle.sansBold24,
   {
-    width: '42.3rem',
     color: vars.color.grayscaleBlack,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -96,4 +97,5 @@ export const titleArea = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.4rem',
+  width: '100%',
 });
