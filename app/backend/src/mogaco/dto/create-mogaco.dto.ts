@@ -4,7 +4,7 @@ import { MogacoStatus } from './mogaco-status.enum';
 export class CreateMogacoDto {
   @IsNotEmpty()
   @IsInt()
-  group_id: number;
+  groupId: number;
 
   @IsNotEmpty()
   title: string;
@@ -17,7 +17,7 @@ export class CreateMogacoDto {
   date: string;
 
   @IsNotEmpty()
-  max_human_count: number;
+  maxHumanCount: number;
 
   @IsNotEmpty()
   address: string;

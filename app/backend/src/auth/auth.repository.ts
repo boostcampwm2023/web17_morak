@@ -16,26 +16,26 @@ export class AuthRepository {
   async saveUser(userDto: CreateUserDto): Promise<Member> {
     return this.prisma.member.create({
       data: {
-        provider_id: userDto.provider_id,
-        social_type: userDto.social_type,
+        providerId: userDto.providerId,
+        socialType: userDto.socialType,
       },
     });
   }
 
-  async findUserByIdentifier(provider_id: string): Promise<Member | null> {
+  async findUserByIdentifier(providerId: string): Promise<Member | null> {
     return this.prisma.member.findUnique({
       where: {
-        provider_id,
+        providerId,
       },
     });
   }
 
-  async addRefreshToken(provider_id: string, refreshToken: string): Promise<void> {
+  async addRefreshToken(providerId: string, refreshToken: string): Promise<void> {
     const REDIS_MAX_AGE_REFRESH_TOKEN: number = Number(getSecret('REDIS_MAX_AGE_REFRESH_TOKEN'));
-    await this.cacheManager.set(provider_id, refreshToken, { ttl: REDIS_MAX_AGE_REFRESH_TOKEN } as any);
+    await this.cacheManager.set(providerId, refreshToken, { ttl: REDIS_MAX_AGE_REFRESH_TOKEN } as any);
   }
 
-  async removeRefreshToken(provider_id: string): Promise<void> {
-    await this.cacheManager.del(provider_id);
+  async removeRefreshToken(providerId: string): Promise<void> {
+    await this.cacheManager.del(providerId);
   }
 }
