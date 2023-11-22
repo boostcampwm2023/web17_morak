@@ -1,10 +1,10 @@
 export class MogacoDto {
   id: bigint;
-  group_id: bigint;
+  groupId: bigint;
   title: string;
   contents: string;
   date: Date;
-  max_human_count: number;
+  maxHumanCount: number;
   address: string;
   status: string;
 }

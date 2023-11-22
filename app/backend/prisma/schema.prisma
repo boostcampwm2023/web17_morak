@@ -12,30 +12,35 @@ datasource db {
 
 model Member {
   id           BigInt     @id @default(autoincrement()) @db.BigInt
-  provider_id  String     @unique @db.VarChar(191)
-  created_at   DateTime   @default(now())
-  social_type  String     @db.VarChar(191)
+  providerId  String     @unique @db.VarChar(191) @map("provider_id")
+  email        String    @unique @db.VarChar(191)
+  socialType  String     @db.VarChar(191) @map("social_type")
+  createdAt   DateTime   @default(now()) @map("created_at")
   users GroupToUser[]
   members Participant[]
+  mogacos Mogaco[]
   
   @@map("Member")
 }
 
 model Mogaco {
   id               BigInt     @id @default(autoincrement()) @db.BigInt
-  group_id         BigInt     @db.BigInt
+  groupId         BigInt     @db.BigInt @map("group_id")
+  memberId         BigInt     @db.BigInt @map("member_id")
   title            String     @db.VarChar(191)
   contents         String     @db.VarChar(191)
   date             DateTime   @db.DateTime
-  max_human_count  Int        @default(1) @db.TinyInt
+  maxHumanCount  Int        @default(1) @db.TinyInt @map("max_human_count")
   address          String     @db.VarChar(191)
   status           String     @db.VarChar(191)
-  created_at       DateTime   @default(now())
-  updated_at       DateTime?   @updatedAt()
-  deleted_at       DateTime?   @db.DateTime
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime?   @updatedAt() @map("updated_at")
+  deletedAt       DateTime?   @db.DateTime @map("deleted_at")
   mogacos Participant[]
   
   @@map("Mogaco")
+
+  member Member @relation(fields: [memberId], references: [id])
 }
 
 model Group {
@@ -47,23 +52,23 @@ model Group {
 }
 
 model GroupToUser {
-  group_id BigInt  @db.BigInt
-  user_id  BigInt  @db.BigInt
+  groupId BigInt  @db.BigInt @map("group_id")
+  userId  BigInt  @db.BigInt @map("user_id")
 
-  @@id([group_id, user_id])
+  @@id([groupId, userId])
   @@map("GroupToUser")
 
-  group Group @relation(fields: [group_id], references: [id])
-  user  Member @relation(fields: [user_id], references: [id])
+  group Group @relation(fields: [groupId], references: [id])
+  user  Member @relation(fields: [userId], references: [id])
 }
 
 model Participant {
-  post_id BigInt  @db.BigInt
-  user_id  BigInt  @db.BigInt
+  postId BigInt  @db.BigInt @map("post_id")
+  userId  BigInt  @db.BigInt @map("user_id")
 
-  @@id([post_id, user_id])
+  @@id([postId, userId])
   @@map("Participant")
 
-  mogaco Mogaco @relation(fields: [post_id], references: [id])
-  member Member @relation(fields: [user_id], references: [id])
+  mogaco Mogaco @relation(fields: [postId], references: [id])
+  member Member @relation(fields: [userId], references: [id])
 }

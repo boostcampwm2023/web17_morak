@@ -13,8 +13,8 @@ export class AuthService {
   ) {}
 
   async handleLogin(userDto: CreateUserDto): Promise<Tokens> {
-    const { provider_id } = userDto;
-    const existingUser = await this.authRepository.findUserByIdentifier(provider_id);
+    const { providerId } = userDto;
+    const existingUser = await this.authRepository.findUserByIdentifier(providerId);
 
     if (!existingUser) {
       await this.signUp(userDto);
@@ -39,14 +39,14 @@ export class AuthService {
 
   async signIn(userDto: CreateUserDto): Promise<Tokens | null> {
     const token = this.generateJwt({
-      providerId: userDto.provider_id,
-      socialType: userDto.social_type,
+      providerId: userDto.providerId,
+      socialType: userDto.socialType,
       email: userDto.email,
       profilePicture: userDto.profilePicture,
       nickname: userDto.nickname,
     });
 
-    await this.authRepository.addRefreshToken(userDto.provider_id, token.refresh_token);
+    await this.authRepository.addRefreshToken(userDto.providerId, token.refresh_token);
     return token;
   }
 
@@ -57,9 +57,9 @@ export class AuthService {
   async refresh(refreshToken: string): Promise<string> {
     try {
       const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: getSecret('JWT_REFRESH_SECRET') });
-      const { provider_id, social_type } = decodedRefreshToken;
+      const { providerId, socialType } = decodedRefreshToken;
 
-      const token = this.generateJwt({ providerId: provider_id, socialType: social_type });
+      const token = this.generateJwt({ providerId: providerId, socialType: socialType });
 
       return token.access_token;
     } catch (error) {
@@ -67,7 +67,7 @@ export class AuthService {
     }
   }
 
-  async logout(provider_id: string) {
-    await this.authRepository.removeRefreshToken(provider_id);
+  async logout(providerId: string) {
+    await this.authRepository.removeRefreshToken(providerId);
   }
 }

@@ -4,7 +4,7 @@ import { IsString, IsEmail, MaxLength, MinLength } from 'class-validator';
 export class CreateUserDto {
   @ApiProperty()
   @IsString()
-  provider_id: string;
+  providerId: string;
 
   @ApiProperty()
   @IsEmail()
@@ -18,7 +18,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsString()
-  social_type: string;
+  socialType: string;
 
   @ApiProperty()
   @IsString()
@@ -28,5 +28,5 @@ export class CreateUserDto {
 export class LogoutDto {
   @ApiProperty()
   @IsString()
-  provider_id: string;
+  providerId: string;
 }
