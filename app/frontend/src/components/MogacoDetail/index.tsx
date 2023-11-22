@@ -26,7 +26,7 @@ const participants = [
   },
 ];
 
-export function DetailPage() {
+export function MogacoDetailPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
