@@ -1,4 +1,4 @@
-export * from './Post';
+export * from './Detail';
 export * from './commons/Button';
 export * from './commons/Chatting';
 export * from './commons/Header';

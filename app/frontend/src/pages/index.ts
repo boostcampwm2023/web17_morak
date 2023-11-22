@@ -1,4 +1,2 @@
-export * from './Mogaco';
-export * from './Post';
+export { Detail } from './Detail';
 export { Main } from './Main';
-export { Post } from './Post';

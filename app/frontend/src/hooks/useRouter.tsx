@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Layout } from '@/components';
-import { Main } from '@/pages';
-import { Post } from '@/pages/Post';
+import { Main, Detail } from '@/pages';
 
 export const useRouter = () =>
   createBrowserRouter([
@@ -16,8 +15,8 @@ export const useRouter = () =>
           element: <Mogaco />,
         },
         {
-          path: 'post',
-          element: <Post />,
+          path: 'detail',
+          element: <Detail />,
         },
         {
           path: 'calendar',

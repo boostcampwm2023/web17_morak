@@ -11,19 +11,19 @@ import { UserInfo } from '@/types';
 
 import * as styles from './index.css';
 
-type PostInfoProps = {
+type DetailInfoProps = {
   participants: UserInfo[];
   maxParticipantsNumber: number;
   datetime: string;
   location: string;
 };
 
-export function PostInfo({
+export function DetailInfo({
   participants,
   maxParticipantsNumber,
   datetime,
   location,
-}: PostInfoProps) {
+}: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
 
   const toggleParticipantsShown = () =>

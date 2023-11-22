@@ -3,11 +3,11 @@ import { sansBold24 } from '@/styles/font.css';
 
 import * as styles from './index.css';
 
-type PostHeaderProps = {
+type DetailHeaderProps = {
   state: 'not-participated' | 'participated' | 'hosted';
 };
 
-export function PostHeader({ state }: PostHeaderProps) {
+export function DetailHeader({ state }: DetailHeaderProps) {
   return (
     <div className={styles.header}>
       <div className={sansBold24}>모각코 함께 해요</div>
