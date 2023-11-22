@@ -1,4 +1,4 @@
-import { Input } from '@/components/commons/Input';
+import { Input } from '@/components';
 import { sansRegular16 } from '@/styles/font.css';
 
 import { Footer } from './Footer';

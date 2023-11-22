@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '@/assets/icons/morak.svg';
-import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
+import { ReactComponent as Profile } from '@/assets/icons/profile_large.svg';
 import { SIDE_MENU } from '@/constants';
 
 import * as styles from './index.css';

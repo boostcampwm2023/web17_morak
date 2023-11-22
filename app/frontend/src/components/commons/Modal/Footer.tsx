@@ -1,5 +1,6 @@
+import { Button } from '@/components';
+
 import * as styles from './index.css';
-import { Button } from '../Button';
 
 type FooterProps = {
   buttonType: 'single' | 'double';

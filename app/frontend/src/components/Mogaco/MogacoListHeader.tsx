@@ -1,5 +1,6 @@
+import { Button } from '@/components';
+
 import * as styles from './MogacoListHeader.css';
-import { Button } from '../commons/Button';
 
 export function MogacoListHeader() {
   return (

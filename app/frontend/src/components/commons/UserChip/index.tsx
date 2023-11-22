@@ -1,16 +1,16 @@
-import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
+import { ReactComponent as Profile } from '@/assets/icons/profile_large.svg';
 import { vars } from '@/styles';
 
-import * as styles from './TalkItem.css';
+import * as styles from './index.css';
 
-type UserInfoProps = {
+type UserChipProps = {
   username: string;
   profileSrc?: string;
 };
 
-export function UserInfo({ username, profileSrc }: UserInfoProps) {
+export function UserChip({ username, profileSrc }: UserChipProps) {
   return (
-    <div className={styles.userInfo}>
+    <div className={styles.container}>
       <div
         className={`${styles.profileImage} ${
           !profileSrc && styles.defaultProfileImage

@@ -1,5 +1,6 @@
+import { MogacoItem } from '@/components';
+
 import * as styles from './MogacoList.css';
-import { MogacoItem } from '../commons/MogacoItem';
 
 export function MogacoList() {
   const MOGACO_ITEM = [

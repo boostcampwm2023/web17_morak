@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
+import { Header } from '@/components';
+
 import * as styles from './index.css';
-import { Header } from '../Header';
 
 export function Layout() {
   return (
