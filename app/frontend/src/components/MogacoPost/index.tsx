@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
-
 import { Input, Button, Textarea } from '@/components';
 
 import * as styles from './index.css';
 
 export function MogacoPostPage() {
-  const [date, setDate] = useState('');
-
-  useEffect(() => {
-    const today = new Date().toISOString().slice(0, 16);
-    setDate(today);
-  }, []);
+  const today = new Date();
+  const offset = today.getTimezoneOffset() * 60000;
+  const date = new Date(today.getTime() - offset).toISOString().slice(0, 16);
 
   return (
     <form className={styles.container}>
@@ -47,7 +42,7 @@ export function MogacoPostPage() {
           defaultValue={date}
           min={date}
         />
-        <Textarea label="설명" maxLength={1000} />
+        <Textarea label="설명" maxLength={1000} rows={6} />
       </div>
       <div className={styles.formContent}>
         <Button
