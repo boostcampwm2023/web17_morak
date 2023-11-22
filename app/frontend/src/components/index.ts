@@ -1,5 +1,6 @@
 export * from './Mogaco';
 export * from './MogacoDetail';
+export * from './MogacoPost';
 export * from './commons/Button';
 export * from './commons/Chatting';
 export * from './commons/Header';
