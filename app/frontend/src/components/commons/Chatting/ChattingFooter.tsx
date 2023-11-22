@@ -1,5 +1,4 @@
-import { Button } from '@/components/commons/Button';
-import { Textarea } from '@/components/commons/Input/Textarea';
+import { Button, Textarea } from '@/components';
 
 import * as styles from './index.css';
 

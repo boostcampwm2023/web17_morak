@@ -1,10 +1,9 @@
 import { ReactComponent as People } from '@/assets/icons/people.svg';
+import { Popover, UserChip } from '@/components';
 import { vars } from '@/styles';
 import { ChatUser } from '@/types';
 
 import * as styles from './index.css';
-import { Popover } from '../Popover';
-import { UserChip } from '../UserChip';
 
 type ChattingHeaderProps = {
   title: string;

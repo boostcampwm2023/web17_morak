@@ -1,4 +1,4 @@
-import { Button } from '@/components/commons/Button';
+import { Button } from '@/components';
 
 type DetailHeaderButtonsProps = {
   state: 'not-participated' | 'participated' | 'hosted';

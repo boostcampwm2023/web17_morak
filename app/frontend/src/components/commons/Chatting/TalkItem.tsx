@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 
+import { UserChip } from '@/components';
 import { Talk } from '@/types';
 
 import * as styles from './TalkItem.css';
-import { UserChip } from '../UserChip';
 
 type TalkItemProps = {
   talk: Talk;
