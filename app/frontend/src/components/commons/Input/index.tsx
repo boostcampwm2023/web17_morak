@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute } from 'react';
+import { useState, useRef, HTMLInputTypeAttribute } from 'react';
 
 import * as styles from './index.css';
 
@@ -8,8 +8,9 @@ type InputProps = {
   errorMessage?: string;
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
-  maxLength: number;
+  maxLength?: number;
   required?: boolean;
+  defaultValue?: string;
 };
 
 export function Input({
@@ -20,7 +21,17 @@ export function Input({
   disabled = false,
   maxLength,
   required = false,
+  defaultValue,
 }: InputProps) {
+  const [inputCount, setInputCount] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleInput = () => {
+    if (inputRef && inputRef.current) {
+      setInputCount(inputRef.current.value.length);
+    }
+  };
+
   return (
     <div
       className={`${styles.container} ${errorMessage && styles.error} ${
@@ -32,15 +43,22 @@ export function Input({
           {label}
           {required && <span className={styles.required}>*</span>}
         </span>
-        <span className={styles.count}>0/{maxLength}</span>
+        {maxLength && (
+          <span className={styles.count}>
+            {inputCount}/{maxLength}
+          </span>
+        )}
       </div>
       <input
+        ref={inputRef}
         className={styles.input}
         type={type}
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
         required={required}
+        defaultValue={defaultValue}
+        onChange={handleInput}
       />
       {!disabled && errorMessage && (
         <p className={styles.errorMessage}>{errorMessage}</p>
