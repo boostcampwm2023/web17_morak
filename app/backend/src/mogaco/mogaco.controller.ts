@@ -4,8 +4,8 @@ import { Member, Mogaco } from '@prisma/client';
 import { CreateMogacoDto, MogacoDto } from './dto';
 import { MogacoStatusValidationPipe } from './pipes/mogaco-status-validation.pipe';
 import { MogacoStatus } from './dto/mogaco-status.enum';
-import { AtGuard } from 'src/auth/guards/at.guard';
 import { GetUser } from 'libs/decorators/get-user.decorator';
+import { AtGuard } from 'src/auth/guards/at.guard';
 
 @Controller('mogaco')
 @UseGuards(AtGuard)
@@ -28,8 +28,8 @@ export class MogacoController {
   }
 
   @Delete('/:id')
-  async deleteMogaco(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.mogacoService.deleteMogaco(id);
+  async deleteMogaco(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
+    return this.mogacoService.deleteMogaco(id, member);
   }
 
   @Patch('/:id/status')

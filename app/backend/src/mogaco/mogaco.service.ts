@@ -20,8 +20,8 @@ export class MogacoService {
     return this.mogacoRepository.createMogaco(createMogaco, member);
   }
 
-  async deleteMogaco(id: number): Promise<void> {
-    return this.mogacoRepository.deleteMogaco(id);
+  async deleteMogaco(id: number, member: Member): Promise<void> {
+    return this.mogacoRepository.deleteMogaco(id, member);
   }
 
   async updateMogacoStatus(id: number, status: MogacoStatus): Promise<Mogaco> {

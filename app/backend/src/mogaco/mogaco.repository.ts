@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../libs/utils/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './dto/mogaco-status.enum';
@@ -23,11 +23,11 @@ export class MogacoRepository {
 
     return {
       id: mogaco.id,
-      group_id: mogaco.group_id,
+      groupId: mogaco.groupId,
       title: mogaco.title,
       contents: mogaco.contents,
       date: mogaco.date,
-      max_human_count: mogaco.max_human_count,
+      maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
       status: mogaco.status,
     };
@@ -35,14 +35,14 @@ export class MogacoRepository {
 
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     try {
-      const { group_id, title, contents, max_human_count, address, date } = createMogacoDto;
+      const { groupId, title, contents, maxHumanCount, address, date } = createMogacoDto;
 
       const mogaco = await this.prisma.mogaco.create({
         data: {
-          group_id,
+          groupId,
           title,
           contents,
-          max_human_count,
+          maxHumanCount,
           address,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
@@ -61,13 +61,17 @@ export class MogacoRepository {
     }
   }
 
-  async deleteMogaco(id: number): Promise<void> {
+  async deleteMogaco(id: number, member: Member): Promise<void> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id },
     });
 
     if (!mogaco) {
       throw new NotFoundException(`Mogaco with id ${id} not found`);
+    }
+
+    if (mogaco.memberId !== member.id) {
+      throw new ForbiddenException(`You do not have permission to delete this Mogaco`);
     }
 
     await this.prisma.mogaco.delete({
