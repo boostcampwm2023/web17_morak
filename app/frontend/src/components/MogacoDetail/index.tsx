@@ -7,6 +7,7 @@ import * as styles from './index.css';
 
 export function MogacoDetailPage({
   id,
+  memberId,
   title,
   maxHumanCount,
   participantList,
@@ -18,7 +19,7 @@ export function MogacoDetailPage({
   return (
     <div className={styles.wrapper} id={id}>
       <div className={styles.container}>
-        <DetailHeader title={title} status={status} />
+        <DetailHeader title={title} status={status} memberId={memberId} />
         <DetailInfo
           participantList={participantList}
           maxHumanCount={maxHumanCount}
