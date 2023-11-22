@@ -9,12 +9,14 @@ export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
   async getAllMogaco(): Promise<Mogaco[]> {
-    return this.prisma.mogaco.findMany();
+    return this.prisma.mogaco.findMany({
+      where: { deletedAt: null },
+    });
   }
 
   async getMogacoById(id: number): Promise<MogacoDto> {
     const mogaco = await this.prisma.mogaco.findUnique({
-      where: { id },
+      where: { id, deletedAt: null },
     });
 
     if (!mogaco) {
@@ -81,8 +83,11 @@ export class MogacoRepository {
       throw new ForbiddenException(`You do not have permission to delete this Mogaco`);
     }
 
-    await this.prisma.mogaco.delete({
+    await this.prisma.mogaco.update({
       where: { id },
+      data: {
+        deletedAt: new Date(),
+      },
     });
   }
 
