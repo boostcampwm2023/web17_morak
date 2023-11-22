@@ -18,6 +18,7 @@ export class AuthRepository {
       data: {
         providerId: userDto.providerId,
         socialType: userDto.socialType,
+        email: userDto.email,
       },
     });
   }

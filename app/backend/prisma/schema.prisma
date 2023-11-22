@@ -13,8 +13,9 @@ datasource db {
 model Member {
   id           BigInt     @id @default(autoincrement()) @db.BigInt
   providerId  String     @unique @db.VarChar(191) @map("provider_id")
-  createdAt   DateTime   @default(now()) @map("created_at")
+  email        String    @unique @db.VarChar(191)
   socialType  String     @db.VarChar(191) @map("social_type")
+  createdAt   DateTime   @default(now()) @map("created_at")
   users GroupToUser[]
   members Participant[]
   mogacos Mogaco[]
