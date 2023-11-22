@@ -1,4 +1,4 @@
-import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
+import { ReactComponent as Profile } from '@/assets/icons/profile_large.svg';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
