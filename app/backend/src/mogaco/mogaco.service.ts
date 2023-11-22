@@ -37,4 +37,8 @@ export class MogacoService {
   async getParticipants(id: number): Promise<Member[]> {
     return this.mogacoRepository.getParticipants(id);
   }
+
+  async cancelMogacoJoin(id: number, member: Member): Promise<void> {
+    return this.mogacoRepository.cancelMogacoJoin(id, member);
+  }
 }

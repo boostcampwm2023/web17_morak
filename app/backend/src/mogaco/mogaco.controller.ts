@@ -103,4 +103,17 @@ export class MogacoController {
   async getParticipants(@Param('id', ParseIntPipe) id: number): Promise<Member[]> {
     return this.mogacoService.getParticipants(id);
   }
+
+  @Delete('/:id/join')
+  @ApiOperation({
+    summary: '모각코 참가 취소',
+    description: '특정 모각코 참가를 취소합니다.',
+  })
+  @ApiParam({ name: 'id', description: '참가를 취소할 모각코의 Id' })
+  @ApiResponse({ status: 200, description: 'Successfully cancelled join' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  async cancelMogacoJoin(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
+    return this.mogacoService.cancelMogacoJoin(id, member);
+  }
 }
