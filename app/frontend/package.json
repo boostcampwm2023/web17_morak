@@ -26,6 +26,7 @@
     "@fullcalendar/daygrid": "^6.1.9",
     "@hookform/resolvers": "^3.3.2",
     "@lukemorales/query-key-factory": "^1.3.2",
+    "@morak/apitype": "^1.0.0",
     "@tanstack/react-query": "^5.8.1",
     "@tanstack/react-query-devtools": "^5.8.1",
     "@vanilla-extract/css": "^1.14.0",
