@@ -15,7 +15,7 @@ export const useRouter = () =>
           element: <Mogaco />,
         },
         {
-          path: 'detail',
+          path: 'mogaco/:id',
           element: <Detail />,
         },
         {
