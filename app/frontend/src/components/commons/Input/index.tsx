@@ -9,6 +9,8 @@ type InputProps = {
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
   maxLength?: number;
+  min?: number | string;
+  max?: number;
   required?: boolean;
   defaultValue?: string;
 };
@@ -20,6 +22,8 @@ export function Input({
   errorMessage = '',
   disabled = false,
   maxLength,
+  min,
+  max,
   required = false,
   defaultValue,
 }: InputProps) {
@@ -56,6 +60,8 @@ export function Input({
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
+        min={min}
+        max={max}
         required={required}
         defaultValue={defaultValue}
         onChange={handleInput}
