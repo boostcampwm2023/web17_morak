@@ -5,7 +5,7 @@ import { vars, fontStyle } from '@/styles';
 export const container = style({
   position: 'relative',
   display: 'flex',
-  margin: '8.5rem auto',
+  margin: '0 auto',
   width: '104rem',
   height: '81.7rem',
   color: vars.color.grayscale400,
