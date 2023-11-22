@@ -10,7 +10,7 @@ type TextareaProps = {
   disabled?: boolean;
   required?: boolean;
   fullWidth?: boolean;
-  rows: number;
+  rows?: number;
 };
 
 export function Textarea({
@@ -21,7 +21,7 @@ export function Textarea({
   maxLength,
   required = false,
   fullWidth = false,
-  rows,
+  rows = 2,
 }: TextareaProps) {
   const [textCount, setTextCount] = useState<number>(0);
   const textRef = useRef<HTMLTextAreaElement | null>(null);
