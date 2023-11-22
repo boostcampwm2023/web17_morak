@@ -1,6 +1,6 @@
 import { MogacoProps } from '@/types';
 
-import { DetailContent } from './DetailContent';
+import { DetailContents } from './DetailContents';
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
 import * as styles from './index.css';
@@ -20,12 +20,12 @@ export function MogacoDetailPage({
       <div className={styles.container}>
         <DetailHeader title={title} status={status} />
         <DetailInfo
-          participants={participantList}
-          maxParticipantsNumber={maxHumanCount}
-          datetime={date}
-          location={address}
+          participantList={participantList}
+          maxHumanCount={maxHumanCount}
+          date={date}
+          address={address}
         />
-        <DetailContent content={contents} />
+        <DetailContents contents={contents} />
         <hr className={styles.horizontalLine} />
       </div>
     </div>

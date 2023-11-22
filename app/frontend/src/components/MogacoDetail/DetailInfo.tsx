@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import dayjs from 'dayjs';
+
 import { ReactComponent as ArrowDown } from '@/assets/icons/arrow_down.svg';
 import { ReactComponent as Calendar } from '@/assets/icons/calendar_large.svg';
 import { ReactComponent as Map } from '@/assets/icons/map_large.svg';
@@ -12,17 +14,17 @@ import { Participant } from '@/types';
 import * as styles from './index.css';
 
 type DetailInfoProps = {
-  participants: Participant[];
-  maxParticipantsNumber: number;
-  datetime: string;
-  location: string;
+  participantList: Participant[];
+  maxHumanCount: number;
+  date: string;
+  address: string;
 };
 
 export function DetailInfo({
-  participants,
-  maxParticipantsNumber,
-  datetime,
-  location,
+  participantList,
+  maxHumanCount,
+  date,
+  address,
 }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
 
@@ -34,8 +36,7 @@ export function DetailInfo({
       <div className={styles.infoItem}>
         <People fill={vars.color.grayscale200} />
         <span>
-          <span>{participants.length}</span>/
-          <span>{maxParticipantsNumber}</span>
+          <span>{participantList.length}</span>/<span>{maxHumanCount}</span>
         </span>
         <button
           type="button"
@@ -52,7 +53,7 @@ export function DetailInfo({
           participantsShown ? styles.shown : ''
         }`}
       >
-        {participants.map((participant) => (
+        {participantList.map((participant) => (
           <UserChip
             key={participant.id}
             username={participant.nickname}
@@ -62,11 +63,11 @@ export function DetailInfo({
       </div>
       <div className={styles.infoItem}>
         <Calendar fill={vars.color.grayscale200} />
-        <span>{datetime}</span>
+        <span>{dayjs(date).format('YYYY/MM/DD HH:mm~')}</span>
       </div>
       <div className={styles.infoItem}>
         <Map fill={vars.color.grayscale200} />
-        <span>{location}</span>
+        <span>{address}</span>
       </div>
       <img src={MAP_SAMPLE_IMAGE} alt="맵 샘플 이미지" className={styles.map} />
     </div>
