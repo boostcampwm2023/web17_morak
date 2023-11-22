@@ -55,6 +55,13 @@ export class MogacoRepository {
         },
       });
 
+      await this.prisma.participant.create({
+        data: {
+          postId: mogaco.id,
+          userId: Number(member.id),
+        },
+      });
+
       return mogaco;
     } catch (error) {
       throw new Error(`Failed to create Mogaco: ${error.message}`);
