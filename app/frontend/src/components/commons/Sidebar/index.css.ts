@@ -41,10 +41,10 @@ export const panel = style({
 export const wrapper = style({
   display: 'flex',
   alignItems: 'center',
-  position: 'absolute',
-  top: 0,
+  position: 'fixed',
+  top: '8.6rem',
   left: 0,
   zIndex: 100,
-  height: '100%',
+  height: 'calc(100% - 8.6rem)',
   transition: 'transform 0.5s',
 });

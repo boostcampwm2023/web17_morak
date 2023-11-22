@@ -25,16 +25,16 @@ globalStyle(
 
 globalStyle('html', {
   fontSize: '62.5%',
-  height: '100%',
+  minHeight: '100vh',
 });
 
 globalStyle('body', {
   lineHeight: 1,
-  height: '100%',
+  minHeight: '100vh',
 });
 
 globalStyle('#root', {
-  height: '100%',
+  minHeight: '100vh',
 });
 
 globalStyle('ol, ul', {
