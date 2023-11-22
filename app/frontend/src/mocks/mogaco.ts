@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw';
 import { MogacoProps } from '@/types';
 
 export const mogacoAPIHandlers = [
-  http.get(`${import.meta.env.VITE_API_URL}/mogaco/:id`, () =>
+  http.get('/mogaco/:id', () =>
     HttpResponse.json<MogacoProps>({
       id: '1',
       groupId: '1',
