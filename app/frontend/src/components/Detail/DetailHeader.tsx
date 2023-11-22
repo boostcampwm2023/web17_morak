@@ -11,7 +11,9 @@ export function DetailHeader({ state }: DetailHeaderProps) {
   return (
     <div className={styles.header}>
       <div className={sansBold24}>모각코 함께 해요</div>
-      <DetailHeaderButtons state={state} />
+      <div className={styles.buttons}>
+        <DetailHeaderButtons state={state} />
+      </div>
     </div>
   );
 }

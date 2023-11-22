@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Layout } from '@/components';
-import { Main, Detail } from '@/pages';
+import { Main, Mogaco, Detail } from '@/pages';
 
 export const useRouter = () =>
   createBrowserRouter([

@@ -86,5 +86,4 @@ export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  paddingTop: '8rem',
 });
