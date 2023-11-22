@@ -61,6 +61,11 @@ export const input = style([
         border: `2px solid ${vars.color.grayscale200}`,
         cursor: 'not-allowed',
       },
+      '&::-webkit-inner-spin-button': {
+        appearance: 'none',
+        MozAppearance: 'none',
+        WebkitAppearance: 'none',
+      },
     },
   },
 ]);
