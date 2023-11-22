@@ -1,5 +1,9 @@
+import { useState, useEffect } from 'react';
+
 import { UserChip } from '@/components';
+import { member } from '@/services';
 import { sansBold24 } from '@/styles/font.css';
+import { UserInfo } from '@/types';
 
 import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
@@ -11,6 +15,21 @@ type DetailHeaderProps = {
 };
 
 export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {
+  const [user, setUser] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      return;
+    }
+
+    const getUser = async () => {
+      const data = await member.userInfoById(memberId);
+      setUser(data);
+    };
+
+    getUser();
+  }, [user, memberId]);
+
   return (
     <div className={styles.header}>
       <div className={styles.title}>
@@ -20,10 +39,9 @@ export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {
         </div>
       </div>
       <div className={styles.writer}>
-        <UserChip
-          username={memberId}
-          profileSrc="https://avatars.githubusercontent.com/u/50646827?v=4"
-        />
+        {user && (
+          <UserChip username={user.nickname} profileSrc={user.profilePicture} />
+        )}
         <span>부스트캠프 웹·모바일 8기</span>
       </div>
     </div>

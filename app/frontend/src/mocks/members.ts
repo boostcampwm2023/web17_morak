@@ -14,4 +14,16 @@ export const memberAPIHandlers = [
           'https://lh3.googleusercontent.com/ogw/AKPQZvwTnGmjh0sydCnI53wZMYLcKf-KZJ7Z9MaLg1ZVLQ=s64-c-mo',
       }),
   ),
+  http.get(
+    /\/member\/\d+/,
+    // () => HttpResponse.error(),
+    () =>
+      HttpResponse.json({
+        providerId: '1',
+        email: 'js43og@gmail.com',
+        nickname: '지승',
+        profilePicture:
+          'https://avatars.githubusercontent.com/u/50646827?s=64&v=4',
+      }),
+  ),
 ];
