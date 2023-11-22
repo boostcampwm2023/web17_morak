@@ -101,4 +101,48 @@ export class MogacoRepository {
       throw new Error(`Failed to update Mogaco status: ${error.message}`);
     }
   }
+
+  async joinMogaco(id: number, member: Member): Promise<void> {
+    const mogaco = await this.prisma.mogaco.findUnique({
+      where: { id, deletedAt: null },
+    });
+
+    if (!mogaco) {
+      throw new NotFoundException(`Mogaco with id ${id} not found`);
+    }
+
+    const existingParticipant = await this.prisma.participant.findUnique({
+      where: {
+        postId_userId: {
+          postId: mogaco.id,
+          userId: member.id,
+        },
+      },
+    });
+
+    if (existingParticipant) {
+      throw new ForbiddenException(`Member with id ${member.id} is already participating in Mogaco with id ${id}`);
+    }
+
+    await this.prisma.participant.create({
+      data: {
+        postId: mogaco.id,
+        userId: member.id,
+      },
+    });
+  }
+
+  async getParticipants(id: number): Promise<Member[]> {
+    const participants = await this.prisma.participant.findMany({
+      where: {
+        postId: id,
+      },
+      include: {
+        member: true,
+      },
+    });
+
+    // 가져온 참가자 목록의 각 참가자의 member 속성을 통해 실제 멤버 객체로 매핑하여 반환
+    return participants.map((participant) => participant.member);
+  }
 }
