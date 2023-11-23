@@ -67,23 +67,15 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
     HttpResponse.json<Participant[]>(participantsList[Number(id) - 1]),
   ),
-  http.post<{ id: string }, { memberId: string }>(
-    'mogaco/:id/join',
-    async ({ request, params: { id } }) => {
-      const { memberId } = await request.json();
-      participantsList[Number(id) - 1] = [
-        ...participantsList[Number(id) - 1],
-        userList[Number(memberId) - 1],
-      ];
-    },
-  ),
-  http.delete<{ id: string }, { memberId: string }>(
-    'mogaco/:id/join',
-    async ({ request, params: { id } }) => {
-      const { memberId } = await request.json();
-      participantsList[Number(id) - 1] = participantsList[
-        Number(id) - 1
-      ].filter((participant) => participant.id !== memberId);
-    },
-  ),
+  http.post('mogaco/:id/join', async ({ params: { id } }) => {
+    participantsList[Number(id) - 1] = [
+      ...participantsList[Number(id) - 1],
+      userList[0],
+    ];
+  }),
+  http.delete('mogaco/:id/join', async ({ params: { id } }) => {
+    participantsList[Number(id) - 1] = participantsList[Number(id) - 1].filter(
+      (participant) => participant.id !== userList[0].id,
+    );
+  }),
 ];
