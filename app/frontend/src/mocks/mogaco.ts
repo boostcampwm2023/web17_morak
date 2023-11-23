@@ -26,7 +26,7 @@ const mogacoList = [
     date: '2023-11-22T12:00:00.000Z',
     maxHumanCount: 5,
     address: '주소주소주소주소주소',
-    status: '마감' as const,
+    status: '모집 중' as const,
   },
   {
     id: '3',
@@ -37,7 +37,7 @@ const mogacoList = [
     date: '2023-10-11T12:00:00.000Z',
     maxHumanCount: 5,
     address: '주소주소주소주소주소',
-    status: '종료' as const,
+    status: '모집 중' as const,
   },
   {
     id: '4',
@@ -67,15 +67,17 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
     HttpResponse.json<Participant[]>(participantsList[Number(id) - 1]),
   ),
-  http.post('mogaco/:id/join', async ({ params: { id } }) => {
+  http.post('/mogaco/:id/join', ({ params: { id } }) => {
     participantsList[Number(id) - 1] = [
       ...participantsList[Number(id) - 1],
       userList[0],
     ];
+    return HttpResponse.json(null, { status: 200 });
   }),
-  http.delete('mogaco/:id/join', async ({ params: { id } }) => {
+  http.delete('/mogaco/:id/join', ({ params: { id } }) => {
     participantsList[Number(id) - 1] = participantsList[Number(id) - 1].filter(
       (participant) => participant.id !== userList[0].id,
     );
+    return HttpResponse.json(null, { status: 200 });
   }),
 ];

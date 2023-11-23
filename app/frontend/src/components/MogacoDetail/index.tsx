@@ -24,7 +24,16 @@ export function MogacoDetailPage({
   const [participantList, setParticipantList] = useState<Participant[] | null>(
     null,
   );
-  const [user] = useUserAtom();
+  const [user, setUser] = useUserAtom();
+
+  if (!user)
+    setUser({
+      providerId: '1',
+      nickname: '지승',
+      profilePicture:
+        'https://avatars.githubusercontent.com/u/50646827?s=40&v=4',
+      email: 'js43og@gamil.com',
+    });
 
   const userHosted = user?.providerId === memberId;
   const userParticipated = participantList
@@ -50,6 +59,7 @@ export function MogacoDetailPage({
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <DetailHeader
+          id={id}
           title={title}
           status={status}
           memberId={memberId}

@@ -9,6 +9,7 @@ import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
 
 type DetailHeaderProps = {
+  id: string;
   memberId: string;
   title: string;
   status: '모집 중' | '마감' | '종료';
@@ -17,6 +18,7 @@ type DetailHeaderProps = {
 };
 
 export function DetailHeader({
+  id,
   memberId,
   title,
   status,
@@ -44,6 +46,7 @@ export function DetailHeader({
         <div className={sansBold24}>{title}</div>
         <div className={styles.buttons}>
           <DetailHeaderButtons
+            id={id}
             status={status}
             userHosted={userHosted}
             userParticipated={userParticipated}
