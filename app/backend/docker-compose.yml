@@ -17,6 +17,8 @@ services:
     depends_on:
       - db
       - redis
+    volumes:
+      - prisma-migrations:/app/prisma/migrations
 
   db:
     image: 192.168.122.133:9993/morak-mysql:latest
@@ -34,3 +36,4 @@ services:
 
 volumes:
   mysql-data:
+  prisma-migrations:
