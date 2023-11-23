@@ -33,7 +33,7 @@ export class MogacoController {
     description: '특정 게시물의 Id 값으로 해당 게시물을 조회합니다.',
   })
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
-  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoDto })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getMogacoById(@Param('id', ParseIntPipe) id: number): Promise<MogacoDto> {
     return this.mogacoService.getMogacoById(id);

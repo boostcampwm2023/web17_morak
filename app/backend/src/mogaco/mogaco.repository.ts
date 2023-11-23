@@ -3,6 +3,7 @@ import { PrismaService } from '../../libs/utils/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './dto/mogaco-status.enum';
 import { CreateMogacoDto, MogacoDto } from './dto';
+import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
 
 @Injectable()
 export class MogacoRepository {
@@ -14,9 +15,12 @@ export class MogacoRepository {
     });
   }
 
-  async getMogacoById(id: number): Promise<MogacoDto> {
+  async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id, deletedAt: null },
+      include: {
+        member: true,
+      },
     });
 
     if (!mogaco) {
@@ -32,6 +36,12 @@ export class MogacoRepository {
       maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
       status: mogaco.status,
+      member: {
+        id: mogaco.member.id,
+        providerId: mogaco.member.providerId,
+        email: mogaco.member.email,
+        socialType: mogaco.member.socialType,
+      },
     };
   }
 

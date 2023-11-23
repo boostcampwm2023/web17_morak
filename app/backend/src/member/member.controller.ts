@@ -2,7 +2,7 @@ import { Controller, Get, Req, Res, UnauthorizedException } from '@nestjs/common
 import { MemberService } from './member.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { MemberDto } from './dto/member.dto';
+import { MemberInformationDto } from './dto/member.dto';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
@@ -17,7 +17,7 @@ export class MemberController {
   @ApiResponse({
     status: 200,
     description: 'Successful operation',
-    type: MemberDto,
+    type: MemberInformationDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getUserData(@Req() req: Request, @Res() res: Response): Promise<void> {
