@@ -10,7 +10,7 @@ import { Member, Mogaco } from '@/types';
 
 type DetailHeaderButtonsProps = {
   id: string;
-  currentUser: Member;
+  currentUser?: Member;
   mogacoData: Mogaco;
   participantList: Member[];
 };
@@ -27,9 +27,9 @@ export function DetailHeaderButtons({
   const joinMogaco = useJoinMogacoQuery();
   const quitMogaco = useQuitMogacoQuery();
 
-  const userHosted = mogacoData.member.providerId === currentUser.providerId;
+  const userHosted = mogacoData.member.providerId === currentUser?.providerId;
   const userParticipated = participantList.find(
-    (participant) => participant.providerId === currentUser.providerId,
+    (participant) => participant.providerId === currentUser?.providerId,
   );
 
   const handleDelete = async () => {
@@ -54,6 +54,14 @@ export function DetailHeaderButtons({
   const onClickQuit = async () => {
     await quitMogaco.mutateAsync(id!);
   };
+
+  if (!currentUser) {
+    return (
+      <Button theme="primary" shape="fill" size="large" disabled>
+        로그인 필요
+      </Button>
+    );
+  }
 
   if (userHosted) {
     return (
