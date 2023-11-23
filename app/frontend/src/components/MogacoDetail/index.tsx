@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { mogaco } from '@/services';
+import { useUserAtom } from '@/stores';
 import { Mogaco, Participant } from '@/types';
 
 import { DetailContents } from './DetailContents';
@@ -20,7 +21,17 @@ export function MogacoDetailPage({
   contents,
   status,
 }: MogacoDetailProps) {
-  const [participantList, setParticipantList] = useState<Participant[]>([]);
+  const [participantList, setParticipantList] = useState<Participant[] | null>(
+    null,
+  );
+  const [user] = useUserAtom();
+
+  const userHosted = user?.providerId === memberId;
+  const userParticipated = participantList
+    ? !!participantList.find(
+        (participant) => participant.id === user?.providerId,
+      )
+    : false;
 
   useEffect(() => {
     if (participantList) {
@@ -38,7 +49,13 @@ export function MogacoDetailPage({
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <DetailHeader title={title} status={status} memberId={memberId} />
+        <DetailHeader
+          title={title}
+          status={status}
+          memberId={memberId}
+          userHosted={userHosted}
+          userParticipated={userParticipated}
+        />
         <DetailInfo
           participantList={participantList}
           maxHumanCount={maxHumanCount}

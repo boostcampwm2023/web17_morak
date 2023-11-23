@@ -34,13 +34,16 @@ const buttonComponents = {
 };
 
 type DetailHeaderButtonsProps = {
+  userHosted: boolean;
+  userParticipated: boolean;
   status: '모집 중' | '마감' | '종료';
 };
 
-export function DetailHeaderButtons({ status }: DetailHeaderButtonsProps) {
-  const userHosted = false;
-  const userParticipated = false;
-
+export function DetailHeaderButtons({
+  userHosted,
+  userParticipated,
+  status,
+}: DetailHeaderButtonsProps) {
   if (userHosted) {
     return buttonComponents.hosted;
   }

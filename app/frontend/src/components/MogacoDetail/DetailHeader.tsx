@@ -12,9 +12,17 @@ type DetailHeaderProps = {
   memberId: string;
   title: string;
   status: '모집 중' | '마감' | '종료';
+  userHosted: boolean;
+  userParticipated: boolean;
 };
 
-export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {
+export function DetailHeader({
+  memberId,
+  title,
+  status,
+  userHosted,
+  userParticipated,
+}: DetailHeaderProps) {
   const [user, setUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -35,7 +43,11 @@ export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {
       <div className={styles.title}>
         <div className={sansBold24}>{title}</div>
         <div className={styles.buttons}>
-          <DetailHeaderButtons status={status} />
+          <DetailHeaderButtons
+            status={status}
+            userHosted={userHosted}
+            userParticipated={userParticipated}
+          />
         </div>
       </div>
       <div className={styles.writer}>

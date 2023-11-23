@@ -14,7 +14,7 @@ import { Participant } from '@/types';
 import * as styles from './index.css';
 
 type DetailInfoProps = {
-  participantList: Participant[];
+  participantList: Participant[] | null;
   maxHumanCount: number;
   date: string;
   address: string;
@@ -36,7 +36,7 @@ export function DetailInfo({
       <div className={styles.infoItem}>
         <People fill={vars.color.grayscale200} />
         <span>
-          <span>{participantList.length}</span>/<span>{maxHumanCount}</span>
+          <span>{participantList?.length}</span>/<span>{maxHumanCount}</span>
         </span>
         <button
           type="button"
@@ -53,13 +53,14 @@ export function DetailInfo({
           participantsShown ? styles.shown : ''
         }`}
       >
-        {participantList.map((participant) => (
-          <UserChip
-            key={participant.id}
-            username={participant.nickname}
-            profileSrc={participant.profile}
-          />
-        ))}
+        {!!participantList &&
+          participantList.map((participant) => (
+            <UserChip
+              key={participant.id}
+              username={participant.nickname}
+              profileSrc={participant.profile}
+            />
+          ))}
       </div>
       <div className={styles.infoItem}>
         <Calendar fill={vars.color.grayscale200} />
