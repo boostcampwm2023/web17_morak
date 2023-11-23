@@ -6,11 +6,9 @@ import dayjs from 'dayjs';
 
 import { Input, Button, Textarea } from '@/components';
 import { MOGACO_POST } from '@/constants';
-import { useUserInfo } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { mogaco } from '@/services';
 import { MogacoPostForm } from '@/types';
-import { getCookies } from '@/utils';
 
 import * as styles from './index.css';
 import { MogacoPostTitle } from './MogacoPostTitle';
@@ -18,9 +16,6 @@ import { MogacoPostTitle } from './MogacoPostTitle';
 export function MogacoPostPage() {
   const currentDate = dayjs().format('YYYY-MM-DD HH:mm');
   const { control, handleSubmit } = useForm<MogacoPostForm>();
-
-  const token = getCookies('access_token');
-  const { providerId } = useUserInfo(token);
 
   const navigate = useNavigate();
 
