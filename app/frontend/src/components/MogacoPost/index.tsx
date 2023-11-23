@@ -46,7 +46,7 @@ export function MogacoPostPage() {
       status: '모집 중',
     });
 
-    if (res.status === 200) {
+    if (res.status === 201) {
       // TODO: 글 id 받아서 상세 페이지로 이동 필요
       navigate('/mogaco');
     }
