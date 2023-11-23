@@ -15,6 +15,8 @@ export const mogaco = {
     const { data } = await morakAPI.get<Mogaco>(`/mogaco/${id}`);
     return data;
   },
+  post: async (form: MogacoPostForm) =>
+    morakAPI.post(mogaco.endPoint.index, form),
   participants: async (id: string) => {
     const { data } = await morakAPI.get<Participant[]>(
       `/mogaco/${id}/participants`,
