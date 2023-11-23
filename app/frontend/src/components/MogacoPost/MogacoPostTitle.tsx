@@ -9,8 +9,6 @@ type MogacoPostTitleProps = {
   control: Control<MogacoPostForm>;
 };
 
-const TITLE_MAXLENGTH = 64;
-
 export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
   return (
     <Controller
@@ -30,11 +28,11 @@ export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
               type="text"
               className={styles.title}
               placeholder={MOGACO_POST.TITLE.PLACEHOLDER}
-              maxLength={TITLE_MAXLENGTH}
+              maxLength={MOGACO_POST.TITLE.MAX_LENGTH}
               onChange={onChange}
             />
             <div className={styles.count}>
-              {value ? value.length : 0}/{TITLE_MAXLENGTH}
+              {value ? value.length : 0}/{MOGACO_POST.TITLE.MAX_LENGTH}
             </div>
           </div>
           {error && <div className={styles.errorMessage}>{error.message}</div>}
