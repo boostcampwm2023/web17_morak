@@ -1,13 +1,13 @@
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import { Button } from '@/components';
-import { MAIN_IMAGE } from '@/constants';
+import { MAIN_IMAGE, URL } from '@/constants';
 import { useUserAtom } from '@/stores';
 
 import * as styles from './index.css';
 
 export function Main() {
   const onClickGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
+    window.location.href = `${URL.API}/auth/google/login`;
   };
   const [user] = useUserAtom();
 
