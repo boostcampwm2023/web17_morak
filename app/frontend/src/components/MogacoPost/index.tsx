@@ -3,61 +3,29 @@ import { useForm, Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
 
 import { Input, Button, Textarea } from '@/components';
+import { MOGACO_POST } from '@/constants';
+import { MogacoPostForm } from '@/types';
 
 import * as styles from './index.css';
-
-type MogacoPostForm = {
-  title: string;
-  memberId: string;
-  groupId: string;
-  contents: string;
-  date: string;
-  maxHumanCount: string;
-  address: string;
-};
+import { MogacoPostTitle } from './MogacoPostTitle';
 
 export function MogacoPostPage() {
   const date = dayjs(new Date()).format('YYYY-MM-DD HH:mm');
   const { control, handleSubmit } = useForm<MogacoPostForm>();
 
   // POST 요청으로 수정 예정
-  const onSubmit = (data: MogacoPostForm) => console.log(data);
+  const onSubmit = () => {};
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        control={control}
-        name="title"
-        rules={{
-          required: '제목을 입력해주세요',
-          maxLength: { value: 64, message: '최대 64자 까지 입력 가능합니다' },
-        }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <div className={`${styles.titleContainer} ${error && styles.error}`}>
-            <div className={styles.titleContent}>
-              <input
-                type="text"
-                className={`${styles.title}`}
-                placeholder="모각코 함께해요"
-                maxLength={64}
-                onChange={onChange}
-                value={value}
-              />
-              <div className={styles.count}>{value ? value.length : 0}/64</div>
-            </div>
-            {error && (
-              <div className={styles.errorMessage}>{error.message}</div>
-            )}
-          </div>
-        )}
-      />
+      <MogacoPostTitle control={control} />
       <div className={styles.formContent}>
         <Controller
           control={control}
           name="memberId"
           render={({ field: { onChange, value } }) => (
             <Input
-              label="작성자"
+              label={MOGACO_POST.MEMBER.LABEL}
               required
               disabled
               defaultValue="user" // 로그인한 유저 정보
@@ -72,12 +40,12 @@ export function MogacoPostPage() {
           rules={{ required: true }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input
-              label="그룹"
-              placeholder="그룹을 선택해주세요"
+              label={MOGACO_POST.GROUP.LABEL}
+              placeholder={MOGACO_POST.GROUP.REQUIRED}
               required
               onChange={onChange}
               value={value}
-              errorMessage={error && '그룹을 선택해주세요'}
+              errorMessage={error && MOGACO_POST.GROUP.REQUIRED}
             />
           )}
         />
@@ -85,16 +53,25 @@ export function MogacoPostPage() {
           control={control}
           name="maxHumanCount"
           rules={{
-            required: '최대 인원 수를 입력해주세요',
-            pattern: { value: /^[0-9]*$/, message: '숫자만 입력 가능합니다' },
-            min: { value: 2, message: '최소 인원 수는 2명입니다' },
-            max: { value: 20, message: '최대 인원 수는 20명입니다' },
+            required: MOGACO_POST.COUNT.REQUIRED,
+            pattern: {
+              value: /^[0-9]*$/,
+              message: MOGACO_POST.COUNT.PATTERN,
+            },
+            min: {
+              value: MOGACO_POST.COUNT.MIN_VALUE,
+              message: MOGACO_POST.COUNT.MIN,
+            },
+            max: {
+              value: MOGACO_POST.COUNT.MAX_VALUE,
+              message: MOGACO_POST.COUNT.MAX,
+            },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input
-              label="최대 인원 수"
+              label={MOGACO_POST.COUNT.LABEL}
               type="number"
-              placeholder="20"
+              placeholder={MOGACO_POST.COUNT.PLACEHOLDER}
               required
               onChange={onChange}
               value={value}
@@ -108,12 +85,12 @@ export function MogacoPostPage() {
           rules={{ required: true }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input
-              label="장소"
-              placeholder="장소를 검색해주세요"
+              label={MOGACO_POST.ADDRESS.LABEL}
+              placeholder={MOGACO_POST.ADDRESS.REQUIRED}
               required
               onChange={onChange}
               value={value}
-              errorMessage={error && '장소를 검색해주세요'}
+              errorMessage={error && MOGACO_POST.ADDRESS.REQUIRED}
             />
           )}
         />
@@ -121,15 +98,14 @@ export function MogacoPostPage() {
           control={control}
           name="date"
           rules={{
-            required: '날짜를 선택해주세요',
-            min: { value: date, message: '현재 이후의 시간을 선택해주세요' },
+            required: MOGACO_POST.DATE.REQUIRED,
+            min: { value: date, message: MOGACO_POST.DATE.MIN },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input
-              label="날짜 및 시간"
+              label={MOGACO_POST.DATE.LABEL}
               type="datetime-local"
               required
-              defaultValue={date}
               min={date}
               onChange={onChange}
               value={value}
@@ -141,17 +117,18 @@ export function MogacoPostPage() {
           control={control}
           name="contents"
           rules={{
-            required: '설명을 입력해주세요',
+            required: MOGACO_POST.CONTENTS.REQUIRED,
             maxLength: {
-              value: 1000,
-              message: '최대 1000자까지 입력 가능합니다',
+              value: MOGACO_POST.CONTENTS.MAX_LENGTH,
+              message: MOGACO_POST.CONTENTS.MAX,
             },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Textarea
-              label="설명"
-              rows={6}
-              maxLength={1000}
+              label={MOGACO_POST.CONTENTS.LABEL}
+              placeholder={MOGACO_POST.CONTENTS.REQUIRED}
+              rows={MOGACO_POST.CONTENTS.ROWS}
+              maxLength={MOGACO_POST.CONTENTS.MAX_LENGTH}
               required
               onChange={onChange}
               value={value}
