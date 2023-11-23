@@ -32,7 +32,7 @@ export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
               onChange={onChange}
             />
             <div className={styles.count}>
-              {value ? value.length : 0}/{MOGACO_POST.TITLE.MAX_LENGTH}
+              {value?.length || 0}/{MOGACO_POST.TITLE.MAX_LENGTH}
             </div>
           </div>
           {error && <div className={styles.errorMessage}>{error.message}</div>}
