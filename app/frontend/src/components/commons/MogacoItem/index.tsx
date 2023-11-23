@@ -6,9 +6,11 @@ import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Label } from '@/components';
-import { MogacoProps } from '@/types';
+import { Mogaco } from '@/types';
 
 import * as styles from './index.css';
+
+type MogacoProps = Mogaco;
 
 export function MogacoItem({
   id,
@@ -22,7 +24,7 @@ export function MogacoItem({
   status,
 }: MogacoProps) {
   const MogacoLabel = (
-    <Label theme="primary" shape="fill" disabled={status === '모집 완료'}>
+    <Label theme="primary" shape="fill" disabled={status === '마감'}>
       {status}
     </Label>
   );

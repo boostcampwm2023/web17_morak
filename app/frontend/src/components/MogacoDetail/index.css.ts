@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular16 } from '@/styles/font.css';
+import { sansBold16, sansRegular16 } from '@/styles/font.css';
 
 export const buttons = style({
   display: 'flex',
@@ -18,11 +18,11 @@ export const container = style([
     lineHeight: '1.6',
   },
 ]);
+
 export const header = style({
   display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexGrow: 1,
+  flexDirection: 'column',
+  gap: '0.4rem',
 });
 
 export const horizontalLine = style({
@@ -67,6 +67,13 @@ export const participants = style({
 
 export { shown };
 
+export const title = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexGrow: 1,
+});
+
 export const togglePeopleButton = style({
   display: 'flex',
   padding: '0.25rem',
@@ -87,3 +94,12 @@ export const wrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
 });
+
+export const writer = style([
+  sansBold16,
+  {
+    display: 'flex',
+    gap: '1.6rem',
+    color: vars.color.grayscale200,
+  },
+]);

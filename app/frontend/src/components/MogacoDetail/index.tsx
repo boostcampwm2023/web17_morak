@@ -1,43 +1,33 @@
-import { DetailContent } from './DetailContent';
+import { Mogaco } from '@/types';
+
+import { DetailContents } from './DetailContents';
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
 import * as styles from './index.css';
 
-const participants = [
-  {
-    providerId: '1',
-    profilePicture:
-      'https://avatars.githubusercontent.com/u/50646827?s=400&v=4',
-    nickname: '지승',
-    email: '.',
-  },
-  {
-    providerId: '2',
-    profilePicture: 'https://avatars.githubusercontent.com/u/43867711?s=64&v=4',
-    nickname: '태림',
-    email: '',
-  },
-  {
-    providerId: '3',
-    profilePicture:
-      'https://avatars.githubusercontent.com/u/110762136?s=64&v=4',
-    nickname: '지원',
-    email: '',
-  },
-];
+type MogacoDetailProps = Mogaco;
 
-export function MogacoDetailPage() {
+export function MogacoDetailPage({
+  memberId,
+  title,
+  maxHumanCount,
+  participantList,
+  date,
+  address,
+  contents,
+  status,
+}: MogacoDetailProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <DetailHeader state="participated" />
+        <DetailHeader title={title} status={status} memberId={memberId} />
         <DetailInfo
-          participants={participants}
-          maxParticipantsNumber={5}
-          datetime="2023/11/7 14:00~19:00"
-          location="서울 관악구 남현3길 71 크레이저 커피"
+          participantList={participantList}
+          maxHumanCount={maxHumanCount}
+          date={date}
+          address={address}
         />
-        <DetailContent content="사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다. 사당역에서 부스트캠프 모락 팀이 모입니다." />
+        <DetailContents contents={contents} />
         <hr className={styles.horizontalLine} />
       </div>
     </div>
