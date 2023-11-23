@@ -13,9 +13,13 @@ export function MogacoDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data: currentUser } = useQuery(queryKeys.member.me());
-  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id!));
-  const { data: participantList } = useQuery(
+  const { data: currentUser, isLoading: currentUserLoading } = useQuery(
+    queryKeys.member.me(),
+  );
+  const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
+    queryKeys.mogaco.detail(id!),
+  );
+  const { data: participantList, isLoading: participantListLoading } = useQuery(
     queryKeys.mogaco.participants(id!),
   );
 
@@ -27,8 +31,12 @@ export function MogacoDetailPage() {
     }
   }, [currentUser, navigate]);
 
-  if (!mogacoData || !participantList) {
+  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
     return <div>로딩 중...</div>;
+  }
+
+  if (!mogacoData) {
+    return <div>정보를 불러오는 데에 실패했습니다.</div>;
   }
 
   return (
@@ -38,9 +46,12 @@ export function MogacoDetailPage() {
           id={id!}
           currentUser={currentUser!}
           mogacoData={mogacoData}
-          participantList={participantList}
+          participantList={participantList || []}
         />
-        <DetailInfo mogacoData={mogacoData} participantList={participantList} />
+        <DetailInfo
+          mogacoData={mogacoData}
+          participantList={participantList || []}
+        />
         <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>

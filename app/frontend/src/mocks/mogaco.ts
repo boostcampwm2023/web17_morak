@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { http, HttpResponse } from 'msw';
 
-import { Member, Mogaco } from '@/types';
+import { Member, Mogaco, MogacoPostRequest } from '@/types';
 
 import { memberList } from './members';
 
@@ -61,7 +61,15 @@ const participantsList: { id: string; participants: Member[] }[] = [
 
 export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
-  http.post('/mogaco', () => HttpResponse.json({ status: 201 })),
+  http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
+    const body = await request.json();
+    mogacoList.push({
+      ...body,
+      id: String(mogacoList[mogacoList.length - 1].id + 1),
+      member: memberList[0],
+    });
+    return HttpResponse.json(null, { status: 201 });
+  }),
   http.get('/mogaco/:id', ({ params: { id } }) =>
     HttpResponse.json<Mogaco>(mogacoList.find((mogaco) => mogaco.id === id)),
   ),
@@ -77,11 +85,11 @@ export const mogacoAPIHandlers = [
   http.post('/mogaco/:id/join', ({ params: { id } }) => {
     const target = participantsList.find((item) => item.id === id);
     if (!target) {
-      return HttpResponse.json({ status: 404 });
+      return HttpResponse.json(null, { status: 404 });
     }
 
     target.participants = [...target.participants, memberList[0]];
-    return HttpResponse.json({ status: 200 });
+    return HttpResponse.json(null, { status: 200 });
   }),
   http.delete('/mogaco/:id/join', ({ params: { id } }) => {
     const target = participantsList.find((item) => item.id === id);
