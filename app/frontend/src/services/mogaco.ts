@@ -4,11 +4,11 @@ import { morakAPI } from './morakAPI';
 
 export const mogaco = {
   endPoint: {
-    list: '/mogaco',
+    index: '/mogaco',
   },
 
   list: async () => {
-    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.list);
+    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.index);
     return data;
   },
   detail: async (id: string) => {
