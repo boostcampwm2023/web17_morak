@@ -1,55 +1,60 @@
 import { Button } from '@/components';
-
-const buttonComponents = {
-  participating: (
-    <Button theme="primary" shape="fill" size="large">
-      참석하기
-    </Button>
-  ),
-  participated: (
-    <>
-      <Button theme="primary" shape="fill" size="large">
-        채팅
-      </Button>
-      <Button theme="danger" shape="fill" size="large">
-        참석 취소
-      </Button>
-    </>
-  ),
-  hosted: (
-    <>
-      <Button theme="primary" shape="line" size="large">
-        수정
-      </Button>
-      <Button theme="danger" shape="line" size="large">
-        삭제
-      </Button>
-    </>
-  ),
-  closed: (
-    <Button theme="primary" shape="fill" size="large" disabled>
-      마감
-    </Button>
-  ),
-};
+import { mogaco } from '@/services';
 
 type DetailHeaderButtonsProps = {
+  id: string;
+  userHosted: boolean;
+  userParticipated: boolean;
   status: '모집 중' | '마감' | '종료';
 };
 
-export function DetailHeaderButtons({ status }: DetailHeaderButtonsProps) {
-  const userHosted = false;
-  const userParticipated = false;
+export function DetailHeaderButtons({
+  id,
+  userHosted,
+  userParticipated,
+  status,
+}: DetailHeaderButtonsProps) {
+  const onClickJoin = async () => {
+    await mogaco.join(id);
+  };
+
+  const onClickQuit = async () => {
+    await mogaco.quit(id);
+  };
 
   if (userHosted) {
-    return buttonComponents.hosted;
+    return (
+      <>
+        <Button theme="primary" shape="line" size="large">
+          수정
+        </Button>
+        <Button theme="danger" shape="line" size="large">
+          삭제
+        </Button>
+      </>
+    );
   }
 
   if (status === '모집 중') {
-    return userParticipated
-      ? buttonComponents.participated
-      : buttonComponents.participating;
+    return userParticipated ? (
+      <>
+        <Button theme="primary" shape="fill" size="large">
+          채팅
+        </Button>
+        <Button theme="danger" shape="fill" size="large" onClick={onClickQuit}>
+          참석 취소
+        </Button>
+      </>
+    ) : (
+      <Button theme="primary" shape="fill" size="large" onClick={onClickJoin}>
+        참석하기
+      </Button>
+    );
   }
 
-  return buttonComponents.closed;
+  return (
+    <Button theme="primary" shape="fill" size="large" disabled>
+      마감
+    </Button>
+  );
 }

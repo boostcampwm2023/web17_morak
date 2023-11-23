@@ -31,6 +31,15 @@ export const horizontalLine = style({
   margin: 0,
 });
 
+export const hostUser = style([
+  sansBold16,
+  {
+    display: 'flex',
+    gap: '1.6rem',
+    color: vars.color.grayscale200,
+  },
+]);
+
 export const info = style({
   display: 'flex',
   flexDirection: 'column',
@@ -43,6 +52,8 @@ export const infoItem = style({
   alignItems: 'center',
 });
 
+const shown = style({});
+
 export const map = style({
   width: '32rem',
   height: '20rem',
@@ -50,8 +61,6 @@ export const map = style({
   borderRadius: '0.8rem',
   imageRendering: 'crisp-edges',
 });
-
-const shown = style({});
 
 export const participants = style({
   display: 'none',
@@ -94,12 +103,3 @@ export const wrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
 });
-
-export const writer = style([
-  sansBold16,
-  {
-    display: 'flex',
-    gap: '1.6rem',
-    color: vars.color.grayscale200,
-  },
-]);

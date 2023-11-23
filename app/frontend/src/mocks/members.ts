@@ -1,6 +1,24 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { http, HttpResponse } from 'msw';
 
+const userList = [
+  {
+    id: '1',
+    nickname: '지승',
+    profilePicture: 'https://avatars.githubusercontent.com/u/50646827?v=4',
+  },
+  {
+    id: '2',
+    nickname: '지원',
+    profilePicture: 'https://avatars.githubusercontent.com/u/110762136?v=4',
+  },
+  {
+    id: '3',
+    nickname: '태림',
+    profilePicture: 'https://avatars.githubusercontent.com/u/43867711?v=4',
+  },
+];
+
 export const memberAPIHandlers = [
   http.get(
     '/member/me',
@@ -17,13 +35,7 @@ export const memberAPIHandlers = [
   http.get(
     '/member/:id',
     // () => HttpResponse.error(),
-    () =>
-      HttpResponse.json({
-        providerId: '1',
-        email: 'js43og@gmail.com',
-        nickname: '지승',
-        profilePicture:
-          'https://avatars.githubusercontent.com/u/50646827?s=64&v=4',
-      }),
+    ({ params: { id } }) => HttpResponse.json(userList[Number(id) - 1]),
   ),
 ];
+export { userList };

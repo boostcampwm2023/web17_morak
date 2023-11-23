@@ -1,19 +1,30 @@
-import { Mogaco } from '@/types';
+import { Mogaco, Participant } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
 export const mogaco = {
   endPoint: {
     list: '/mogaco',
-    detail: '/mogaco/:id',
   },
 
   list: async () => {
     const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.list);
     return data;
   },
-  detail: async () => {
-    const { data } = await morakAPI.get<Mogaco>(mogaco.endPoint.detail);
+  detail: async (id: string) => {
+    const { data } = await morakAPI.get<Mogaco>(`/mogaco/${id}`);
     return data;
+  },
+  participants: async (id: string) => {
+    const { data } = await morakAPI.get<Participant[]>(
+      `/mogaco/${id}/participants`,
+    );
+    return data;
+  },
+  join: async (id: string) => {
+    await morakAPI.post(`/mogaco/${id}/join`);
+  },
+  quit: async (id: string) => {
+    await morakAPI.delete(`/mogaco/${id}/join`);
   },
 };

@@ -9,38 +9,56 @@ import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
 
 type DetailHeaderProps = {
+  id: string;
   memberId: string;
   title: string;
   status: '모집 중' | '마감' | '종료';
+  userHosted: boolean;
+  userParticipated: boolean;
 };
 
-export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {
-  const [user, setUser] = useState<UserInfo | null>(null);
+export function DetailHeader({
+  id,
+  memberId,
+  title,
+  status,
+  userHosted,
+  userParticipated,
+}: DetailHeaderProps) {
+  const [hostUser, setHostUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    if (user) {
+    if (hostUser) {
       return;
     }
 
     const getUser = async () => {
       const data = await member.userInfoById(memberId);
-      setUser(data);
+      setHostUser(data);
     };
 
     getUser();
-  }, [user, memberId]);
+  }, [hostUser, memberId]);
 
   return (
     <div className={styles.header}>
       <div className={styles.title}>
         <div className={sansBold24}>{title}</div>
         <div className={styles.buttons}>
-          <DetailHeaderButtons status={status} />
+          <DetailHeaderButtons
+            id={id}
+            status={status}
+            userHosted={userHosted}
+            userParticipated={userParticipated}
+          />
         </div>
       </div>
-      <div className={styles.writer}>
-        {user && (
-          <UserChip username={user.nickname} profileSrc={user.profilePicture} />
+      <div className={styles.hostUser}>
+        {hostUser && (
+          <UserChip
+            username={hostUser.nickname}
+            profileSrc={hostUser.profilePicture}
+          />
         )}
         <span>부스트캠프 웹·모바일 8기</span>
       </div>
