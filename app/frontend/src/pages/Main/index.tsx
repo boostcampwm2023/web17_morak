@@ -1,7 +1,7 @@
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import { Button } from '@/components';
 import { MAIN_IMAGE, URL } from '@/constants';
-import { useUserAtom } from '@/stores';
+import { getCookies } from '@/utils';
 
 import * as styles from './index.css';
 
@@ -9,7 +9,8 @@ export function Main() {
   const onClickGoogleLogin = () => {
     window.location.href = `${URL.API}/auth/google/login`;
   };
-  const [user] = useUserAtom();
+
+  const isLogin = getCookies('access_token');
 
   return (
     <div className={styles.container}>
@@ -22,7 +23,7 @@ export function Main() {
           모락과 함께하세요
         </div>
         <div className={styles.login}>
-          {!user && (
+          {!isLogin && (
             <Button
               type="button"
               theme="primary"
