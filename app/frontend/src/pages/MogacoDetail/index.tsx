@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { MogacoDetailPage } from '@/components';
 import { mogaco } from '@/services';
-import { MogacoProps } from '@/types';
+import { Mogaco } from '@/types';
 
 export function MogacoDetail() {
-  const [mogacoData, setMogacoData] = useState<MogacoProps | null>(null);
+  const [mogacoData, setMogacoData] = useState<Mogaco | null>(null);
 
   useEffect(() => {
     if (mogacoData) return;
 
     const fetchMogacoData = async () => {
-      const data = await mogaco.mogacoDetail();
+      const data = await mogaco.detail();
       setMogacoData(data);
     };
 

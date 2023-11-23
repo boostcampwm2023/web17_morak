@@ -1,4 +1,4 @@
-import { MogacoProps } from '@/types';
+import { Mogaco } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
@@ -9,11 +9,11 @@ export const mogaco = {
   },
 
   list: async () => {
-    const { data } = await morakAPI.get<MogacoProps[]>(mogaco.endPoint.list);
+    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.list);
     return data;
   },
-  mogacoDetail: async () => {
-    const { data } = await morakAPI.get<MogacoProps>(mogaco.endPoint.detail);
+  detail: async () => {
+    const { data } = await morakAPI.get<Mogaco>(mogaco.endPoint.detail);
     return data;
   },
 };

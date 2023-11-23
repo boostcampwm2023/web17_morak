@@ -1,12 +1,13 @@
-import { MogacoProps } from '@/types';
+import { Mogaco } from '@/types';
 
 import { DetailContents } from './DetailContents';
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
 import * as styles from './index.css';
 
+type MogacoDetailProps = Mogaco;
+
 export function MogacoDetailPage({
-  id,
   memberId,
   title,
   maxHumanCount,
@@ -15,9 +16,9 @@ export function MogacoDetailPage({
   address,
   contents,
   status,
-}: MogacoProps) {
+}: MogacoDetailProps) {
   return (
-    <div className={styles.wrapper} id={id}>
+    <div className={styles.wrapper}>
       <div className={styles.container}>
         <DetailHeader title={title} status={status} memberId={memberId} />
         <DetailInfo

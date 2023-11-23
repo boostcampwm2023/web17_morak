@@ -1,15 +1,14 @@
-export type MogacoDetailProps = MogacoProps & {
-  disabled?: boolean;
-};
-
-export type MogacoProps = {
+export type Mogaco = {
   id: string;
   groupId: string;
-  memberId: string; // 작성자
+  memberId: string;
   title: string;
   contents: string;
   date: string;
-  participantList: Participant[]; // 참석자
+  participantList: Participant[];
+  maxHumanCount: number;
+  address: string;
+  status: '모집 중' | '마감' | '종료';
 };
 
 export type Participant = {

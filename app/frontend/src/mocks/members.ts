@@ -15,7 +15,7 @@ export const memberAPIHandlers = [
       }),
   ),
   http.get(
-    /\/member\/\d+/,
+    '/member/:id',
     // () => HttpResponse.error(),
     () =>
       HttpResponse.json({
