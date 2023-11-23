@@ -88,7 +88,7 @@ export class AuthController {
         maxAge: getSecret('MAX_AGE_REFRESH_TOKEN'),
       });
 
-      res.redirect(getSecret(`AUTH_REDIRECT_URL`));
+      res.redirect(getSecret(`DOMAIN`));
     } catch (error) {
       throw new UnauthorizedException('Failed to handle Google login callback');
     }
@@ -121,7 +121,7 @@ export class AuthController {
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
         httpOnly: false,
-        maxAge: Number(getSecret('MAX_AGE_ACCESS_TOKEN')),
+        maxAge: getSecret('MAX_AGE_ACCESS_TOKEN'),
       });
 
       res.json({ newAccessToken });
