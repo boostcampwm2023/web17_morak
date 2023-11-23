@@ -1,9 +1,4 @@
-import {
-  Mogaco,
-  Participant,
-  MogacoPostForm,
-  MogacoPostRequest,
-} from '@/types';
+import { Mogaco, Participant, MogacoPostRequest } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
