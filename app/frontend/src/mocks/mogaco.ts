@@ -61,6 +61,7 @@ const participantsList = [
 
 export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
+  http.delete('/mogaco/:id', () => HttpResponse.json(null, { status: 200 })),
   http.get('/mogaco/:id', ({ params: { id } }) =>
     HttpResponse.json<Mogaco>(mogacoList[Number(id) - 1]),
   ),
@@ -81,5 +82,4 @@ export const mogacoAPIHandlers = [
     );
     return HttpResponse.json(null, { status: 200 });
   }),
-  http.delete('/mogaco/:id', () => HttpResponse.json(null, { status: 200 })),
 ];

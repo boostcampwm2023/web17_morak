@@ -26,10 +26,14 @@ export const mogaco = {
     return data;
   },
   join: async (id: string) => {
-    await morakAPI.post(`${mogaco.endPoint.index}/${id}/join`);
+    const response = await morakAPI.post(`${mogaco.endPoint.index}/${id}/join`);
+    return response;
   },
   quit: async (id: string) => {
-    await morakAPI.delete(`${mogaco.endPoint.index}/${id}/join`);
+    const response = await morakAPI.delete(
+      `${mogaco.endPoint.index}/${id}/join`,
+    );
+    return response;
   },
   delete: async (id: string) => {
     const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);

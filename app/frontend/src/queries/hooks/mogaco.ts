@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { queryKeys } from '@/queries';
 import { mogaco } from '@/services';
-
-import { queryKeys } from '..';
 
 export const useDeleteMogacoQuery = () => {
   const queryClient = useQueryClient();
@@ -12,6 +11,32 @@ export const useDeleteMogacoQuery = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.list().queryKey,
+      });
+    },
+  });
+};
+
+export const useJoinMogacoQuery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (postId: string) => mogaco.join(postId),
+    onSuccess: (data, postId) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.mogaco.participants(postId).queryKey,
+      });
+    },
+  });
+};
+
+export const useQuitMogacoQuery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (postId: string) => mogaco.delete(postId),
+    onSuccess: (data, postId) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.mogaco.participants(postId).queryKey,
       });
     },
   });
