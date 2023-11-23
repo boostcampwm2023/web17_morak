@@ -11,7 +11,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.enableCors({
-    origin: process.env.DOMAIN,
+    origin: getSecret(`DOMAIN`),
     credentials: true,
   });
   setupSwagger(app);
