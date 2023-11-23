@@ -67,6 +67,7 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
     HttpResponse.json<Participant[]>(participantsList[Number(id) - 1]),
   ),
+  http.post('/mogaco', () => HttpResponse.json(null, { status: 200 })),
   http.post('/mogaco/:id/join', ({ params: { id } }) => {
     participantsList[Number(id) - 1] = [
       ...participantsList[Number(id) - 1],
