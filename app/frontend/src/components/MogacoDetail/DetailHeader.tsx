@@ -23,20 +23,20 @@ export function DetailHeader({
   userHosted,
   userParticipated,
 }: DetailHeaderProps) {
-  const [user, setUser] = useState<UserInfo | null>(null);
+  const [hostUser, setHostUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    if (user) {
+    if (hostUser) {
       return;
     }
 
     const getUser = async () => {
       const data = await member.userInfoById(memberId);
-      setUser(data);
+      setHostUser(data);
     };
 
     getUser();
-  }, [user, memberId]);
+  }, [hostUser, memberId]);
 
   return (
     <div className={styles.header}>
@@ -50,9 +50,12 @@ export function DetailHeader({
           />
         </div>
       </div>
-      <div className={styles.writer}>
-        {user && (
-          <UserChip username={user.nickname} profileSrc={user.profilePicture} />
+      <div className={styles.hostUser}>
+        {hostUser && (
+          <UserChip
+            username={hostUser.nickname}
+            profileSrc={hostUser.profilePicture}
+          />
         )}
         <span>부스트캠프 웹·모바일 8기</span>
       </div>
