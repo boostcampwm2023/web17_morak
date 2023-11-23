@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,7 +10,6 @@ import * as styles from './index.css';
 
 export function MogacoDetailPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const { data: currentUser, isLoading: currentUserLoading } = useQuery(
     queryKeys.member.me(),
@@ -23,16 +21,12 @@ export function MogacoDetailPage() {
     queryKeys.mogaco.participants(id!),
   );
 
-  useEffect(() => {
-    if (!currentUser) {
-      // eslint-disable-next-line no-alert
-      window.alert('인증 정보가 없습니다.\n로그인해 주세요.');
-      navigate('/');
-    }
-  }, [currentUser, navigate]);
-
   if (currentUserLoading || mogacoDataLoading || participantListLoading) {
     return <div>로딩 중...</div>;
+  }
+
+  if (!currentUser) {
+    return <div>인증 정보가 없습니다. 로그인해 주세요.</div>;
   }
 
   if (!mogacoData) {
