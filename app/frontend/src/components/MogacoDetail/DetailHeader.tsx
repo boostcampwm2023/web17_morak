@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { UserChip } from '@/components';
 import { member } from '@/services';
 import { sansBold24 } from '@/styles/font.css';
-import { UserInfo } from '@/types';
+import { Member } from '@/types';
 
 import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
@@ -25,7 +25,7 @@ export function DetailHeader({
   userHosted,
   userParticipated,
 }: DetailHeaderProps) {
-  const [hostUser, setHostUser] = useState<UserInfo | null>(null);
+  const [hostUser, setHostUser] = useState<Member | null>(null);
 
   useEffect(() => {
     if (hostUser) {
@@ -33,7 +33,7 @@ export function DetailHeader({
     }
 
     const getUser = async () => {
-      const data = await member.userInfoById(memberId);
+      const data = await member.infoById(memberId);
       setHostUser(data);
     };
 

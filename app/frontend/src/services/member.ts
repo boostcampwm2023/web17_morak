@@ -1,4 +1,4 @@
-import { UserInfo } from '@/types';
+import { Member } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
@@ -9,12 +9,12 @@ export const member = {
   },
 
   myInfo: async () => {
-    const { data } = await morakAPI.get<UserInfo>(member.endPoint.me);
+    const { data } = await morakAPI.get<Member>(member.endPoint.me);
     return data;
   },
 
-  userInfoById: async (id: string) => {
-    const { data } = await morakAPI.get<UserInfo>(
+  infoById: async (id: string) => {
+    const { data } = await morakAPI.get<Member>(
       `${member.endPoint.default}/${id}`,
     );
     return data;
