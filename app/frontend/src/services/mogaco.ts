@@ -21,4 +21,10 @@ export const mogaco = {
     );
     return data;
   },
+  join: async (id: string) => {
+    await morakAPI.post(`/mogaco/${id}/join`);
+  },
+  quit: async (id: string) => {
+    await morakAPI.delete(`/mogaco/${id}/join`);
+  },
 };

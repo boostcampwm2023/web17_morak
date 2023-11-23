@@ -58,7 +58,7 @@ export function DetailInfo({
             <UserChip
               key={participant.id}
               username={participant.nickname}
-              profileSrc={participant.profile}
+              profileSrc={participant.profilePicture}
             />
           ))}
       </div>
