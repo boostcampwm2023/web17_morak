@@ -102,6 +102,35 @@ export class MogacoRepository {
     }
   }
 
+  async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
+    const mogaco = await this.prisma.mogaco.findUnique({
+      where: { id },
+    });
+
+    if (!mogaco) {
+      throw new NotFoundException(`Mogaco with id ${id} not found`);
+    }
+
+    if (mogaco.memberId !== member.id) {
+      throw new ForbiddenException(`You do not have permission to update this Mogaco`);
+    }
+
+    try {
+      return await this.prisma.mogaco.update({
+        where: { id: mogaco.id },
+        data: {
+          title: updateMogacoDto.title,
+          contents: updateMogacoDto.contents,
+          date: new Date(updateMogacoDto.date),
+          maxHumanCount: updateMogacoDto.maxHumanCount,
+          address: updateMogacoDto.address,
+        },
+      });
+    } catch (error) {
+      throw new Error(`Failed to update Mogaco: ${error.message}`);
+    }
+  }
+
   async joinMogaco(id: number, member: Member): Promise<void> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id, deletedAt: null },

@@ -80,6 +80,24 @@ export class MogacoController {
     return this.mogacoService.updateMogacoStatus(id, status);
   }
 
+  @Patch('/:id')
+  @ApiOperation({
+    summary: '모각코 수정',
+    description: '특정 모각코를 수정합니다.',
+  })
+  @ApiParam({ name: 'id', description: '수정할 모각코의 Id' })
+  @ApiBody({ type: CreateMogacoDto })
+  @ApiResponse({ status: 200, description: 'Successfully updated', type: MogacoWithMemberDto })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  async updateMogaco(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateMogacoDto: CreateMogacoDto,
+    @GetUser() member: Member,
+  ): Promise<Mogaco> {
+    return this.mogacoService.updateMogaco(id, updateMogacoDto, member);
+  }
+
   @Post('/:id/join')
   @ApiOperation({
     summary: '모각코 참가',

@@ -30,6 +30,10 @@ export class MogacoService {
     return this.mogacoRepository.updateMogacoStatus(mogaco);
   }
 
+  async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member) {
+    return this.mogacoRepository.updateMogaco(id, updateMogacoDto, member);
+  }
+
   async joinMogaco(id: number, member: Member): Promise<void> {
     return await this.mogacoRepository.joinMogaco(id, member);
   }
