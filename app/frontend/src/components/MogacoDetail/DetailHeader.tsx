@@ -7,7 +7,7 @@ import * as styles from './index.css';
 
 type DetailHeaderProps = {
   id: string;
-  currentUser: Member;
+  currentUser?: Member;
   mogacoData: Mogaco;
   participantList: Member[];
 };

@@ -25,10 +25,6 @@ export function MogacoDetailPage() {
     return <div>로딩 중...</div>;
   }
 
-  if (!currentUser) {
-    return <div>인증 정보가 없습니다. 로그인해 주세요.</div>;
-  }
-
   if (!mogacoData) {
     return <div>정보를 불러오는 데에 실패했습니다.</div>;
   }
@@ -38,7 +34,7 @@ export function MogacoDetailPage() {
       <div className={styles.container}>
         <DetailHeader
           id={id!}
-          currentUser={currentUser!}
+          currentUser={currentUser}
           mogacoData={mogacoData}
           participantList={participantList || []}
         />
