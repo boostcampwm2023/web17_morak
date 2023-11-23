@@ -1,4 +1,4 @@
-import { Mogaco, Participant, MogacoPostRequest } from '@/types';
+import { Member, Mogaco } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
@@ -20,7 +20,7 @@ export const mogaco = {
   post: async (form: MogacoPostRequest) =>
     morakAPI.post(mogaco.endPoint.index, form),
   participants: async (id: string) => {
-    const { data } = await morakAPI.get<Participant[]>(
+    const { data } = await morakAPI.get<Member[]>(
       `${mogaco.endPoint.index}/${id}/participants`,
     );
     return data;

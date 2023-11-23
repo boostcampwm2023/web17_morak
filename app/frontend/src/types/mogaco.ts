@@ -18,7 +18,6 @@ export type Mogaco = Pick<
   MogacoTypes,
   | 'id'
   | 'groupId'
-  | 'memberId'
   | 'title'
   | 'contents'
   | 'date'

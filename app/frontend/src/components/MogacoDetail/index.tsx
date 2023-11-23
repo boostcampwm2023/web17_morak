@@ -1,78 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { mogaco } from '@/services';
-import { useUserAtom } from '@/stores';
-import { Mogaco, Participant } from '@/types';
+import { useQuery } from '@tanstack/react-query';
 
-import { DetailContents } from './DetailContents';
+import { queryKeys } from '@/queries';
+
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
 import * as styles from './index.css';
 
-type MogacoDetailProps = Mogaco;
+export function MogacoDetailPage() {
+  const { id } = useParams();
+  const navigator = useNavigate();
 
-export function MogacoDetailPage({
-  id,
-  memberId,
-  title,
-  maxHumanCount,
-  date,
-  address,
-  contents,
-  status,
-}: MogacoDetailProps) {
-  const [participantList, setParticipantList] = useState<Participant[] | null>(
-    null,
+  const { data: currentUser } = useQuery(queryKeys.member.me());
+  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id!));
+  const { data: participantList } = useQuery(
+    queryKeys.mogaco.participants(id!),
   );
-  const [user, setUser] = useUserAtom();
 
-  if (!user)
-    setUser({
-      providerId: '1',
-      nickname: '지승',
-      profilePicture:
-        'https://avatars.githubusercontent.com/u/50646827?s=40&v=4',
-      email: 'js43og@gamil.com',
-    });
+  if (!currentUser) {
+    // eslint-disable-next-line no-alert
+    window.alert('인증 정보가 없습니다.\n로그인해 주세요.');
+    navigator('/');
+    return <div>리다이렉션...</div>;
+  }
 
-  const userHosted = user?.providerId === memberId;
-  const userParticipated = participantList
-    ? !!participantList.find(
-        (participant) => participant.id === user?.providerId,
-      )
-    : false;
-
-  useEffect(() => {
-    if (participantList) {
-      return;
-    }
-
-    const getParticipantList = async () => {
-      const data = await mogaco.participants(id);
-      setParticipantList(data);
-    };
-
-    getParticipantList();
-  }, [id, participantList]);
+  if (!mogacoData || !participantList) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <DetailHeader
-          id={id}
-          title={title}
-          status={status}
-          memberId={memberId}
-          userHosted={userHosted}
-          userParticipated={userParticipated}
-        />
-        <DetailInfo
+          id={id!}
+          currentUser={currentUser}
+          mogacoData={mogacoData}
           participantList={participantList}
-          maxHumanCount={maxHumanCount}
-          date={date}
-          address={address}
         />
-        <DetailContents contents={contents} />
+        <DetailInfo mogacoData={mogacoData} participantList={participantList} />
+        <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>
     </div>
