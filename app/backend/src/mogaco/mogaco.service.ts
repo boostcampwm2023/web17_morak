@@ -29,4 +29,20 @@ export class MogacoService {
     mogaco.status = status;
     return this.mogacoRepository.updateMogacoStatus(mogaco);
   }
+
+  async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member) {
+    return this.mogacoRepository.updateMogaco(id, updateMogacoDto, member);
+  }
+
+  async joinMogaco(id: number, member: Member): Promise<void> {
+    return await this.mogacoRepository.joinMogaco(id, member);
+  }
+
+  async getParticipants(id: number): Promise<Member[]> {
+    return this.mogacoRepository.getParticipants(id);
+  }
+
+  async cancelMogacoJoin(id: number, member: Member): Promise<void> {
+    return this.mogacoRepository.cancelMogacoJoin(id, member);
+  }
 }
