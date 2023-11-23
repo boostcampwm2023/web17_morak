@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+import { URL } from '@/constants';
+
 export const morakAPI = axios.create({
-  baseURL: import.meta.env.DEV ? '' : import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.DEV ? '' : URL.API,
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 });
