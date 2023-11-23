@@ -33,7 +33,7 @@ export const useQuitMogacoQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (postId: string) => mogaco.delete(postId),
+    mutationFn: (postId: string) => mogaco.quit(postId),
     onSuccess: (data, postId) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.participants(postId).queryKey,

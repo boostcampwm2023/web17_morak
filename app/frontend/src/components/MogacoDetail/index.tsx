@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +11,7 @@ import * as styles from './index.css';
 
 export function MogacoDetailPage() {
   const { id } = useParams();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const { data: currentUser } = useQuery(queryKeys.member.me());
   const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id!));
@@ -18,12 +19,13 @@ export function MogacoDetailPage() {
     queryKeys.mogaco.participants(id!),
   );
 
-  if (!currentUser) {
-    // eslint-disable-next-line no-alert
-    window.alert('인증 정보가 없습니다.\n로그인해 주세요.');
-    navigator('/');
-    return <div>리다이렉션...</div>;
-  }
+  useEffect(() => {
+    if (!currentUser) {
+      // eslint-disable-next-line no-alert
+      window.alert('인증 정보가 없습니다.\n로그인해 주세요.');
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   if (!mogacoData || !participantList) {
     return <div>로딩 중...</div>;
@@ -34,7 +36,7 @@ export function MogacoDetailPage() {
       <div className={styles.container}>
         <DetailHeader
           id={id!}
-          currentUser={currentUser}
+          currentUser={currentUser!}
           mogacoData={mogacoData}
           participantList={participantList}
         />

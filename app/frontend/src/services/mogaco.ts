@@ -1,4 +1,4 @@
-import { Member, Mogaco } from '@/types';
+import { Member, Mogaco, MogacoPostRequest } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
@@ -19,6 +19,10 @@ export const mogaco = {
   },
   post: async (form: MogacoPostRequest) =>
     morakAPI.post(mogaco.endPoint.index, form),
+  delete: async (id: string) => {
+    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
+    return response;
+  },
   participants: async (id: string) => {
     const { data } = await morakAPI.get<Member[]>(
       `${mogaco.endPoint.index}/${id}/participants`,
@@ -33,10 +37,6 @@ export const mogaco = {
     const response = await morakAPI.delete(
       `${mogaco.endPoint.index}/${id}/join`,
     );
-    return response;
-  },
-  delete: async (id: string) => {
-    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
     return response;
   },
 };
