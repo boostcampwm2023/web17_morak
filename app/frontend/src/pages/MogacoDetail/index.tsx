@@ -1,33 +1,35 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { MogacoDetailPage } from '@/components';
 import { mogaco } from '@/services';
 import { Mogaco } from '@/types';
 
 export function MogacoDetail() {
+  const { id } = useParams();
   const [mogacoData, setMogacoData] = useState<Mogaco | null>(null);
 
   useEffect(() => {
-    if (mogacoData) return;
+    if (!id || mogacoData) {
+      return;
+    }
 
     const fetchMogacoData = async () => {
-      const data = await mogaco.detail();
+      const data = await mogaco.detail(id);
       setMogacoData(data);
     };
 
     fetchMogacoData();
-  }, [mogacoData]);
+  }, [id, mogacoData]);
 
   if (!mogacoData) {
     return <div>불러오는 중...</div>;
   }
 
   const {
-    id,
     memberId,
     groupId,
     title,
-    participantList,
     maxHumanCount,
     date,
     address,
@@ -37,11 +39,10 @@ export function MogacoDetail() {
 
   return (
     <MogacoDetailPage
-      id={id}
+      id={id as string}
       memberId={memberId}
       groupId={groupId}
       title={title}
-      participantList={participantList}
       maxHumanCount={maxHumanCount}
       date={date}
       address={address}

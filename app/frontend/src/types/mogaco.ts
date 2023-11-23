@@ -5,7 +5,6 @@ interface MogacoTypes {
   title: string;
   contents: string;
   date: string;
-  participantList: Participant[];
   maxHumanCount: number;
   address: string;
   status: '모집 중' | '마감' | '종료';

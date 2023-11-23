@@ -1,4 +1,7 @@
-import { Mogaco } from '@/types';
+import { useState, useEffect } from 'react';
+
+import { mogaco } from '@/services';
+import { Mogaco, Participant } from '@/types';
 
 import { DetailContents } from './DetailContents';
 import { DetailHeader } from './DetailHeader';
@@ -8,15 +11,30 @@ import * as styles from './index.css';
 type MogacoDetailProps = Mogaco;
 
 export function MogacoDetailPage({
+  id,
   memberId,
   title,
   maxHumanCount,
-  participantList,
   date,
   address,
   contents,
   status,
 }: MogacoDetailProps) {
+  const [participantList, setParticipantList] = useState<Participant[]>([]);
+
+  useEffect(() => {
+    if (participantList) {
+      return;
+    }
+
+    const getParticipantList = async () => {
+      const data = await mogaco.participants(id);
+      setParticipantList(data);
+    };
+
+    getParticipantList();
+  }, [id, participantList]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>

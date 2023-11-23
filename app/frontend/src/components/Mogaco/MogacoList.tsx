@@ -20,7 +20,6 @@ export function MogacoList() {
             title,
             contents,
             date,
-            participantList,
             maxHumanCount,
             address,
             status,
@@ -32,7 +31,6 @@ export function MogacoList() {
               title={title}
               groupId={groupId}
               contents={contents}
-              participantList={participantList}
               maxHumanCount={maxHumanCount}
               address={address}
               date={date}
