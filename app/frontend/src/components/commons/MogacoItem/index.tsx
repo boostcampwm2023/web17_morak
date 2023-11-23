@@ -9,7 +9,7 @@ import { Mogaco } from '@/types';
 
 import * as styles from './index.css';
 
-type MogacoProps = Mogaco;
+type MogacoProps = Omit<Mogaco, 'member'>;
 
 export function MogacoItem({
   id,

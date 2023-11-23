@@ -15,7 +15,6 @@ export function MogacoList() {
         mogacoList.map(
           ({
             id,
-            memberId,
             groupId,
             title,
             contents,
@@ -27,7 +26,6 @@ export function MogacoList() {
             <MogacoItem
               key={id}
               id={id}
-              memberId={memberId}
               title={title}
               groupId={groupId}
               contents={contents}

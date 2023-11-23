@@ -21,7 +21,7 @@ export const useJoinMogacoQuery = () => {
 
   return useMutation({
     mutationFn: (postId: string) => mogaco.join(postId),
-    onSuccess: (data, postId) => {
+    onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.participants(postId).queryKey,
       });
@@ -34,7 +34,7 @@ export const useQuitMogacoQuery = () => {
 
   return useMutation({
     mutationFn: (postId: string) => mogaco.quit(postId),
-    onSuccess: (data, postId) => {
+    onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.participants(postId).queryKey,
       });
