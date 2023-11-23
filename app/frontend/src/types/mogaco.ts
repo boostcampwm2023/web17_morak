@@ -1,3 +1,5 @@
+import { Member } from './member';
+
 interface MogacoTypes {
   id: string;
   groupId: number;
@@ -16,14 +18,13 @@ export type Mogaco = Pick<
   MogacoTypes,
   | 'id'
   | 'groupId'
-  | 'memberId'
   | 'title'
   | 'contents'
   | 'date'
   | 'maxHumanCount'
   | 'address'
   | 'status'
->;
+> & { member: Member };
 
 export type MogacoPostForm = Pick<
   MogacoTypes,
@@ -46,9 +47,4 @@ export type MogacoPostRequest = Pick<
   | 'maxHumanCount'
   | 'address'
   | 'status'
->;
-
-export type Participant = Pick<
-  MogacoTypes,
-  'id' | 'nickname' | 'profilePicture'
 >;

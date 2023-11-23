@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 import { mogaco } from '@/services';
@@ -8,5 +7,12 @@ export const mogacoKeys = createQueryKeys('mogaco', {
     queryKey: [{ filters }],
     queryFn: () => mogaco.list(),
   }),
-  detail: (id: string) => [id],
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => mogaco.detail(id),
+  }),
+  participants: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => mogaco.participants(id),
+  }),
 });

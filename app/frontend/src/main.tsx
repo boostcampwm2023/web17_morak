@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
+import { queryKeys } from './queries';
 
 async function enableMocking() {
   if (import.meta.env.MODE !== 'development') {
@@ -18,6 +19,9 @@ async function enableMocking() {
 }
 
 const queryClient = new QueryClient();
+queryClient.setQueryDefaults(queryKeys.member.me().queryKey, {
+  staleTime: Infinity,
+});
 
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(

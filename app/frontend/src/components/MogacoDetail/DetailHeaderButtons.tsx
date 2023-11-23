@@ -1,32 +1,39 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components';
-import { useDeleteMogacoQuery } from '@/queries/hooks';
-import { mogaco } from '@/services';
+import {
+  useDeleteMogacoQuery,
+  useJoinMogacoQuery,
+  useQuitMogacoQuery,
+} from '@/queries/hooks';
+import { Member, Mogaco } from '@/types';
 
 type DetailHeaderButtonsProps = {
   id: string;
-  userHosted: boolean;
-  userParticipated: boolean;
-  status: '모집 중' | '마감' | '종료';
+  currentUser: Member;
+  mogacoData: Mogaco;
+  participantList: Member[];
 };
 
 export function DetailHeaderButtons({
   id,
-  userHosted,
-  userParticipated,
-  status,
+  currentUser,
+  mogacoData,
+  participantList,
 }: DetailHeaderButtonsProps) {
   const navigate = useNavigate();
-  const { id: postId } = useParams();
-  const { mutateAsync } = useDeleteMogacoQuery();
+
+  const deleteMogaco = useDeleteMogacoQuery();
+  const joinMogaco = useJoinMogacoQuery();
+  const quitMogaco = useQuitMogacoQuery();
+
+  const userHosted = mogacoData.member.providerId === currentUser.providerId;
+  const userParticipated = participantList.find(
+    (participant) => participant.providerId === currentUser.providerId,
+  );
 
   const handleDelete = async () => {
-    if (!postId) {
-      return;
-    }
-
-    const res = await mutateAsync(id);
+    const res = await deleteMogaco.mutateAsync(id!);
     if (res.status === 200) {
       navigate('/mogaco');
     }
@@ -41,11 +48,11 @@ export function DetailHeaderButtons({
   };
 
   const onClickJoin = async () => {
-    await mogaco.join(id);
+    await joinMogaco.mutateAsync(id!);
   };
 
   const onClickQuit = async () => {
-    await mogaco.quit(id);
+    await quitMogaco.mutateAsync(id!);
   };
 
   if (userHosted) {
@@ -66,7 +73,7 @@ export function DetailHeaderButtons({
     );
   }
 
-  if (status === '모집 중') {
+  if (mogacoData.status === '모집 중') {
     return userParticipated ? (
       <>
         <Button theme="primary" shape="fill" size="large">

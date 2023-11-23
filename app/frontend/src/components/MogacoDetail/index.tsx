@@ -1,78 +1,58 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { mogaco } from '@/services';
-import { useUserAtom } from '@/stores';
-import { Mogaco, Participant } from '@/types';
+import { useQuery } from '@tanstack/react-query';
 
-import { DetailContents } from './DetailContents';
+import { queryKeys } from '@/queries';
+
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
 import * as styles from './index.css';
 
-type MogacoDetailProps = Mogaco;
+export function MogacoDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-export function MogacoDetailPage({
-  id,
-  memberId,
-  title,
-  maxHumanCount,
-  date,
-  address,
-  contents,
-  status,
-}: MogacoDetailProps) {
-  const [participantList, setParticipantList] = useState<Participant[] | null>(
-    null,
+  const { data: currentUser, isLoading: currentUserLoading } = useQuery(
+    queryKeys.member.me(),
   );
-  const [user, setUser] = useUserAtom();
-
-  if (!user)
-    setUser({
-      providerId: '1',
-      nickname: '지승',
-      profilePicture:
-        'https://avatars.githubusercontent.com/u/50646827?s=40&v=4',
-      email: 'js43og@gamil.com',
-    });
-
-  const userHosted = user?.providerId === memberId;
-  const userParticipated = participantList
-    ? !!participantList.find(
-        (participant) => participant.id === user?.providerId,
-      )
-    : false;
+  const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
+    queryKeys.mogaco.detail(id!),
+  );
+  const { data: participantList, isLoading: participantListLoading } = useQuery(
+    queryKeys.mogaco.participants(id!),
+  );
 
   useEffect(() => {
-    if (participantList) {
-      return;
+    if (!currentUser) {
+      // eslint-disable-next-line no-alert
+      window.alert('인증 정보가 없습니다.\n로그인해 주세요.');
+      navigate('/');
     }
+  }, [currentUser, navigate]);
 
-    const getParticipantList = async () => {
-      const data = await mogaco.participants(id);
-      setParticipantList(data);
-    };
+  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
+    return <div>로딩 중...</div>;
+  }
 
-    getParticipantList();
-  }, [id, participantList]);
+  if (!mogacoData) {
+    return <div>정보를 불러오는 데에 실패했습니다.</div>;
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <DetailHeader
-          id={id}
-          title={title}
-          status={status}
-          memberId={memberId}
-          userHosted={userHosted}
-          userParticipated={userParticipated}
+          id={id!}
+          currentUser={currentUser!}
+          mogacoData={mogacoData}
+          participantList={participantList || []}
         />
         <DetailInfo
-          participantList={participantList}
-          maxHumanCount={maxHumanCount}
-          date={date}
-          address={address}
+          mogacoData={mogacoData}
+          participantList={participantList || []}
         />
-        <DetailContents contents={contents} />
+        <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>
     </div>
