@@ -5,7 +5,7 @@ import { Member, Mogaco } from '@/types';
 
 import { memberList } from './members';
 
-const mogacoList: Mogaco[] = [
+let mogacoList: Mogaco[] = [
   {
     id: '1',
     groupId: 1,
@@ -26,7 +26,7 @@ const mogacoList: Mogaco[] = [
     maxHumanCount: 5,
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
-    member: memberList[1],
+    member: memberList[2],
   },
   {
     id: '3',
@@ -52,34 +52,46 @@ const mogacoList: Mogaco[] = [
   },
 ];
 
-const participantsList: Member[][] = [
-  [memberList[0], memberList[1], memberList[2]],
-  [memberList[1], memberList[2]],
-  [memberList[0], memberList[2]],
-  [memberList[0], memberList[1]],
+const participantsList: { id: string; participants: Member[] }[] = [
+  { id: '1', participants: [memberList[0], memberList[1], memberList[2]] },
+  { id: '2', participants: [memberList[0], memberList[2]] },
+  { id: '3', participants: [memberList[1], memberList[2]] },
+  { id: '4', participants: [memberList[0], memberList[1]] },
 ];
 
 export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
-  http.post('/mogaco', () => HttpResponse.json(null, { status: 200 })),
-  http.delete('/mogaco/:id', () => HttpResponse.json(null, { status: 200 })),
+  http.post('/mogaco', () => HttpResponse.json({ status: 201 })),
   http.get('/mogaco/:id', ({ params: { id } }) =>
-    HttpResponse.json<Mogaco>(mogacoList[Number(id) - 1]),
+    HttpResponse.json<Mogaco>(mogacoList.find((mogaco) => mogaco.id === id)),
   ),
+  http.delete('/mogaco/:id', ({ params: { id } }) => {
+    mogacoList = mogacoList.filter((mogaco) => mogaco.id !== id);
+    return HttpResponse.json({ status: 204 });
+  }),
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
-    HttpResponse.json<Member[]>(participantsList[Number(id) - 1]),
+    HttpResponse.json<Member[]>(
+      participantsList.find((item) => item.id === id)?.participants,
+    ),
   ),
   http.post('/mogaco/:id/join', ({ params: { id } }) => {
-    participantsList[Number(id) - 1] = [
-      ...participantsList[Number(id) - 1],
-      memberList[0],
-    ];
-    return HttpResponse.json(null, { status: 200 });
+    const target = participantsList.find((item) => item.id === id);
+    if (!target) {
+      return HttpResponse.json({ status: 404 });
+    }
+
+    target.participants = [...target.participants, memberList[0]];
+    return HttpResponse.json({ status: 200 });
   }),
   http.delete('/mogaco/:id/join', ({ params: { id } }) => {
-    participantsList[Number(id) - 1] = participantsList[Number(id) - 1].filter(
-      (participant) => participant.providerId !== memberList[0].providerId,
+    const target = participantsList.find((item) => item.id === id);
+    if (!target) {
+      return HttpResponse.json({ status: 404 });
+    }
+
+    target.participants = target.participants.filter(
+      (item) => item.providerId !== memberList[0].providerId,
     );
-    return HttpResponse.json(null, { status: 200 });
+    return HttpResponse.json({ status: 200 });
   }),
 ];
