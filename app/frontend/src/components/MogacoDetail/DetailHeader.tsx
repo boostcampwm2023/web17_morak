@@ -11,7 +11,7 @@ import * as styles from './index.css';
 type DetailHeaderProps = {
   memberId: string;
   title: string;
-  status: string;
+  status: '모집 중' | '마감' | '종료';
 };
 
 export function DetailHeader({ memberId, title, status }: DetailHeaderProps) {

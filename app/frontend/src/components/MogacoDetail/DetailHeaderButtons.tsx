@@ -1,26 +1,22 @@
 import { Button } from '@/components';
 
-type DetailHeaderButtonsProps = {
-  status: string;
-};
-
 const buttonComponents = {
-  '모집 중': (
+  participating: (
     <Button theme="primary" shape="fill" size="large">
       참석하기
     </Button>
   ),
-  마감: (
+  participated: (
     <>
       <Button theme="primary" shape="fill" size="large">
         채팅
       </Button>
-      <Button theme="primary" shape="line" size="large">
+      <Button theme="danger" shape="fill" size="large">
         참석 취소
       </Button>
     </>
   ),
-  종료: (
+  hosted: (
     <>
       <Button theme="primary" shape="line" size="large">
         수정
@@ -30,8 +26,30 @@ const buttonComponents = {
       </Button>
     </>
   ),
+  closed: (
+    <Button theme="primary" shape="fill" size="large" disabled>
+      마감
+    </Button>
+  ),
+};
+
+type DetailHeaderButtonsProps = {
+  status: '모집 중' | '마감' | '종료';
 };
 
 export function DetailHeaderButtons({ status }: DetailHeaderButtonsProps) {
-  return status ? buttonComponents[status as '모집 중' | '마감' | '종료'] : '';
+  const userHosted = false;
+  const userParticipated = false;
+
+  if (userHosted) {
+    return buttonComponents.hosted;
+  }
+
+  if (status === '모집 중') {
+    return userParticipated
+      ? buttonComponents.participated
+      : buttonComponents.participating;
+  }
+
+  return buttonComponents.closed;
 }
