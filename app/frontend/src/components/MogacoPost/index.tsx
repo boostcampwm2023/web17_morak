@@ -1,20 +1,62 @@
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import { Input, Button, Textarea } from '@/components';
 import { MOGACO_POST } from '@/constants';
+import { useUserInfo } from '@/hooks';
+import { queryKeys } from '@/queries';
+import { mogaco } from '@/services';
 import { MogacoPostForm } from '@/types';
+import { getCookies } from '@/utils';
 
 import * as styles from './index.css';
 import { MogacoPostTitle } from './MogacoPostTitle';
 
 export function MogacoPostPage() {
-  const date = dayjs(new Date()).format('YYYY-MM-DD HH:mm');
+  const currentDate = dayjs().format('YYYY-MM-DD HH:mm');
   const { control, handleSubmit } = useForm<MogacoPostForm>();
 
-  // POST 요청으로 수정 예정
-  const onSubmit = () => {};
+  const token = getCookies('access_token');
+  const { providerId } = useUserInfo(token);
+
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation({
+    mutationFn: (form: MogacoPostForm) => mogaco.post(form),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.mogaco.list().queryKey,
+      });
+    },
+  });
+
+  const onSubmit = async ({
+    title,
+    contents,
+    date,
+    maxHumanCount,
+    address,
+  }: MogacoPostForm) => {
+    const res = await mutateAsync({
+      groupId: 1,
+      memberId: providerId,
+      title,
+      contents,
+      date: new Date(date).toISOString(),
+      maxHumanCount,
+      address,
+      status: '모집 중',
+    });
+
+    if (res.status === 200) {
+      // TODO: 글 id 받아서 상세 페이지로 이동 필요
+      navigate('/mogaco');
+    }
+  };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -99,14 +141,14 @@ export function MogacoPostPage() {
           name="date"
           rules={{
             required: MOGACO_POST.DATE.REQUIRED,
-            min: { value: date, message: MOGACO_POST.DATE.MIN },
+            min: { value: currentDate, message: MOGACO_POST.DATE.MIN },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Input
               label={MOGACO_POST.DATE.LABEL}
               type="datetime-local"
               required
-              min={date}
+              min={currentDate}
               onChange={onChange}
               value={value}
               errorMessage={error && error.message}
