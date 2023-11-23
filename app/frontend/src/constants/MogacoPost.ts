@@ -1,15 +1,13 @@
 export const MOGACO_POST = {
   TITLE: {
-    PLACEHOLDER: '모각코 함께해요',
     REQUIRED: '제목을 입력해주세요',
-    MAX: '최대 64자 까지 입력 가능합니다',
+    MAX: '최대 64자까지 입력 가능합니다',
     MAX_LENGTH: 64,
   },
   MEMBER: { LABEL: '작성자' },
   GROUP: { LABEL: '그룹', REQUIRED: '그룹을 선택해주세요' },
   COUNT: {
     LABEL: '최대 인원 수',
-    PLACEHOLDER: '20',
     REQUIRED: '최대 인원 수를 입력해주세요',
     PATTERN: '숫자만 입력 가능합니다',
     MIN: '최소 인원 수는 2명입니다',

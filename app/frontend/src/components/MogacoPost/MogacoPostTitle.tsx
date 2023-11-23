@@ -27,7 +27,7 @@ export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
             <input
               type="text"
               className={styles.title}
-              placeholder={MOGACO_POST.TITLE.PLACEHOLDER}
+              placeholder={MOGACO_POST.TITLE.REQUIRED}
               maxLength={MOGACO_POST.TITLE.MAX_LENGTH}
               onChange={onChange}
             />

@@ -71,7 +71,7 @@ export function MogacoPostPage() {
             <Input
               label={MOGACO_POST.COUNT.LABEL}
               type="number"
-              placeholder={MOGACO_POST.COUNT.PLACEHOLDER}
+              placeholder={MOGACO_POST.COUNT.REQUIRED}
               required
               onChange={onChange}
               value={value}
