@@ -27,4 +27,8 @@ export const mogaco = {
   quit: async (id: string) => {
     await morakAPI.delete(`/mogaco/${id}/join`);
   },
+  delete: async (id: string) => {
+    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
+    return response;
+  },
 };
