@@ -13,7 +13,7 @@ type InputProps = {
   max?: number;
   required?: boolean;
   defaultValue?: string;
-  value?: string;
+  value?: string | number;
   onChange?: () => void;
 };
 
@@ -44,7 +44,7 @@ export function Input({
         </span>
         {maxLength && (
           <span className={styles.count}>
-            {value ? value.length : 0}/{maxLength}
+            {value ? value.toString().length : 0}/{maxLength}
           </span>
         )}
       </div>

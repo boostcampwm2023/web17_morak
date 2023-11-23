@@ -9,8 +9,8 @@ type TextareaProps = {
   required?: boolean;
   fullWidth?: boolean;
   rows?: number;
-  value: string;
-  onChange: () => void;
+  value?: string;
+  onChange?: () => void;
 };
 
 export function Textarea({
