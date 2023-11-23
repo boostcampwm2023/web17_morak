@@ -57,7 +57,6 @@ export function Input({
         min={min}
         max={max}
         defaultValue={defaultValue}
-        value={value}
         onChange={onChange}
       />
       {!disabled && errorMessage && (
