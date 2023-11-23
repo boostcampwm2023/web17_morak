@@ -1,6 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+ 
 import { mergeQueryKeys } from '@lukemorales/query-key-factory';
 
+import { memberKeys } from './member';
 import { mogacoKeys } from './mogaco';
 
-export const queryKeys = mergeQueryKeys(mogacoKeys);
+export const queryKeys = mergeQueryKeys(mogacoKeys, memberKeys);
