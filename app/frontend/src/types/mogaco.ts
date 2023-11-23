@@ -37,6 +37,17 @@ export type MogacoPostForm = Pick<
   | 'status'
 >;
 
+export type MogacoPostRequest = Pick<
+  MogacoTypes,
+  | 'title'
+  | 'groupId'
+  | 'contents'
+  | 'date'
+  | 'maxHumanCount'
+  | 'address'
+  | 'status'
+>;
+
 export type Participant = Pick<
   MogacoTypes,
   'id' | 'nickname' | 'profilePicture'
