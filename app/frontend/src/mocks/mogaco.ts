@@ -8,7 +8,7 @@ import { userList } from './members';
 const mogacoList = [
   {
     id: '1',
-    groupId: '1',
+    groupId: 1,
     memberId: '1',
     title: '인천역 모각코',
     contents: '인천에서 같이 모각코 하실 분을 모십니다.',
@@ -19,7 +19,7 @@ const mogacoList = [
   },
   {
     id: '2',
-    groupId: '1',
+    groupId: 1,
     memberId: '2',
     title: '이수역 모각코',
     contents: '이수역 모각코 하실 분 구합니다!',
@@ -30,7 +30,7 @@ const mogacoList = [
   },
   {
     id: '3',
-    groupId: '1',
+    groupId: 1,
     memberId: '3',
     title: '종각역 모각코',
     contents: '종각역에서 모각코 하실 분 구해요',
@@ -41,7 +41,7 @@ const mogacoList = [
   },
   {
     id: '4',
-    groupId: '1',
+    groupId: 1,
     memberId: '1',
     title: '사당역 모각코',
     contents: '사당역 크레이저 커피로 오세요~',
@@ -67,6 +67,7 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
     HttpResponse.json<Participant[]>(participantsList[Number(id) - 1]),
   ),
+  http.post('/mogaco', () => HttpResponse.json(null, { status: 200 })),
   http.post('/mogaco/:id/join', ({ params: { id } }) => {
     participantsList[Number(id) - 1] = [
       ...participantsList[Number(id) - 1],

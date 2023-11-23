@@ -1,6 +1,6 @@
 interface MogacoTypes {
   id: string;
-  groupId: string;
+  groupId: number;
   memberId: string;
   title: string;
   contents: string;
@@ -34,6 +34,7 @@ export type MogacoPostForm = Pick<
   | 'date'
   | 'maxHumanCount'
   | 'address'
+  | 'status'
 >;
 
 export type Participant = Pick<
