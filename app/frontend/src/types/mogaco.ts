@@ -1,4 +1,4 @@
-interface Mogaco {
+interface MogacoTypes {
   id: string;
   groupId: string;
   memberId: string;
@@ -13,18 +13,8 @@ interface Mogaco {
   profile: string;
 }
 
-export type MogacoPostForm = {
-  title: string;
-  memberId: string;
-  groupId: string;
-  contents: string;
-  date: string;
-  maxHumanCount: string;
-  address: string;
-};
-
-export type MogacoProps = Pick<
-  Mogaco,
+export type Mogaco = Pick<
+  MogacoTypes,
   | 'id'
   | 'groupId'
   | 'memberId'
@@ -37,4 +27,15 @@ export type MogacoProps = Pick<
   | 'status'
 >;
 
-export type Participant = Pick<Mogaco, 'memberId' | 'nickname' | 'profile'>;
+export type MogacoPostForm = Pick<
+  MogacoTypes,
+  | 'title'
+  | 'memberId'
+  | 'groupId'
+  | 'contents'
+  | 'date'
+  | 'maxHumanCount'
+  | 'address'
+>;
+
+export type Participant = Pick<MogacoTypes, 'id' | 'nickname' | 'profile'>;
