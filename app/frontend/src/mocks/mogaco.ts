@@ -80,4 +80,5 @@ export const mogacoAPIHandlers = [
     );
     return HttpResponse.json(null, { status: 200 });
   }),
+  http.delete('/mogaco/:id', () => HttpResponse.json(null, { status: 200 })),
 ];

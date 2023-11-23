@@ -4,11 +4,11 @@ import { morakAPI } from './morakAPI';
 
 export const mogaco = {
   endPoint: {
-    list: '/mogaco',
+    index: '/mogaco',
   },
 
   list: async () => {
-    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.list);
+    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.index);
     return data;
   },
   detail: async (id: string) => {
@@ -26,5 +26,9 @@ export const mogaco = {
   },
   quit: async (id: string) => {
     await morakAPI.delete(`/mogaco/${id}/join`);
+  },
+  delete: async (id: string) => {
+    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
+    return response;
   },
 };
