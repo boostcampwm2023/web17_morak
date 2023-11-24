@@ -8,6 +8,8 @@ export * from './commons/Input';
 export * from './commons/Input/Textarea';
 export * from './commons/Label';
 export * from './commons/Layout';
+export * from './commons/Loading';
+export * from './commons/Loading/LoadingIndicator';
 export * from './commons/MogacoItem';
 export * from './commons/Popover';
 export * from './commons/Sidebar';

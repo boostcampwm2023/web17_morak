@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components';
+import { Button, LoadingIndicator } from '@/components';
 import {
   useDeleteMogacoQuery,
   useJoinMogacoQuery,
@@ -60,7 +60,7 @@ export function DetailHeaderButtons({
   if (currentUserLoading) {
     return (
       <Button theme="primary" shape="fill" size="large" disabled>
-        판별 중...
+        <LoadingIndicator size={20} />
       </Button>
     );
   }

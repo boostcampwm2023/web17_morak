@@ -28,7 +28,7 @@ export const memberAPIHandlers = [
   http.get(
     '/member/me',
     // () => HttpResponse.error(),
-    () => HttpResponse.json(memberList[0]),
+    () => HttpResponse.json(memberList[0], { status: 401 }),
   ),
   http.get(
     '/member/:id',
