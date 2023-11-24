@@ -1,11 +1,13 @@
-import { Controller, Get, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { MemberInformationDto } from './dto/member.dto';
+import { AtGuard } from 'src/auth/guards/at.guard';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
+@UseGuards(AtGuard)
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
