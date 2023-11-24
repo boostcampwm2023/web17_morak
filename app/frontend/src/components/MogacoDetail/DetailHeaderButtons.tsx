@@ -11,6 +11,7 @@ import { Member, Mogaco } from '@/types';
 type DetailHeaderButtonsProps = {
   id: string;
   currentUser?: Member;
+  currentUserLoading: boolean;
   mogacoData: Mogaco;
   participantList: Member[];
 };
@@ -18,6 +19,7 @@ type DetailHeaderButtonsProps = {
 export function DetailHeaderButtons({
   id,
   currentUser,
+  currentUserLoading,
   mogacoData,
   participantList,
 }: DetailHeaderButtonsProps) {
@@ -54,6 +56,14 @@ export function DetailHeaderButtons({
   const onClickQuit = async () => {
     await quitMogaco.mutateAsync(id!);
   };
+
+  if (currentUserLoading) {
+    return (
+      <Button theme="primary" shape="fill" size="large" disabled>
+        판별 중...
+      </Button>
+    );
+  }
 
   if (!currentUser) {
     return (

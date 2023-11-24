@@ -21,7 +21,7 @@ export function MogacoDetailPage() {
     queryKeys.mogaco.participants(id!),
   );
 
-  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
+  if (mogacoDataLoading || participantListLoading) {
     return <div>로딩 중...</div>;
   }
 
@@ -35,6 +35,7 @@ export function MogacoDetailPage() {
         <DetailHeader
           id={id!}
           currentUser={currentUser}
+          currentUserLoading={currentUserLoading}
           mogacoData={mogacoData}
           participantList={participantList || []}
         />

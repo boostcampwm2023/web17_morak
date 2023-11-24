@@ -8,6 +8,7 @@ import * as styles from './index.css';
 type DetailHeaderProps = {
   id: string;
   currentUser?: Member;
+  currentUserLoading: boolean;
   mogacoData: Mogaco;
   participantList: Member[];
 };
@@ -15,6 +16,7 @@ type DetailHeaderProps = {
 export function DetailHeader({
   id,
   currentUser,
+  currentUserLoading,
   mogacoData,
   participantList,
 }: DetailHeaderProps) {
@@ -26,6 +28,7 @@ export function DetailHeader({
           <DetailHeaderButtons
             id={id}
             currentUser={currentUser}
+            currentUserLoading={currentUserLoading}
             mogacoData={mogacoData}
             participantList={participantList}
           />
