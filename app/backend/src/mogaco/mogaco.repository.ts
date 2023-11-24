@@ -210,7 +210,7 @@ export class MogacoRepository {
       throw new NotFoundException(`Member with id ${member.id} is not participating in Mogaco with id ${id}`);
     }
 
-    if (mogaco.memberId !== member.id) {
+    if (mogaco.memberId !== member.id && participant.userId !== member.id) {
       throw new ForbiddenException(`You do not have permission to cancel participation in this Mogaco`);
     }
 
