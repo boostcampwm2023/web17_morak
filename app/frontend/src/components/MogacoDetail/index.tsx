@@ -14,10 +14,9 @@ import * as styles from './index.css';
 export function MogacoDetailPage() {
   const { id } = useParams();
 
-  const { data: currentUser, isLoading: currentUserLoading } = useQuery({
-    ...queryKeys.member.me(),
-    retry: 1,
-  });
+  const { data: currentUser, isLoading: currentUserLoading } = useQuery(
+    queryKeys.member.me(),
+  );
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
     queryKeys.mogaco.detail(id!),
   );
