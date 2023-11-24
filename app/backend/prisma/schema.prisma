@@ -14,6 +14,8 @@ model Member {
   id           BigInt     @id @default(autoincrement()) @db.BigInt
   providerId  String     @unique @db.VarChar(191) @map("provider_id")
   email        String    @unique @db.VarChar(191)
+  nickname     String    @db.VarChar(191)
+  profilePicture String  @db.VarChar(191) @map("profile_picture")
   socialType  String     @db.VarChar(191) @map("social_type")
   createdAt   DateTime   @default(now()) @map("created_at")
   users GroupToUser[]
