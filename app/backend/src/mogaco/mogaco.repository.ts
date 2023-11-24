@@ -37,10 +37,10 @@ export class MogacoRepository {
       address: mogaco.address,
       status: mogaco.status,
       member: {
-        id: mogaco.member.id,
         providerId: mogaco.member.providerId,
         email: mogaco.member.email,
-        socialType: mogaco.member.socialType,
+        nickname: mogaco.member.nickname,
+        profilePicture: mogaco.member.profilePicture,
       },
     };
   }
@@ -210,7 +210,7 @@ export class MogacoRepository {
       throw new NotFoundException(`Member with id ${member.id} is not participating in Mogaco with id ${id}`);
     }
 
-    if (mogaco.memberId !== member.id) {
+    if (mogaco.memberId !== member.id && participant.userId !== member.id) {
       throw new ForbiddenException(`You do not have permission to cancel participation in this Mogaco`);
     }
 

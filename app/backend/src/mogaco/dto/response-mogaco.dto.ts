@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MemberDto } from 'src/member/dto/member.dto';
+import { MemberInformationDto } from 'src/member/dto/member.dto';
 
 export class MogacoWithMemberDto {
   @ApiProperty({ description: 'ID of the Mogaco', example: '3' })
@@ -26,6 +26,6 @@ export class MogacoWithMemberDto {
   @ApiProperty({ description: 'Status of the Mogaco', example: '모집 마감' })
   status: string;
 
-  @ApiProperty({ description: 'Member information', type: MemberDto })
-  member: MemberDto;
+  @ApiProperty({ description: 'Member information', type: MemberInformationDto })
+  member: MemberInformationDto;
 }
