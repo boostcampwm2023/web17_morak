@@ -42,7 +42,6 @@ COPY --from=builder /app/packages /app/packages
 # 예: 환경변수 파일, 정적 파일 등
 
 # 애플리케이션 실행
-# CMD ["node", "dist/src/main.js"]
 COPY app/backend/wait-for-it.sh /wait-for-it.sh
 COPY app/backend/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /wait-for-it.sh
