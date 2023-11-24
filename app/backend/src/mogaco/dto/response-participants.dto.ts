@@ -10,8 +10,11 @@ export class ParticipantResponseDto {
   @ApiProperty({ description: 'Email of the Member', example: 'bcwm.morak@gmail.com' })
   email: string;
 
-  @ApiProperty({ description: 'Social Type', example: 'google' })
-  socialType: string;
+  @ApiProperty({ description: 'Nickname of the user', example: 'morak morak' })
+  nickname: string;
+
+  @ApiProperty({ description: "URL of the user's profile picture", example: 'https://example.com/profile.jpg' })
+  profilePicture: string;
 
   @ApiProperty({ description: 'Date of Member creation', example: '2023-11-22T04:55:02.988Z' })
   createdAt: string;

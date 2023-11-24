@@ -19,6 +19,8 @@ export class AuthRepository {
         providerId: userDto.providerId,
         socialType: userDto.socialType,
         email: userDto.email,
+        nickname: userDto.nickname,
+        profilePicture: userDto.profilePicture,
       },
     });
   }

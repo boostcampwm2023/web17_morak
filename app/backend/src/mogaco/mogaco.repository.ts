@@ -37,10 +37,10 @@ export class MogacoRepository {
       address: mogaco.address,
       status: mogaco.status,
       member: {
-        id: mogaco.member.id,
         providerId: mogaco.member.providerId,
         email: mogaco.member.email,
-        socialType: mogaco.member.socialType,
+        nickname: mogaco.member.nickname,
+        profilePicture: mogaco.member.profilePicture,
       },
     };
   }
