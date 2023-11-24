@@ -65,7 +65,7 @@ export const map = style({
 export const participants = style({
   display: 'none',
   gap: '0.8rem',
-  overflowX: 'scroll',
+  overflowX: 'auto',
 
   selectors: {
     [`${shown}&`]: {
