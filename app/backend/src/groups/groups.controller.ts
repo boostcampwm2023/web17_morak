@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { Group, Member } from '@prisma/client';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { GroupsDto } from './dto/groups.dto';
 
 @Controller('groups')
 @UseGuards(AtGuard)
@@ -18,11 +17,6 @@ export class GroupsController {
   @Get('/:id/groups')
   async getAllMembersOfGroup(@Param('id', ParseIntPipe) id: number): Promise<Member[]> {
     return this.groupsService.getAllMembersOfGroup(id);
-  }
-
-  @Post('/')
-  async createGroup(@Body() title: GroupsDto, @GetUser() member: Member): Promise<Group> {
-    return this.groupsService.createGroup(title, member);
   }
 
   @Post('/:id/join')

@@ -1,7 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { Group, Member } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
-import { GroupsDto } from './dto/groups.dto';
 
 @Injectable()
 export class GroupsRepository {
@@ -22,17 +21,6 @@ export class GroupsRepository {
         },
       })
       .then((groupToUsers) => groupToUsers.map((groupToUser) => groupToUser.user));
-  }
-
-  async createGroup(title: GroupsDto, member: Member): Promise<Group> {
-    return this.prisma.group.create({
-      data: {
-        title: title,
-        member: {
-          connect: { id: Number(member.id) },
-        },
-      } as any,
-    });
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {
