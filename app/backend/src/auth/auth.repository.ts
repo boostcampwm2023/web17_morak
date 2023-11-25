@@ -25,6 +25,20 @@ export class AuthRepository {
     });
   }
 
+  async updateUser(userDto: CreateUserDto): Promise<Member> {
+    const providerId = userDto.providerId;
+
+    return this.prisma.member.update({
+      where: {
+        providerId,
+      },
+      data: {
+        nickname: userDto.nickname,
+        profilePicture: userDto.profilePicture,
+      },
+    });
+  }
+
   async findUserByIdentifier(providerId: string): Promise<Member | null> {
     return this.prisma.member.findUnique({
       where: {

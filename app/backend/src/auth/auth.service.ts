@@ -38,6 +38,15 @@ export class AuthService {
   }
 
   async signIn(userDto: CreateUserDto): Promise<Tokens | null> {
+    const providerId = userDto.providerId;
+    const existingUser = await this.authRepository.findUserByIdentifier(providerId);
+
+    if (existingUser) {
+      if (userDto.nickname !== existingUser.nickname || userDto.profilePicture !== existingUser.profilePicture) {
+        await this.authRepository.updateUser(userDto);
+      }
+    }
+
     const token = this.generateJwt({
       providerId: userDto.providerId,
       socialType: userDto.socialType,
