@@ -1,11 +1,10 @@
-import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import { MogacoStatus } from './mogaco-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMogacoDto {
   @ApiProperty({ description: 'Group ID', example: '1' })
   @IsNotEmpty()
-  @IsInt()
   groupId: number;
 
   @ApiProperty({ description: 'Title of the Mogaco', example: '사당역 모각코' })

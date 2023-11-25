@@ -51,13 +51,15 @@ export class MogacoRepository {
 
       const mogaco = await this.prisma.mogaco.create({
         data: {
-          groupId,
           title,
           contents,
           maxHumanCount,
           address,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
+          group: {
+            connect: { id: Number(groupId) },
+          },
           member: {
             connect: { id: Number(member.id) },
           },
