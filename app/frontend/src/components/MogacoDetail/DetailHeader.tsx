@@ -1,43 +1,31 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { UserChip } from '@/components';
+import { queryKeys } from '@/queries';
 import { sansBold24 } from '@/styles/font.css';
-import { Member, Mogaco } from '@/types';
 
 import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
 
 type DetailHeaderProps = {
   id: string;
-  currentUser?: Member;
-  currentUserLoading: boolean;
-  mogacoData: Mogaco;
-  participantList: Member[];
 };
 
-export function DetailHeader({
-  id,
-  currentUser,
-  currentUserLoading,
-  mogacoData,
-  participantList,
-}: DetailHeaderProps) {
+export function DetailHeader({ id }: DetailHeaderProps) {
+  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id));
+
   return (
     <div className={styles.header}>
       <div className={styles.title}>
-        <div className={sansBold24}>{mogacoData.title}</div>
+        <div className={sansBold24}>{mogacoData?.title}</div>
         <div className={styles.buttons}>
-          <DetailHeaderButtons
-            id={id}
-            currentUser={currentUser}
-            currentUserLoading={currentUserLoading}
-            mogacoData={mogacoData}
-            participantList={participantList}
-          />
+          <DetailHeaderButtons id={id} />
         </div>
       </div>
       <div className={styles.hostUser}>
         <UserChip
-          username={mogacoData.member.nickname}
-          profileSrc={mogacoData.member.profilePicture}
+          username={mogacoData?.member.nickname || ''}
+          profileSrc={mogacoData?.member.profilePicture}
         />
         <span>부스트캠프 웹·모바일 8기</span>
       </div>

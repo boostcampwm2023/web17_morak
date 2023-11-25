@@ -14,17 +14,11 @@ import * as styles from './index.css';
 export function MogacoDetailPage() {
   const { id } = useParams();
 
-  const { data: currentUser, isLoading: currentUserLoading } = useQuery(
-    queryKeys.member.me(),
-  );
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
     queryKeys.mogaco.detail(id!),
   );
-  const { data: participantList, isLoading: participantListLoading } = useQuery(
-    queryKeys.mogaco.participants(id!),
-  );
 
-  if (mogacoDataLoading || participantListLoading) {
+  if (mogacoDataLoading) {
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
@@ -47,17 +41,8 @@ export function MogacoDetailPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <DetailHeader
-          id={id!}
-          currentUser={currentUser}
-          currentUserLoading={currentUserLoading}
-          mogacoData={mogacoData}
-          participantList={participantList || []}
-        />
-        <DetailInfo
-          mogacoData={mogacoData}
-          participantList={participantList || []}
-        />
+        <DetailHeader id={id!} />
+        <DetailInfo id={id!} />
         <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>

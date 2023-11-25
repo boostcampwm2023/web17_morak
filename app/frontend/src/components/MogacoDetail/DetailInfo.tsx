@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useQueries } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import { ReactComponent as ArrowDown } from '@/assets/icons/arrow_down.svg';
@@ -8,18 +9,21 @@ import { ReactComponent as Map } from '@/assets/icons/map_large.svg';
 import { ReactComponent as People } from '@/assets/icons/people_large.svg';
 import { UserChip } from '@/components';
 import { MAP_SAMPLE_IMAGE } from '@/constants';
+import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
-import { Member, Mogaco } from '@/types';
 
 import * as styles from './index.css';
 
 type DetailInfoProps = {
-  mogacoData: Mogaco;
-  participantList: Member[];
+  id: string;
 };
 
-export function DetailInfo({ mogacoData, participantList }: DetailInfoProps) {
+export function DetailInfo({ id }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
+
+  const [{ data: mogacoData }, { data: participantList }] = useQueries({
+    queries: [queryKeys.mogaco.detail(id), queryKeys.mogaco.participants(id)],
+  });
 
   const toggleParticipantsShown = () =>
     setParticipantsShown(!participantsShown);
@@ -29,8 +33,8 @@ export function DetailInfo({ mogacoData, participantList }: DetailInfoProps) {
       <div className={styles.infoItem}>
         <People fill={vars.color.grayscale200} />
         <span>
-          <span>{participantList.length}</span>/
-          <span>{mogacoData.maxHumanCount}</span>
+          <span>{participantList?.length}</span>/
+          <span>{mogacoData?.maxHumanCount}</span>
         </span>
         <button
           type="button"
@@ -58,11 +62,11 @@ export function DetailInfo({ mogacoData, participantList }: DetailInfoProps) {
       </div>
       <div className={styles.infoItem}>
         <Calendar fill={vars.color.grayscale200} />
-        <span>{dayjs(mogacoData.date).format('YYYY/MM/DD HH:mm~')}</span>
+        <span>{dayjs(mogacoData?.date).format('YYYY/MM/DD HH:mm~')}</span>
       </div>
       <div className={styles.infoItem}>
         <Map fill={vars.color.grayscale200} />
-        <span>{mogacoData.address}</span>
+        <span>{mogacoData?.address}</span>
       </div>
       <img src={MAP_SAMPLE_IMAGE} alt="맵 샘플 이미지" className={styles.map} />
     </div>
