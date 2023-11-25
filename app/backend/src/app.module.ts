@@ -6,6 +6,8 @@ import { MemberModule } from './member/member.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { getSecret } from 'vault';
 import { MogacoModule } from './mogaco/mogaco.module';
+import { GroupsModule } from './groups/groups.module';
+import { PrismaModule } from 'prisma/prisma.module';
 
 @Module({
   imports: [
@@ -15,9 +17,11 @@ import { MogacoModule } from './mogaco/mogaco.module';
       host: getSecret('REDIS_HOST'),
       port: getSecret('REDIS_PORT'),
     }),
+    PrismaModule,
     AuthModule,
     MemberModule,
     MogacoModule,
+    GroupsModule,
   ],
   controllers: [AppController],
   providers: [],
