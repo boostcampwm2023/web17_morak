@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ResponseMemberDto } from '@morak/apitype/DTO/response/member'
 
-export class MemberInformationDto {
+export class MemberInformationDto implements ResponseMemberDto {
   @ApiProperty({ description: 'Provider ID of the user', example: '123456' })
   providerId: string;
 
