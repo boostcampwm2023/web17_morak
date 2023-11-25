@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../libs/utils/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './dto/mogaco-status.enum';
 import { CreateMogacoDto, MogacoDto } from './dto';

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PrismaService } from '../../libs/utils/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 import { CreateUserDto } from './dto/user.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
