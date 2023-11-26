@@ -3,13 +3,14 @@ import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { Group, Member } from '@prisma/client';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
 import { ResponseGroupsDto } from './dto/response-groups.dto';
 
 @ApiTags('Group API')
 @Controller('groups')
 @UseGuards(AtGuard)
+@ApiBearerAuth('access_token')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 

@@ -6,13 +6,14 @@ import { MogacoStatusValidationPipe } from './pipes/mogaco-status-validation.pip
 import { MogacoStatus } from './dto/mogaco-status.enum';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
 @ApiTags('Mogaco API')
 @Controller('mogaco')
 @UseGuards(AtGuard)
+@ApiBearerAuth('access_token')
 export class MogacoController {
   constructor(private readonly mogacoService: MogacoService) {}
 

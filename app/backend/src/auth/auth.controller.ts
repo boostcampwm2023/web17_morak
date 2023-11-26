@@ -10,15 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiCreatedResponse,
-  ApiOperation,
-  ApiResponse,
-  ApiSecurity,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
 import { RtGuard } from './guards/rt.guard';
@@ -37,7 +29,6 @@ export class AuthController {
     summary: 'Google 로그인 요청 API',
     description: 'Google OAuth API에 로그인 요청',
   })
-  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Successful operation' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async googleLogin(): Promise<void> {}

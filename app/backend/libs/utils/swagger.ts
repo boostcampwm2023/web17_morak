@@ -5,8 +5,17 @@ export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
     .setTitle('Morak')
     .setDescription('Morak API description')
-    .setVersion('1.0')
+    .setVersion('1.0.0')
     .addTag('moraks')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'JWT',
+        in: 'header',
+      },
+      'access_token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
