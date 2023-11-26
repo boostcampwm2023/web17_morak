@@ -1,39 +1,45 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components';
+import { useQueries } from '@tanstack/react-query';
+
+import { Button, LoadingIndicator } from '@/components';
+import { queryKeys } from '@/queries';
 import {
   useDeleteMogacoQuery,
   useJoinMogacoQuery,
   useQuitMogacoQuery,
 } from '@/queries/hooks';
-import { Member, Mogaco } from '@/types';
 
 type DetailHeaderButtonsProps = {
   id: string;
-  currentUser?: Member;
-  mogacoData: Mogaco;
-  participantList: Member[];
 };
 
-export function DetailHeaderButtons({
-  id,
-  currentUser,
-  mogacoData,
-  participantList,
-}: DetailHeaderButtonsProps) {
+export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   const navigate = useNavigate();
+
+  const [
+    { data: currentUser, isLoading: currentUserLoading },
+    { data: mogacoData },
+    { data: participantList },
+  ] = useQueries({
+    queries: [
+      queryKeys.member.me(),
+      queryKeys.mogaco.detail(id),
+      queryKeys.mogaco.participants(id),
+    ],
+  });
 
   const deleteMogaco = useDeleteMogacoQuery();
   const joinMogaco = useJoinMogacoQuery();
   const quitMogaco = useQuitMogacoQuery();
 
-  const userHosted = mogacoData.member.providerId === currentUser?.providerId;
-  const userParticipated = participantList.find(
+  const userHosted = mogacoData?.member.providerId === currentUser?.providerId;
+  const userParticipated = participantList?.find(
     (participant) => participant.providerId === currentUser?.providerId,
   );
 
   const handleDelete = async () => {
-    const res = await deleteMogaco.mutateAsync(id!);
+    const res = await deleteMogaco.mutateAsync(id);
     if (res.status === 200) {
       navigate('/mogaco');
     }
@@ -48,12 +54,20 @@ export function DetailHeaderButtons({
   };
 
   const onClickJoin = async () => {
-    await joinMogaco.mutateAsync(id!);
+    await joinMogaco.mutateAsync(id);
   };
 
   const onClickQuit = async () => {
-    await quitMogaco.mutateAsync(id!);
+    await quitMogaco.mutateAsync(id);
   };
+
+  if (currentUserLoading) {
+    return (
+      <Button theme="primary" shape="fill" size="large" disabled>
+        <LoadingIndicator size={20} />
+      </Button>
+    );
+  }
 
   if (!currentUser) {
     return (
@@ -81,7 +95,7 @@ export function DetailHeaderButtons({
     );
   }
 
-  if (mogacoData.status === '모집 중') {
+  if (mogacoData?.status === '모집 중') {
     return userParticipated ? (
       <>
         <Button theme="primary" shape="fill" size="large">
