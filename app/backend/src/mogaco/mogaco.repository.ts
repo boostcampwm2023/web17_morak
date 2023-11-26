@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../libs/utils/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './dto/mogaco-status.enum';
 import { CreateMogacoDto, MogacoDto } from './dto';
@@ -51,13 +51,15 @@ export class MogacoRepository {
 
       const mogaco = await this.prisma.mogaco.create({
         data: {
-          groupId,
           title,
           contents,
           maxHumanCount,
           address,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
+          group: {
+            connect: { id: Number(groupId) },
+          },
           member: {
             connect: { id: Number(member.id) },
           },
