@@ -33,11 +33,6 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   const joinMogaco = useJoinMogacoQuery();
   const quitMogaco = useQuitMogacoQuery();
 
-  const userHosted = mogacoData?.member.providerId === currentUser?.providerId;
-  const userParticipated = participantList?.find(
-    (participant) => participant.providerId === currentUser?.providerId,
-  );
-
   const handleDelete = async () => {
     const res = await deleteMogaco.mutateAsync(id);
     if (res.status === 200) {
@@ -77,9 +72,16 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     );
   }
 
-  if (!mogacoData || !participantList) {
+  if (!mogacoData || participantList === undefined) {
     return <Error message="정보 불러오기 오류" />;
   }
+
+  const userHosted = mogacoData.member.providerId === currentUser.providerId;
+  const userParticipated = participantList
+    ? participantList.find(
+        (participant) => participant.providerId === currentUser.providerId,
+      )
+    : false;
 
   if (userHosted) {
     return (
