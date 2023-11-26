@@ -2,10 +2,9 @@ import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Loading } from '@/components';
+import { Error, Loading } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
-import { sansBold16 } from '@/styles/font.css';
 
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
@@ -32,7 +31,7 @@ export function MogacoDetailPage() {
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
-          <span className={sansBold16}>정보를 불러오는 데에 실패했습니다.</span>
+          <Error message="모각코 정보를 불러오지 못했습니다." />
         </div>
       </div>
     );

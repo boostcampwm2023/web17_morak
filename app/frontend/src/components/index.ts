@@ -3,6 +3,7 @@ export * from './MogacoDetail';
 export * from './MogacoPost';
 export * from './commons/Button';
 export * from './commons/Chatting';
+export * from './commons/Error';
 export * from './commons/Header';
 export * from './commons/Input';
 export * from './commons/Input/Textarea';

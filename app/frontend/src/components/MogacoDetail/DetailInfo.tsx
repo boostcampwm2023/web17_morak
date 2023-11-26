@@ -7,7 +7,7 @@ import { ReactComponent as ArrowDown } from '@/assets/icons/arrow_down.svg';
 import { ReactComponent as Calendar } from '@/assets/icons/calendar_large.svg';
 import { ReactComponent as Map } from '@/assets/icons/map_large.svg';
 import { ReactComponent as People } from '@/assets/icons/people_large.svg';
-import { UserChip } from '@/components';
+import { Error, Loading, UserChip } from '@/components';
 import { MAP_SAMPLE_IMAGE } from '@/constants';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
@@ -21,19 +21,30 @@ type DetailInfoProps = {
 export function DetailInfo({ id }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
 
-  const [{ data: mogacoData }, { data: participantList }] = useQueries({
+  const [
+    { data: mogacoData },
+    { data: participantList, isLoading: participantListLoading },
+  ] = useQueries({
     queries: [queryKeys.mogaco.detail(id), queryKeys.mogaco.participants(id)],
   });
 
   const toggleParticipantsShown = () =>
     setParticipantsShown(!participantsShown);
 
+  if (participantListLoading) {
+    return <Loading />;
+  }
+
+  if (!participantList) {
+    return <Error message="참여자 정보를 불러오지 못했습니다." />;
+  }
+
   return (
     <div className={styles.info}>
       <div className={styles.infoItem}>
         <People fill={vars.color.grayscale200} />
         <span>
-          <span>{participantList?.length}</span>/
+          <span>{participantList ? participantList.length : '-'}</span>/
           <span>{mogacoData?.maxHumanCount}</span>
         </span>
         <button
@@ -51,14 +62,13 @@ export function DetailInfo({ id }: DetailInfoProps) {
           participantsShown ? styles.shown : ''
         }`}
       >
-        {!!participantList &&
-          participantList.map((participant) => (
-            <UserChip
-              key={participant.providerId}
-              username={participant.nickname}
-              profileSrc={participant.profilePicture}
-            />
-          ))}
+        {participantList?.map((participant) => (
+          <UserChip
+            key={participant.providerId}
+            username={participant.nickname}
+            profileSrc={participant.profilePicture}
+          />
+        ))}
       </div>
       <div className={styles.infoItem}>
         <Calendar fill={vars.color.grayscale200} />

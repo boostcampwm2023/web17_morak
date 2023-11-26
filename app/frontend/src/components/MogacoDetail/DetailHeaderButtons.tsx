@@ -19,8 +19,8 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
 
   const [
     { data: currentUser, isLoading: currentUserLoading },
-    { data: mogacoData, isLoading: mogacoDataLoading },
-    { data: participantList, isLoading: participantListLoading },
+    { data: mogacoData },
+    { data: participantList },
   ] = useQueries({
     queries: [
       queryKeys.member.me(),
@@ -61,7 +61,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     await quitMogaco.mutateAsync(id);
   };
 
-  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
+  if (currentUserLoading) {
     return (
       <Button theme="primary" shape="fill" size="large" disabled>
         <LoadingIndicator size={20} />

@@ -19,6 +19,13 @@ export const container = style([
   },
 ]);
 
+export const error = style([
+  sansRegular16,
+  {
+    color: vars.color.morakRed,
+  },
+]);
+
 export const header = style({
   display: 'flex',
   flexDirection: 'column',
