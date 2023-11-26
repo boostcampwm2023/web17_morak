@@ -11,66 +11,68 @@ datasource db {
 }
 
 model Member {
-  id           BigInt     @id @default(autoincrement()) @db.BigInt
-  providerId  String     @unique @db.VarChar(191) @map("provider_id")
-  email        String    @unique @db.VarChar(191)
-  nickname     String    @db.VarChar(191)
-  profilePicture String  @db.VarChar(191) @map("profile_picture")
-  socialType  String     @db.VarChar(191) @map("social_type")
-  createdAt   DateTime   @default(now()) @map("created_at")
-  users GroupToUser[]
-  members Participant[]
-  mogacos Mogaco[]
-  
+  id             BigInt        @id @default(autoincrement()) @db.BigInt
+  providerId     String        @unique @map("provider_id") @db.VarChar(191)
+  email          String        @unique @db.VarChar(191)
+  nickname       String        @db.VarChar(191)
+  profilePicture String        @map("profile_picture") @db.VarChar(191)
+  socialType     String        @map("social_type") @db.VarChar(191)
+  createdAt      DateTime      @default(now()) @map("created_at")
+  users          GroupToUser[]
+  members        Participant[]
+  mogacos        Mogaco[]
+
   @@map("Member")
 }
 
 model Mogaco {
-  id               BigInt     @id @default(autoincrement()) @db.BigInt
-  groupId         BigInt     @db.BigInt @map("group_id")
-  memberId         BigInt     @db.BigInt @map("member_id")
-  title            String     @db.VarChar(191)
-  contents         String     @db.VarChar(191)
-  date             DateTime   @db.DateTime
-  maxHumanCount  Int        @default(1) @db.TinyInt @map("max_human_count")
-  address          String     @db.VarChar(191)
-  status           String     @db.VarChar(191)
-  createdAt       DateTime   @default(now()) @map("created_at")
-  updatedAt       DateTime?   @updatedAt() @map("updated_at")
-  deletedAt       DateTime?   @db.DateTime @map("deleted_at")
-  mogacos Participant[]
-  
-  @@map("Mogaco")
+  id            BigInt        @id @default(autoincrement()) @db.BigInt
+  groupId       BigInt        @map("group_id") @db.BigInt
+  memberId      BigInt        @map("member_id") @db.BigInt
+  title         String        @db.VarChar(191)
+  contents      String        @db.VarChar(191)
+  date          DateTime      @db.DateTime
+  maxHumanCount Int           @default(1) @map("max_human_count") @db.TinyInt
+  address       String        @db.VarChar(191)
+  status        String        @db.VarChar(191)
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime?     @updatedAt() @map("updated_at")
+  deletedAt     DateTime?     @map("deleted_at") @db.DateTime
+  mogacos       Participant[]
 
+  group  Group  @relation(fields: [groupId], references: [id])
   member Member @relation(fields: [memberId], references: [id])
+
+  @@map("Mogaco")
 }
 
 model Group {
-  id     BigInt  @id @default(autoincrement()) @db.BigInt
-  title  String  @db.VarChar(191)
-  groups GroupToUser[]
-  
+  id      BigInt        @id @default(autoincrement()) @db.BigInt
+  title   String        @db.VarChar(191)
+  groups  GroupToUser[]
+  mogacos Mogaco[]
+
   @@map("Group")
 }
 
 model GroupToUser {
-  groupId BigInt  @db.BigInt @map("group_id")
-  userId  BigInt  @db.BigInt @map("user_id")
+  groupId BigInt @map("group_id") @db.BigInt
+  userId  BigInt @map("user_id") @db.BigInt
+
+  group Group  @relation(fields: [groupId], references: [id])
+  user  Member @relation(fields: [userId], references: [id])
 
   @@id([groupId, userId])
   @@map("GroupToUser")
-
-  group Group @relation(fields: [groupId], references: [id])
-  user  Member @relation(fields: [userId], references: [id])
 }
 
 model Participant {
-  postId BigInt  @db.BigInt @map("post_id")
-  userId  BigInt  @db.BigInt @map("user_id")
-
-  @@id([postId, userId])
-  @@map("Participant")
+  postId BigInt @map("post_id") @db.BigInt
+  userId BigInt @map("user_id") @db.BigInt
 
   mogaco Mogaco @relation(fields: [postId], references: [id])
   member Member @relation(fields: [userId], references: [id])
+
+  @@id([postId, userId])
+  @@map("Participant")
 }
