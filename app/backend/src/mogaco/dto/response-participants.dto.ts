@@ -1,6 +1,7 @@
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ParticipantResponseDto {
+export class ParticipantResponseDto implements ResponseParticipant {
   @ApiProperty({ description: 'ID of the Member', example: '1' })
   id: string;
 

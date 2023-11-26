@@ -5,7 +5,7 @@ import { Group, Member } from '@prisma/client';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
-import { ResponseGroupsDto } from './dto/response-groups.dto';
+import { GroupsDto } from './dto/groups.dto';
 
 @ApiTags('Group API')
 @Controller('groups')
@@ -19,7 +19,7 @@ export class GroupsController {
     summary: '모든 그룹 조회',
     description: '존재하는 모든 그룹을 조회합니다.',
   })
-  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [ResponseGroupsDto] })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getAllGroups(): Promise<Group[]> {
     return this.groupsService.getAllGroups();

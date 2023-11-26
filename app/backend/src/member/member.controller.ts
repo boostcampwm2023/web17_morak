@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { Request, Response } from 'express';
 import { MemberInformationDto } from './dto/member.dto';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { RequestViewMyInfoDto } from '@morak/apitype/DTO/request/member';
+import { RequestApiDto } from '@morak/apitype/dto/request/api';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
@@ -26,7 +26,7 @@ export class MemberController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getUserData(@Req() req: Request, @Res() res: Response): Promise<void> {
     try {
-      const encryptedToken : RequestViewMyInfoDto = { accesToken : req.cookies.access_token };
+      const encryptedToken: RequestApiDto = { accesToken: req.cookies.access_token };
       const userData = await this.memberService.getUserData(encryptedToken);
 
       res.json(userData);

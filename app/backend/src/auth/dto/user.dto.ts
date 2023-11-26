@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { RequestLoginUserDto, RequestLogoutUserDto } from '@morak/apitype/dto/request/auth';
 import { IsString, IsEmail, MaxLength, MinLength } from 'class-validator';
-import { RequestLoginUserDto, RequestLogoutUserDto } from '@morak/apitype/DTO/request/auth';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto implements RequestLoginUserDto {
   @ApiProperty()

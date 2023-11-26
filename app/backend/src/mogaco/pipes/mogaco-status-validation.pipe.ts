@@ -1,5 +1,5 @@
 import { BadRequestException, PipeTransform } from '@nestjs/common';
-import { MogacoStatus } from '../dto/mogaco-status.enum';
+import { MogacoStatus } from '../enum/mogaco-status.enum';
 
 export class MogacoStatusValidationPipe implements PipeTransform {
   readonly StatusOptions = [MogacoStatus.RECRUITING, MogacoStatus.CLOSED, MogacoStatus.COMPLETED];
