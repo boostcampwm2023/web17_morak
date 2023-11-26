@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueries } from '@tanstack/react-query';
 
-import { Button, LoadingIndicator } from '@/components';
+import { Button, Error, LoadingIndicator } from '@/components';
 import { queryKeys } from '@/queries';
 import {
   useDeleteMogacoQuery,
@@ -19,8 +19,8 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
 
   const [
     { data: currentUser, isLoading: currentUserLoading },
-    { data: mogacoData },
-    { data: participantList },
+    { data: mogacoData, isLoading: mogacoDataLoading },
+    { data: participantList, isLoading: participantListLoading },
   ] = useQueries({
     queries: [
       queryKeys.member.me(),
@@ -61,7 +61,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     await quitMogaco.mutateAsync(id);
   };
 
-  if (currentUserLoading) {
+  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
     return (
       <Button theme="primary" shape="fill" size="large" disabled>
         <LoadingIndicator size={20} />
@@ -75,6 +75,10 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
         로그인 필요
       </Button>
     );
+  }
+
+  if (!mogacoData || !participantList) {
+    return <Error message="정보 불러오기 오류" />;
   }
 
   if (userHosted) {
@@ -95,8 +99,8 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     );
   }
 
-  if (mogacoData?.status === '모집 중') {
-    return userParticipated ? (
+  if (userParticipated) {
+    return (
       <>
         <Button theme="primary" shape="fill" size="large">
           채팅
@@ -105,12 +109,18 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
           참석 취소
         </Button>
       </>
-    ) : (
+    );
+  }
+
+  if (
+    mogacoData.status === '모집 중' &&
+    participantList.length < mogacoData.maxHumanCount
+  )
+    return (
       <Button theme="primary" shape="fill" size="large" onClick={onClickJoin}>
         참석하기
       </Button>
     );
-  }
 
   return (
     <Button theme="primary" shape="fill" size="large" disabled>
