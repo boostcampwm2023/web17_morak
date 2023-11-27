@@ -1,8 +1,9 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
-import { MogacoStatus } from './mogaco-status.enum';
+import { RequestCreateMogacoDto } from '@morak/apitype/dto/request/mogaco';
+import { IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
+import { MogacoStatus } from '../enum/mogaco-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateMogacoDto {
+export class CreateMogacoDto implements RequestCreateMogacoDto {
   @ApiProperty({ description: 'Group ID', example: '1' })
   @IsNotEmpty()
   groupId: number;
@@ -29,7 +30,11 @@ export class CreateMogacoDto {
   address: string;
 
   @ApiProperty({ description: 'Status of the Mogaco', example: '모집 중' })
-  @IsOptional()
   @IsEnum(MogacoStatus, { message: 'Invalid status' })
-  status?: string;
+  status: string;
+}
+
+export class StatusDto {
+  @ApiProperty({ description: 'Status of the Mogaco', example: '모집 마감' })
+  status: string;
 }

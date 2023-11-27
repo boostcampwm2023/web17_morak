@@ -1,9 +1,9 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
-import { MogacoStatus } from './dto/mogaco-status.enum';
-import { CreateMogacoDto, MogacoDto } from './dto';
-import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoStatus } from './enum/mogaco-status.enum';
+import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { CreateMogacoDto } from './dto/create-mogaco.dto';
 
 @Injectable()
 export class MogacoRepository {

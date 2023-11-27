@@ -1,14 +1,14 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { MogacoService } from './mogaco.service';
 import { Member, Mogaco } from '@prisma/client';
-import { CreateMogacoDto, MogacoDto, StatusDto } from './dto';
 import { MogacoStatusValidationPipe } from './pipes/mogaco-status-validation.pipe';
-import { MogacoStatus } from './dto/mogaco-status.enum';
+import { MogacoStatus } from './enum/mogaco-status.enum';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
+import { CreateMogacoDto, StatusDto } from './dto/create-mogaco.dto';
 
 @ApiTags('Mogaco API')
 @Controller('mogaco')

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { MogacoRepository } from './mogaco.repository';
 import { Member, Mogaco } from '@prisma/client';
-import { CreateMogacoDto, MogacoDto } from './dto';
-import { MogacoStatus } from './dto/mogaco-status.enum';
+import { MogacoStatus } from './enum/mogaco-status.enum';
+import { MogacoDto } from './dto/response-mogaco.dto';
+import { CreateMogacoDto } from './dto/create-mogaco.dto';
 
 @Injectable()
 export class MogacoService {
