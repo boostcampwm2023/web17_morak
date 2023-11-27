@@ -5,12 +5,15 @@ import { Button } from '@/components';
 import { useSubmitPost } from '@/queries/hooks/post';
 import { MogacoPostForm } from '@/types';
 
-import { PostMemberId, PostTitle } from './Controller';
-import { PostAddress } from './Controller/PostAddress';
-import { PostContents } from './Controller/PostContents';
-import { PostDate } from './Controller/PostDate';
-import { PostGroupId } from './Controller/PostGroupId';
-import { PostMaxHumanCount } from './Controller/PostMaxHumanCount';
+import {
+  PostMemberId,
+  PostTitle,
+  PostAddress,
+  PostContents,
+  PostDate,
+  PostGroupId,
+  PostMaxHumanCount,
+} from './Controller';
 import * as styles from './index.css';
 
 export function MogacoPostPage() {
