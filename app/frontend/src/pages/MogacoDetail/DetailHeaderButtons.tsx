@@ -5,6 +5,7 @@ import { useQueries } from '@tanstack/react-query';
 import { Button, Error, LoadingIndicator } from '@/components';
 import { queryKeys } from '@/queries';
 import {
+  getMyInfoQuery,
   useDeleteMogacoQuery,
   useJoinMogacoQuery,
   useQuitMogacoQuery,
@@ -23,7 +24,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     { data: participantList, isLoading: participantListLoading },
   ] = useQueries({
     queries: [
-      queryKeys.member.me(),
+      getMyInfoQuery,
       queryKeys.mogaco.detail(id),
       queryKeys.mogaco.participants(id),
     ],
