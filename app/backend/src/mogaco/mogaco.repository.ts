@@ -27,6 +27,8 @@ export class MogacoRepository {
       throw new NotFoundException(`Mogaco with id ${id} not found`);
     }
 
+    const participants = await this.getParticipants(id);
+
     return {
       id: mogaco.id,
       groupId: mogaco.groupId,
@@ -42,6 +44,7 @@ export class MogacoRepository {
         nickname: mogaco.member.nickname,
         profilePicture: mogaco.member.profilePicture,
       },
+      participants,
     };
   }
 
