@@ -1,6 +1,4 @@
 #!/bin/sh
-# wait-for-it.sh
-
 set -e
 
 host=$(echo $1 | cut -d ':' -f 1)
@@ -16,3 +14,4 @@ done
 
 >&2 echo "MySQL is up - executing command"
 exec $cmd
+
