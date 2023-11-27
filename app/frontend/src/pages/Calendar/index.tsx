@@ -6,7 +6,8 @@ import { CalendarView } from './CalendarView';
 
 export function Calendar() {
   const [closedSidebar, setClosedSidebar] = useState(true);
-  const onClickCloseSidebar = () => {
+
+  const toggleSidebar = () => {
     setClosedSidebar(!closedSidebar);
   };
 
@@ -16,10 +17,7 @@ export function Calendar() {
   return (
     <>
       <CalendarView onClickEvent={onClickEvent} />
-      <MogacoSideBar
-        closed={closedSidebar}
-        toggleClosed={onClickCloseSidebar}
-      />
+      <MogacoSideBar closed={closedSidebar} toggleClosed={toggleSidebar} />
     </>
   );
 }
