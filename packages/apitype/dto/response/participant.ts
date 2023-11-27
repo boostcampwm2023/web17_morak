@@ -1,5 +1,5 @@
 export interface ResponseParticipant {
-  id: string;
+  id: bigint;
   providerId: string;
   email: string;
   nickname: string;
