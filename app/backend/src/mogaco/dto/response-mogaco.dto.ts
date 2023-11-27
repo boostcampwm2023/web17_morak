@@ -1,6 +1,8 @@
 import { ResponseMogacoDto, ResponseMogacoWithMemberDto } from '@morak/apitype/dto/response/mogaco';
 import { ApiProperty } from '@nestjs/swagger';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { ParticipantResponseDto } from './response-participants.dto';
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 
 export class MogacoDto implements ResponseMogacoDto {
   @ApiProperty({ description: 'ID of the Mogaco', example: 1 })
@@ -55,4 +57,7 @@ export class MogacoWithMemberDto implements ResponseMogacoWithMemberDto {
 
   @ApiProperty({ description: 'Member information', type: MemberInformationDto })
   member: MemberInformationDto;
+
+  @ApiProperty({ description: 'Participants information', type: ParticipantResponseDto })
+  participants: ResponseParticipant[];
 }

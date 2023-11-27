@@ -21,5 +21,5 @@ export class ParticipantResponseDto implements ResponseParticipant {
   socialType: string;
 
   @ApiProperty({ description: 'Date of Member creation', example: '2023-11-22T04:55:02.988Z' })
-  createdAt: string;
+  createdAt: Date;
 }

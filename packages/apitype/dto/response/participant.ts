@@ -5,5 +5,5 @@ export interface ResponseParticipant {
   nickname: string;
   profilePicture: string;
   socialType: string;
-  createdAt: string;
+  createdAt: Date;
 }
