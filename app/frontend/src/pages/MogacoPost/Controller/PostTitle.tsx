@@ -30,6 +30,7 @@ export function PostTitle({ control }: PostTitleProps) {
               placeholder={MOGACO_POST.TITLE.REQUIRED}
               maxLength={MOGACO_POST.TITLE.MAX_LENGTH}
               onChange={onChange}
+              value={value}
             />
             <div className={styles.count}>
               {value?.length || 0}/{MOGACO_POST.TITLE.MAX_LENGTH}

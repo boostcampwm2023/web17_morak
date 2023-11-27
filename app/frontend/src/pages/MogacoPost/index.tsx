@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { Button } from '@/components';
+import { queryKeys } from '@/queries';
 import { useSubmitEdit, useSubmitPost } from '@/queries/hooks/post';
 import { MogacoPostForm } from '@/types';
 
@@ -21,9 +25,30 @@ export function MogacoPostPage() {
   const postId = searchParams.get('id');
   const navigate = useNavigate();
 
-  const { control, handleSubmit } = useForm<MogacoPostForm>();
   const { mutateAsync: mutateAsyncPost } = useSubmitPost();
   const { mutateAsync: mutateAsyncEdit } = useSubmitEdit();
+  const { data: mogacoData } = useQuery({
+    ...queryKeys.mogaco.detail(postId || ''),
+    enabled: !!postId,
+  });
+  const { control, handleSubmit, reset, resetField } = useForm<MogacoPostForm>({
+    defaultValues: {
+      title: '',
+      address: '',
+      contents: '',
+      date: '',
+      groupId: 0,
+      maxHumanCount: 0,
+      memberId: '',
+      status: '모집 중',
+    },
+  });
+
+  useEffect(() => {
+    if (mogacoData) {
+      reset({ ...mogacoData, memberId: mogacoData.member.providerId });
+    }
+  }, [mogacoData, reset, resetField]);
 
   const onSubmit = async ({
     title,
@@ -41,6 +66,7 @@ export function MogacoPostPage() {
       address,
       status: '모집 중' as const,
     };
+
     const response = postId
       ? await mutateAsyncEdit({ id: postId, form: formData })
       : await mutateAsyncPost(formData);

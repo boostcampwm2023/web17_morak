@@ -27,7 +27,7 @@ export function Input({
   min,
   max,
   required = false,
-  defaultValue,
+  defaultValue = '',
   value,
   onChange,
 }: InputProps) {
@@ -56,7 +56,7 @@ export function Input({
         maxLength={maxLength}
         min={min}
         max={max}
-        defaultValue={defaultValue}
+        value={value || defaultValue}
         onChange={onChange}
       />
       {!disabled && errorMessage && (
