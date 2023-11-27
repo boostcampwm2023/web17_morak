@@ -10,17 +10,17 @@ export function InfoWrapper() {
   return (
     <div className={styles.infoWrapper}>
       <div className={styles.infoContent}>
-        <People className={styles.icon} />
+        <People className={styles.icon} width={16} height={16} />
         <div className={styles.infoText}>2/5</div>
       </div>
       <div className={styles.infoContent}>
-        <Map className={styles.icon} />
+        <Map className={styles.icon} width={16} height={16} />
         <div className={styles.infoText}>
           서울 관악구 남현3길 71 크레이저 커피
         </div>
       </div>
       <div className={styles.infoContent}>
-        <Calendar className={styles.icon} />
+        <Calendar className={styles.icon} width={16} height={16} />
         <div className={styles.infoText}>
           {dayjs('2023-11-7').format('YYYY/MM/DD HH:mm~')}
         </div>
