@@ -11,5 +11,5 @@ export * from './Loading/LoadingIndicator';
 export * from './MogacoItem';
 export * from './Popover';
 export * from './Sidebar';
-export * from './Sidebar/Item/Mogaco';
+export * from './Sidebar/Contents/Mogaco';
 export * from './UserChip';
