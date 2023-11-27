@@ -31,7 +31,7 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
-  const { control, handleSubmit, reset, resetField } = useForm<MogacoPostForm>({
+  const { control, handleSubmit, reset } = useForm<MogacoPostForm>({
     defaultValues: {
       title: '',
       address: '',
@@ -48,7 +48,7 @@ export function MogacoPostPage() {
     if (mogacoData) {
       reset({ ...mogacoData });
     }
-  }, [mogacoData, reset, resetField]);
+  }, [mogacoData, reset]);
 
   const onSubmit = async ({
     title,
@@ -81,10 +81,10 @@ export function MogacoPostPage() {
       <PostTitle control={control} />
       <div className={styles.formContent}>
         <PostMember />
-        <PostGroupId control={control} />
-        <PostMaxHumanCount control={control} />
+        <PostGroupId control={control} isEdit={!!mogacoData} />
+        <PostMaxHumanCount control={control} isEdit={!!mogacoData} />
         <PostAddress control={control} />
-        <PostDate control={control} />
+        <PostDate control={control} isEdit={!!mogacoData} />
         <PostContents control={control} />
       </div>
       <div className={styles.formContent}>

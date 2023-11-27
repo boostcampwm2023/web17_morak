@@ -8,9 +8,10 @@ import { MogacoPostForm } from '@/types';
 
 type PostDateProps = {
   control: Control<MogacoPostForm>;
+  isEdit?: boolean;
 };
 
-export function PostDate({ control }: PostDateProps) {
+export function PostDate({ control, isEdit = false }: PostDateProps) {
   const currentDate = dayjs().format('YYYY-MM-DD HH:mm');
 
   return (
@@ -19,14 +20,18 @@ export function PostDate({ control }: PostDateProps) {
       name="date"
       rules={{
         required: MOGACO_POST.DATE.REQUIRED,
-        min: { value: currentDate, message: MOGACO_POST.DATE.MIN },
+        min: {
+          value: isEdit ? '' : currentDate,
+          message: MOGACO_POST.DATE.MIN,
+        },
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <Input
           label={MOGACO_POST.DATE.LABEL}
           type="datetime-local"
           required
-          min={currentDate}
+          disabled={isEdit}
+          min={isEdit ? undefined : currentDate}
           onChange={onChange}
           value={value.replace('Z', '')}
           errorMessage={error && error.message}

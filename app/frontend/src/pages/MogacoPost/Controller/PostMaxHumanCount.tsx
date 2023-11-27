@@ -6,9 +6,13 @@ import { MogacoPostForm } from '@/types';
 
 type PostMaxHumanCountProps = {
   control: Control<MogacoPostForm>;
+  isEdit?: boolean;
 };
 
-export function PostMaxHumanCount({ control }: PostMaxHumanCountProps) {
+export function PostMaxHumanCount({
+  control,
+  isEdit = false,
+}: PostMaxHumanCountProps) {
   return (
     <Controller
       control={control}
@@ -34,6 +38,7 @@ export function PostMaxHumanCount({ control }: PostMaxHumanCountProps) {
           type="number"
           placeholder={MOGACO_POST.COUNT.REQUIRED}
           required
+          disabled={isEdit}
           onChange={onChange}
           value={value}
           errorMessage={error && error.message}
