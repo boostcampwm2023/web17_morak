@@ -66,7 +66,7 @@ export class AuthService {
   async refresh(refreshToken: string): Promise<string> {
     try {
       const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: getSecret('JWT_REFRESH_SECRET') });
-      const { providerId, socialType } = decodedRefreshToken;
+      const { providerId, socialType, email, profilePicture, nickname } = decodedRefreshToken;
 
       const storedRefreshToken = await this.authRepository.getRefreshToken(providerId);
 
@@ -74,7 +74,13 @@ export class AuthService {
         throw new UnauthorizedException('Invalid refresh token');
       }
 
-      const token = this.generateJwt({ providerId: providerId, socialType: socialType });
+      const token = this.generateJwt({
+        providerId: providerId,
+        socialType: socialType,
+        email: email,
+        profilePicture: profilePicture,
+        nickname: nickname,
+      });
 
       return token.access_token;
     } catch (error) {
