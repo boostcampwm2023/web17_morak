@@ -1,7 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Layout } from '@/components';
-import { Main, Mogaco, MogacoDetail, MogacoPost } from '@/pages';
+import {
+  MainPage,
+  MogacoPage,
+  MogacoDetailPage,
+  MogacoPostPage,
+} from '@/pages';
 
 export const useRouter = () =>
   createBrowserRouter([
@@ -9,16 +14,16 @@ export const useRouter = () =>
       path: '/',
       element: <Layout />,
       children: [
-        { index: true, element: <Main /> },
+        { index: true, element: <MainPage /> },
         {
           path: 'mogaco',
-          element: <Mogaco />,
+          element: <MogacoPage />,
         },
         {
           path: 'mogaco/:id',
-          element: <MogacoDetail />,
+          element: <MogacoDetailPage />,
         },
-        { path: 'post', element: <MogacoPost /> },
+        { path: 'post', element: <MogacoPostPage /> },
         {
           path: 'calendar',
           element: <>캘린더</>,
