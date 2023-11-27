@@ -5,11 +5,11 @@ import { MogacoPostForm } from '@/types';
 
 import * as styles from './index.css';
 
-type MogacoPostTitleProps = {
+type PostTitleProps = {
   control: Control<MogacoPostForm>;
 };
 
-export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
+export function PostTitle({ control }: PostTitleProps) {
   return (
     <Controller
       control={control}

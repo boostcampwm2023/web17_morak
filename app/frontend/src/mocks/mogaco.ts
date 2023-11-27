@@ -52,7 +52,7 @@ let mogacoList: Mogaco[] = [
   },
 ];
 
-const participantsList: { id: string; participants: Member[] }[] = [
+let participantsList: { id: string; participants: Member[] }[] = [
   { id: '1', participants: [memberList[0], memberList[1], memberList[2]] },
   { id: '2', participants: [memberList[0], memberList[2]] },
   { id: '3', participants: [memberList[1], memberList[2]] },
@@ -63,10 +63,15 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
   http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
     const body = await request.json();
+    const postId = String(mogacoList[mogacoList.length - 1].id + 1);
     mogacoList.push({
       ...body,
-      id: String(mogacoList[mogacoList.length - 1].id + 1),
+      id: postId,
       member: memberList[0],
+    });
+    participantsList.push({
+      id: postId,
+      participants: [memberList[0]],
     });
     return HttpResponse.json(null, { status: 201 });
   }),
@@ -75,6 +80,9 @@ export const mogacoAPIHandlers = [
   ),
   http.delete('/mogaco/:id', ({ params: { id } }) => {
     mogacoList = mogacoList.filter((mogaco) => mogaco.id !== id);
+    participantsList = participantsList.filter(
+      (participants) => participants.id !== id,
+    );
     return HttpResponse.json({ status: 204 });
   }),
   http.get('/mogaco/:id/participants', ({ params: { id } }) =>
