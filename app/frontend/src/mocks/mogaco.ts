@@ -63,17 +63,18 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
   http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
     const body = await request.json();
-    const postId = String(mogacoList[mogacoList.length - 1].id + 1);
-    mogacoList.push({
+    const postId = String(Number(mogacoList[mogacoList.length - 1].id) + 1);
+    const newPost = {
       ...body,
       id: postId,
       member: memberList[0],
-    });
+    };
+    mogacoList.push(newPost);
     participantsList.push({
       id: postId,
       participants: [memberList[0]],
     });
-    return HttpResponse.json(null, { status: 201 });
+    return HttpResponse.json(newPost, { status: 201 });
   }),
   http.get('/mogaco/:id', ({ params: { id } }) =>
     HttpResponse.json<Mogaco>(mogacoList.find((mogaco) => mogaco.id === id)),

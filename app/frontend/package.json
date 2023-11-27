@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "@morak/apitype": "*",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
@@ -44,7 +45,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@morak/apitype": "^1.0.0",
     "@morak/eslint-config": "^1.0.0",
     "@morak/tsconfig": "^1.0.0",
     "@tanstack/eslint-plugin-query": "^5.6.0",

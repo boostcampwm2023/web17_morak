@@ -29,7 +29,7 @@ export function MogacoPostPage() {
     maxHumanCount,
     address,
   }: MogacoPostForm) => {
-    const res = await mutateAsync({
+    const response = await mutateAsync({
       groupId: 1,
       title,
       contents,
@@ -39,9 +39,12 @@ export function MogacoPostPage() {
       status: '모집 중',
     });
 
-    if (res.status === 201) {
-      // TODO: 글 id 받아서 상세 페이지로 이동 필요
-      navigate('/mogaco');
+    if (response.status === 201) {
+      const {
+        data: { id },
+      } = response;
+
+      navigate(`/mogaco/${id}`);
     }
   };
 
