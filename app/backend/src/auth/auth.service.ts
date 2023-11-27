@@ -68,6 +68,12 @@ export class AuthService {
       const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: getSecret('JWT_REFRESH_SECRET') });
       const { providerId, socialType } = decodedRefreshToken;
 
+      const storedRefreshToken = await this.authRepository.getRefreshToken(providerId);
+
+      if (storedRefreshToken !== refreshToken) {
+        throw new UnauthorizedException('Invalid refresh token');
+      }
+
       const token = this.generateJwt({ providerId: providerId, socialType: socialType });
 
       return token.access_token;

@@ -13,7 +13,6 @@ import { AuthService } from './auth.service';
 import { ApiBody, ApiCreatedResponse, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
-import { RtGuard } from './guards/rt.guard';
 import { LogoutDto } from './dto/user.dto';
 import { getSecret } from 'vault';
 
@@ -86,7 +85,6 @@ export class AuthController {
   }
 
   @Post('/refresh')
-  @UseGuards(RtGuard)
   @ApiOperation({
     summary: 'Refresh Token을 이용하여 Access Token 재갱신',
     description: 'cookie에 있는 Refresh Token을 이용해서 새로운 Access Token을 반환',
