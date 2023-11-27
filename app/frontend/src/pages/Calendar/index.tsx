@@ -10,9 +10,12 @@ export function Calendar() {
     setClosedSidebar(!closedSidebar);
   };
 
+  const onClickEvent = () => {
+    setClosedSidebar(false);
+  };
   return (
     <>
-      <CalendarView />
+      <CalendarView onClickEvent={onClickEvent} />
       <MogacoSideBar
         closed={closedSidebar}
         toggleClosed={onClickCloseSidebar}
