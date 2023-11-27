@@ -7,7 +7,7 @@ const error = style({});
 const title = style([
   fontStyle.sansBold24,
   {
-    padding: '0.8rem',
+    padding: '0.8rem 0',
     height: '4rem',
     width: '100%',
     color: vars.color.grayscale500,

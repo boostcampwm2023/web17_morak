@@ -10,7 +10,7 @@ import { useSubmitEdit, useSubmitPost } from '@/queries/hooks/post';
 import { MogacoPostForm } from '@/types';
 
 import {
-  PostMemberId,
+  PostMember,
   PostTitle,
   PostAddress,
   PostContents,
@@ -46,7 +46,7 @@ export function MogacoPostPage() {
 
   useEffect(() => {
     if (mogacoData) {
-      reset({ ...mogacoData, memberId: mogacoData.member.providerId });
+      reset({ ...mogacoData });
     }
   }, [mogacoData, reset, resetField]);
 
@@ -80,7 +80,7 @@ export function MogacoPostPage() {
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <PostTitle control={control} />
       <div className={styles.formContent}>
-        <PostMemberId control={control} />
+        <PostMember />
         <PostGroupId control={control} />
         <PostMaxHumanCount control={control} />
         <PostAddress control={control} />

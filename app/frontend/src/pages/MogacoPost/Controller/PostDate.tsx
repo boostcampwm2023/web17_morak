@@ -28,7 +28,7 @@ export function PostDate({ control }: PostDateProps) {
           required
           min={currentDate}
           onChange={onChange}
-          value={value}
+          value={value.replace('Z', '')}
           errorMessage={error && error.message}
         />
       )}
