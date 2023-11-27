@@ -5,7 +5,7 @@ import { getCookies } from '@/utils';
 
 import * as styles from './index.css';
 
-export function Main() {
+export function MainPage() {
   const onClickGoogleLogin = () => {
     window.location.href = `${URL.API}/auth/google/login`;
   };
