@@ -6,6 +6,7 @@ import {
   MogacoPage,
   MogacoDetailPage,
   MogacoPostPage,
+  Calendar,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -26,7 +27,7 @@ export const useRouter = () =>
         { path: 'post', element: <MogacoPostPage /> },
         {
           path: 'calendar',
-          element: <>캘린더</>,
+          element: <Calendar />,
         },
         {
           path: 'map',
