@@ -1,4 +1,4 @@
 export interface ResponseGroupsDto {
-  id: string;
+  id: bigint;
   title: string;
 }
