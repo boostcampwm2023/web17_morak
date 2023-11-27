@@ -76,6 +76,25 @@ export const mogacoAPIHandlers = [
     });
     return HttpResponse.json(newPost, { status: 201 });
   }),
+  http.patch<{ id: string }, MogacoPostRequest>(
+    '/mogaco/:id',
+    async ({ params: { id }, request }) => {
+      const body = await request.json();
+      const editedPost = {
+        ...body,
+        id,
+        member: memberList[0],
+      };
+      const targetIndex = mogacoList.findIndex((mogaco) => mogaco.id === id);
+
+      if (targetIndex === undefined) {
+        return HttpResponse.json(null, { status: 404 });
+      }
+
+      mogacoList[targetIndex] = editedPost;
+      return HttpResponse.json(editedPost, { status: 200 });
+    },
+  ),
   http.get('/mogaco/:id', ({ params: { id } }) =>
     HttpResponse.json<Mogaco>(mogacoList.find((mogaco) => mogaco.id === id)),
   ),

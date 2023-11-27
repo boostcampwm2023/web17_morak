@@ -49,6 +49,10 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     }
   };
 
+  const onClickEdit = () => {
+    navigate(`/post?id=${id}`);
+  };
+
   const onClickJoin = async () => {
     await joinMogaco.mutateAsync(id);
   };
@@ -87,7 +91,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   if (userHosted) {
     return (
       <>
-        <Button theme="primary" shape="line" size="large">
+        <Button theme="primary" shape="line" size="large" onClick={onClickEdit}>
           수정
         </Button>
         <Button
