@@ -1,4 +1,4 @@
-import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left_large.svg';
+import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
@@ -20,6 +20,8 @@ export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
       >
         <ArrowLeft
           className={closed ? styles.flip : ''}
+          width={24}
+          height={24}
           fill={vars.color.grayscale200}
         />
       </button>

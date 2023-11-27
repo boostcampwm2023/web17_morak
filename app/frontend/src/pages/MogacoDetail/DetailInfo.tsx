@@ -4,9 +4,9 @@ import { useQueries } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import { ReactComponent as ArrowDown } from '@/assets/icons/arrow_down.svg';
-import { ReactComponent as Calendar } from '@/assets/icons/calendar_large.svg';
-import { ReactComponent as Map } from '@/assets/icons/map_large.svg';
-import { ReactComponent as People } from '@/assets/icons/people_large.svg';
+import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
+import { ReactComponent as Map } from '@/assets/icons/map.svg';
+import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Error, Loading, UserChip } from '@/components';
 import { MAP_SAMPLE_IMAGE } from '@/constants';
 import { queryKeys } from '@/queries';
@@ -42,7 +42,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
   return (
     <div className={styles.info}>
       <div className={styles.infoItem}>
-        <People fill={vars.color.grayscale200} />
+        <People width={24} height={24} fill={vars.color.grayscale200} />
         <span>
           <span>{participantList.length}</span>/
           <span>{mogacoData.maxHumanCount}</span>
@@ -54,7 +54,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
           }`}
           onClick={toggleParticipantsShown}
         >
-          <ArrowDown fill={vars.color.grayscaleBlack} />
+          <ArrowDown width={16} height={16} fill={vars.color.grayscaleBlack} />
         </button>
       </div>
       <div
@@ -71,11 +71,11 @@ export function DetailInfo({ id }: DetailInfoProps) {
         ))}
       </div>
       <div className={styles.infoItem}>
-        <Calendar fill={vars.color.grayscale200} />
+        <Calendar width={24} height={24} fill={vars.color.grayscale200} />
         <span>{dayjs(mogacoData.date).format('YYYY/MM/DD HH:mm~')}</span>
       </div>
       <div className={styles.infoItem}>
-        <Map fill={vars.color.grayscale200} />
+        <Map width={24} height={24} fill={vars.color.grayscale200} />
         <span>{mogacoData.address}</span>
       </div>
       <img src={MAP_SAMPLE_IMAGE} alt="맵 샘플 이미지" className={styles.map} />
