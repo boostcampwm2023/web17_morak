@@ -10,7 +10,7 @@ type ErrorProps = {
 export function Error({ message }: ErrorProps) {
   return (
     <div className={styles.container}>
-      <ErrorIcon fill={vars.color.morakRed} />
+      <ErrorIcon width={16} height={16} fill={vars.color.morakRed} />
       {message}
     </div>
   );

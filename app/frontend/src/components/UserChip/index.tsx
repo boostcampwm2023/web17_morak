@@ -1,4 +1,4 @@
-import { ReactComponent as Profile } from '@/assets/icons/profile_large.svg';
+import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
@@ -19,7 +19,7 @@ export function UserChip({ username, profileSrc }: UserChipProps) {
         {profileSrc ? (
           <img src={profileSrc} alt={`${username}의 프로필 사진`} />
         ) : (
-          <Profile fill={vars.color.morakGreen} />
+          <Profile width={24} height={24} fill={vars.color.morakGreen} />
         )}
       </div>
       <span>{username}</span>

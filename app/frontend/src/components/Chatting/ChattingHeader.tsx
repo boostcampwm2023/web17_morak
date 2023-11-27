@@ -15,7 +15,7 @@ export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
     <div className={styles.header}>
       <span className={styles.title}>{title}</span>
       <div className={styles.participants}>
-        <People fill={vars.color.grayscale200} />
+        <People width={16} height={16} fill={vars.color.grayscale200} />
         <span>{participants.length}</span>
         <Popover type="right" className={styles.popover}>
           <div className={styles.userList}>
