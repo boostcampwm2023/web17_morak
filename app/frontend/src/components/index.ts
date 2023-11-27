@@ -12,4 +12,5 @@ export * from './MogacoItem';
 export * from './Popover';
 export * from './Sidebar';
 export * from './Sidebar/Contents/Mogaco';
+export * from './Sidebar/Wrapper/MogacoSidebar';
 export * from './UserChip';
