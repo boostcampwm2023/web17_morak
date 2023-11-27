@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
+import { EventClickArg } from '@fullcalendar/core/index.js';
+import { useQueries } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+
 import { MogacoSideBar } from '@/components';
+import { queryKeys } from '@/queries';
+import { mogacoAtom } from '@/stores';
 
 import { CalendarView } from './CalendarView';
 
@@ -11,13 +17,32 @@ export function Calendar() {
     setClosedSidebar(!closedSidebar);
   };
 
-  const onClickEvent = () => {
+  const [mogacoId, setMogacoId] = useAtom(mogacoAtom);
+
+  const [{ data: mogacoData }, { data: participantList }] = useQueries({
+    queries: [
+      queryKeys.mogaco.detail(mogacoId),
+      queryKeys.mogaco.participants(mogacoId),
+    ],
+  });
+
+  const participantCount = participantList?.length || 0;
+
+  const onClickEvent = (dayEvent: EventClickArg) => {
+    const { event } = dayEvent;
     setClosedSidebar(false);
+    setMogacoId(event.id);
   };
+
   return (
     <>
       <CalendarView onClickEvent={onClickEvent} />
-      <MogacoSideBar closed={closedSidebar} toggleClosed={toggleSidebar} />
+      <MogacoSideBar
+        closed={closedSidebar}
+        toggleClosed={toggleSidebar}
+        mogaco={mogacoData}
+        participantCount={participantCount}
+      />
     </>
   );
 }
