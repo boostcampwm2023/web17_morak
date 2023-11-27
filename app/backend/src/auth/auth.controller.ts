@@ -10,20 +10,28 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBody, ApiCreatedResponse, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCookieAuth,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { Request, Response } from 'express';
 import { LogoutDto } from './dto/user.dto';
 import { getSecret } from 'vault';
 
 @ApiTags('Oauth API')
-@ApiSecurity('google')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('/google/login')
   @UseGuards(GoogleOauthGuard)
+  @ApiSecurity('google')
   @ApiOperation({
     summary: 'Google 로그인 요청 API',
     description: 'Google OAuth API에 로그인 요청',
@@ -34,6 +42,7 @@ export class AuthController {
 
   @Get('/google/callback')
   @UseGuards(GoogleOauthGuard)
+  @ApiSecurity('google')
   @ApiOperation({
     summary: 'Google OAuth 콜백 처리',
     description: '로그인을 진행하여 Access, Refresh Token 발급',
@@ -85,6 +94,7 @@ export class AuthController {
   }
 
   @Post('/refresh')
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Refresh Token을 이용하여 Access Token 재갱신',
     description: 'cookie에 있는 Refresh Token을 이용해서 새로운 Access Token을 반환',
