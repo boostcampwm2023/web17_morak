@@ -8,7 +8,7 @@ import { useSetUserInfo, useRouter } from '@/hooks';
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { retry: 1 },
+    queries: { retry: false },
   },
 });
 
