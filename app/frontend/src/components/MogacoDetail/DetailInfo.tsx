@@ -22,7 +22,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
 
   const [
-    { data: mogacoData },
+    { data: mogacoData, isLoading: mogacoDataLoading },
     { data: participantList, isLoading: participantListLoading },
   ] = useQueries({
     queries: [queryKeys.mogaco.detail(id), queryKeys.mogaco.participants(id)],
@@ -31,12 +31,12 @@ export function DetailInfo({ id }: DetailInfoProps) {
   const toggleParticipantsShown = () =>
     setParticipantsShown(!participantsShown);
 
-  if (participantListLoading) {
+  if (participantListLoading || mogacoDataLoading) {
     return <Loading />;
   }
 
-  if (!participantList) {
-    return <Error message="참여자 정보를 불러오지 못했습니다." />;
+  if (!mogacoData || !participantList) {
+    return <Error message="일부 정보를 불러오지 못했습니다." />;
   }
 
   return (
@@ -44,8 +44,8 @@ export function DetailInfo({ id }: DetailInfoProps) {
       <div className={styles.infoItem}>
         <People fill={vars.color.grayscale200} />
         <span>
-          <span>{participantList ? participantList.length : '-'}</span>/
-          <span>{mogacoData?.maxHumanCount}</span>
+          <span>{participantList.length}</span>/
+          <span>{mogacoData.maxHumanCount}</span>
         </span>
         <button
           type="button"
@@ -62,7 +62,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
           participantsShown ? styles.shown : ''
         }`}
       >
-        {participantList?.map((participant) => (
+        {participantList.map((participant) => (
           <UserChip
             key={participant.providerId}
             username={participant.nickname}
@@ -72,11 +72,11 @@ export function DetailInfo({ id }: DetailInfoProps) {
       </div>
       <div className={styles.infoItem}>
         <Calendar fill={vars.color.grayscale200} />
-        <span>{dayjs(mogacoData?.date).format('YYYY/MM/DD HH:mm~')}</span>
+        <span>{dayjs(mogacoData.date).format('YYYY/MM/DD HH:mm~')}</span>
       </div>
       <div className={styles.infoItem}>
         <Map fill={vars.color.grayscale200} />
-        <span>{mogacoData?.address}</span>
+        <span>{mogacoData.address}</span>
       </div>
       <img src={MAP_SAMPLE_IMAGE} alt="맵 샘플 이미지" className={styles.map} />
     </div>
