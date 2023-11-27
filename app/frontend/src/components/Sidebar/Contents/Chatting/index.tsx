@@ -1,16 +1,9 @@
-import { Chat, ChatUser } from '@/types';
+import { ChattingProps } from '@/types';
 
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
 import * as styles from './index.css';
-
-type ChattingProps = {
-  title: string;
-  participants: ChatUser[];
-  chatItems: Chat[];
-  currentUsername: string;
-};
 
 export function Chatting({
   title,
