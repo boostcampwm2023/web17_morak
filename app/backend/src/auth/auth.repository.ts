@@ -55,4 +55,8 @@ export class AuthRepository {
   async removeRefreshToken(providerId: string): Promise<void> {
     await this.cacheManager.del(providerId);
   }
+
+  async getRefreshToken(providerId: string): Promise<string | null> {
+    return this.cacheManager.get(providerId);
+  }
 }

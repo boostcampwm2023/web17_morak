@@ -7,6 +7,7 @@ export function setupSwagger(app: INestApplication): void {
     .setDescription('Morak API description')
     .setVersion('1.0.0')
     .addTag('moraks')
+    .addCookieAuth('refresh_token')
     .addBearerAuth(
       {
         type: 'http',
