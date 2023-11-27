@@ -12,6 +12,6 @@ const headers = getCookies('access_token')
   : initialHeaders;
 
 export const morakAPI = axios.create({
-  baseURL: import.meta.env.DEV ? '' : URL.API,
+  baseURL: import.meta.env.MODE === 'development' ? '' : URL.API,
   headers,
 });
