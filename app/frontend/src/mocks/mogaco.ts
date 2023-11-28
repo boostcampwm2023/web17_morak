@@ -7,44 +7,44 @@ import { memberList } from './members';
 
 let mogacoList: Mogaco[] = [
   {
-    id: BigInt(1),
-    groupId: BigInt(1),
+    id: '1',
+    groupId: '1',
     title: '인천역 모각코',
     contents: '인천에서 같이 모각코 하실 분을 모십니다.',
-    date: new Date('2023-11-22T12:00:00.000Z'),
+    date: '2023-11-22T12:00:00.000Z',
     maxHumanCount: 5,
     address: '서울 관악구 어디길 어디로 뭐시기카페',
     status: '모집 중' as const,
     member: memberList[0],
   },
   {
-    id: BigInt(2),
-    groupId: BigInt(1),
+    id: '2',
+    groupId: '1',
     title: '이수역 모각코',
     contents: '이수역 모각코 하실 분 구합니다!',
-    date: new Date('2023-11-22T12:00:00.000Z'),
+    date: '2023-11-22T12:00:00.000Z',
     maxHumanCount: 5,
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
     member: memberList[2],
   },
   {
-    id: BigInt('3'),
-    groupId: BigInt(1),
+    id: '3',
+    groupId: '1',
     title: '종각역 모각코',
     contents: '종각역에서 모각코 하실 분 구해요',
-    date: new Date('2023-10-11T12:00:00.000Z'),
+    date: '2023-10-11T12:00:00.000Z',
     maxHumanCount: 2,
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
     member: memberList[2],
   },
   {
-    id: BigInt('4'),
-    groupId: BigInt(1),
+    id: '4',
+    groupId: '1',
     title: '사당역 모각코',
     contents: '사당역 크레이저 커피로 오세요~',
-    date: new Date('2023-11-22T12:00:00.000Z'),
+    date: '2023-11-22T12:00:00.000Z',
     maxHumanCount: 2,
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
@@ -63,9 +63,11 @@ export const mogacoAPIHandlers = [
   http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
   http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
     const body = await request.json();
+    const { groupId } = body;
     const postId = String(Number(mogacoList[mogacoList.length - 1].id) + 1);
     const newPost = {
       ...body,
+      groupId: groupId.toString(),
       id: postId,
       member: memberList[0],
     };

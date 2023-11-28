@@ -3,28 +3,15 @@ import {
   ResponseMogacoWithMemberDto,
 } from '@morak/apitype';
 
-import { TypeWrapper } from './typeChanger';
+import { JsonTypeChanger, TypeWrapper } from './typeChanger';
 
-interface MogacoTypes {
-  id: string;
-  groupId: number;
-  memberId: string;
-  title: string;
-  contents: string;
-  date: string;
-  maxHumanCount: number;
-  address: string;
-  status: '모집 중' | '마감' | '종료';
-  nickname: string;
-  profilePicture: string;
-}
+type MogacoType = JsonTypeChanger<TypeWrapper<ResponseMogacoWithMemberDto>>;
 
-export type Mogaco = Omit<ResponseMogacoWithMemberDto, 'participants'>;
+export type Mogaco = Omit<MogacoType, 'participants'>;
 
 export type MogacoPostForm = Pick<
-  MogacoTypes,
+  MogacoType,
   | 'title'
-  | 'memberId'
   | 'groupId'
   | 'contents'
   | 'date'
