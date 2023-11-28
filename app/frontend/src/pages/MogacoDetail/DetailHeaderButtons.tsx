@@ -21,13 +21,8 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   const [
     { data: currentUser, isLoading: currentUserLoading },
     { data: mogacoData, isLoading: mogacoDataLoading },
-    { data: participantList, isLoading: participantListLoading },
   ] = useQueries({
-    queries: [
-      getMyInfoQuery,
-      queryKeys.mogaco.detail(id),
-      queryKeys.mogaco.participants(id),
-    ],
+    queries: [getMyInfoQuery, queryKeys.mogaco.detail(id)],
   });
 
   const deleteMogaco = useDeleteMogacoQuery();
@@ -61,7 +56,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     await quitMogaco.mutateAsync(id);
   };
 
-  if (currentUserLoading || mogacoDataLoading || participantListLoading) {
+  if (currentUserLoading || mogacoDataLoading) {
     return (
       <Button theme="primary" shape="fill" size="large" disabled>
         <LoadingIndicator size={20} />
@@ -77,16 +72,14 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     );
   }
 
-  if (!mogacoData || participantList === undefined) {
+  if (!mogacoData) {
     return <Error message="정보 불러오기 오류" />;
   }
 
   const userHosted = mogacoData.member.providerId === currentUser.providerId;
-  const userParticipated = participantList
-    ? participantList.find(
-        (participant) => participant.providerId === currentUser.providerId,
-      )
-    : false;
+  const userParticipated = !!mogacoData.participants.find(
+    (participant) => participant.providerId === currentUser.providerId,
+  );
 
   if (userHosted) {
     return (
@@ -121,7 +114,7 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
 
   if (
     mogacoData.status === '모집 중' &&
-    participantList.length < mogacoData.maxHumanCount
+    mogacoData.participants.length < mogacoData.maxHumanCount
   )
     return (
       <Button theme="primary" shape="fill" size="large" onClick={onClickJoin}>

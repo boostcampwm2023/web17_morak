@@ -30,6 +30,8 @@ export function MogacoList() {
             maxHumanCount,
             address,
             status,
+            group,
+            participants,
           }) => (
             <MogacoItem
               key={id}
@@ -41,6 +43,8 @@ export function MogacoList() {
               address={address}
               date={date}
               status={status}
+              group={group}
+              participants={participants}
             />
           ),
         )}
