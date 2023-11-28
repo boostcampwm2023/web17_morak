@@ -37,9 +37,8 @@ export function MogacoPostPage() {
       address: '',
       contents: '',
       date: '',
-      groupId: 0,
+      groupId: '0',
       maxHumanCount: 0,
-      memberId: '',
       status: '모집 중',
     },
   });

@@ -82,9 +82,11 @@ export const mogacoAPIHandlers = [
     '/mogaco/:id',
     async ({ params: { id }, request }) => {
       const body = await request.json();
+      const { groupId } = body;
       const editedPost = {
         ...body,
-        id,
+        id: id.toString(),
+        groupId: groupId.toString(),
         member: memberList[0],
       };
       const targetIndex = mogacoList.findIndex((mogaco) => mogaco.id === id);
