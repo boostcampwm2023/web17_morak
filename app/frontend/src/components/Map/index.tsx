@@ -9,7 +9,11 @@ declare global {
   }
 }
 
-export function Map() {
+type MapProps = {
+  onClick: () => void;
+};
+
+export function Map({ onClick }: MapProps) {
   const { Tmapv3 } = window;
 
   useEffect(() => {
@@ -18,10 +22,19 @@ export function Map() {
       zoom: 14,
     });
     mapContent.setZoomLimit(7, 16);
+
+    const marker = new Tmapv3.Marker({
+      position: new Tmapv3.LatLng(37.566535, 126.9779692),
+      icon: '/public/assets/icons/pin.svg',
+      map: mapContent,
+    });
+    marker.on('Click', onClick);
+
     return () => {
       mapContent.destroy();
     };
-  }, [Tmapv3.LatLng, Tmapv3.Map]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div className={styles.container} id="map" />;
 }
