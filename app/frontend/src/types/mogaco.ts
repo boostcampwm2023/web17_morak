@@ -2,7 +2,7 @@ import { Member } from './member';
 
 interface MogacoTypes {
   id: string;
-  groupId: number;
+  groupId: string;
   memberId: string;
   title: string;
   contents: string;
@@ -24,7 +24,11 @@ export type Mogaco = Pick<
   | 'maxHumanCount'
   | 'address'
   | 'status'
-> & { member: Member };
+> & {
+  member: Member;
+  participants: Member[];
+  group: { id: string; title: string };
+};
 
 export type MogacoPostForm = Pick<
   MogacoTypes,

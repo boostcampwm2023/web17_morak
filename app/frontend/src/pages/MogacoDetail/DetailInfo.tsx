@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import { ReactComponent as ArrowDown } from '@/assets/icons/arrow_down.svg';
@@ -21,22 +21,19 @@ type DetailInfoProps = {
 export function DetailInfo({ id }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
 
-  const [
-    { data: mogacoData, isLoading: mogacoDataLoading },
-    { data: participantList, isLoading: participantListLoading },
-  ] = useQueries({
-    queries: [queryKeys.mogaco.detail(id), queryKeys.mogaco.participants(id)],
-  });
+  const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
+    queryKeys.mogaco.detail(id),
+  );
 
   const toggleParticipantsShown = () =>
     setParticipantsShown(!participantsShown);
 
-  if (participantListLoading || mogacoDataLoading) {
+  if (mogacoDataLoading) {
     return <Loading />;
   }
 
-  if (!mogacoData || !participantList) {
-    return <Error message="일부 정보를 불러오지 못했습니다." />;
+  if (!mogacoData) {
+    return <Error message="모각코 정보를 불러오지 못했습니다." />;
   }
 
   return (
@@ -44,7 +41,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
       <div className={styles.infoItem}>
         <People width={24} height={24} fill={vars.color.grayscale200} />
         <span>
-          <span>{participantList.length}</span>/
+          <span>{mogacoData.participants.length}</span>/
           <span>{mogacoData.maxHumanCount}</span>
         </span>
         <button
@@ -62,7 +59,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
           participantsShown ? styles.shown : ''
         }`}
       >
-        {participantList.map((participant) => (
+        {mogacoData.participants.map((participant) => (
           <UserChip
             key={participant.providerId}
             username={participant.nickname}

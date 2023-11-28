@@ -1,14 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { http, HttpResponse } from 'msw';
 
-import { Member, Mogaco, MogacoPostRequest } from '@/types';
+import { Mogaco, MogacoPostRequest } from '@/types';
 
 import { memberList } from './members';
 
 let mogacoList: Mogaco[] = [
   {
     id: '1',
-    groupId: 1,
+    groupId: '1',
     title: '인천역 모각코',
     contents: '인천에서 같이 모각코 하실 분을 모십니다.',
     date: '2023-11-22T12:00:00.000Z',
@@ -16,10 +16,12 @@ let mogacoList: Mogaco[] = [
     address: '서울 관악구 어디길 어디로 뭐시기카페',
     status: '모집 중' as const,
     member: memberList[0],
+    participants: [memberList[0], memberList[1], memberList[2]],
+    group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
   },
   {
     id: '2',
-    groupId: 1,
+    groupId: '1',
     title: '이수역 모각코',
     contents: '이수역 모각코 하실 분 구합니다!',
     date: '2023-11-22T12:00:00.000Z',
@@ -27,10 +29,12 @@ let mogacoList: Mogaco[] = [
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
     member: memberList[2],
+    participants: [memberList[0], memberList[2]],
+    group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
   },
   {
     id: '3',
-    groupId: 1,
+    groupId: '1',
     title: '종각역 모각코',
     contents: '종각역에서 모각코 하실 분 구해요',
     date: '2023-10-11T12:00:00.000Z',
@@ -38,10 +42,12 @@ let mogacoList: Mogaco[] = [
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
     member: memberList[2],
+    participants: [memberList[1], memberList[2]],
+    group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
   },
   {
     id: '4',
-    groupId: 1,
+    groupId: '1',
     title: '사당역 모각코',
     contents: '사당역 크레이저 커피로 오세요~',
     date: '2023-11-22T12:00:00.000Z',
@@ -49,14 +55,9 @@ let mogacoList: Mogaco[] = [
     address: '주소주소주소주소주소',
     status: '모집 중' as const,
     member: memberList[1],
+    participants: [memberList[0], memberList[1]],
+    group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
   },
-];
-
-let participantsList: { id: string; participants: Member[] }[] = [
-  { id: '1', participants: [memberList[0], memberList[1], memberList[2]] },
-  { id: '2', participants: [memberList[0], memberList[2]] },
-  { id: '3', participants: [memberList[1], memberList[2]] },
-  { id: '4', participants: [memberList[0], memberList[1]] },
 ];
 
 export const mogacoAPIHandlers = [
@@ -68,12 +69,10 @@ export const mogacoAPIHandlers = [
       ...body,
       id: postId,
       member: memberList[0],
+      participants: [memberList[0]],
+      group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
     };
     mogacoList.push(newPost);
-    participantsList.push({
-      id: postId,
-      participants: [memberList[0]],
-    });
     return HttpResponse.json(newPost, { status: 201 });
   }),
   http.patch<{ id: string }, MogacoPostRequest>(
@@ -84,6 +83,8 @@ export const mogacoAPIHandlers = [
         ...body,
         id,
         member: memberList[0],
+        participants: [memberList[0]],
+        group: { id: '1', title: '부스트캠프 웹·모바일 8기' },
       };
       const targetIndex = mogacoList.findIndex((mogaco) => mogaco.id === id);
 
@@ -100,18 +101,10 @@ export const mogacoAPIHandlers = [
   ),
   http.delete('/mogaco/:id', ({ params: { id } }) => {
     mogacoList = mogacoList.filter((mogaco) => mogaco.id !== id);
-    participantsList = participantsList.filter(
-      (participants) => participants.id !== id,
-    );
     return HttpResponse.json({ status: 204 });
   }),
-  http.get('/mogaco/:id/participants', ({ params: { id } }) =>
-    HttpResponse.json<Member[]>(
-      participantsList.find((item) => item.id === id)?.participants,
-    ),
-  ),
   http.post('/mogaco/:id/join', ({ params: { id } }) => {
-    const target = participantsList.find((item) => item.id === id);
+    const target = mogacoList.find((item) => item.id === id);
     if (!target) {
       return HttpResponse.json(null, { status: 404 });
     }
@@ -120,7 +113,7 @@ export const mogacoAPIHandlers = [
     return HttpResponse.json(null, { status: 200 });
   }),
   http.delete('/mogaco/:id/join', ({ params: { id } }) => {
-    const target = participantsList.find((item) => item.id === id);
+    const target = mogacoList.find((item) => item.id === id);
     if (!target) {
       return HttpResponse.json({ status: 404 });
     }
