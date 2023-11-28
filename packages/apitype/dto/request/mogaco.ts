@@ -1,5 +1,7 @@
+import { Bigint } from "../type";
+
 export interface RequestCreateMogacoDto {
-  groupId: number;
+  groupId: Bigint;
   title: string;
   contents: string;
   date: string;

@@ -4,6 +4,7 @@ import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './enum/mogaco-status.enum';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
+import { ParticipantResponseDto } from './dto/response-participants.dto';
 
 @Injectable()
 export class MogacoRepository {
@@ -34,8 +35,8 @@ export class MogacoRepository {
     const participants = await this.getParticipants(id);
 
     return {
-      id: mogaco.id,
-      groupId: mogaco.groupId,
+      id: mogaco.id.toString(),
+      groupId: mogaco.groupId.toString(),
       groupTitle: mogaco.group.title,
       title: mogaco.title,
       contents: mogaco.contents,
@@ -114,7 +115,7 @@ export class MogacoRepository {
   async updateMogacoStatus(mogaco: MogacoDto): Promise<Mogaco> {
     try {
       return await this.prisma.mogaco.update({
-        where: { id: mogaco.id },
+        where: { id: BigInt(mogaco.id) },
         data: { status: mogaco.status },
       });
     } catch (error) {
@@ -181,7 +182,7 @@ export class MogacoRepository {
     });
   }
 
-  async getParticipants(id: number): Promise<Member[]> {
+  async getParticipants(id: number): Promise<ParticipantResponseDto[]> {
     const participants = await this.prisma.participant.findMany({
       where: {
         postId: id,
@@ -192,7 +193,15 @@ export class MogacoRepository {
     });
 
     // 가져온 참가자 목록의 각 참가자의 member 속성을 통해 실제 멤버 객체로 매핑하여 반환
-    return participants.map((participant) => participant.member);
+    return participants.map((participant) => ({
+      id: participant.member.id.toString(),
+      providerId: participant.member.providerId,
+      email: participant.member.email,
+      nickname: participant.member.nickname,
+      profilePicture: participant.member.profilePicture,
+      socialType: participant.member.socialType,
+      createdAt: participant.member.createdAt,
+    }));
   }
 
   async cancelMogacoJoin(id: number, member: Member): Promise<void> {

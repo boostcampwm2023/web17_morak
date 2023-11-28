@@ -1,9 +1,10 @@
 import { ResponseMemberDto } from "./member";
 import { ResponseParticipant } from "./participant";
+import { Bigint } from "../type";
 
 export interface ResponseMogacoDto {
-  id: bigint;
-  groupId: bigint;
+  id: Bigint;
+  groupId: Bigint;
   title: string;
   contents: string;
   date: Date;

@@ -1,5 +1,7 @@
+import { Bigint } from "../type";
+
 export interface ResponseParticipant {
-  id: bigint;
+  id: Bigint;
   providerId: string;
   email: string;
   nickname: string;

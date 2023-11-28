@@ -2,11 +2,12 @@ import { RequestCreateMogacoDto } from '@morak/apitype/dto/request/mogaco';
 import { IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
 import { MogacoStatus } from '../enum/mogaco-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
+import { Bigint } from '@morak/apitype/dto/type';
 
 export class CreateMogacoDto implements RequestCreateMogacoDto {
   @ApiProperty({ description: 'Group ID', example: '1' })
   @IsNotEmpty()
-  groupId: number;
+  groupId: Bigint;
 
   @ApiProperty({ description: 'Title of the Mogaco', example: '사당역 모각코' })
   @IsNotEmpty()

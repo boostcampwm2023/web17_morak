@@ -4,6 +4,7 @@ import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './enum/mogaco-status.enum';
 import { MogacoDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
+import { ParticipantResponseDto } from './dto/response-participants.dto';
 
 @Injectable()
 export class MogacoService {
@@ -39,7 +40,7 @@ export class MogacoService {
     return await this.mogacoRepository.joinMogaco(id, member);
   }
 
-  async getParticipants(id: number): Promise<Member[]> {
+  async getParticipants(id: number): Promise<ParticipantResponseDto[]> {
     return this.mogacoRepository.getParticipants(id);
   }
 
