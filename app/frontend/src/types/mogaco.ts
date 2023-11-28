@@ -1,5 +1,22 @@
 import { Member } from './member';
 
+interface MogacoTypes {
+  id: string;
+  groupId: string;
+  memberId: string;
+  title: string;
+  contents: string;
+  date: string;
+  maxHumanCount: number;
+  address: string;
+  status: '모집 중' | '마감' | '종료';
+  nickname: string;
+  profilePicture: string;
+  member: Member;
+  participants: Member[];
+  group: { id: string; title: string };
+}
+
 export type Mogaco = Pick<
   MogacoTypes,
   | 'id'
@@ -38,19 +55,4 @@ export type MogacoPostRequest = Pick<
   | 'status'
 >;
 
-export interface MogacoTypes {
-  id: string;
-  groupId: string;
-  memberId: string;
-  title: string;
-  contents: string;
-  date: string;
-  maxHumanCount: number;
-  address: string;
-  status: '모집 중' | '마감' | '종료';
-  nickname: string;
-  profilePicture: string;
-  member: Member;
-  participants: Member[];
-  group: { id: string; title: string };
-}
+export type { MogacoTypes };
