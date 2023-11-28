@@ -10,10 +10,10 @@ declare global {
 }
 
 type MapProps = {
-  onClick: () => void;
+  onClickMarker: () => void;
 };
 
-export function Map({ onClick }: MapProps) {
+export function Map({ onClickMarker }: MapProps) {
   const { Tmapv3 } = window;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function Map({ onClick }: MapProps) {
       icon: '/public/assets/icons/pin.svg',
       map: mapContent,
     });
-    marker.on('Click', onClick);
+    marker.on('Click', onClickMarker);
 
     return () => {
       mapContent.destroy();

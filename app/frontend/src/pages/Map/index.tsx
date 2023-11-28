@@ -14,7 +14,7 @@ export function MapLayout() {
     <div className={styles.container}>
       <Header />
       <Map
-        onClick={() => {
+        onClickMarker={() => {
           setClosedSidebar(false);
         }}
       />
