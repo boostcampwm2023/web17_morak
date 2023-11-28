@@ -1,15 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
+import { useQuery } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
+
 import { Button } from '@/components';
-import { Mogaco } from '@/types';
+import { queryKeys } from '@/queries';
+import { mogacoAtom } from '@/stores';
 
 import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';
 import { InfoWrapper } from './InfoWrapper';
 import { TitleWrapper } from './TitleWrapper';
 
-export function MogacoSidebarItem({ mogaco }: { mogaco: Mogaco | undefined }) {
+export function MogacoSidebarItem() {
   const navigate = useNavigate();
+  const [mogacoId] = useAtom(mogacoAtom);
+
+  const { data: mogaco } = useQuery({
+    ...queryKeys.mogaco.detail(mogacoId),
+    enabled: Number(mogacoId) !== -1,
+  });
 
   if (!mogaco) return <>loading</>;
   const {
