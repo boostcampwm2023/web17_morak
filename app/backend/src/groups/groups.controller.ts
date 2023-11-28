@@ -61,4 +61,15 @@ export class GroupsController {
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);
   }
+
+  @Get('/my-groups')
+  @ApiOperation({
+    summary: '가입 그룹 확인',
+    description: '해당 사용자가 가입한 그룹을 확인합니다.',
+  })
+  @ApiResponse({ status: 200, description: 'Successfully Check', type: [GroupsDto] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getMyGroups(@GetUser() member: Member): Promise<Group[]> {
+    return this.groupsService.getMyGroups(member);
+  }
 }
