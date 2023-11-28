@@ -1,12 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import {
-  sansBold12,
-  sansBold24,
-  sansRegular12,
-  sansRegular16,
-} from '@/styles/font.css';
+import { sansRegular12 } from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -16,8 +11,12 @@ export const container = style({
   color: vars.color.grayscaleBlack,
   padding: '2rem',
 });
-export const contents = style([sansRegular16, {}]);
-export const group = style([sansBold12, {}]);
+export const groupWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  color: vars.color.grayscale200,
+  gap: '1.6rem',
+});
 export const icon = style({
   fill: vars.color.grayscale200,
 });
@@ -43,8 +42,6 @@ export const infoWrapper = style({
   flexDirection: 'column',
   gap: '0.4rem',
 });
-
-export const title = style([sansBold24, {}]);
 export const titleWrapper = style({
   display: 'flex',
   gap: '0.4rem',
