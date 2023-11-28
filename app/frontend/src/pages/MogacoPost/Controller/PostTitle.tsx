@@ -5,11 +5,11 @@ import { MogacoPostForm } from '@/types';
 
 import * as styles from './index.css';
 
-type MogacoPostTitleProps = {
+type PostTitleProps = {
   control: Control<MogacoPostForm>;
 };
 
-export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
+export function PostTitle({ control }: PostTitleProps) {
   return (
     <Controller
       control={control}
@@ -30,6 +30,7 @@ export function MogacoPostTitle({ control }: MogacoPostTitleProps) {
               placeholder={MOGACO_POST.TITLE.REQUIRED}
               maxLength={MOGACO_POST.TITLE.MAX_LENGTH}
               onChange={onChange}
+              value={value}
             />
             <div className={styles.count}>
               {value?.length || 0}/{MOGACO_POST.TITLE.MAX_LENGTH}

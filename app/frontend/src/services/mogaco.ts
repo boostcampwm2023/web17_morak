@@ -19,6 +19,8 @@ export const mogaco = {
   },
   post: async (form: MogacoPostRequest) =>
     morakAPI.post(mogaco.endPoint.index, form),
+  edit: async (id: string, form: MogacoPostRequest) =>
+    morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
   delete: async (id: string) => {
     const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
     return response;
