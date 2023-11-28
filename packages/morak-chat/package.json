@@ -1,0 +1,20 @@
+{
+  "name": "@morak/chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@morak/eslint-config": "^1.0.0",
+    "@morak/tsconfig": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.2.10"
+  }
+}
