@@ -19,7 +19,10 @@ export function Calendar() {
 
   const [mogacoId, setMogacoId] = useAtom(mogacoAtom);
 
-  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(mogacoId));
+  const { data: mogacoData } = useQuery({
+    ...queryKeys.mogaco.detail(mogacoId),
+    enabled: Number(mogacoId) !== -1,
+  });
 
   const onClickEvent = (dayEvent: EventClickArg) => {
     const { event } = dayEvent;
