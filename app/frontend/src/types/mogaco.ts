@@ -1,4 +1,5 @@
 import { Member } from './member';
+import { User } from './user';
 
 interface MogacoTypes {
   id: string;
@@ -12,6 +13,9 @@ interface MogacoTypes {
   status: '모집 중' | '마감' | '종료';
   nickname: string;
   profilePicture: string;
+  member: Member;
+  participants: Member[];
+  group: { id: string; title: string };
 }
 
 export type Mogaco = Pick<
@@ -24,11 +28,10 @@ export type Mogaco = Pick<
   | 'maxHumanCount'
   | 'address'
   | 'status'
-> & {
-  member: Member;
-  participants: Member[];
-  group: { id: string; title: string };
-};
+  | 'member'
+  | 'participants'
+  | 'group'
+>;
 
 export type MogacoPostForm = Pick<
   MogacoTypes,

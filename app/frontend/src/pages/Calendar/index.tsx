@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { EventClickArg } from '@fullcalendar/core/index.js';
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 
 import { MogacoSideBar } from '@/components';
@@ -19,14 +19,7 @@ export function Calendar() {
 
   const [mogacoId, setMogacoId] = useAtom(mogacoAtom);
 
-  const [{ data: mogacoData }, { data: participantList }] = useQueries({
-    queries: [
-      queryKeys.mogaco.detail(mogacoId),
-      queryKeys.mogaco.participants(mogacoId),
-    ],
-  });
-
-  const participantCount = participantList?.length || 0;
+  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(mogacoId));
 
   const onClickEvent = (dayEvent: EventClickArg) => {
     const { event } = dayEvent;
@@ -41,7 +34,6 @@ export function Calendar() {
         closed={closedSidebar}
         toggleClosed={toggleSidebar}
         mogaco={mogacoData}
-        participantCount={participantCount}
       />
     </>
   );

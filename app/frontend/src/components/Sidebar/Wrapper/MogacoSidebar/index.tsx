@@ -7,16 +7,14 @@ export function MogacoSideBar({
   closed,
   toggleClosed,
   mogaco,
-  participantCount,
 }: {
   closed: boolean;
   toggleClosed: () => void;
   mogaco: Mogaco | undefined;
-  participantCount: number;
 }) {
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
-      <MogacoSidebarItem mogaco={mogaco} participantCount={participantCount} />
+      <MogacoSidebarItem mogaco={mogaco} />
     </Sidebar>
   );
 }

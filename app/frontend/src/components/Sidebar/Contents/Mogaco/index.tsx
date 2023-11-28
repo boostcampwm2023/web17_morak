@@ -7,17 +7,20 @@ import * as styles from './index.css';
 import { InfoWrapper } from './InfoWrapper';
 import { TitleWrapper } from './TitleWrapper';
 
-export function MogacoSidebarItem({
-  mogaco,
-  participantCount,
-}: {
-  mogaco: Mogaco | undefined;
-  participantCount: number;
-}) {
+export function MogacoSidebarItem({ mogaco }: { mogaco: Mogaco | undefined }) {
   const navigate = useNavigate();
 
   if (!mogaco) return <>loading</>;
-  const { id, title, contents, date, maxHumanCount, status, address } = mogaco;
+  const {
+    id,
+    title,
+    contents,
+    date,
+    maxHumanCount,
+    status,
+    address,
+    participants,
+  } = mogaco;
 
   const onClickDetailPage = () => {
     navigate(`/mogaco/${id}`);
@@ -28,10 +31,11 @@ export function MogacoSidebarItem({
       <div className={styles.wrapper}>
         <TitleWrapper status={status} title={title} />
         {/* TODO: group 받아와서 적용 */}
+
         <span className={styles.group}>부스트캠프 웹모바일 8기</span>
         <InfoWrapper
           date={date}
-          participantCount={participantCount}
+          participantCount={participants.length}
           maxHumanCount={maxHumanCount}
           address={address}
         />
