@@ -1,4 +1,5 @@
 import { Button } from '@/components';
+import { sansRegular16 } from '@/styles/font.css';
 import { Mogaco } from '@/types';
 
 import { GroupWrapper } from './GroupWrapper';
@@ -39,7 +40,7 @@ export function MogacoInfo({
           maxHumanCount={maxHumanCount}
           address={address}
         />
-        <p className={styles.contents}>{contents}</p>
+        <p className={sansRegular16}>{contents}</p>
       </div>
       <Button
         fullWidth

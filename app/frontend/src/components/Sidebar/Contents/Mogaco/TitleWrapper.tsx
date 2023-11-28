@@ -1,4 +1,5 @@
 import { Label } from '@/components';
+import { sansBold24 } from '@/styles/font.css';
 import { MogacoTypes } from '@/types';
 
 import * as styles from './index.css';
@@ -12,7 +13,7 @@ export function TitleWrapper({
       <Label theme="primary" shape="fill">
         {status}
       </Label>
-      <span className={styles.title}>{title}</span>
+      <span className={sansBold24}>{title}</span>
     </div>
   );
 }
