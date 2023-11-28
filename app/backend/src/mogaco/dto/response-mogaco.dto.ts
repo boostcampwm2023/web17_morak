@@ -5,10 +5,10 @@ import { ParticipantResponseDto } from './response-participants.dto';
 import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 
 export class MogacoDto implements ResponseMogacoDto {
-  @ApiProperty({ description: 'ID of the Mogaco', example: 1 })
+  @ApiProperty({ description: 'ID of the Mogaco', example: '1' })
   id: bigint;
 
-  @ApiProperty({ description: 'Group ID', example: 1 })
+  @ApiProperty({ description: 'Group ID', example: '1' })
   groupId: bigint;
 
   @ApiProperty({ description: 'Title of the Mogaco', example: '사당역 모각코' })
@@ -31,11 +31,14 @@ export class MogacoDto implements ResponseMogacoDto {
 }
 
 export class MogacoWithMemberDto implements ResponseMogacoWithMemberDto {
-  @ApiProperty({ description: 'ID of the Mogaco', example: '3' })
+  @ApiProperty({ description: 'ID of the Mogaco', example: '1' })
   id: bigint;
 
   @ApiProperty({ description: 'Group ID', example: '1' })
   groupId: bigint;
+
+  @ApiProperty({ description: 'Group Title', example: '부스트캠프 웹' })
+  groupTitle: string;
 
   @ApiProperty({ description: 'Title of the Mogaco', example: '사당역 모각코' })
   title: string;

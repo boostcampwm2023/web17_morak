@@ -12,6 +12,9 @@ export class MogacoRepository {
   async getAllMogaco(): Promise<Mogaco[]> {
     return this.prisma.mogaco.findMany({
       where: { deletedAt: null },
+      include: {
+        group: true,
+      },
     });
   }
 
@@ -20,6 +23,7 @@ export class MogacoRepository {
       where: { id, deletedAt: null },
       include: {
         member: true,
+        group: true,
       },
     });
 
@@ -32,6 +36,7 @@ export class MogacoRepository {
     return {
       id: mogaco.id,
       groupId: mogaco.groupId,
+      groupTitle: mogaco.group.title,
       title: mogaco.title,
       contents: mogaco.contents,
       date: mogaco.date,
