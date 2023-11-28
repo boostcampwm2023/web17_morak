@@ -18,7 +18,7 @@ export function Header() {
           {SIDE_MENU.map((menu: string) => (
             <NavLink
               key={menu}
-              to={menu}
+              to={`/${menu}`}
               className={({ isActive }) =>
                 isActive ? styles.sideMenuButtonActive : styles.sideMenuButton
               }

@@ -7,6 +7,7 @@ import {
   MogacoDetailPage,
   MogacoPostPage,
   Calendar,
+  MapLayout,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -30,13 +31,13 @@ export const useRouter = () =>
           element: <Calendar />,
         },
         {
-          path: 'map',
-          element: <>지도</>,
-        },
-        {
           path: 'profile',
           element: <>프로필</>,
         },
       ],
+    },
+    {
+      path: '/map',
+      element: <MapLayout />,
     },
   ]);
