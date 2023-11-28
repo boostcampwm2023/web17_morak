@@ -21,4 +21,8 @@ export class GroupsService {
   async leaveGroup(id: number, member: Member): Promise<void> {
     return this.groupsRepository.leaveGroup(id, member);
   }
+
+  async getMyGroups(member: Member): Promise<Group[]> {
+    return this.groupsRepository.getMyGroups(member);
+  }
 }

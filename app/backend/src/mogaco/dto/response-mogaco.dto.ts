@@ -61,6 +61,6 @@ export class MogacoWithMemberDto implements ResponseMogacoWithMemberDto {
   @ApiProperty({ description: 'Member information', type: MemberInformationDto })
   member: MemberInformationDto;
 
-  @ApiProperty({ description: 'Participants information', type: ParticipantResponseDto })
+  @ApiProperty({ description: 'Participants information', type: [ParticipantResponseDto] })
   participants: ResponseParticipant[];
 }
