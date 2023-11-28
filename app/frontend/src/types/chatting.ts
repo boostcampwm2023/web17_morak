@@ -6,6 +6,13 @@ export type ChatUser = {
   profileSrc: string;
 };
 
+export type ChattingProps = {
+  title: string;
+  participants: ChatUser[];
+  chatItems: Chat[];
+  currentUsername: string;
+};
+
 export type Notification = {
   type: 'notification';
   id: string;
