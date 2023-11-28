@@ -12,20 +12,20 @@ type TalkItemProps = {
 
 export function TalkItem({
   talk: {
-    user: { username, profileSrc },
-    datetime,
-    content,
+    user: { nickname, profilePicture },
+    date,
+    contents,
   },
   isMine,
 }: TalkItemProps) {
   return (
     <div className={styles.container}>
-      {!isMine && <UserChip username={username} profileSrc={profileSrc} />}
+      {!isMine && <UserChip username={nickname} profileSrc={profilePicture} />}
       <div className={`${styles.content} ${isMine && styles.isMine}`}>
-        {content}
+        {contents}
       </div>
       <div className={`${styles.datetime} ${isMine && styles.isMine}`}>
-        {dayjs(datetime).format('MM.DD h:mm A')}
+        {dayjs(date).format('MM.DD h:mm A')}
       </div>
     </div>
   );

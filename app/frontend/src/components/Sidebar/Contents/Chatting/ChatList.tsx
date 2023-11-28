@@ -17,7 +17,7 @@ export function ChatList({ chatItems, currentUsername }: ChatListProps) {
           <TalkItem
             key={chatItem.id}
             talk={chatItem}
-            isMine={chatItem.user.username === currentUsername}
+            isMine={chatItem.user.nickname === currentUsername}
           />
         ) : (
           <NotificationItem key={chatItem.id} notification={chatItem} />

@@ -1,19 +1,24 @@
-import { ChattingProps } from '@/types';
+import { Sidebar } from '@/components/Sidebar';
+import { Chatting } from '@/components/Sidebar/Contents/Chatting';
+import { Chat, Member } from '@/types';
 
-import { Sidebar } from '../..';
-import { Chatting } from '../../Contents/Chatting';
+type ChattingSidebarProps = {
+  closed: boolean;
+  toggleClosed: () => void;
+  title: string;
+  participants: Member[];
+  chatItems: Chat[];
+  currentUsername: string;
+};
 
 export function ChattingSidebar({
   closed,
   toggleClosed,
-  chattingProps,
-}: {
-  closed: boolean;
-  toggleClosed: () => void;
-  chattingProps: ChattingProps;
-}) {
-  const { title, participants, chatItems, currentUsername } = chattingProps;
-
+  title,
+  participants,
+  chatItems,
+  currentUsername,
+}: ChattingSidebarProps) {
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
       <Chatting

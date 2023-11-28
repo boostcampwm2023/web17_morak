@@ -13,9 +13,13 @@ import {
 
 type DetailHeaderButtonsProps = {
   id: string;
+  openChatting: () => void;
 };
 
-export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
+export function DetailHeaderButtons({
+  id,
+  openChatting,
+}: DetailHeaderButtonsProps) {
   const navigate = useNavigate();
 
   const [
@@ -84,6 +88,14 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   if (userHosted) {
     return (
       <>
+        <Button
+          theme="primary"
+          shape="fill"
+          size="large"
+          onClick={openChatting}
+        >
+          채팅
+        </Button>
         <Button theme="primary" shape="line" size="large" onClick={onClickEdit}>
           수정
         </Button>
@@ -102,7 +114,12 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
   if (userParticipated) {
     return (
       <>
-        <Button theme="primary" shape="fill" size="large">
+        <Button
+          theme="primary"
+          shape="fill"
+          size="large"
+          onClick={openChatting}
+        >
           채팅
         </Button>
         <Button theme="danger" shape="fill" size="large" onClick={onClickQuit}>

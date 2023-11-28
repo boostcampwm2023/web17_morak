@@ -7,7 +7,7 @@ type NotificationItemProps = {
 };
 
 export function NotificationItem({
-  notification: { content },
+  notification: { contents },
 }: NotificationItemProps) {
-  return <div className={styles.container}>{content}</div>;
+  return <div className={styles.container}>{contents}</div>;
 }

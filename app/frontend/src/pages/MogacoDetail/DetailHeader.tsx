@@ -9,9 +9,10 @@ import * as styles from './index.css';
 
 type DetailHeaderProps = {
   id: string;
+  openChatting: () => void;
 };
 
-export function DetailHeader({ id }: DetailHeaderProps) {
+export function DetailHeader({ id, openChatting }: DetailHeaderProps) {
   const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id));
 
   return (
@@ -19,7 +20,7 @@ export function DetailHeader({ id }: DetailHeaderProps) {
       <div className={styles.title}>
         <div className={sansBold24}>{mogacoData?.title}</div>
         <div className={styles.buttons}>
-          <DetailHeaderButtons id={id} />
+          <DetailHeaderButtons id={id} openChatting={openChatting} />
         </div>
       </div>
       <div className={styles.hostUser}>
