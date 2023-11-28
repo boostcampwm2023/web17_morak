@@ -7,14 +7,19 @@ import { MogacoTypes } from '@/types';
 
 import * as styles from './index.css';
 
+type InfoWrapperProps = Pick<
+  MogacoTypes,
+  'date' | 'maxHumanCount' | 'address'
+> & {
+  participantCount: number;
+};
+
 export function InfoWrapper({
   date,
   participantCount,
   maxHumanCount,
   address,
-}: Pick<MogacoTypes, 'date' | 'maxHumanCount' | 'address'> & {
-  participantCount: number;
-}) {
+}: InfoWrapperProps) {
   return (
     <div className={styles.infoWrapper}>
       <div className={styles.infoContent}>
