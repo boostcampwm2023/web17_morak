@@ -1,5 +1,5 @@
 import { ResponseMemberDto } from '@morak/apitype';
 
-import { TypeFromInterface } from '@/utils';
+import { TypeWrapper } from './typeChanger';
 
-export type Member = TypeFromInterface<ResponseMemberDto>;
+export type Member = TypeWrapper<ResponseMemberDto>;

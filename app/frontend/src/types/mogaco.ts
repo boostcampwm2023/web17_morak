@@ -3,7 +3,7 @@ import {
   ResponseMogacoWithMemberDto,
 } from '@morak/apitype';
 
-import { TypeFromInterface } from '@/utils';
+import { TypeWrapper } from './typeChanger';
 
 interface MogacoTypes {
   id: string;
@@ -19,10 +19,7 @@ interface MogacoTypes {
   profilePicture: string;
 }
 
-export type Mogaco = Omit<
-  TypeFromInterface<ResponseMogacoWithMemberDto>,
-  'participants'
->;
+export type Mogaco = Omit<ResponseMogacoWithMemberDto, 'participants'>;
 
 export type MogacoPostForm = Pick<
   MogacoTypes,
@@ -36,4 +33,4 @@ export type MogacoPostForm = Pick<
   | 'status'
 >;
 
-export type MogacoPostRequest = TypeFromInterface<RequestCreateMogacoDto>;
+export type MogacoPostRequest = TypeWrapper<RequestCreateMogacoDto>;
