@@ -13,6 +13,7 @@ export interface ResponseMogacoDto {
 }
 
 export interface ResponseMogacoWithMemberDto extends ResponseMogacoDto {
+  groupTitle: string;
   member: ResponseMemberDto;
   participants: ResponseParticipant[];
 }
