@@ -1,0 +1,6 @@
+{
+    "extends": "@morak/tsconfig/backend.json",
+    "compilerOptions": {
+    },
+}
+  
