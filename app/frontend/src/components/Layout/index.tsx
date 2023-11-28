@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Header } from '@/components';
+import { Header, ModalContainer } from '@/components';
 
 import * as styles from './index.css';
 
@@ -11,6 +11,7 @@ export function Layout() {
       <div className={styles.container}>
         <Outlet />
       </div>
+      <ModalContainer />
     </>
   );
 }
