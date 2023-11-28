@@ -2,13 +2,6 @@ import { useEffect } from 'react';
 
 import * as styles from './index.css';
 
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Tmapv3: any;
-  }
-}
-
 type MapProps = {
   onClickMarker: () => void;
 };
