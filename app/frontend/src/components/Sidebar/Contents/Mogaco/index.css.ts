@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
 import {
-  sansBold12,
+  sansBold14,
   sansBold24,
   sansRegular12,
   sansRegular16,
@@ -17,7 +17,13 @@ export const container = style({
   padding: '2rem',
 });
 export const contents = style([sansRegular16, {}]);
-export const group = style([sansBold12, {}]);
+export const group = style([sansBold14, {}]);
+export const groupWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  color: vars.color.grayscale200,
+  gap: '1.6rem',
+});
 export const icon = style({
   fill: vars.color.grayscale200,
 });

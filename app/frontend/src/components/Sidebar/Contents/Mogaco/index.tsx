@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components';
 import { Mogaco } from '@/types';
 
+import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';
 import { InfoWrapper } from './InfoWrapper';
 import { TitleWrapper } from './TitleWrapper';
@@ -20,6 +21,7 @@ export function MogacoSidebarItem({ mogaco }: { mogaco: Mogaco | undefined }) {
     status,
     address,
     participants,
+    member,
   } = mogaco;
 
   const onClickDetailPage = () => {
@@ -31,8 +33,10 @@ export function MogacoSidebarItem({ mogaco }: { mogaco: Mogaco | undefined }) {
       <div className={styles.wrapper}>
         <TitleWrapper status={status} title={title} />
         {/* TODO: group 받아와서 적용 */}
-
-        <span className={styles.group}>부스트캠프 웹모바일 8기</span>
+        <GroupWrapper
+          nickname={member.nickname}
+          profilePicture={member.profilePicture}
+        />
         <InfoWrapper
           date={date}
           participantCount={participants.length}
