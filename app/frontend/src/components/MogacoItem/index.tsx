@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
+import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Label } from '@/components';
 import { Mogaco } from '@/types';
 
@@ -13,12 +14,14 @@ type MogacoProps = Omit<Mogaco, 'member'>;
 
 export function MogacoItem({
   id,
-  groupId,
+  group: { title: groupTitle },
   title,
   contents,
   date,
   address,
   status,
+  maxHumanCount,
+  participants,
 }: MogacoProps) {
   const MogacoLabel = (
     <Label theme="primary" shape="fill" disabled={status === '마감'}>
@@ -32,10 +35,16 @@ export function MogacoItem({
         {MogacoLabel}
         <div className={styles.title}>{title}</div>
       </div>
-      <div className={styles.group}>{groupId}</div>
+      <div className={styles.group}>{groupTitle}</div>
       <div className={styles.content}>
         <div className={styles.detail}>{contents}</div>
         <div className={styles.info}>
+          <div className={styles.infoContent}>
+            <People className={styles.icon} width={16} height={16} />
+            <div className={styles.infoText}>
+              {participants.length}/{maxHumanCount}
+            </div>
+          </div>
           <div className={styles.infoContent}>
             <Map className={styles.icon} width={16} height={16} />
             <div className={styles.infoText}>{address}</div>

@@ -37,7 +37,7 @@ export function MogacoPostPage() {
       address: '',
       contents: '',
       date: '',
-      groupId: 0,
+      groupId: '',
       maxHumanCount: 0,
       memberId: '',
       status: '모집 중',
@@ -58,7 +58,7 @@ export function MogacoPostPage() {
     address,
   }: MogacoPostForm) => {
     const formData = {
-      groupId: 1, // 그룹 기능 추가 이전
+      groupId: '1', // 그룹 기능 추가 이전
       title,
       contents,
       date: new Date(date).toISOString(),
