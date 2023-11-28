@@ -18,11 +18,16 @@ export const mogaco = {
     return data;
   },
   post: async (form: MogacoPostRequest) =>
-    morakAPI.post(mogaco.endPoint.index, form),
+    morakAPI.post<null, MogacoPostRequest>(mogaco.endPoint.index, form),
   edit: async (id: string, form: MogacoPostRequest) =>
-    morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
+    morakAPI.patch<null, MogacoPostRequest>(
+      `${mogaco.endPoint.index}/${id}`,
+      form,
+    ),
   delete: async (id: string) => {
-    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
+    const response = await morakAPI.delete<null>(
+      `${mogaco.endPoint.index}/${id}`,
+    );
     return response;
   },
   participants: async (id: string) => {
@@ -32,11 +37,13 @@ export const mogaco = {
     return data;
   },
   join: async (id: string) => {
-    const response = await morakAPI.post(`${mogaco.endPoint.index}/${id}/join`);
+    const response = await morakAPI.post<null, null>(
+      `${mogaco.endPoint.index}/${id}/join`,
+    );
     return response;
   },
   quit: async (id: string) => {
-    const response = await morakAPI.delete(
+    const response = await morakAPI.delete<null>(
       `${mogaco.endPoint.index}/${id}/join`,
     );
     return response;
