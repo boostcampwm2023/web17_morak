@@ -6,6 +6,7 @@ export const background = style({
   display: 'none',
   position: 'absolute',
   inset: 0,
+  zIndex: 20,
   background: 'rgba(14, 31, 24, 0.05)',
   backdropFilter: 'blur(0.2rem)',
 
@@ -23,6 +24,7 @@ export const buttonArea = style({
 export const container = style({
   display: 'none',
   position: 'fixed',
+  zIndex: 30,
   top: '50%',
   left: '50%',
   minHeight: '20rem',
