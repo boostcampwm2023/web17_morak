@@ -3,25 +3,46 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 
-import { Button } from '@/components';
+import { Button, LoadingIndicator } from '@/components';
 import { queryKeys } from '@/queries';
 import { mogacoAtom } from '@/stores';
+import { vars } from '@/styles';
 
 import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';
 import { InfoWrapper } from './InfoWrapper';
+import { NotifyWrapper } from './NotifyWrapper';
 import { TitleWrapper } from './TitleWrapper';
 
 export function MogacoSidebarItem() {
   const navigate = useNavigate();
   const [mogacoId] = useAtom(mogacoAtom);
 
-  const { data: mogaco } = useQuery({
+  const { data: mogaco, isLoading } = useQuery({
     ...queryKeys.mogaco.detail(mogacoId),
     enabled: Number(mogacoId) !== -1,
   });
 
-  if (!mogaco) return <>loading</>;
+  if (Number(mogacoId) === -1)
+    return (
+      <NotifyWrapper>
+        {`선택된 모임이 없습니다.\n달력이나 지도에서 모임을 선택해 주세요.`}
+      </NotifyWrapper>
+    );
+
+  if (isLoading)
+    return (
+      <NotifyWrapper>
+        <LoadingIndicator color={vars.color.grayscale500} size={30} />
+      </NotifyWrapper>
+    );
+
+  if (!mogaco)
+    return (
+      <NotifyWrapper>
+        {`선택된 모임에 대한 정보가 없습니다.\n다시 시도해 주세요.`}
+      </NotifyWrapper>
+    );
   const {
     id,
     title,
