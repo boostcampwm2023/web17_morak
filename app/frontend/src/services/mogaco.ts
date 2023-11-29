@@ -1,6 +1,8 @@
-import { RequestCreateMogacoDto } from '@morak/apitype';
-
-import { Mogaco } from '@/types';
+import {
+  RequestCreateMogacoDto,
+  ResponseMogacoDto,
+  ResponseMogacoWithMemberDto,
+} from '@morak/apitype';
 
 import { morakAPI } from './morakAPI';
 
@@ -13,13 +15,13 @@ export const mogaco = {
     const queryString = filters
       ? `?${new URLSearchParams(filters).toString()}`
       : '';
-    const { data } = await morakAPI.get<Mogaco[]>(
+    const { data } = await morakAPI.get<ResponseMogacoDto[]>(
       `${mogaco.endPoint.index}${queryString}`,
     );
     return data;
   },
   detail: async (id: string) => {
-    const { data } = await morakAPI.get<Mogaco>(
+    const { data } = await morakAPI.get<ResponseMogacoWithMemberDto>(
       `${mogaco.endPoint.index}/${id}`,
     );
     return data;
