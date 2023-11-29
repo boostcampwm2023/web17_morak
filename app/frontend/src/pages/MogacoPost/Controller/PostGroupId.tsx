@@ -23,7 +23,7 @@ export function PostGroupId({
 
   useEffect(() => {
     if (groups && groups.length > 0) {
-      setGroup(groups[0].id.toString());
+      setGroup(groups[0].id);
     }
   }, [groups, setGroup]);
 
