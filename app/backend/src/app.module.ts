@@ -6,6 +6,7 @@ import { PrismaModule } from 'prisma/prisma.module';
 import { MemberModule } from './member/member.module';
 import { MogacoModule } from './mogaco-boards/mogaco-boards.module';
 import { GroupsModule } from './groups/groups.module';
+import { ChatModule } from './chat/chat.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { getSecret } from 'vault';
 
@@ -22,6 +23,7 @@ import { getSecret } from 'vault';
     MemberModule,
     MogacoModule,
     GroupsModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [],
