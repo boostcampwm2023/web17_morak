@@ -34,16 +34,4 @@ export type Mogaco = Pick<
   | 'group'
 >;
 
-export type MogacoPostForm = Pick<
-  MogacoTypes,
-  | 'title'
-  | 'memberId'
-  | 'groupId'
-  | 'contents'
-  | 'date'
-  | 'maxHumanCount'
-  | 'address'
-  | 'status'
->;
-
 export type { MogacoTypes };

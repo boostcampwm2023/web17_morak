@@ -1,12 +1,13 @@
 import { Controller, Control } from 'react-hook-form';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
+
 import { MOGACO_POST } from '@/constants';
-import { MogacoPostForm } from '@/types';
 
 import * as styles from './index.css';
 
 type PostTitleProps = {
-  control: Control<MogacoPostForm>;
+  control: Control<RequestCreateMogacoDto>;
 };
 
 export function PostTitle({ control }: PostTitleProps) {
