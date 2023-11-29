@@ -1,4 +1,4 @@
-import { Member } from './member';
+import { ResponseParticipant } from '@morak/apitype';
 
 interface MogacoTypes {
   id: string;
@@ -13,8 +13,8 @@ interface MogacoTypes {
   status: '모집 중' | '마감' | '종료';
   nickname: string;
   profilePicture: string;
-  member: Member;
-  participants: Member[];
+  member: ResponseParticipant;
+  participants: ResponseParticipant[];
   group: { id: string; title: string };
 }
 
