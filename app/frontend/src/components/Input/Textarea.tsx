@@ -1,4 +1,5 @@
 import * as styles from './Textarea.css';
+import { FieldLabel } from '../FieldLabel';
 
 type TextareaProps = {
   label?: string;
@@ -31,15 +32,14 @@ export function Textarea({
         disabled && styles.disabled
       } ${fullWidth && styles.fullWidth}`}
     >
-      <div className={styles.titleWrapper}>
-        <span className={`${styles.label} ${!label && styles.hide}`}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </span>
-        <span className={styles.count}>
-          {value ? value.length : 0}/{maxLength}
-        </span>
-      </div>
+      {label && (
+        <div className={styles.titleWrapper}>
+          <FieldLabel label={label} required={required} />
+          <span className={styles.count}>
+            {value ? value.length : 0}/{maxLength}
+          </span>
+        </div>
+      )}
       <textarea
         rows={rows}
         className={styles.textarea}
