@@ -25,14 +25,16 @@ export function Map({ onClickMarker }: MapProps) {
 
     mogacoList?.forEach((mogaco) => {
       const { coord, id } = mogaco;
-      const [lat, lon] = coord.split(',');
-      const marker = new Tmapv3.Marker({
-        position: new Tmapv3.LatLng(Number(lat), Number(lon)),
-        icon: '/public/assets/icons/pin.svg',
-        map: mapContent,
-      });
-      marker.id = id;
-      marker.on('Click', onClickMarker);
+      if (coord) {
+        const [lat, lon] = coord.split(',');
+        const marker = new Tmapv3.Marker({
+          position: new Tmapv3.LatLng(Number(lat), Number(lon)),
+          icon: '/public/assets/icons/pin.svg',
+          map: mapContent,
+        });
+        marker.id = id;
+        marker.on('Click', onClickMarker);
+      }
     });
 
     return () => {
