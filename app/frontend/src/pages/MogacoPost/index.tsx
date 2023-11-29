@@ -97,6 +97,7 @@ export function MogacoPostPage() {
         <PostContents control={control} />
       </div>
       <div className={styles.formContent}>
+        {/* TODO: 등록 불가 시 비활성화 처리 */}
         <Button
           type="submit"
           theme="primary"
