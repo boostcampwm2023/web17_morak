@@ -9,7 +9,10 @@ import { Label } from '@/components';
 
 import * as styles from './index.css';
 
-type MogacoProps = ResponseMogacoDto;
+type MogacoProps = Omit<
+  ResponseMogacoDto,
+  'createdAt' | 'deletedAt' | 'updatedAt'
+>;
 
 export function MogacoItem({
   id,

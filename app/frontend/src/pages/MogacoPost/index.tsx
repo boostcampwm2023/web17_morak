@@ -46,7 +46,16 @@ export function MogacoPostPage() {
 
   useEffect(() => {
     if (mogacoData) {
-      reset({ ...mogacoData });
+      const { title, address, contents, maxHumanCount, date, status } =
+        mogacoData;
+      reset({
+        title,
+        address,
+        contents,
+        date: date.toString(),
+        maxHumanCount,
+        status,
+      });
     }
   }, [mogacoData, reset]);
 
