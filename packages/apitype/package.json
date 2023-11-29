@@ -2,12 +2,16 @@
   "name": "@morak/apitype",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dto/index.ts",
+  "types": "dto/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "typescript": "latest"
+  },
   "devDependencies": {
     "@morak/eslint-config": "1.0.0",
     "@morak/tsconfig": "1.0.0"
