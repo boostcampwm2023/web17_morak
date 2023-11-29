@@ -1,22 +1,24 @@
+import { ResponseParticipant } from '@morak/apitype';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { http, HttpResponse } from 'msw';
 
-import { Member } from '@/types';
-
-const memberList: Member[] = [
+const memberList: ResponseParticipant[] = [
   {
+    id: '1',
     providerId: '1',
     email: '.',
     nickname: '지승',
     profilePicture: 'https://avatars.githubusercontent.com/u/50646827?v=4',
   },
   {
+    id: '2',
     providerId: '2',
     email: '.',
     nickname: '지원',
     profilePicture: 'https://avatars.githubusercontent.com/u/110762136?v=4',
   },
   {
+    id: '3',
     providerId: '3',
     email: '.',
     nickname: '태림',
