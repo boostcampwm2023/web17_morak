@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/queries';
-import { MogacoPostForm } from '@/types';
 
 import * as styles from './group.css';
 
 type PostGroupIdProps = {
-  control: Control<MogacoPostForm>;
+  control: Control<RequestCreateMogacoDto>;
   isEdit?: boolean;
   setGroup: (groupId: string) => void;
 };

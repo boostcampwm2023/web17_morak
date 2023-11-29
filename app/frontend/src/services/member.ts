@@ -1,4 +1,4 @@
-import { Member } from '@/types';
+import { ResponseParticipant } from '@morak/apitype';
 
 import { morakAPI } from './morakAPI';
 
@@ -9,12 +9,14 @@ export const member = {
   },
 
   myInfo: async () => {
-    const { data } = await morakAPI.get<Member>(member.endPoint.me);
+    const { data } = await morakAPI.get<ResponseParticipant>(
+      member.endPoint.me,
+    );
     return data;
   },
 
   infoById: async (id: string) => {
-    const { data } = await morakAPI.get<Member>(
+    const { data } = await morakAPI.get<ResponseParticipant>(
       `${member.endPoint.default}/${id}`,
     );
     return data;

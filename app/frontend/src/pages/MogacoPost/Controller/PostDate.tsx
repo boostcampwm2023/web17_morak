@@ -1,13 +1,13 @@
 import { Controller, Control } from 'react-hook-form';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
 import dayjs from 'dayjs';
 
 import { Input } from '@/components';
 import { MOGACO_POST } from '@/constants';
-import { MogacoPostForm } from '@/types';
 
 type PostDateProps = {
-  control: Control<MogacoPostForm>;
+  control: Control<RequestCreateMogacoDto>;
   isEdit?: boolean;
 };
 

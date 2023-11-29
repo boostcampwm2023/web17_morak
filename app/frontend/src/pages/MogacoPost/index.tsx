@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button } from '@/components';
 import { queryKeys } from '@/queries';
 import { useSubmitEdit, useSubmitPost } from '@/queries/hooks/post';
-import { MogacoPostForm } from '@/types';
 
 import {
   PostMember,
@@ -31,22 +31,31 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
-  const { control, handleSubmit, reset, setValue } = useForm<MogacoPostForm>({
-    defaultValues: {
-      title: '',
-      address: '',
-      contents: '',
-      date: '',
-      groupId: '',
-      maxHumanCount: 0,
-      memberId: '',
-      status: '모집 중',
-    },
-  });
+  const { control, handleSubmit, reset, setValue } =
+    useForm<RequestCreateMogacoDto>({
+      defaultValues: {
+        title: '',
+        address: '',
+        contents: '',
+        date: '',
+        groupId: '',
+        maxHumanCount: 0,
+        status: '모집 중',
+      },
+    });
 
   useEffect(() => {
     if (mogacoData) {
-      reset({ ...mogacoData });
+      const { title, address, contents, maxHumanCount, date, status } =
+        mogacoData;
+      reset({
+        title,
+        address,
+        contents,
+        date: date.toString(),
+        maxHumanCount,
+        status,
+      });
     }
   }, [mogacoData, reset]);
 
@@ -61,7 +70,7 @@ export function MogacoPostPage() {
     maxHumanCount,
     address,
     groupId,
-  }: MogacoPostForm) => {
+  }: RequestCreateMogacoDto) => {
     const formData = {
       groupId,
       title,

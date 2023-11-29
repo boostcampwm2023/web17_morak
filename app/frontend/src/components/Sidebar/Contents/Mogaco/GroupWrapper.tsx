@@ -1,13 +1,14 @@
+import { ResponseParticipant } from '@morak/apitype';
+
 import { UserChip } from '@/components';
 import { sansBold14 } from '@/styles/font.css';
-import { Member } from '@/types';
 
 import * as styles from './index.css';
 
 export function GroupWrapper({
   nickname,
   profilePicture,
-}: Pick<Member, 'nickname' | 'profilePicture'>) {
+}: Pick<ResponseParticipant, 'nickname' | 'profilePicture'>) {
   return (
     <div className={styles.groupWrapper}>
       <UserChip username={nickname} profileSrc={profilePicture} />
