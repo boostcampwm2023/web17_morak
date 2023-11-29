@@ -1,7 +1,8 @@
+import { RequestCreateMogacoDto } from '@morak/apitype';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { http, HttpResponse } from 'msw';
 
-import { Mogaco, MogacoPostRequest } from '@/types';
+import { Mogaco } from '@/types';
 
 import { memberList } from './members';
 
@@ -77,7 +78,7 @@ export const mogacoAPIHandlers = [
     }
     return HttpResponse.json<Mogaco[]>(mogacoList);
   }),
-  http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
+  http.post<never, RequestCreateMogacoDto>('/mogaco', async ({ request }) => {
     const body = await request.json();
     const postId = String(Number(mogacoList[mogacoList.length - 1].id) + 1);
     const newPost = {
@@ -90,7 +91,7 @@ export const mogacoAPIHandlers = [
     mogacoList.push(newPost);
     return HttpResponse.json(newPost, { status: 201 });
   }),
-  http.patch<{ id: string }, MogacoPostRequest>(
+  http.patch<{ id: string }, RequestCreateMogacoDto>(
     '/mogaco/:id',
     async ({ params: { id }, request }) => {
       const body = await request.json();
