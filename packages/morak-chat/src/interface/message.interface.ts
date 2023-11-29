@@ -1,8 +1,10 @@
 export interface ChatMessage {
   roomId: string;
   senderId: string;
-  content: string;
+  contents: string;
   messageType: string;
+  id: string;
+  date: Date;
 }
 
 export const StatusCode = Object.freeze({
