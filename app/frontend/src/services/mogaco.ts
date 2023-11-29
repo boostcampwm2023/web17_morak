@@ -1,4 +1,6 @@
-import { Mogaco, MogacoPostRequest } from '@/types';
+import { RequestCreateMogacoDto } from '@morak/apitype';
+
+import { Mogaco } from '@/types';
 
 import { morakAPI } from './morakAPI';
 
@@ -22,9 +24,10 @@ export const mogaco = {
     );
     return data;
   },
-  post: async (form: MogacoPostRequest) =>
+  post: async (form: RequestCreateMogacoDto) =>
     morakAPI.post(mogaco.endPoint.index, form),
-  edit: async (id: string, form: MogacoPostRequest) =>
+  // TODO: RequestCreateMogacoDto optional로 변경해야 하지 않을까?
+  edit: async (id: string, form: RequestCreateMogacoDto) =>
     morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
   delete: async (id: string) => {
     const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
