@@ -1,6 +1,5 @@
+import { ResponseParticipant } from '@morak/apitype';
 import { atom, useAtom } from 'jotai';
 
-import { Member } from '@/types';
-
-const userStore = atom<Member | null>(null);
+const userStore = atom<ResponseParticipant | null>(null);
 export const useUserAtom = () => useAtom(userStore);
