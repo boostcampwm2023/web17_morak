@@ -23,7 +23,6 @@
     ]
   },
   "dependencies": {
-    "@morak/apitype": "*",
     "@fullcalendar/core": "^6.1.9",
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
