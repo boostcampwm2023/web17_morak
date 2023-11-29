@@ -61,7 +61,18 @@ let mogacoList: Mogaco[] = [
 ];
 
 export const mogacoAPIHandlers = [
-  http.get('/mogaco', () => HttpResponse.json<Mogaco[]>(mogacoList)),
+  http.get('/mogaco', ({ request }) => {
+    const url = new URL(request.url);
+    const params = new URLSearchParams(url.search);
+    const date = params.get('date');
+    if (date) {
+      const filteredMogacoList = mogacoList.filter((mogaco) =>
+        mogaco.date.startsWith(date),
+      );
+      return HttpResponse.json<Mogaco[]>(filteredMogacoList);
+    }
+    return HttpResponse.json<Mogaco[]>(mogacoList);
+  }),
   http.post<never, MogacoPostRequest>('/mogaco', async ({ request }) => {
     const body = await request.json();
     const postId = String(Number(mogacoList[mogacoList.length - 1].id) + 1);

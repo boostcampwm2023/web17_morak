@@ -7,8 +7,13 @@ export const mogaco = {
     index: '/mogaco',
   },
 
-  list: async () => {
-    const { data } = await morakAPI.get<Mogaco[]>(mogaco.endPoint.index);
+  list: async (filters?: { date?: string }) => {
+    const queryString = filters
+      ? `?${new URLSearchParams(filters).toString()}`
+      : '';
+    const { data } = await morakAPI.get<Mogaco[]>(
+      `${mogaco.endPoint.index}${queryString}`,
+    );
     return data;
   },
   detail: async (id: string) => {
