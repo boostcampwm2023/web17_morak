@@ -1,2 +1,2 @@
 export * from './chatting';
-export * from './tmap';
+export * from './mogaco';
