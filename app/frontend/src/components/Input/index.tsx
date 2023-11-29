@@ -1,6 +1,7 @@
 import { HTMLInputTypeAttribute } from 'react';
 
 import * as styles from './index.css';
+import { FieldLabel } from '../FieldLabel';
 
 type InputProps = {
   label?: string;
@@ -37,17 +38,16 @@ export function Input({
         disabled && styles.disabled
       }`}
     >
-      <div className={styles.titleWrapper}>
-        <span className={`${styles.label} ${!label && styles.hide}`}>
-          {label}
-          {required && <span className={styles.required}>*</span>}
-        </span>
-        {maxLength && (
-          <span className={styles.count}>
-            {value ? value.toString().length : 0}/{maxLength}
-          </span>
-        )}
-      </div>
+      {label && (
+        <div className={styles.titleWrapper}>
+          <FieldLabel label={label} required={required} />
+          {maxLength && (
+            <span className={styles.count}>
+              {value ? value.toString().length : 0}/{maxLength}
+            </span>
+          )}
+        </div>
+      )}
       <input
         className={styles.input}
         type={type}
