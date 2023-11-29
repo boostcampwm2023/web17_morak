@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Error, Loading } from '@/components';
+import { ChattingSidebar, Error, Loading } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 
@@ -12,10 +13,13 @@ import * as styles from './index.css';
 
 export function MogacoDetailPage() {
   const { id } = useParams();
-
+  const [chattingClosed, setChattingClosed] = useState(true);
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
     queryKeys.mogaco.detail(id!),
   );
+
+  const toggleChatting = () => setChattingClosed(!chattingClosed);
+  const openChatting = () => setChattingClosed(false);
 
   if (mogacoDataLoading) {
     return (
@@ -39,8 +43,15 @@ export function MogacoDetailPage() {
 
   return (
     <div className={styles.wrapper}>
+      <ChattingSidebar
+        closed={chattingClosed}
+        toggleClosed={toggleChatting}
+        id={mogacoData.id}
+        title={mogacoData.title}
+        participants={mogacoData.participants}
+      />
       <div className={styles.container}>
-        <DetailHeader id={id!} />
+        <DetailHeader id={id!} openChatting={openChatting} />
         <DetailInfo id={id!} />
         <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
