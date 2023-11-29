@@ -8,7 +8,7 @@ export const group = {
   },
 
   myGroup: async () => {
-    const { data } = await morakAPI.get<ResponseGroupsDto>(
+    const { data } = await morakAPI.get<ResponseGroupsDto[]>(
       `${group.endPoint.default}/my-groups`,
     );
     return data;
