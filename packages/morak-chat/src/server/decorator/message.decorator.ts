@@ -1,4 +1,8 @@
-import { BadRequestException, createParamDecorator, ExecutionContext } from '@nestjs/common';
+import {
+  BadRequestException,
+  createParamDecorator,
+  ExecutionContext,
+} from '@nestjs/common';
 import { Socket } from 'socket.io';
 
 export const ChatMessage = createParamDecorator(
@@ -8,7 +12,7 @@ export const ChatMessage = createParamDecorator(
     if (!message) {
       throw new BadRequestException('room is undefined');
     }
-    
+
     return message;
-  },
+  }
 );
