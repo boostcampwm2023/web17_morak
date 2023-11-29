@@ -1,14 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { MogacoService } from './mogaco.service';
 import { Member, Mogaco } from '@prisma/client';
-import { MogacoStatusValidationPipe } from './pipes/mogaco-status-validation.pipe';
-import { MogacoStatus } from './enum/mogaco-status.enum';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
-import { CreateMogacoDto, StatusDto } from './dto/create-mogaco.dto';
+import { CreateMogacoDto } from './dto/create-mogaco.dto';
 
 @ApiTags('Mogaco API')
 @Controller('mogaco')
@@ -63,22 +61,6 @@ export class MogacoController {
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async deleteMogaco(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.mogacoService.deleteMogaco(id, member);
-  }
-
-  @Patch('/:id/status')
-  @ApiOperation({
-    summary: '모각코 상태 업데이트',
-    description: '특정 모각코의 상태를 업데이트합니다.',
-  })
-  @ApiParam({ name: 'id', description: '상태를 업데이트할 모각코의 Id' })
-  @ApiBody({ type: StatusDto })
-  @ApiResponse({ status: 200, description: 'Successfully Updated', type: MogacoWithMemberDto })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  updateMogacoStatus(
-    @Param('id', ParseIntPipe) id: number,
-    @Body('status', MogacoStatusValidationPipe) status: MogacoStatus,
-  ): Promise<Mogaco> {
-    return this.mogacoService.updateMogacoStatus(id, status);
   }
 
   @Patch('/:id')

@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from 'prisma/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './enum/mogaco-status.enum';
-import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -119,17 +119,6 @@ export class MogacoRepository {
     });
   }
 
-  async updateMogacoStatus(mogaco: MogacoDto): Promise<Mogaco> {
-    try {
-      return await this.prisma.mogaco.update({
-        where: { id: BigInt(mogaco.id) },
-        data: { status: mogaco.status },
-      });
-    } catch (error) {
-      throw new Error(`Failed to update Mogaco status: ${error.message}`);
-    }
-  }
-
   async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id },
@@ -150,6 +139,7 @@ export class MogacoRepository {
           title: updateMogacoDto.title,
           contents: updateMogacoDto.contents,
           date: new Date(updateMogacoDto.date),
+          status: updateMogacoDto.status,
           maxHumanCount: updateMogacoDto.maxHumanCount,
           address: updateMogacoDto.address,
         },
