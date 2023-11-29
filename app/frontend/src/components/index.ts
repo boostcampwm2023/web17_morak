@@ -7,6 +7,7 @@ export * from './Label';
 export * from './Layout';
 export * from './Loading';
 export * from './Loading/LoadingIndicator';
+export * from './Map';
 export * from './MogacoItem';
 export * from './Popover';
 export * from './Sidebar';
