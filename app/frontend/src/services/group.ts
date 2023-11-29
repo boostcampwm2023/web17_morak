@@ -4,12 +4,12 @@ import { morakAPI } from './morakAPI';
 
 export const group = {
   endPoint: {
-    default: '/group',
+    default: '/groups',
   },
 
   myGroup: async () => {
     const { data } = await morakAPI.get<ResponseGroupsDto>(
-      group.endPoint.default,
+      `${group.endPoint.default}/my-groups`,
     );
     return data;
   },
