@@ -4,7 +4,7 @@ import { Bigint } from "../type";
 
 export interface ResponseMogacoDto {
   id: Bigint;
-  groupId: Bigint;
+  //groupId: Bigint;
   title: string;
   contents: string;
   date: Date;
@@ -13,8 +13,15 @@ export interface ResponseMogacoDto {
   status: string;
 }
 
-export interface ResponseMogacoWithMemberDto extends ResponseMogacoDto {
+export interface ResponseMogacoWithMemberDto {
+  id: Bigint;
   groupTitle: string;
+  title: string;
+  contents: string;
+  date: Date;
+  maxHumanCount: number;
+  address: string;
+  status: string;
   member: ResponseMemberDto;
   participants: ResponseParticipant[];
 }

@@ -17,10 +17,4 @@ export class ParticipantResponseDto implements ResponseParticipant {
 
   @ApiProperty({ description: "URL of the user's profile picture", example: 'https://example.com/profile.jpg' })
   profilePicture: string;
-
-  @ApiProperty({ description: 'Social Login Type', example: 'google' })
-  socialType: string;
-
-  @ApiProperty({ description: 'Date of Member creation', example: '2023-11-22T04:55:02.988Z' })
-  createdAt: Date;
 }

@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { Group, Member } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
+import { MemberInformationDto } from 'src/member/dto/member.dto';
 
 @Injectable()
 export class GroupsRepository {
@@ -10,7 +11,7 @@ export class GroupsRepository {
     return this.prisma.group.findMany();
   }
 
-  async getAllMembersOfGroup(groupId: number): Promise<Member[]> {
+  async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
     return this.prisma.groupToUser
       .findMany({
         where: {
@@ -20,7 +21,14 @@ export class GroupsRepository {
           user: true,
         },
       })
-      .then((groupToUsers) => groupToUsers.map((groupToUser) => groupToUser.user));
+      .then((groupToUsers) =>
+        groupToUsers.map((groupToUser) => ({
+          providerId: groupToUser.user.providerId,
+          email: groupToUser.user.email,
+          nickname: groupToUser.user.nickname,
+          profilePicture: groupToUser.user.profilePicture,
+        })),
+      );
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {

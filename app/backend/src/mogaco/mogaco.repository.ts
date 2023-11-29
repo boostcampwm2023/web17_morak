@@ -34,9 +34,16 @@ export class MogacoRepository {
 
     const participants = await this.getParticipants(id);
 
+    const participantsDto = participants.map((participant) => ({
+      id: participant.id.toString(),
+      providerId: participant.providerId,
+      email: participant.email,
+      nickname: participant.nickname,
+      profilePicture: participant.profilePicture,
+    }));
+
     return {
       id: mogaco.id.toString(),
-      groupId: mogaco.groupId.toString(),
       groupTitle: mogaco.group.title,
       title: mogaco.title,
       contents: mogaco.contents,
@@ -50,7 +57,7 @@ export class MogacoRepository {
         nickname: mogaco.member.nickname,
         profilePicture: mogaco.member.profilePicture,
       },
-      participants,
+      participants: participantsDto,
     };
   }
 
