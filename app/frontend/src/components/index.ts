@@ -1,5 +1,6 @@
 export * from './Button';
 export * from './Error';
+export * from './FieldLabel';
 export * from './Header';
 export * from './Input';
 export * from './Input/Textarea';
