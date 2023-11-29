@@ -3,11 +3,12 @@ import { RequestUserRoomDto, RequestChatDto } from '../interface/user.interface'
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
 export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
+
 class SocketClient {
   private socket: Socket | null = null;
   private static URL: string;
 
-  SocketClient(URL: string) {
+  constructor(URL: string) {
     SocketClient.URL = URL;
   }
 
