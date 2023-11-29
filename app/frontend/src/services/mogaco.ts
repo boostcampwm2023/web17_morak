@@ -28,8 +28,7 @@ export const mogaco = {
   },
   post: async (form: RequestCreateMogacoDto) =>
     morakAPI.post(mogaco.endPoint.index, form),
-  // TODO: RequestCreateMogacoDto optional로 변경해야 하지 않을까?
-  edit: async (id: string, form: RequestCreateMogacoDto) =>
+  edit: async (id: string, form: Partial<RequestCreateMogacoDto>) =>
     morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
   delete: async (id: string) => {
     const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
