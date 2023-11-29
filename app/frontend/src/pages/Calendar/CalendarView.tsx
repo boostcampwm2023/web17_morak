@@ -10,6 +10,8 @@ import { vars } from '@/styles';
 import * as styles from './CalendarView.css';
 import { useCalendarMogacoQuery } from './useMogacoQuery';
 
+const { subGreen, grayscale500 } = vars.color;
+
 export function CalendarView({
   onClickEvent,
 }: {
@@ -28,9 +30,9 @@ export function CalendarView({
         initialView="dayGridMonth"
         weekends
         events={mogacoData || []}
-        eventColor={vars.color.subGreen}
-        eventBackgroundColor={vars.color.subGreen}
-        eventTextColor={vars.color.grayscale500}
+        eventColor={subGreen}
+        eventBackgroundColor={subGreen}
+        eventTextColor={grayscale500}
         eventDisplay="block"
         eventClick={onClickEvent}
       />
