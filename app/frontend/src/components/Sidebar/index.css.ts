@@ -44,7 +44,7 @@ export const wrapper = style({
   position: 'fixed',
   top: '8.6rem',
   left: 0,
-  zIndex: 100,
+  zIndex: 10,
   height: 'calc(100% - 8.6rem)',
   transition: 'transform 0.5s',
 });

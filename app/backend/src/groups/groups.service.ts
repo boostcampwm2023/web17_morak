@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GroupsRepository } from './groups.repository';
 import { Group, Member } from '@prisma/client';
+import { MemberInformationDto } from 'src/member/dto/member.dto';
 
 @Injectable()
 export class GroupsService {
@@ -10,7 +11,7 @@ export class GroupsService {
     return this.groupsRepository.getAllGroups();
   }
 
-  async getAllMembersOfGroup(id: number): Promise<Member[]> {
+  async getAllMembersOfGroup(id: number): Promise<MemberInformationDto[]> {
     return this.groupsRepository.getAllMembersOfGroup(id);
   }
 

@@ -12,7 +12,7 @@ export const container = style({
   alignItems: 'center',
   background: vars.color.grayscaleWhite,
   borderBottom: `1px solid ${vars.color.grayscale100}`,
-  zIndex: '999',
+  zIndex: 10,
 });
 
 export const header = style({

@@ -6,6 +6,7 @@ import { AtGuard } from 'src/auth/guards/at.guard';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
 import { GroupsDto } from './dto/groups.dto';
+import { MemberInformationDto } from 'src/member/dto/member.dto';
 
 @ApiTags('Group API')
 @Controller('groups')
@@ -33,7 +34,7 @@ export class GroupsController {
   @ApiParam({ name: 'id', description: '조회할 그룹의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [ParticipantResponseDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getAllMembersOfGroup(@Param('id', ParseIntPipe) id: number): Promise<Member[]> {
+  async getAllMembersOfGroup(@Param('id', ParseIntPipe) id: number): Promise<MemberInformationDto[]> {
     return this.groupsService.getAllMembersOfGroup(id);
   }
 
