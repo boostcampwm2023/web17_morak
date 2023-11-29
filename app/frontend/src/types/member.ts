@@ -1,6 +1,5 @@
-export type Member = {
-  providerId: string;
-  email: string;
-  nickname: string;
-  profilePicture: string;
-};
+import { ResponseParticipant } from '@morak/apitype';
+
+import { TypeWrapper } from './typeChanger';
+
+export type Member = TypeWrapper<ResponseParticipant>;
