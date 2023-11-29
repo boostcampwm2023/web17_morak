@@ -35,17 +35,21 @@ export function PostGroupId({
       render={({ field: { onChange } }) => {
         if (groups) {
           return (
-            <select
-              onChange={(event) => onChange(event.target.value)}
-              className={styles.container}
-              disabled={isEdit}
-            >
-              {groups.map((groupItem) => (
-                <option key={groupItem.id} value={groupItem.id}>
-                  {groupItem.title}
-                </option>
-              ))}
-            </select>
+            <>
+              {/* TODO: 그룹 라벨 */}
+              그룹
+              <select
+                onChange={(event) => onChange(event.target.value)}
+                className={styles.container}
+                disabled={isEdit}
+              >
+                {groups.map((groupItem) => (
+                  <option key={groupItem.id} value={groupItem.id}>
+                    {groupItem.title}
+                  </option>
+                ))}
+              </select>
+            </>
           );
         }
         return <>그룹에 가입해 주세요!</>;
