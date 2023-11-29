@@ -14,7 +14,7 @@ export interface ResponseMogacoDto {
   status: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
   group: GroupsDto;
 }
 
