@@ -22,7 +22,7 @@ export function PostGroupId({
   const { data: groups } = useQuery(queryKeys.group.myGroup());
 
   useEffect(() => {
-    if (groups) {
+    if (groups && groups.length > 0) {
       setGroup(groups[0].id.toString());
     }
   }, [groups, setGroup]);
@@ -32,28 +32,27 @@ export function PostGroupId({
       control={control}
       name="groupId"
       rules={{ required: true }}
-      render={({ field: { onChange } }) => {
-        if (groups) {
-          return (
-            <>
-              {/* TODO: 그룹 라벨 */}
-              그룹
-              <select
-                onChange={(event) => onChange(event.target.value)}
-                className={styles.container}
-                disabled={isEdit}
-              >
-                {groups.map((groupItem) => (
-                  <option key={groupItem.id} value={groupItem.id}>
-                    {groupItem.title}
-                  </option>
-                ))}
-              </select>
-            </>
-          );
-        }
-        return <>그룹에 가입해 주세요!</>;
-      }}
+      render={({ field: { onChange } }) => (
+        <>
+          {/* TODO: 그룹 라벨 */}
+          <div>그룹</div>
+          {groups && groups.length > 0 ? (
+            <select
+              onChange={(event) => onChange(event.target.value)}
+              className={styles.container}
+              disabled={isEdit}
+            >
+              {groups.map((groupItem) => (
+                <option key={groupItem.id} value={groupItem.id}>
+                  {groupItem.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <div>그룹에 가입해 주세요!</div>
+          )}
+        </>
+      )}
     />
   );
 }
