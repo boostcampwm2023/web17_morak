@@ -1,48 +1,55 @@
+import { useEffect } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
-import { ResponseGroupsDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
-import { Input } from '@/components';
-import { MOGACO_POST } from '@/constants';
 import { queryKeys } from '@/queries';
 import { MogacoPostForm } from '@/types';
+
+import * as styles from './group.css';
 
 type PostGroupIdProps = {
   control: Control<MogacoPostForm>;
   isEdit?: boolean;
+  setGroup: (groupId: string) => void;
 };
 
-export function PostGroupId({ control, isEdit = false }: PostGroupIdProps) {
+export function PostGroupId({
+  control,
+  isEdit = false,
+  setGroup,
+}: PostGroupIdProps) {
   const { data: groups } = useQuery(queryKeys.group.myGroup());
+
+  useEffect(() => {
+    if (groups) {
+      setGroup(groups[0].id.toString());
+    }
+  }, [groups, setGroup]);
 
   return (
     <Controller
       control={control}
       name="groupId"
       rules={{ required: true }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <>
-          <Input
-            label={MOGACO_POST.GROUP.LABEL}
-            placeholder={MOGACO_POST.GROUP.REQUIRED}
-            required
-            disabled={isEdit}
-            onChange={onChange}
-            value={value}
-            errorMessage={error && MOGACO_POST.GROUP.REQUIRED}
-          />
-          {groups && (
-            <select onChange={(event) => onChange(event.target.value)}>
-              {groups.map((group: ResponseGroupsDto) => (
-                <option key={group.id} value={group.id}>
-                  {group.title}
+      render={({ field: { onChange } }) => {
+        if (groups) {
+          return (
+            <select
+              onChange={(event) => onChange(event.target.value)}
+              className={styles.container}
+              disabled={isEdit}
+            >
+              {groups.map((groupItem) => (
+                <option key={groupItem.id} value={groupItem.id}>
+                  {groupItem.title}
                 </option>
               ))}
             </select>
-          )}
-        </>
-      )}
+          );
+        }
+        return <>그룹에 가입해 주세요!</>;
+      }}
     />
   );
 }
