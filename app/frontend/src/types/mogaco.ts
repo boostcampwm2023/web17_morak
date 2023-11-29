@@ -9,6 +9,7 @@ interface MogacoTypes {
   date: string;
   maxHumanCount: number;
   address: string;
+  coord: string;
   status: '모집 중' | '마감' | '종료';
   nickname: string;
   profilePicture: string;
@@ -26,6 +27,7 @@ export type Mogaco = Pick<
   | 'date'
   | 'maxHumanCount'
   | 'address'
+  | 'coord'
   | 'status'
   | 'member'
   | 'participants'
@@ -52,6 +54,7 @@ export type MogacoPostRequest = Pick<
   | 'date'
   | 'maxHumanCount'
   | 'address'
+  | 'coord'
   | 'status'
 >;
 
