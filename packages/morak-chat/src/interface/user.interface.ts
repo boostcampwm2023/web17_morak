@@ -1,9 +1,17 @@
-export interface ResponseChatUser {
+export interface ResponseChatUserDto {
   userId: string;
   nickname: string;
   profilePicture: string;
 }
 
-export interface RequestChatUser {
-  userId: string;
+export interface RequestUserRoomDto {
+  user: string;
+  room: string;
 }
+
+export interface RequestChatDto {
+  user: string;
+  message: string;
+}
+
+export type User = string;

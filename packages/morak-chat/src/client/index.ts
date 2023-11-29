@@ -1,18 +1,18 @@
-import io from 'socket.io-client';
-import { RequestChatUser } from '../interface/user.interface'
+import io, { Socket } from 'socket.io-client';
+import { RequestUserRoomDto, RequestChatDto } from '../interface/user.interface'
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
 export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
 class SocketClient {
-  private socket: SocketIOClient.Socket | null = null;
-  private static URL: string;
+  private socket: Socket | null = null;
+  public static URL: string;
 
   SocketClient(URL: string) {
     SocketClient.URL = URL;
   }
 
   connectSocket(): void {
-    this.socket = io(SocketClient.URL);
+    this.socket = io('http://localhost:8081/chat', { transports: ['websocket'] });
   }
 
   disconnectSocket(): void {
@@ -24,15 +24,11 @@ class SocketClient {
     if (this.socket && room) {
       this.socket.emit('joinRoom',{ user, room });
     }
-
-    this.socket.on('roomJoined', (status: StatusType, msgs: ChatMessage[]) => {
-      cb(status, msgs);
-    })
   }
 
-  leaveRoom(user: RequestChatUser, room: string): void {
-    if (this.socket && room) {
-      this.socket.emit('leaveRoom', { user, room });
+  leaveRoom(userRoomDto: RequestUserRoomDto): void {
+    if (this.socket && userRoomDto.room) {
+      this.socket.emit('leaveRoom', userRoomDto);
     }
     this.disconnectSocket();
   }
@@ -45,8 +41,8 @@ class SocketClient {
     });
   }
 
-  sendMessage(user: RequestChatUser, message: string): void {
-    if (this.socket) this.socket.emit('chatMessage', { user, message });
+  sendMessage(chatDto: RequestChatDto): void {
+    if (this.socket) this.socket.emit('chatMessage', chatDto);
   }
 }
 
