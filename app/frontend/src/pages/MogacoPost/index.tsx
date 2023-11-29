@@ -31,7 +31,7 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
-  const { control, handleSubmit, reset } = useForm<MogacoPostForm>({
+  const { control, handleSubmit, reset, setValue } = useForm<MogacoPostForm>({
     defaultValues: {
       title: '',
       address: '',
@@ -50,15 +50,20 @@ export function MogacoPostPage() {
     }
   }, [mogacoData, reset]);
 
+  const setGroup = (groupId: string) => {
+    setValue('groupId', groupId);
+  };
+
   const onSubmit = async ({
     title,
     contents,
     date,
     maxHumanCount,
     address,
+    groupId,
   }: MogacoPostForm) => {
     const formData = {
-      groupId: '1', // 그룹 기능 추가 이전
+      groupId,
       title,
       contents,
       date: new Date(date).toISOString(),
@@ -81,7 +86,11 @@ export function MogacoPostPage() {
       <PostTitle control={control} />
       <div className={styles.formContent}>
         <PostMember />
-        <PostGroupId control={control} isEdit={!!mogacoData} />
+        <PostGroupId
+          control={control}
+          isEdit={!!mogacoData}
+          setGroup={setGroup}
+        />
         <PostMaxHumanCount control={control} isEdit={!!mogacoData} />
         <PostAddress control={control} />
         <PostDate control={control} isEdit={!!mogacoData} />
