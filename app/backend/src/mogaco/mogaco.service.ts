@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MogacoRepository } from './mogaco.repository';
 import { Member, Mogaco } from '@prisma/client';
-import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -9,7 +9,7 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoService {
   constructor(private mogacoRepository: MogacoRepository) {}
 
-  async getAllMogaco(): Promise<Mogaco[]> {
+  async getAllMogaco(): Promise<MogacoDto[]> {
     return this.mogacoRepository.getAllMogaco();
   }
 
@@ -39,5 +39,9 @@ export class MogacoService {
 
   async cancelMogacoJoin(id: number, member: Member): Promise<void> {
     return this.mogacoRepository.cancelMogacoJoin(id, member);
+  }
+
+  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
+    return this.mogacoRepository.getMogacoByDate(date);
   }
 }

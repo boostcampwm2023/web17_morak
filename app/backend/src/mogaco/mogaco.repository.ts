@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from 'prisma/prisma.service';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './enum/mogaco-status.enum';
-import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -10,13 +10,34 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(): Promise<Mogaco[]> {
-    return this.prisma.mogaco.findMany({
+  async getAllMogaco(): Promise<MogacoDto[]> {
+    const mogacos = await this.prisma.mogaco.findMany({
       where: { deletedAt: null },
       include: {
         group: true,
       },
     });
+
+    if (!mogacos) {
+      throw new NotFoundException('No Mogaco events found');
+    }
+    return mogacos.map((mogaco) => ({
+      id: mogaco.id.toString(),
+      groupId: mogaco.group.id.toString(),
+      title: mogaco.title,
+      contents: mogaco.contents,
+      date: mogaco.date,
+      maxHumanCount: mogaco.maxHumanCount,
+      address: mogaco.address,
+      status: mogaco.status,
+      createdAt: mogaco.createdAt,
+      updatedAt: mogaco.updatedAt,
+      deletedAt: mogaco.deletedAt,
+      group: {
+        id: mogaco.group.id.toString(),
+        title: mogaco.group.title,
+      },
+    }));
   }
 
   async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
@@ -238,5 +259,54 @@ export class MogacoRepository {
         },
       },
     });
+  }
+
+  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
+    let startDate: Date;
+    let endDate: Date;
+
+    // 231129 ldhbenecia | 사용자가 날짜만 입력한 경우 (e.g., '2023-11')
+    if (date.length === 7) {
+      startDate = new Date(`${date}-01T00:00:00.000Z`);
+      endDate = new Date(`${date}-31T23:59:59.999Z`);
+    } else {
+      // 231129 ldhbenecia | 사용자가 날짜와 일자를 입력한 경우 (e.g., '2023-11-25')
+      startDate = new Date(`${date}T00:00:00.000Z`);
+      endDate = new Date(`${date}T23:59:59.999Z`);
+    }
+
+    const mogacos = await this.prisma.mogaco.findMany({
+      where: {
+        date: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+      include: {
+        group: true,
+      },
+    });
+
+    if (!mogacos) {
+      throw new NotFoundException(`No Mogaco events found for the date ${date}`);
+    }
+
+    return mogacos.map((mogaco) => ({
+      id: mogaco.id.toString(),
+      groupId: mogaco.group.id.toString(),
+      title: mogaco.title,
+      contents: mogaco.contents,
+      date: mogaco.date,
+      maxHumanCount: mogaco.maxHumanCount,
+      address: mogaco.address,
+      status: mogaco.status,
+      createdAt: mogaco.createdAt,
+      updatedAt: mogaco.updatedAt,
+      deletedAt: mogaco.deletedAt,
+      group: {
+        id: mogaco.group.id.toString(),
+        title: mogaco.group.title,
+      },
+    }));
   }
 }
