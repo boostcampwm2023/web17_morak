@@ -1,9 +1,5 @@
-export interface ResponseChatUser {
+export interface ChatUser {
   userId: string;
   nickname: string;
   profilePicture: string;
-}
-
-export interface RequestChatUser {
-  userId: string;
 }

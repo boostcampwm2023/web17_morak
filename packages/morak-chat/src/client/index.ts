@@ -1,14 +1,11 @@
 import io from 'socket.io-client';
-import { RequestChatUser } from '../interface/user.interface'
-import { ChatMessage, StatusType } from '../interface/message.interface';
-
-export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
 class SocketClient {
   private socket: SocketIOClient.Socket | null = null;
   private static URL: string;
 
   SocketClient(URL: string) {
     SocketClient.URL = URL;
+    this.connectSocket();
   }
 
   connectSocket(): void {
@@ -19,33 +16,28 @@ class SocketClient {
     if(this.socket) this.socket.disconnect();
   }
 
-  joinRoom(user: RequestChatUser, room: string, cb: CallBack): void {
-    this.connectSocket();
+  joinRoom(room: string): void {
     if (this.socket && room) {
-      this.socket.emit('joinRoom',{ user, room });
+      this.socket.emit('joinRoom', room);
     }
-
-    this.socket.on('roomJoined', (status: StatusType, msgs: ChatMessage[]) => {
-      cb(status, msgs);
-    })
   }
 
-  leaveRoom(user: RequestChatUser, room: string): void {
+  leaveRoom(room: string): void {
     if (this.socket && room) {
-      this.socket.emit('leaveRoom', { user, room });
+      this.socket.emit('leaveRoom', room);
     }
-    this.disconnectSocket();
   }
 
-  subscribeToChat(cb: CallBack): void {
+  // cb는 콜백 함수로, 첫 번째 인자는 오류(있을 경우)이고 두 번째 인자는 메시지입니다.
+  subscribeToChat(cb: (err: Error | null, msg: any) => void): void {
     if (!this.socket) return;
-
-    this.socket.on('chat', (status: StatusType, msg: ChatMessage) => {
-      return cb(status, [msg]); 
+    this.socket.on('chat', msg => {
+      console.log('Websocket event received!');
+      return cb(null, msg);
     });
   }
 
-  sendMessage(user: RequestChatUser, message: string): void {
+  sendMessage(user, message: string): void {
     if (this.socket) this.socket.emit('chatMessage', { user, message });
   }
 }
