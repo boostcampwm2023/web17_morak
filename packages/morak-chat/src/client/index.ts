@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import { RequestChatUser } from '../interface/user.interface'
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
+export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
 class SocketClient {
   private socket: SocketIOClient.Socket | null = null;
   private static URL: string;
@@ -18,11 +19,15 @@ class SocketClient {
     if(this.socket) this.socket.disconnect();
   }
 
-  joinRoom(user: RequestChatUser, room: string): void {
+  joinRoom(user: RequestChatUser, room: string, cb: CallBack): void {
     this.connectSocket();
     if (this.socket && room) {
       this.socket.emit('joinRoom',{ user, room });
     }
+
+    this.socket.on('roomJoined', (status: StatusType, msgs: ChatMessage[]) => {
+      cb(status, msgs);
+    })
   }
 
   leaveRoom(user: RequestChatUser, room: string): void {
@@ -32,11 +37,11 @@ class SocketClient {
     this.disconnectSocket();
   }
 
-  subscribeToChat(cb: (status: StatusType, msg: ChatMessage) => void): void {
+  subscribeToChat(cb: CallBack): void {
     if (!this.socket) return;
 
     this.socket.on('chat', (status: StatusType, msg: ChatMessage) => {
-      return cb(status, msg); 
+      return cb(status, [msg]); 
     });
   }
 
