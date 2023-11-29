@@ -5,10 +5,7 @@ import { queryKeys } from '@/queries';
 import type { Mogaco } from '@/types';
 
 const refineMogacoList = (mogacoList: Mogaco[]) =>
-  mogacoList.map((mogaco) => {
-    const { id, title, date } = mogaco;
-    return { id, title, date };
-  });
+  mogacoList.map(({ id, title, date }) => ({ id, title, date }));
 
 export const useCalendarMogacoQuery = (selectedDate: Date) =>
   useQuery({
