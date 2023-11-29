@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { EventClickArg } from '@fullcalendar/core/index.js';
 import koLocale from '@fullcalendar/core/locales/ko';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,33 +8,32 @@ import FullCalendar from '@fullcalendar/react';
 import { vars } from '@/styles';
 
 import * as styles from './CalendarView.css';
+import { useCalendarMogacoQuery } from './useMogacoQuery';
+
+const { subGreen, grayscale500 } = vars.color;
 
 export function CalendarView({
   onClickEvent,
 }: {
   onClickEvent: (dayEvent: EventClickArg) => void;
 }) {
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+
+  const { data: mogacoData } = useCalendarMogacoQuery(selectedMonth);
+
   return (
     <div className={styles.container}>
       <FullCalendar
+        datesSet={(dateInfo) => setSelectedMonth(dateInfo.view.currentStart)}
         locale={koLocale}
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         weekends
-        events={[
-          {
-            title: '12:00 인천 모각코 이벤트',
-            date: '2023-11-22',
-            id: '1',
-          },
-          {
-            title: '12:00 이수 모각코 이벤트',
-            date: '2023-11-22',
-            id: '2',
-          },
-        ]}
-        eventColor={vars.color.subGreen}
-        eventTextColor={vars.color.grayscale500}
+        events={mogacoData || []}
+        eventColor={subGreen}
+        eventBackgroundColor={subGreen}
+        eventTextColor={grayscale500}
+        eventDisplay="block"
         eventClick={onClickEvent}
       />
     </div>
