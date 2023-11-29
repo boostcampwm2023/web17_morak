@@ -6,6 +6,4 @@ export interface ResponseParticipant {
   email: string;
   nickname: string;
   profilePicture: string;
-  socialType: string;
-  createdAt: Date;
 }

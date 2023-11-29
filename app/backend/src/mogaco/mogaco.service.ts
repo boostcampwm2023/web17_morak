@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MogacoRepository } from './mogaco.repository';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoStatus } from './enum/mogaco-status.enum';
-import { MogacoDto } from './dto/response-mogaco.dto';
+import { MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -14,7 +14,7 @@ export class MogacoService {
     return this.mogacoRepository.getAllMogaco();
   }
 
-  async getMogacoById(id: number): Promise<MogacoDto> {
+  async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
     return this.mogacoRepository.getMogacoById(id);
   }
 
