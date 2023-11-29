@@ -4,14 +4,11 @@ import { EventClickArg } from '@fullcalendar/core/index.js';
 import koLocale from '@fullcalendar/core/locales/ko';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import FullCalendar from '@fullcalendar/react';
-import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 
-import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
-import { Mogaco } from '@/types';
 
 import * as styles from './CalendarView.css';
+import { useCalendarMogacoQuery } from './useMogacoQuery';
 
 export function CalendarView({
   onClickEvent,
@@ -19,16 +16,8 @@ export function CalendarView({
   onClickEvent: (dayEvent: EventClickArg) => void;
 }) {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const refineMogacoList = (mogacoList: Mogaco[]) =>
-    mogacoList.map((mogaco) => {
-      const { id, title, date } = mogaco;
-      return { id, title, date };
-    });
 
-  const { data: mogacoData } = useQuery({
-    ...queryKeys.mogaco.list({ date: dayjs(selectedMonth).format('YYYY-MM') }),
-    select: refineMogacoList,
-  });
+  const { data: mogacoData } = useCalendarMogacoQuery(selectedMonth);
 
   return (
     <div className={styles.container}>
