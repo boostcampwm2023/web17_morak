@@ -19,7 +19,7 @@ class SocketClient {
     if(this.socket) this.socket.disconnect();
   }
 
-  joinRoom(user: RequestChatUser, room: string, cb: CallBack): void {
+  joinRoom(user: RequestChatUser, room: string, cb: CallBack): void { 
     this.connectSocket();
     if (this.socket && room) {
       this.socket.emit('joinRoom',{ user, room });
