@@ -119,7 +119,7 @@ export class MogacoController {
   @ApiParam({ name: 'id', description: '참가자 목록을 조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [ParticipantResponseDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getParticipants(@Param('id', ParseIntPipe) id: number): Promise<Member[]> {
+  async getParticipants(@Param('id', ParseIntPipe) id: number): Promise<ParticipantResponseDto[]> {
     return this.mogacoService.getParticipants(id);
   }
 

@@ -1,4 +1,6 @@
+import { Bigint } from "../type";
+
 export interface ResponseGroupsDto {
-  id: bigint;
+  id: Bigint;
   title: string;
 }
