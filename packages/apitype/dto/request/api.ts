@@ -1,3 +1,3 @@
 export interface RequestApiDto {
-  accesToken: string;
+  accessToken: string;
 }

@@ -1,10 +1,9 @@
 import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { MemberService } from './member.service';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { MemberInformationDto } from './dto/member.dto';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { RequestApiDto } from '@morak/apitype/dto/request/api';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
@@ -14,6 +13,7 @@ export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
   @Get('/me')
+  @ApiCookieAuth()
   @ApiOperation({
     summary: '사용자 정보 조회',
     description: '현재 로그인한 사용자의 정보 조회',
@@ -26,7 +26,7 @@ export class MemberController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getUserData(@Req() req: Request, @Res() res: Response): Promise<void> {
     try {
-      const encryptedToken: RequestApiDto = { accesToken: req.cookies.access_token };
+      const encryptedToken = req.cookies.access_token;
       const userData = await this.memberService.getUserData(encryptedToken);
 
       res.json(userData);
