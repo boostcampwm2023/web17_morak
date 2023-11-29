@@ -1,11 +1,11 @@
 import { Input } from '@/components';
+import { useModalAtom } from '@/stores';
 import { sansRegular16 } from '@/styles/font.css';
 
 import { Footer } from './Footer';
 import * as styles from './index.css';
 
 type InputModalProps = {
-  dialogRef: React.RefObject<HTMLDialogElement>;
   description: string;
   confirmButtonText?: string;
   cancelButtonText?: string;
@@ -13,30 +13,32 @@ type InputModalProps = {
 };
 
 export function InputModal({
-  dialogRef,
   description,
   confirmButtonText = '확인',
   cancelButtonText = '취소',
   onClickConfirm,
 }: InputModalProps) {
+  const [open, setOpen] = useModalAtom();
+
   const closeModal = () => {
-    if (!dialogRef.current) return;
-    dialogRef.current.close();
+    setOpen(false);
   };
 
   return (
-    <dialog className={styles.container} ref={dialogRef}>
-      <div className={styles.inputArea}>
-        <div className={sansRegular16}>{description}</div>
-        <Input maxLength={10} />
-      </div>
-      <Footer
-        buttonType="double"
-        confirmButtonText={confirmButtonText}
-        cancelButtonText={cancelButtonText}
-        closeModal={closeModal}
-        onClickConfirm={onClickConfirm}
-      />
+    <dialog className={styles.container} open={open}>
+      <form method="dialog" className={styles.form}>
+        <div className={styles.inputArea}>
+          <div className={sansRegular16}>{description}</div>
+          <Input maxLength={10} />
+        </div>
+        <Footer
+          buttonType="double"
+          confirmButtonText={confirmButtonText}
+          cancelButtonText={cancelButtonText}
+          closeModal={closeModal}
+          onClickConfirm={onClickConfirm}
+        />
+      </form>
     </dialog>
   );
 }

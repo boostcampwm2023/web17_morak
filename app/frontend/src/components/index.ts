@@ -8,6 +8,8 @@ export * from './Layout';
 export * from './Loading';
 export * from './Loading/LoadingIndicator';
 export * from './Map';
+export * from './Modal';
+export * from './Modal/ModalContainer';
 export * from './MogacoItem';
 export * from './Popover';
 export * from './Sidebar';
