@@ -13,8 +13,10 @@ services:
     depends_on:
       - db
       - redis
+      - mongodb
     ports:
-     - "${PORT}:${PORT}"
+      - "${PORT}:${PORT}"
+      - "${SOCKET_PORT}:${SOCKET_PORT}"
   db:
     image: ccxz84/morak-mysql:latest
     environment:
@@ -26,8 +28,19 @@ services:
 
   redis:
     image: redis:alpine
-    expose:
-      - "6379"
+    ports:
+      - "${REDIS_PORT}:6379"
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo_user
+      - MONGO_INITDB_ROOT_PASSWORD=mongo_pass
+    volumes:
+      - mongo-data:/data/db
 
 volumes:
   mysql-data:
+  mongo-data:

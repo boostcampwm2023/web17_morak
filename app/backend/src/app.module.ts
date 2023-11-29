@@ -8,6 +8,7 @@ import { getSecret } from 'vault';
 import { MogacoModule } from './mogaco/mogaco.module';
 import { GroupsModule } from './groups/groups.module';
 import { PrismaModule } from 'prisma/prisma.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PrismaModule } from 'prisma/prisma.module';
     MemberModule,
     MogacoModule,
     GroupsModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [],
