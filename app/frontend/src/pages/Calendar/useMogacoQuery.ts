@@ -1,10 +1,10 @@
+import { ResponseMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import { queryKeys } from '@/queries';
-import type { Mogaco } from '@/types';
 
-const refineMogacoList = (mogacoList: Mogaco[]) =>
+const refineMogacoList = (mogacoList: ResponseMogacoDto[]) =>
   mogacoList.map(({ id, title, date }) => ({ id, title, date }));
 
 export const useCalendarMogacoQuery = (selectedDate: Date) =>

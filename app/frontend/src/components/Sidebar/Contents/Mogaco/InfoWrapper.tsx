@@ -1,14 +1,14 @@
+import { ResponseMogacoDto } from '@morak/apitype';
 import dayjs from 'dayjs';
 
 import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
 import { ReactComponent as People } from '@/assets/icons/people.svg';
-import { MogacoTypes } from '@/types';
 
 import * as styles from './index.css';
 
 type InfoWrapperProps = Pick<
-  MogacoTypes,
+  ResponseMogacoDto,
   'date' | 'maxHumanCount' | 'address'
 > & {
   participantCount: number;
