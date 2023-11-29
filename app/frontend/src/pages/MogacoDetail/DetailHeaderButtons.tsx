@@ -11,6 +11,8 @@ import {
   useQuitMogacoQuery,
 } from '@/queries/hooks';
 
+import { useDeleteModal } from './useDeleteModal';
+
 type DetailHeaderButtonsProps = {
   id: string;
   openChatting: () => void;
@@ -40,12 +42,9 @@ export function DetailHeaderButtons({
     }
   };
 
+  const { openDeleteModal } = useDeleteModal();
   const onClickDelete = () => {
-    // eslint-disable-next-line no-alert
-    const answer = window.confirm('삭제하시겠습니까?');
-    if (answer) {
-      handleDelete();
-    }
+    openDeleteModal({ onClickConfirm: handleDelete });
   };
 
   const onClickEdit = () => {
