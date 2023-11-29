@@ -1,19 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { ChatUser } from '@morak/chat/src/interface/user.interface';
+import { RequestChatUser } from '@morak/chat/src/interface/user.interface';
 
 @Injectable()
 export class ChatService {
   // temporary-chat-user 231129 ccxz84 | chat 임시 세션 유저 기록 redis로 이관할지 고민
-  private rooms = new Map<string, Set<ChatUser>>();
+  private rooms = new Map<string, Set<RequestChatUser>>();
 
-  joinRoom(user: ChatUser, room: string) {
+  joinRoom(user: RequestChatUser, room: string) {
     if (!this.rooms.has(room)) {
       this.rooms.set(room, new Set());
     }
     this.rooms.get(room).add(user);
   }
 
-  isUserInRoom(user: ChatUser, room: string): boolean {
+  leaveRoom(user: RequestChatUser, room: string) {
+    if (this.rooms.has(room) && this.rooms.get(room).has(user)) {
+      this.rooms.get(room).delete(user);
+    }
+  }
+
+  isUserInRoom(user: RequestChatUser, room: string): boolean {
     if (!this.rooms.has(room)) {
       return false;
     }
