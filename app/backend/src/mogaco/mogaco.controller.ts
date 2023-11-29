@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { MogacoService } from './mogaco.service';
 import { Member, Mogaco } from '@prisma/client';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
@@ -17,13 +17,18 @@ export class MogacoController {
 
   @Get('/')
   @ApiOperation({
-    summary: '모든 모각코 조회',
-    description: '존재하는 모든 모각코를 조회합니다.\n 배열로 여러 개를 반환합니다.',
+    summary: '모든 모각코 조회 또는 모각코 기간별 조회',
+    description: '존재하는 모든 모각코를 조회하거나, 요청된 기간 사이 존재하는 모각코를 조회합니다.',
   })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getAllMogaco(): Promise<Mogaco[]> {
-    return this.mogacoService.getAllMogaco();
+  @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
+  async getMogaco(@Query('date') date?: string): Promise<MogacoDto[]> {
+    if (date) {
+      return this.mogacoService.getMogacoByDate(date);
+    } else {
+      return this.mogacoService.getAllMogaco();
+    }
   }
 
   @Get('/:id')
