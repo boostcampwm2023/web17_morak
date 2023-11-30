@@ -3,11 +3,12 @@ import { RequestUserRoomDto, RequestChatDto } from '../interface/user.interface'
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
 export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
+
 class SocketClient {
   private socket: Socket | null = null;
-  public static URL: string;
+  private static URL: string;
 
-  SocketClient(URL: string) {
+  constructor(URL: string) {
     SocketClient.URL = URL;
   }
 
@@ -16,7 +17,7 @@ class SocketClient {
   }
 
   disconnectSocket(): void {
-    if(this.socket) this.socket.disconnect();
+    if (this.socket) this.socket.disconnect();
   }
 
   joinRoom(userRoomDto: RequestUserRoomDto, cb: CallBack): void {
@@ -47,7 +48,7 @@ class SocketClient {
     if (!this.socket) return;
 
     this.socket.on('chat', (status: StatusType, msg: ChatMessage) => {
-      return cb(status, [msg]); 
+      return cb(status, [msg]);
     });
   }
 

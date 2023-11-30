@@ -10,7 +10,7 @@ type TextareaProps = {
   fullWidth?: boolean;
   rows?: number;
   value?: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 export function Textarea({
