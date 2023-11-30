@@ -31,18 +31,23 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
-  const { control, handleSubmit, reset, setValue } =
-    useForm<RequestCreateMogacoDto>({
-      defaultValues: {
-        title: '',
-        address: '',
-        contents: '',
-        date: '',
-        groupId: '',
-        maxHumanCount: 0,
-        status: '모집 중',
-      },
-    });
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { isValid },
+  } = useForm<RequestCreateMogacoDto>({
+    defaultValues: {
+      title: '',
+      address: '',
+      contents: '',
+      date: '',
+      groupId: '',
+      maxHumanCount: 0,
+      status: '모집 중',
+    },
+  });
 
   useEffect(() => {
     if (mogacoData) {
@@ -106,13 +111,13 @@ export function MogacoPostPage() {
         <PostContents control={control} />
       </div>
       <div className={styles.formContent}>
-        {/* TODO: 등록 불가 시 비활성화 처리 */}
         <Button
           type="submit"
           theme="primary"
           shape="fill"
           size="large"
           fullWidth
+          disabled={!isValid}
         >
           {postId ? '수정하기' : '등록하기'}
         </Button>
