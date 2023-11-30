@@ -1,6 +1,8 @@
 {
     "extends": "@morak/tsconfig/backend.json",
     "compilerOptions": {
+        "outDir": "./dist",
+        "baseUrl": "./",
     },
 }
   
