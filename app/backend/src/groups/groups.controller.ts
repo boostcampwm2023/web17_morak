@@ -46,6 +46,8 @@ export class GroupsController {
   @ApiParam({ name: 'id', description: '참가할 그룹의 Id' })
   @ApiResponse({ status: 201, description: 'Successfully join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
   async joinGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.joinGroup(id, member);
   }
@@ -59,6 +61,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'Successfully leaved join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);
   }
