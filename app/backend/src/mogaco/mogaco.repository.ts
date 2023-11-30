@@ -18,9 +18,6 @@ export class MogacoRepository {
       },
     });
 
-    if (!mogacos) {
-      throw new NotFoundException('No Mogaco events found');
-    }
     return mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
       groupId: mogaco.group.id.toString(),
@@ -279,7 +276,7 @@ export class MogacoRepository {
       where: {
         date: {
           gte: startDate,
-          lt: endDate,
+          lte: endDate,
         },
       },
       include: {
