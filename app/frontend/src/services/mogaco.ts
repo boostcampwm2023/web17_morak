@@ -26,7 +26,7 @@ export const mogaco = {
     );
     return data;
   },
-  post: async (form: RequestCreateMogacoDto) =>
+  post: async (form: Partial<RequestCreateMogacoDto>) =>
     morakAPI.post(mogaco.endPoint.index, form),
   edit: async (id: string, form: Partial<RequestCreateMogacoDto>) =>
     morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
