@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import SocketClient from '@morak/chat/src/client/index';
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 import { RequestChatUser } from '@morak/chat/src/interface/user.interface';
 
-import { Button, Error } from '@/components';
+import { Error } from '@/components';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 import { Member } from '@/types';
 
@@ -22,11 +22,24 @@ type ChattingProps = {
 };
 
 export function Chatting({ id, title, participants }: ChattingProps) {
+  const [message, setMessage] = useState('');
   const { data: currentUser } = useGetMyInfoQuery();
   const chatItems: ChatMessage[] = [];
 
   const chatUser: RequestChatUser = {
     userId: currentUser?.providerId || '1',
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!message) return;
+
+    socketClient.sendMessage(chatUser, message);
+    setMessage('');
   };
 
   useEffect(() => {
@@ -49,15 +62,7 @@ export function Chatting({ id, title, participants }: ChattingProps) {
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
       <ChatList chatItems={chatItems} currentUserId={currentUser.providerId} />
-      <ChattingFooter />
-      <Button
-        theme="primary"
-        shape="fill"
-        size="large"
-        onClick={() => socketClient.sendMessage(chatUser, '안뇽')}
-      >
-        누르기
-      </Button>
+      <ChattingFooter value={message} onChange={onChange} onSubmit={onSubmit} />
     </div>
   );
 }
