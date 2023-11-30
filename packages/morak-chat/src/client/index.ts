@@ -51,7 +51,7 @@ class SocketClient {
       return cb(status, [msg]);
     });
   }
-
+  
   sendMessage(chatDto: ChatMessage): void {
     if (this.socket) this.socket.emit('chatMessage', chatDto);
   }

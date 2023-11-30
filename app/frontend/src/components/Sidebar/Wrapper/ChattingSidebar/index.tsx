@@ -1,8 +1,7 @@
-import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
-
 import { Error, Sidebar } from '@/components';
 import { Chatting } from '@/components/Sidebar/Contents/Chatting';
 import { useGetMyInfoQuery } from '@/queries/hooks';
+import { Member } from '@/types';
 
 export function ChattingSidebar({
   closed,
@@ -15,9 +14,10 @@ export function ChattingSidebar({
   toggleClosed: () => void;
   id: string;
   title: string;
-  participants: ResponseParticipant[];
+  participants: Member[];
 }) {
   const { data: currentUser } = useGetMyInfoQuery();
+
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
       {currentUser ? (
