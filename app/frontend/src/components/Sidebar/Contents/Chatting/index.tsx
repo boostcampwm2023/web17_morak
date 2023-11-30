@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 import SocketClient from '@morak/chat/src/client/index';
-import { ChatMessage } from '@morak/chat/src/interface/message.interface';
-import { RequestChatUser } from '@morak/chat/src/interface/user.interface';
+import {
+  ChatMessage,
+  StatusType,
+} from '@morak/chat/src/interface/message.interface';
 
 import { Error } from '@/components';
 import { useGetMyInfoQuery } from '@/queries/hooks';
-import { Member } from '@/types';
 
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
@@ -18,17 +20,13 @@ const socketClient = new SocketClient('http://localhost:4000');
 type ChattingProps = {
   id: string;
   title: string;
-  participants: Member[];
+  participants: ResponseParticipant[];
 };
 
 export function Chatting({ id, title, participants }: ChattingProps) {
   const [message, setMessage] = useState('');
   const { data: currentUser } = useGetMyInfoQuery();
   const chatItems: ChatMessage[] = [];
-
-  const chatUser: RequestChatUser = {
-    userId: currentUser?.providerId || '1',
-  };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -38,15 +36,28 @@ export function Chatting({ id, title, participants }: ChattingProps) {
     e.preventDefault();
     if (!message) return;
 
-    socketClient.sendMessage(chatUser, message);
+    socketClient.sendMessage({
+      id: '1',
+      room: '1',
+      user: '1',
+      contents: message,
+      date: new Date(),
+      messageType: 'talk',
+    });
     setMessage('');
   };
 
+  const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
+    console.log('SendChatting');
+    if (status === 200) console.log('[수신]', msgs);
+  };
+
   useEffect(() => {
-    socketClient.connectSocket();
+    socketClient.joinRoom({ user: '1', room: '1' }, fetchChatting);
+    socketClient.subscribeToChat(fetchChatting);
     console.log('연결됨');
     return () => {
-      socketClient.disconnectSocket();
+      socketClient.leaveRoom({ user: '1', room: '1' });
       console.log('연결종료');
     };
   }, []);
