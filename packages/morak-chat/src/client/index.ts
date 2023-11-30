@@ -1,5 +1,5 @@
 import io, { Socket } from 'socket.io-client';
-import { RequestUserRoomDto, RequestChatDto } from '../interface/user.interface'
+import { RequestUserRoomDto } from '../interface/user.interface'
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
 export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
@@ -13,7 +13,7 @@ class SocketClient {
   }
 
   connectSocket(): void {
-    this.socket = io('http://localhost:8081/chat', { transports: ['websocket'] });
+    this.socket = io(SocketClient.URL, { transports: ['websocket'] });
   }
 
   disconnectSocket(): void {
@@ -52,7 +52,7 @@ class SocketClient {
     });
   }
 
-  sendMessage(chatDto: RequestChatDto): void {
+  sendMessage(chatDto: ChatMessage): void {
     if (this.socket) this.socket.emit('chatMessage', chatDto);
   }
 }
