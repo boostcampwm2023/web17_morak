@@ -7,8 +7,6 @@ import { mogacoAtom } from '@/stores';
 
 import * as styles from './index.css';
 
-type MarkerProps = { id: string };
-
 export function MapLayout() {
   const [closedSidebar, setClosedSidebar] = useState(true);
   const onClickCloseSidebar = () => {
@@ -16,7 +14,7 @@ export function MapLayout() {
   };
   const [, setMogacoId] = useAtom(mogacoAtom);
 
-  const onClickMarker = ({ id }: MarkerProps) => {
+  const onClickMarker = (id: string) => {
     setClosedSidebar(false);
     setMogacoId(id);
   };
