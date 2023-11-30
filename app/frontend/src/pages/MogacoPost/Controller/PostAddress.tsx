@@ -1,12 +1,13 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
+import { useQuery } from '@tanstack/react-query';
 
 import { Input, MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
 import { useModal } from '@/hooks';
-import { tmap } from '@/services';
+import { queryKeys } from '@/queries';
 
 type PostAddressProps = {
   control: Control<RequestCreateMogacoDto>;
@@ -18,19 +19,13 @@ export function PostAddress({ control }: PostAddressProps) {
     openModal(<MapModal />);
   };
   const [searchKeyword, setSearchKeyword] = useState('');
-
-  useEffect(() => {
-    const getAddress = async () => {
-      const data = await tmap.searchAddress(searchKeyword);
-      const addressData = data.searchPoiInfo.pois.poi;
-      // eslint-disable-next-line no-console
-      console.log(addressData);
-    };
-
-    if (searchKeyword) {
-      getAddress();
-    }
-  }, [searchKeyword]);
+  const { data: tmapResponse } = useQuery({
+    ...queryKeys.tmap.searchAddress({
+      searchKeyword,
+    }),
+    enabled: !!searchKeyword,
+  });
+  const addressData = tmapResponse?.searchPoiInfo?.pois?.poi;
 
   return (
     <Controller
@@ -43,8 +38,10 @@ export function PostAddress({ control }: PostAddressProps) {
             label={MOGACO_POST.ADDRESS.LABEL}
             placeholder={MOGACO_POST.ADDRESS.REQUIRED}
             required
-            onChange={onChange}
-            value={value}
+            value={searchKeyword || value}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearchKeyword(e.currentTarget.value)
+            }
             errorMessage={error && MOGACO_POST.ADDRESS.REQUIRED}
             onClick={onClickInput}
           />
@@ -54,6 +51,30 @@ export function PostAddress({ control }: PostAddressProps) {
               setSearchKeyword(e.currentTarget.value)
             }
           />
+          {addressData && (
+            <select
+              onChange={(event) => {
+                onChange(event.target.value);
+                setSearchKeyword('');
+              }}
+            >
+              (
+              {addressData.map((address) => {
+                const fullAddress =
+                  address.newAddressList.newAddress[0].fullAddressRoad;
+                const addressName = address.name;
+                return (
+                  <option
+                    key={address.pkey}
+                    value={`${fullAddress} ${addressName}`}
+                  >
+                    {`${fullAddress} ${addressName}`}
+                  </option>
+                );
+              })}
+              )
+            </select>
+          )}
         </>
       )}
     />
