@@ -7,9 +7,6 @@ import {
   StatusType,
 } from '@morak/chat/src/interface/message.interface';
 
-import { Error } from '@/components';
-import { useGetMyInfoQuery } from '@/queries/hooks';
-
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
@@ -24,6 +21,8 @@ type ChattingProps = {
   currentUserId: string;
 };
 
+const dummyId = Number(Math.random() * 100).toString();
+
 export function Chatting({
   id,
   title,
@@ -31,7 +30,6 @@ export function Chatting({
   currentUserId,
 }: ChattingProps) {
   const [message, setMessage] = useState('');
-  const { data: currentUser } = useGetMyInfoQuery();
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,9 +41,9 @@ export function Chatting({
     if (!message) return;
 
     socketClient.sendMessage({
-      id: '1',
+      id: currentUserId,
       room: id,
-      user: currentUserId,
+      user: dummyId,
       contents: message,
       date: new Date(),
       messageType: 'talk',
@@ -60,24 +58,17 @@ export function Chatting({
       }
     };
 
-    socketClient.joinRoom({ user: '1', room: '1' }, fetchChatting);
+    socketClient.joinRoom({ user: dummyId, room: '1' }, fetchChatting);
     socketClient.subscribeToChat(fetchChatting);
     return () => {
-      socketClient.leaveRoom({ user: '1', room: '1' });
+      socketClient.leaveRoom({ user: dummyId, room: '1' });
     };
   }, [chatItems]);
-
-  if (!currentUser || !id)
-    return (
-      <div className={styles.container}>
-        <Error message="정보 불러오기 에러" />
-      </div>
-    );
 
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
-      <ChatList chatItems={chatItems} currentUserId={currentUser.providerId} />
+      <ChatList chatItems={chatItems} currentUserId={dummyId} />
       <ChattingFooter value={message} onChange={onChange} onSubmit={onSubmit} />
     </div>
   );
