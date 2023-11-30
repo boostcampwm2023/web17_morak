@@ -1,5 +1,3 @@
-import { HTMLInputTypeAttribute } from 'react';
-
 import * as styles from './index.css';
 import { FieldLabel } from '../FieldLabel';
 
@@ -7,7 +5,7 @@ type InputProps = {
   label?: string;
   placeholder?: string;
   errorMessage?: string;
-  type?: HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   disabled?: boolean;
   maxLength?: number;
   min?: number | string;
@@ -15,7 +13,7 @@ type InputProps = {
   required?: boolean;
   defaultValue?: string;
   value?: string | number;
-  onChange?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   list?: string;
 };
