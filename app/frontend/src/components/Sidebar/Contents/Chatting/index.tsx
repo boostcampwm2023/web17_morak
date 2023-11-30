@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 import SocketClient from '@morak/chat/src/client/index';
 import {
   ChatMessage,
   StatusType,
 } from '@morak/chat/src/interface/message.interface';
+import { RequestUserRoomDto } from '@morak/chat/src/interface/user.interface';
+
+import { Member } from '@/types';
 
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
@@ -17,7 +19,7 @@ const socketClient = new SocketClient('http://localhost:4000');
 type ChattingProps = {
   id: string;
   title: string;
-  participants: ResponseParticipant[];
+  participants: Member[];
   currentUserId: string;
 };
 
@@ -52,16 +54,17 @@ export function Chatting({
   };
 
   useEffect(() => {
+    const userRoomInfo: RequestUserRoomDto = { user: dummyId, room: '1' };
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
         setChatItems([...chatItems, ...msgs]);
       }
     };
 
-    socketClient.joinRoom({ user: dummyId, room: '1' }, fetchChatting);
+    socketClient.joinRoom(userRoomInfo, fetchChatting);
     socketClient.subscribeToChat(fetchChatting);
     return () => {
-      socketClient.leaveRoom({ user: dummyId, room: '1' });
+      socketClient.leaveRoom(userRoomInfo);
     };
   }, [chatItems]);
 
