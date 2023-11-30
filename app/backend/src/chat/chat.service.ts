@@ -39,7 +39,7 @@ export class ChatService {
   }
 
   loadPrevMessage(room: string): ChatMessage[] {
-    const result = this.chatMessages.filter(message => message.roomId === room);
+    const result = this.chatMessages.filter(message => message.room === room);
 
     return result;
   }
