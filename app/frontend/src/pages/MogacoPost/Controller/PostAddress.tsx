@@ -2,14 +2,19 @@ import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
-import { Input } from '@/components';
+import { Input, MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
+import { useModal } from '@/hooks';
 
 type PostAddressProps = {
   control: Control<RequestCreateMogacoDto>;
 };
 
 export function PostAddress({ control }: PostAddressProps) {
+  const { openModal } = useModal();
+  const onClickInput = () => {
+    openModal(<MapModal />);
+  };
   return (
     <Controller
       control={control}
@@ -23,6 +28,7 @@ export function PostAddress({ control }: PostAddressProps) {
           onChange={onChange}
           value={value}
           errorMessage={error && MOGACO_POST.ADDRESS.REQUIRED}
+          onClick={onClickInput}
         />
       )}
     />
