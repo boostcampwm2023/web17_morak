@@ -10,6 +10,7 @@ export const container = recipe({
     minWidth: '3.5rem',
     padding: '0.4rem 1.5rem',
     borderRadius: '100rem',
+    whiteSpace: 'pre',
   },
 
   variants: {
