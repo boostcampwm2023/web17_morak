@@ -1,7 +1,8 @@
 import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 
-import { Sidebar } from '@/components';
+import { Error, Sidebar } from '@/components';
 import { Chatting } from '@/components/Sidebar/Contents/Chatting';
+import { useGetMyInfoQuery } from '@/queries/hooks';
 
 export function ChattingSidebar({
   closed,
@@ -14,16 +15,19 @@ export function ChattingSidebar({
   title: string;
   participants: ResponseParticipant[];
 }) {
-  const { title, participants, chatItems, currentUsername } = chattingProps;
-
+  const { data: currentUser } = useGetMyInfoQuery();
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
-      <Chatting
-        title={title}
-        participants={participants}
-        chatItems={chatItems}
-        currentUsername={currentUsername}
-      />
+      {currentUser ? (
+        <Chatting
+          id={id}
+          title={title}
+          participants={participants}
+          currentUserId={currentUser.providerId}
+        />
+      ) : (
+        <Error message="로그인 필요" />
+      )}
     </Sidebar>
   );
 }
