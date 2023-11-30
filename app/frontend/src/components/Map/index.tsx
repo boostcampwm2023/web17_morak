@@ -2,41 +2,41 @@ import { useEffect } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
+import {
+  DEFAULT_ZOOM_LEVEL,
+  MIN_ZOOM_LEVEL,
+  MAX_ZOOM_LEVEL,
+} from '@/constants';
 import { queryKeys } from '@/queries';
 
 import * as styles from './index.css';
+import { Marker } from './Marker';
 
-type MarkerProps = { id: string };
+const { Tmapv2 } = window;
 
 type MapProps = {
-  onClickMarker: ({ id }: MarkerProps) => void;
+  onClickMarker: (id: string) => void;
 };
 
 export function Map({ onClickMarker }: MapProps) {
-  const { Tmapv2 } = window;
   const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
 
   useEffect(() => {
     const mapContent = new Tmapv2.Map('map', {
-      center: new Tmapv2.LatLng(37.566535, 126.9779692),
-      zoom: 16,
+      zoom: DEFAULT_ZOOM_LEVEL,
     });
-    mapContent.setZoomLimit(7, 17);
+    mapContent.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
 
     mogacoList?.forEach((mogaco) => {
       const { id, latitude, longitude } = mogaco;
       if (latitude && longitude) {
         const position = new Tmapv2.LatLng(latitude, longitude);
-        const marker = new Tmapv2.Marker({
-          position,
-          icon: '/public/assets/icons/pin.svg',
-          map: mapContent,
-        });
+        const marker = Marker({ mapContent, latitude, longitude });
         marker.id = id;
         marker.addListener('click', () => {
-          onClickMarker({ id });
+          onClickMarker(id);
           mapContent.setCenter(position);
-          mapContent.setZoom(17);
+          mapContent.setZoom(MAX_ZOOM_LEVEL);
         });
       }
     });
