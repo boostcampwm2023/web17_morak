@@ -21,12 +21,18 @@ type ChattingProps = {
   id: string;
   title: string;
   participants: ResponseParticipant[];
+  currentUserId: string;
 };
 
-export function Chatting({ id, title, participants }: ChattingProps) {
+export function Chatting({
+  id,
+  title,
+  participants,
+  currentUserId,
+}: ChattingProps) {
   const [message, setMessage] = useState('');
   const { data: currentUser } = useGetMyInfoQuery();
-  const chatItems: ChatMessage[] = [];
+  const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -38,8 +44,8 @@ export function Chatting({ id, title, participants }: ChattingProps) {
 
     socketClient.sendMessage({
       id: '1',
-      room: '1',
-      user: '1',
+      room: id,
+      user: currentUserId,
       contents: message,
       date: new Date(),
       messageType: 'talk',
@@ -47,20 +53,19 @@ export function Chatting({ id, title, participants }: ChattingProps) {
     setMessage('');
   };
 
-  const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
-    console.log('SendChatting');
-    if (status === 200) console.log('[수신]', msgs);
-  };
-
   useEffect(() => {
+    const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
+      if (status === 200) {
+        setChatItems([...chatItems, ...msgs]);
+      }
+    };
+
     socketClient.joinRoom({ user: '1', room: '1' }, fetchChatting);
     socketClient.subscribeToChat(fetchChatting);
-    console.log('연결됨');
     return () => {
       socketClient.leaveRoom({ user: '1', room: '1' });
-      console.log('연결종료');
     };
-  }, []);
+  }, [chatItems]);
 
   if (!currentUser || !id)
     return (
