@@ -11,7 +11,7 @@ import {
   useQuitMogacoQuery,
 } from '@/queries/hooks';
 
-import { useDeleteModal } from './useDeleteModal';
+import { useDeleteModal, useJoinModal, useQuitModal } from './useModal';
 
 type DetailHeaderButtonsProps = {
   id: string;
@@ -47,12 +47,14 @@ export function DetailHeaderButtons({ id }: DetailHeaderButtonsProps) {
     navigate(`/post?id=${id}`);
   };
 
-  const onClickJoin = async () => {
-    await joinMogaco.mutateAsync(id);
+  const { openJoinModal } = useJoinModal();
+  const onClickJoin = () => {
+    openJoinModal({ onClickConfirm: () => joinMogaco.mutate(id) });
   };
 
-  const onClickQuit = async () => {
-    await quitMogaco.mutateAsync(id);
+  const { openQuitModal } = useQuitModal();
+  const onClickQuit = () => {
+    openQuitModal({ onClickConfirm: () => quitMogaco.mutate(id) });
   };
 
   if (currentUserLoading || mogacoDataLoading) {
