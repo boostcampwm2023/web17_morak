@@ -17,6 +17,8 @@ export const mogacoAPIHandlers = [
         date: new Date('2023-11-22T12:00:00Z'),
         maxHumanCount: 5,
         address: '서울특별시 관악구 어디길 22 모락 카페',
+        latitude: 37.4766,
+        longitude: 126.9817,
         status: '모집 중',
         createdAt: new Date('2023-11-25T10:21:35.716Z'),
         updatedAt: new Date('2023-11-25T10:21:35.716Z'),
@@ -44,6 +46,8 @@ export const mogacoAPIHandlers = [
         date: new Date('2023-11-29T08:40:00.000Z'),
         maxHumanCount: 15,
         address: '서울특별시 어디구 어디동 12',
+        latitude: 37.4766,
+        longitude: 126.9817,
         status: '모집 중',
         member: {
           providerId: '107756461693287933704',
