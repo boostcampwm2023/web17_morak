@@ -1,6 +1,7 @@
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
+
 import { Sidebar } from '@/components';
 import { Chatting } from '@/components/Sidebar/Contents/Chatting';
-import { Member } from '@/types';
 
 export function ChattingSidebar({
   closed,
@@ -13,7 +14,7 @@ export function ChattingSidebar({
   toggleClosed: () => void;
   id: string;
   title: string;
-  participants: Member[];
+  participants: ResponseParticipant[];
 }) {
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>

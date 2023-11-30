@@ -1,13 +1,14 @@
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
+
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Popover, UserChip } from '@/components';
 import { vars } from '@/styles';
-import { ChatUser } from '@/types';
 
 import * as styles from './index.css';
 
 type ChattingHeaderProps = {
   title: string;
-  participants: ChatUser[];
+  participants: ResponseParticipant[];
 };
 
 export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
@@ -19,8 +20,12 @@ export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
         <span>{participants.length}</span>
         <Popover type="right" className={styles.popover}>
           <div className={styles.userList}>
-            {participants.map(({ id, username, profileSrc }) => (
-              <UserChip key={id} username={username} profileSrc={profileSrc} />
+            {participants.map(({ id, nickname, profilePicture }) => (
+              <UserChip
+                key={id}
+                username={nickname}
+                profileSrc={profilePicture}
+              />
             ))}
           </div>
         </Popover>
