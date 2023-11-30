@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
 import { UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 // JwtService를 모킹합니다.
 jest.mock('@nestjs/jwt');
@@ -9,17 +10,28 @@ jest.mock('@nestjs/jwt');
 describe('MemberController', () => {
   let memberController: MemberController;
   let memberService: MemberService;
+  let jwtService: JwtService;
 
   beforeEach(async () => {
     // NestJS 테스트 모듈을 이용하여 컨트롤러, 서비스, JwtService를 초기화합니다.
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MemberController],
-      providers: [MemberService],
+      providers: [
+        MemberService,
+        {
+          provide: JwtService,
+          useValue: {
+            // 테스트에 필요한 대로 JwtService 메서드를 목업 또는 스텁으로 설정
+            sign: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     // 각각의 컴포넌트를 가져옵니다.
     memberController = module.get<MemberController>(MemberController);
     memberService = module.get<MemberService>(MemberService);
+    jwtService = module.get<JwtService>(JwtService);
   });
 
   describe('getUserData', () => {
@@ -31,6 +43,9 @@ describe('MemberController', () => {
         nickname: 'morak morak',
         profilePicture: 'morak.jpg',
       };
+
+      // JwtService의 sign 메서드를 모킹하여 가짜 토큰을 반환하도록 설정합니다.
+      jest.spyOn(jwtService, 'sign').mockReturnValue('fakeAccessToken');
 
       jest.spyOn(memberService, 'getUserData').mockResolvedValue(mockUserData);
 
