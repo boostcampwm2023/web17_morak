@@ -32,8 +32,9 @@ class ChatGateway {
   }
 
   @SubscribeMessage('chatMessage')
-  handleMessage(@AuthUser() user: User, room: string, @ChatMessage() message) {
-    this.server.to(message.room).emit('chatMessage', message);
+  handleMessage(@AuthUser() user: User, @ChatMessage() message) {
+    console.log(message);
+    this.server.to(message.room).emit('chat', StatusCode.success, message);
   }
 
   afterInit(server: Server) {
