@@ -8,6 +8,13 @@ export const container = style({
   paddingTop: '8.5rem',
 });
 
+export const label = style({
+  padding: '0.2rem',
+  background: vars.color.morakRed,
+  color: vars.color.grayscaleWhite,
+  borderRadius: '0.5rem',
+});
+
 export const marker = recipe({
   base: {
     width: '5rem',
