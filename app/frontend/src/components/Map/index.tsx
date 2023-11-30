@@ -26,13 +26,18 @@ export function Map({ onClickMarker }: MapProps) {
     mogacoList?.forEach((mogaco) => {
       const { id, latitude, longitude } = mogaco;
       if (latitude && longitude) {
+        const position = new Tmapv2.LatLng(latitude, longitude);
         const marker = new Tmapv2.Marker({
-          position: new Tmapv2.LatLng(latitude, longitude),
+          position,
           icon: '/public/assets/icons/pin.svg',
           map: mapContent,
         });
         marker.id = id;
-        marker.addListener('click', onClickMarker);
+        marker.addListener('click', () => {
+          onClickMarker({ id });
+          mapContent.setCenter(position);
+          mapContent.setZoom(17);
+        });
       }
     });
 
