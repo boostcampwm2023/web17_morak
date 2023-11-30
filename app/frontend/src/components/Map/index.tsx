@@ -13,27 +13,26 @@ type MapProps = {
 };
 
 export function Map({ onClickMarker }: MapProps) {
-  const { Tmapv3 } = window;
+  const { Tmapv2 } = window;
   const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
 
   useEffect(() => {
-    const mapContent = new Tmapv3.Map('map', {
-      center: new Tmapv3.LatLng(37.566535, 126.9779692),
-      zoom: 14,
+    const mapContent = new Tmapv2.Map('map', {
+      center: new Tmapv2.LatLng(37.566535, 126.9779692),
+      zoom: 16,
     });
-    mapContent.setZoomLimit(7, 16);
+    mapContent.setZoomLimit(7, 17);
 
     mogacoList?.forEach((mogaco) => {
-      const { coord, id } = mogaco;
-      if (coord) {
-        const [lat, lon] = coord.split(',');
-        const marker = new Tmapv3.Marker({
-          position: new Tmapv3.LatLng(Number(lat), Number(lon)),
+      const { id, latitude, longitude } = mogaco;
+      if (latitude && longitude) {
+        const marker = new Tmapv2.Marker({
+          position: new Tmapv2.LatLng(latitude, longitude),
           icon: '/public/assets/icons/pin.svg',
           map: mapContent,
         });
         marker.id = id;
-        marker.on('Click', onClickMarker);
+        marker.addListener('click', onClickMarker);
       }
     });
 
