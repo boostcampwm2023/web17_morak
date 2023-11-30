@@ -31,7 +31,12 @@ export function Map({ onClickMarker }: MapProps) {
       const { id, latitude, longitude } = mogaco;
       if (latitude && longitude) {
         const position = new Tmapv2.LatLng(latitude, longitude);
-        const marker = Marker({ mapContent, latitude, longitude });
+        const marker = Marker({
+          mapContent,
+          latitude,
+          longitude,
+          theme: 'green',
+        });
         marker.id = id;
         marker.addListener('click', () => {
           onClickMarker(id);
