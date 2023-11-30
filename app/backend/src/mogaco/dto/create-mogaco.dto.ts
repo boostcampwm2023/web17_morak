@@ -30,6 +30,14 @@ export class CreateMogacoDto implements RequestCreateMogacoDto {
   @IsNotEmpty()
   address: string;
 
+  @ApiProperty({ description: 'Latitude' })
+  @IsNotEmpty()
+  latitude: number;
+
+  @ApiProperty({ description: 'Longitude' })
+  @IsNotEmpty()
+  longitude: number;
+
   @ApiProperty({ description: 'Status of the Mogaco', example: '모집 중' })
   @IsEnum(MogacoStatus, { message: 'Invalid status' })
   status: string;

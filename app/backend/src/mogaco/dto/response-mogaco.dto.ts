@@ -28,6 +28,12 @@ export class MogacoDto implements ResponseMogacoDto {
   @ApiProperty({ description: 'Address of the Mogaco', example: '서울특별시 관악구 어디길 22 모락 카페' })
   address: string;
 
+  @ApiProperty({ description: 'Latitude' })
+  latitude: number;
+
+  @ApiProperty({ description: 'Longitude' })
+  longitude: number;
+
   @ApiProperty({ description: 'Status of the Mogaco', example: '모집 중' })
   status: string;
 
@@ -65,6 +71,12 @@ export class MogacoWithMemberDto implements ResponseMogacoWithMemberDto {
 
   @ApiProperty({ description: 'Address of the Mogaco', example: '서울특별시 관악구 어디길 22 모락 카페' })
   address: string;
+
+  @ApiProperty({ description: 'Latitude' })
+  latitude: number;
+
+  @ApiProperty({ description: 'Longitude' })
+  longitude: number;
 
   @ApiProperty({ description: 'Status of the Mogaco', example: '모집 마감' })
   status: string;

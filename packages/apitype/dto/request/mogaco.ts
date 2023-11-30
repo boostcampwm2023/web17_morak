@@ -7,6 +7,8 @@ export interface RequestCreateMogacoDto {
   date: string;
   maxHumanCount: number;
   address: string;
+  latitude: number;
+  longitude: number;
   status: string;
 }
 
