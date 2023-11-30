@@ -26,6 +26,8 @@ export class MogacoRepository {
       date: mogaco.date,
       maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
       status: mogaco.status,
       createdAt: mogaco.createdAt,
       updatedAt: mogaco.updatedAt,
@@ -68,6 +70,8 @@ export class MogacoRepository {
       date: mogaco.date,
       maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
       status: mogaco.status,
       member: {
         providerId: mogaco.member.providerId,
@@ -81,7 +85,7 @@ export class MogacoRepository {
 
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     try {
-      const { groupId, title, contents, maxHumanCount, address, date } = createMogacoDto;
+      const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
 
       const mogaco = await this.prisma.mogaco.create({
         data: {
@@ -89,6 +93,8 @@ export class MogacoRepository {
           contents,
           maxHumanCount,
           address,
+          latitude,
+          longitude,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
           group: {
@@ -160,6 +166,8 @@ export class MogacoRepository {
           status: updateMogacoDto.status,
           maxHumanCount: updateMogacoDto.maxHumanCount,
           address: updateMogacoDto.address,
+          latitude: updateMogacoDto.latitude,
+          longitude: updateMogacoDto.longitude,
         },
       });
     } catch (error) {
@@ -296,6 +304,8 @@ export class MogacoRepository {
       date: mogaco.date,
       maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
       status: mogaco.status,
       createdAt: mogaco.createdAt,
       updatedAt: mogaco.updatedAt,
