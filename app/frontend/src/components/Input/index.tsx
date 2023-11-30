@@ -16,6 +16,7 @@ type InputProps = {
   defaultValue?: string;
   value?: string | number;
   onChange?: () => void;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
 };
 
 export function Input({
@@ -31,6 +32,7 @@ export function Input({
   defaultValue = '',
   value,
   onChange,
+  onClick,
 }: InputProps) {
   return (
     <div
@@ -58,6 +60,7 @@ export function Input({
         max={max}
         value={value || defaultValue}
         onChange={onChange}
+        onClick={onClick}
       />
       {!disabled && errorMessage && (
         <p className={styles.errorMessage}>{errorMessage}</p>
