@@ -47,6 +47,7 @@ export function MogacoPostPage() {
       maxHumanCount: 0,
       status: '모집 중',
     },
+    mode: 'all',
   });
 
   useEffect(() => {
