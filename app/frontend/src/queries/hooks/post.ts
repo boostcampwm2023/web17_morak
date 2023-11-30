@@ -27,7 +27,7 @@ export const useSubmitPost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (form: RequestCreateMogacoDto) => mogaco.post(form),
+    mutationFn: (form: Partial<RequestCreateMogacoDto>) => mogaco.post(form),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.list().queryKey,
