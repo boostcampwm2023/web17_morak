@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { TMAP_API_KEY } from '@/constants';
+import { TmapResponse } from '@/types';
 
 export const tmap = {
   endPoint: {
@@ -25,7 +26,7 @@ export const tmap = {
     };
     const queryString = new URLSearchParams(searchOptions).toString();
 
-    const { data } = await axios.get(
+    const { data } = await axios.get<TmapResponse>(
       `${tmap.endPoint.pois}?${queryString}`,
       options,
     );
