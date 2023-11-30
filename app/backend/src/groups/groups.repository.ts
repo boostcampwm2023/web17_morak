@@ -8,27 +8,25 @@ export class GroupsRepository {
   constructor(private prisma: PrismaService) {}
 
   async getAllGroups(): Promise<Group[]> {
-    return this.prisma.group.findMany();
+    return await this.prisma.group.findMany();
   }
 
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
-    return this.prisma.groupToUser
-      .findMany({
-        where: {
-          groupId: groupId,
-        },
-        include: {
-          user: true,
-        },
-      })
-      .then((groupToUsers) =>
-        groupToUsers.map((groupToUser) => ({
-          providerId: groupToUser.user.providerId,
-          email: groupToUser.user.email,
-          nickname: groupToUser.user.nickname,
-          profilePicture: groupToUser.user.profilePicture,
-        })),
-      );
+    const groupToUsers = await this.prisma.groupToUser.findMany({
+      where: {
+        groupId: groupId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return groupToUsers.map((groupToUser) => ({
+      providerId: groupToUser.user.providerId,
+      email: groupToUser.user.email,
+      nickname: groupToUser.user.nickname,
+      profilePicture: groupToUser.user.profilePicture,
+    }));
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {
