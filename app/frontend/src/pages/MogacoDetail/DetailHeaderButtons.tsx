@@ -11,7 +11,7 @@ import {
   useQuitMogacoQuery,
 } from '@/queries/hooks';
 
-import { useDeleteModal, useJoinModal, useQuitModal } from './useDeleteModal';
+import { useDeleteModal, useJoinModal, useQuitModal } from './useModal';
 
 type DetailHeaderButtonsProps = {
   id: string;
