@@ -9,7 +9,7 @@ import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
 import { TMap, TMapMarker } from '@/types';
 
-import * as styles from './MapModal.css';
+import * as styles from './index.css';
 
 type MapModalProps = {
   saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
