@@ -41,6 +41,10 @@ export type TMap = {
 export type TMapMarker = {
   setMap: (map: TMap | null) => void;
 };
+export type TMapSize = {
+  _width: number;
+  _height: number;
+};
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
 };
