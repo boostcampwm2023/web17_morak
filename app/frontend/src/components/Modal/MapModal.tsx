@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { Button } from '@/components';
+import { Button, Input } from '@/components';
 import { useModalAtom } from '@/stores';
 
 import * as styles from './MapModal.css';
@@ -28,16 +28,39 @@ export function MapModal() {
   return (
     <dialog className={styles.container} open={open}>
       <form method="dialog" className={styles.form}>
+        <div className={styles.inputWrapper}>
+          <Input list="address-input" />
+          <datalist id="address-input" className={styles.list}>
+            {['A', 'B', 'C', 'D'].map((item) => (
+              <option key={item} className={styles.listItem}>
+                {item}
+              </option>
+            ))}
+          </datalist>
+        </div>
         <div id="map" className={styles.map} ref={mapRef} />
-        <Button
-          type="button"
-          theme="primary"
-          size="medium"
-          shape="fill"
-          onClick={closeModal}
-        >
-          닫기
-        </Button>
+        <div className={styles.buttonWrapper}>
+          <Button
+            type="button"
+            theme="primary"
+            size="medium"
+            shape="line"
+            onClick={closeModal}
+            fullWidth
+          >
+            취소
+          </Button>
+          <Button
+            type="button"
+            theme="primary"
+            size="medium"
+            shape="fill"
+            fullWidth
+            onClick={closeModal}
+          >
+            확인
+          </Button>
+        </div>
       </form>
     </dialog>
   );
