@@ -11,7 +11,7 @@ export const addressWrapper = style({
   display: 'flex',
   flex: '1',
   gap: '0.8rem',
-  maxHeight: calc.subtract('100%', '7.8rem'),
+  maxHeight: calc.subtract('100%', '5.7rem'),
 });
 export const buttonWrapper = style({
   display: 'flex',
