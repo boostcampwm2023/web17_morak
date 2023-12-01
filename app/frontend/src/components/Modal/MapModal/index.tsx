@@ -80,6 +80,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
         <div className={styles.addressWrapper}>
           <div className={styles.inputWrapper}>
             <Input
+              label="장소 검색"
               list="address-input"
               value={searchKeyword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
