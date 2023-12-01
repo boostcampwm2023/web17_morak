@@ -4,32 +4,35 @@ import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
-import { Marker } from '@/components/Map/Marker';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
-import { TMap, TMapMarker } from '@/types';
 
 import * as styles from './index.css';
+import { useMap } from './useMap';
 
 type MapModalProps = {
   saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
 };
-const { Tmapv2 } = window;
+
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedAddress, setSelectedAddress] = useState('');
-  const [mapInstance, setMapInstance] = useState<TMap | null>(null);
-  const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
   const [coord, setCoord] = useState<{
-    lat: number | null;
-    lon: number | null;
+    latitude: number | null;
+    longitude: number | null;
   }>({
-    lat: null,
-    lon: null,
+    latitude: null,
+    longitude: null,
   });
   const mapRef = useRef<HTMLDivElement>(null);
+  const { updateMarker } = useMap(mapRef);
+
+  useEffect(() => {
+    updateMarker(coord);
+  }, [coord, updateMarker]);
+
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
       searchKeyword,
@@ -51,20 +54,6 @@ export function MapModal({ saveAddress }: MapModalProps) {
     closeModal();
   };
 
-  useEffect(() => {
-    if (mapRef.current?.firstChild) {
-      return;
-    }
-
-    const map = new Tmapv2.Map('map', {
-      center: new Tmapv2.LatLng(37.566535, 126.9779692),
-      zoom: 14,
-    });
-
-    map.setZoomLimit(7, 16);
-    setMapInstance(map);
-  }, [mapRef]);
-
   const onClickAddressListItem = <
     Event extends React.MouseEvent | React.KeyboardEvent,
   >(
@@ -72,30 +61,12 @@ export function MapModal({ saveAddress }: MapModalProps) {
   ) => {
     setSelectedAddress(e.currentTarget.getAttribute('value') || '');
     const coordinate = {
-      lat: Number(e.currentTarget.getAttribute('data-lat')),
-      lon: Number(e.currentTarget.getAttribute('data-lon')),
+      latitude: Number(e.currentTarget.getAttribute('data-lat')),
+      longitude: Number(e.currentTarget.getAttribute('data-lon')),
     };
 
     setCoord(coordinate);
   };
-
-  useEffect(() => {
-    if (!(coord.lat && coord.lon) || !mapInstance) {
-      return;
-    }
-
-    currentMarker?.setMap(null);
-    const position = new Tmapv2.LatLng(coord.lat, coord.lon);
-    const marker = Marker({
-      mapContent: mapInstance,
-      latitude: coord.lat,
-      longitude: coord.lon,
-      theme: 'green',
-    });
-    setCurrentMarker(marker);
-    mapInstance?.setCenter(position);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coord, mapInstance]);
 
   return (
     <dialog className={styles.container} open={open}>
