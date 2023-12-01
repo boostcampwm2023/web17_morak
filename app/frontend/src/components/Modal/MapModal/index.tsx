@@ -12,7 +12,14 @@ import * as styles from './index.css';
 import { useMap } from './useMap';
 
 type MapModalProps = {
-  saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
+  saveAddress: ({
+    address,
+    latitude,
+    longitude,
+  }: Pick<
+    RequestCreateMogacoDto,
+    'address' | 'latitude' | 'longitude'
+  >) => void;
 };
 
 type Coord = {
@@ -24,7 +31,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedAddress, setSelectedAddress] = useState('');
-  const [coord, setCoord] = useState<Coord>({
+  const [selectedCoord, setSelectedCoord] = useState<Coord>({
     latitude: null,
     longitude: null,
   });
@@ -32,8 +39,8 @@ export function MapModal({ saveAddress }: MapModalProps) {
   const { updateMarker } = useMap(mapRef);
 
   useEffect(() => {
-    updateMarker(coord);
-  }, [coord, updateMarker]);
+    updateMarker(selectedCoord);
+  }, [selectedCoord, updateMarker]);
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -52,7 +59,9 @@ export function MapModal({ saveAddress }: MapModalProps) {
   };
 
   const onClickConfirm = () => {
-    saveAddress({ address: selectedAddress });
+    const { latitude, longitude } = selectedCoord;
+    if (!(latitude && longitude)) return;
+    saveAddress({ address: selectedAddress, latitude, longitude });
     closeModal();
   };
 
@@ -66,8 +75,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
       latitude: Number(e.currentTarget.getAttribute('data-lat')),
       longitude: Number(e.currentTarget.getAttribute('data-lon')),
     };
-
-    setCoord(coordinate);
+    setSelectedCoord(coordinate);
   };
 
   return (
