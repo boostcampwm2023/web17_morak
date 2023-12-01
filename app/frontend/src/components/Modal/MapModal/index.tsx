@@ -80,7 +80,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
   };
 
   useEffect(() => {
-    if (!(coord.lat && coord.lon)) {
+    if (!(coord.lat && coord.lon) || !mapInstance) {
       return;
     }
 
