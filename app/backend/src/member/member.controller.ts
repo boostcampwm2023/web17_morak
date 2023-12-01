@@ -3,7 +3,7 @@ import { MemberService } from './member.service';
 import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { MemberInformationDto } from './dto/member.dto';
-import { AtGuard } from 'src/auth/guards/at.guard';
+import { AtGuard } from '../../src/auth/guards/at.guard';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
