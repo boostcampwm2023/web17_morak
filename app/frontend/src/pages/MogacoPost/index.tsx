@@ -107,7 +107,7 @@ export function MogacoPostPage() {
           setGroup={setGroup}
         />
         <PostMaxHumanCount control={control} isEdit={!!mogacoData} />
-        <PostAddress control={control} />
+        <PostAddress control={control} setValue={setValue} />
         <PostDate control={control} isEdit={!!mogacoData} />
         <PostContents control={control} />
       </div>
