@@ -65,6 +65,10 @@ export type TMapSize = {
 export type TmapAddressInfo = {
   fullAddress: string;
 };
+export type TMapSize = {
+  _width: number;
+  _height: number;
+};
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
 };
