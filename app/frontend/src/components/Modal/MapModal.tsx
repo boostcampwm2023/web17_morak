@@ -51,6 +51,12 @@ export function MapModal({ saveAddress }: MapModalProps) {
     mapContent.setZoomLimit(7, 16);
   }, [mapRef]);
 
+  const onClickAddressListItem = <
+    Event extends React.MouseEvent | React.KeyboardEvent,
+  >(
+    e: Event,
+  ) => setSelectedAddress(e.currentTarget.getAttribute('value') || '');
+
   return (
     <dialog className={styles.container} open={open}>
       <form method="dialog" className={styles.form}>
@@ -75,15 +81,13 @@ export function MapModal({ saveAddress }: MapModalProps) {
                   const addressName = address.name;
                   return (
                     <li
+                      role="option"
+                      aria-selected={false}
                       className={styles.listItem}
                       key={address.pkey}
                       value={`${fullAddress} ${addressName}`}
-                      onClick={(e) =>
-                        setSelectedAddress(
-                          e.currentTarget.getAttribute('value') || '',
-                        )
-                      }
-                      aria-hidden
+                      onClick={onClickAddressListItem}
+                      onKeyDown={onClickAddressListItem}
                     >
                       <span className={sansBold14}>{addressName}</span>
                       <span className={sansRegular12}>{fullAddress}</span>
