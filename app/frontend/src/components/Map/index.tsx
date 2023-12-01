@@ -56,7 +56,6 @@ export function Map({ onClickMarker }: MapProps) {
           longitude,
           theme: 'green',
         });
-        marker.id = id;
         marker.addListener('click', () => {
           onClickMarker(id);
           mapContent.setCenter(position);
