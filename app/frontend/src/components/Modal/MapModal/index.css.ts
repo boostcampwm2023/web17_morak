@@ -4,7 +4,7 @@ import { calc } from '@vanilla-extract/css-utils';
 import { vars } from '@/styles';
 import { sansRegular12 } from '@/styles/font.css';
 
-import { container as modalContainer } from './index.css';
+import { container as modalContainer } from '../index.css';
 
 const { grayscale500, grayscale200, grayscale50 } = vars.color;
 export const addressWrapper = style({
