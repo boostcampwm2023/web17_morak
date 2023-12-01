@@ -1,4 +1,4 @@
-import { Controller, Control } from 'react-hook-form';
+import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
@@ -8,12 +8,18 @@ import { useModal } from '@/hooks';
 
 type PostAddressProps = {
   control: Control<RequestCreateMogacoDto>;
+  setValue: UseFormSetValue<RequestCreateMogacoDto>;
 };
 
-export function PostAddress({ control }: PostAddressProps) {
+export function PostAddress({ control, setValue }: PostAddressProps) {
+  const saveAddress = ({
+    address,
+  }: Pick<RequestCreateMogacoDto, 'address'>) => {
+    setValue('address', address);
+  };
   const { openModal } = useModal();
   const onClickInput = () => {
-    openModal(<MapModal />);
+    openModal(<MapModal saveAddress={saveAddress} />);
   };
 
   return (
