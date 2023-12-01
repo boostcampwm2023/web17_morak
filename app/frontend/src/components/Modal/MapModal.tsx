@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button, Input } from '@/components';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
+import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
 
 import * as styles from './MapModal.css';
 
@@ -48,29 +49,37 @@ export function MapModal({ saveAddress }: MapModalProps) {
   return (
     <dialog className={styles.container} open={open}>
       <form method="dialog" className={styles.form}>
-        <div className={styles.inputWrapper}>
-          <Input
-            list="address-input"
-            value={searchKeyword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchKeyword(e.currentTarget.value)
-            }
-          />
-          <datalist id="address-input" className={styles.list}>
-            {addressData?.map((address) => {
-              const fullAddress =
-                address.newAddressList.newAddress[0].fullAddressRoad;
-              const addressName = address.name;
-              return (
-                <option
-                  key={address.pkey}
-                  value={`${fullAddress} ${addressName}`}
-                >
-                  {`${fullAddress} ${addressName}`}
-                </option>
-              );
-            })}
-          </datalist>
+        <div className={styles.currentAddress}>
+          <span className={sansRegular14}> 선택한 주소: </span>
+        </div>
+        <div className={styles.addressWrapper}>
+          <div className={styles.inputWrapper}>
+            <Input
+              list="address-input"
+              value={searchKeyword}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchKeyword(e.currentTarget.value)
+              }
+            />
+            <ul id="address-input" className={styles.list}>
+              {addressData?.map((address) => {
+                const fullAddress =
+                  address.newAddressList.newAddress[0].fullAddressRoad;
+                const addressName = address.name;
+                return (
+                  <li
+                    className={styles.listItem}
+                    key={address.pkey}
+                    value={`${fullAddress} ${addressName}`}
+                  >
+                    <span className={sansBold14}>{addressName}</span>
+                    <span className={sansRegular12}>{fullAddress}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div id="map" className={styles.map} ref={mapRef} />
         </div>
         <div id="map" className={styles.map} ref={mapRef} />
         <div className={styles.buttonWrapper}>
