@@ -1,4 +1,4 @@
-import { LatLng, TMap } from './tmap';
+import { LatLng, TMap, TMapSize } from './tmap';
 
 declare global {
   interface Window {
@@ -14,7 +14,13 @@ declare global {
         },
       ) => TMap;
       LatLng: new (lat, lon) => LatLng;
-      Marker: new ({ position: LatLng, map: TMap }) => TMapMarker;
+      Marker: new (options?: {
+        map: TMap;
+        position: LatLng;
+        iconHTML?: string;
+        iconSize?: TMapSize;
+      }) => TMapMarker;
+      Size: new (width: number, height: number) => TMapSize;
     };
   }
 }
