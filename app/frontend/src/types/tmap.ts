@@ -37,9 +37,11 @@ export type SearchPoiInfo = {
 export type TMap = {
   setCenter: (latLng: LatLng) => void;
   setZoomLimit: (minZoom: number, maxZoom: number) => void;
+  destroy: () => void;
 };
 export type TMapMarker = {
   setMap: (map: TMap | null) => void;
+  getPosition: () => LatLng;
 };
 export type TMapSize = {
   _width: number;
