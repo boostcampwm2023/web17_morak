@@ -4,6 +4,7 @@ import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
+import { Marker } from '@/components/Map/Marker';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
@@ -85,9 +86,11 @@ export function MapModal({ saveAddress }: MapModalProps) {
 
     currentMarker?.setMap(null);
     const position = new Tmapv2.LatLng(coord.lat, coord.lon);
-    const marker = new Tmapv2.Marker({
-      position,
-      map: mapInstance,
+    const marker = Marker({
+      mapContent: mapInstance,
+      latitude: coord.lat,
+      longitude: coord.lon,
+      theme: 'green',
     });
     setCurrentMarker(marker);
     mapInstance?.setCenter(position);
