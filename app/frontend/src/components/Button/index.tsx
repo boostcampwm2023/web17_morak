@@ -7,7 +7,7 @@ type ButtonProps = {
   size: 'small' | 'medium' | 'large';
   disabled?: boolean;
   fullWidth?: boolean;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
   className?: string;
 };
