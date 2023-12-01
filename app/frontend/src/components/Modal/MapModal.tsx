@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
@@ -8,7 +9,10 @@ import { useModalAtom } from '@/stores';
 
 import * as styles from './MapModal.css';
 
-export function MapModal() {
+type MapModalProps = {
+  saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
+};
+export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const mapRef = useRef<HTMLDivElement>(null);
@@ -22,6 +26,11 @@ export function MapModal() {
 
   const closeModal = () => {
     setOpen(false);
+  };
+
+  const onClickConfirm = () => {
+    saveAddress({ address: searchKeyword });
+    closeModal();
   };
 
   useEffect(() => {
@@ -81,7 +90,7 @@ export function MapModal() {
             size="medium"
             shape="fill"
             fullWidth
-            onClick={closeModal}
+            onClick={onClickConfirm}
           >
             확인
           </Button>
