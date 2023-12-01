@@ -16,6 +16,7 @@ type MapModalProps = {
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [selectedAddress, setSelectedAddress] = useState('');
   const mapRef = useRef<HTMLDivElement>(null);
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -30,7 +31,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
   };
 
   const onClickConfirm = () => {
-    saveAddress({ address: searchKeyword });
+    saveAddress({ address: selectedAddress });
     closeModal();
   };
 
@@ -51,6 +52,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
       <form method="dialog" className={styles.form}>
         <div className={styles.currentAddress}>
           <span className={sansRegular14}> 선택한 주소: </span>
+          <span className={sansBold14}>{selectedAddress}</span>
         </div>
         <div className={styles.addressWrapper}>
           <div className={styles.inputWrapper}>
@@ -71,6 +73,12 @@ export function MapModal({ saveAddress }: MapModalProps) {
                     className={styles.listItem}
                     key={address.pkey}
                     value={`${fullAddress} ${addressName}`}
+                    onClick={(e) =>
+                      setSelectedAddress(
+                        e.currentTarget.getAttribute('value') || '',
+                      )
+                    }
+                    aria-hidden
                   >
                     <span className={sansBold14}>{addressName}</span>
                     <span className={sansRegular12}>{fullAddress}</span>
@@ -81,7 +89,6 @@ export function MapModal({ saveAddress }: MapModalProps) {
           </div>
           <div id="map" className={styles.map} ref={mapRef} />
         </div>
-        <div id="map" className={styles.map} ref={mapRef} />
         <div className={styles.buttonWrapper}>
           <Button
             type="button"
