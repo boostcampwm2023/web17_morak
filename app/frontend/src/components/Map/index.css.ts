@@ -3,6 +3,8 @@ import { recipe } from '@vanilla-extract/recipes';
 
 import { vars } from '@/styles';
 
+const { morakGreen, subGreen, morakRed, grayscale100 } = vars.color;
+
 export const container = style({
   height: '100%',
   paddingTop: '8.5rem',
@@ -23,12 +25,12 @@ export const marker = recipe({
   variants: {
     theme: {
       green: {
-        fill: vars.color.morakGreen,
-        stroke: vars.color.subGreen,
+        fill: morakGreen,
+        stroke: subGreen,
       },
       red: {
-        fill: vars.color.morakRed,
-        stroke: vars.color.grayscale100,
+        fill: morakRed,
+        stroke: grayscale100,
       },
     },
   },
