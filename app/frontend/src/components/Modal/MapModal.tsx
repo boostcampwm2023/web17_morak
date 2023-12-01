@@ -55,7 +55,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
     <dialog className={styles.container} open={open}>
       <form method="dialog" className={styles.form}>
         <div className={styles.currentAddress}>
-          <span className={sansRegular14}> 선택한 주소: </span>
+          <span className={sansRegular14}>선택한 주소: </span>
           <span className={sansBold14}>{selectedAddress}</span>
         </div>
         <div className={styles.addressWrapper}>
@@ -67,29 +67,31 @@ export function MapModal({ saveAddress }: MapModalProps) {
                 setSearchKeyword(e.currentTarget.value)
               }
             />
-            <ul id="address-input" className={styles.list}>
-              {addressData?.map((address) => {
-                const fullAddress =
-                  address.newAddressList.newAddress[0].fullAddressRoad;
-                const addressName = address.name;
-                return (
-                  <li
-                    className={styles.listItem}
-                    key={address.pkey}
-                    value={`${fullAddress} ${addressName}`}
-                    onClick={(e) =>
-                      setSelectedAddress(
-                        e.currentTarget.getAttribute('value') || '',
-                      )
-                    }
-                    aria-hidden
-                  >
-                    <span className={sansBold14}>{addressName}</span>
-                    <span className={sansRegular12}>{fullAddress}</span>
-                  </li>
-                );
-              })}
-            </ul>
+            {addressData && (
+              <ul id="address-input" className={styles.list}>
+                {addressData.map((address) => {
+                  const fullAddress =
+                    address.newAddressList.newAddress[0].fullAddressRoad;
+                  const addressName = address.name;
+                  return (
+                    <li
+                      className={styles.listItem}
+                      key={address.pkey}
+                      value={`${fullAddress} ${addressName}`}
+                      onClick={(e) =>
+                        setSelectedAddress(
+                          e.currentTarget.getAttribute('value') || '',
+                        )
+                      }
+                      aria-hidden
+                    >
+                      <span className={sansBold14}>{addressName}</span>
+                      <span className={sansRegular12}>{fullAddress}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
           <div id="map" className={styles.map} ref={mapRef} />
         </div>
