@@ -23,7 +23,7 @@ export const Marker = ({
   new Tmapv2.Marker({
     position: new Tmapv2.LatLng(latitude, longitude),
     iconHTML: ReactDOMServer.renderToString(
-      <Pin className={styles.marker({ theme })} />,
+      <Pin className={styles.marker({ theme })} width={50} height={50} />,
     ),
     iconSize: new Tmapv2.Size(50, 50),
     map: mapContent,
