@@ -1,13 +1,24 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
+import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 
 import * as styles from './MapModal.css';
 
 export function MapModal() {
   const [open, setOpen] = useModalAtom();
+  const [searchKeyword, setSearchKeyword] = useState('');
   const mapRef = useRef<HTMLDivElement>(null);
+  const { data: tmapResponse } = useQuery({
+    ...queryKeys.tmap.searchAddress({
+      searchKeyword,
+    }),
+    enabled: !!searchKeyword,
+  });
+  const addressData = tmapResponse?.searchPoiInfo?.pois?.poi;
 
   const closeModal = () => {
     setOpen(false);
@@ -29,13 +40,27 @@ export function MapModal() {
     <dialog className={styles.container} open={open}>
       <form method="dialog" className={styles.form}>
         <div className={styles.inputWrapper}>
-          <Input list="address-input" />
+          <Input
+            list="address-input"
+            value={searchKeyword}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchKeyword(e.currentTarget.value)
+            }
+          />
           <datalist id="address-input" className={styles.list}>
-            {['A', 'B', 'C', 'D'].map((item) => (
-              <option key={item} className={styles.listItem}>
-                {item}
-              </option>
-            ))}
+            {addressData?.map((address) => {
+              const fullAddress =
+                address.newAddressList.newAddress[0].fullAddressRoad;
+              const addressName = address.name;
+              return (
+                <option
+                  key={address.pkey}
+                  value={`${fullAddress} ${addressName}`}
+                >
+                  {`${fullAddress} ${addressName}`}
+                </option>
+              );
+            })}
           </datalist>
         </div>
         <div id="map" className={styles.map} ref={mapRef} />
