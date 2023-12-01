@@ -15,14 +15,16 @@ type MapModalProps = {
   saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
 };
 
+type Coord = {
+  latitude: number | null;
+  longitude: number | null;
+};
+
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedAddress, setSelectedAddress] = useState('');
-  const [coord, setCoord] = useState<{
-    latitude: number | null;
-    longitude: number | null;
-  }>({
+  const [coord, setCoord] = useState<Coord>({
     latitude: null,
     longitude: null,
   });
