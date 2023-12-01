@@ -26,7 +26,11 @@ export function MapModal({ saveAddress }: MapModalProps) {
   });
   const addressData = tmapResponse?.searchPoiInfo?.pois?.poi;
 
+  const resetSearchKeyword = () => {
+    setSearchKeyword('');
+  };
   const closeModal = () => {
+    resetSearchKeyword();
     setOpen(false);
   };
 
