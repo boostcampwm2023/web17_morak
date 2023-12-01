@@ -7,16 +7,27 @@ import { Button, Input } from '@/components';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
+import { TMap, TMapMarker } from '@/types';
 
 import * as styles from './MapModal.css';
 
 type MapModalProps = {
   saveAddress: ({ address }: Pick<RequestCreateMogacoDto, 'address'>) => void;
 };
+const { Tmapv2 } = window;
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedAddress, setSelectedAddress] = useState('');
+  const [mapInstance, setMapInstance] = useState<TMap | null>(null);
+  const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
+  const [coord, setCoord] = useState<{
+    lat: number | null;
+    lon: number | null;
+  }>({
+    lat: null,
+    lon: null,
+  });
   const mapRef = useRef<HTMLDivElement>(null);
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -40,22 +51,48 @@ export function MapModal({ saveAddress }: MapModalProps) {
   };
 
   useEffect(() => {
-    const { Tmapv2 } = window;
     if (mapRef.current?.firstChild) {
       return;
     }
-    const mapContent = new Tmapv2.Map('map', {
+
+    const map = new Tmapv2.Map('map', {
       center: new Tmapv2.LatLng(37.566535, 126.9779692),
       zoom: 14,
     });
-    mapContent.setZoomLimit(7, 16);
+
+    map.setZoomLimit(7, 16);
+    setMapInstance(map);
   }, [mapRef]);
 
   const onClickAddressListItem = <
     Event extends React.MouseEvent | React.KeyboardEvent,
   >(
     e: Event,
-  ) => setSelectedAddress(e.currentTarget.getAttribute('value') || '');
+  ) => {
+    setSelectedAddress(e.currentTarget.getAttribute('value') || '');
+    const coordinate = {
+      lat: Number(e.currentTarget.getAttribute('data-lat')),
+      lon: Number(e.currentTarget.getAttribute('data-lon')),
+    };
+
+    setCoord(coordinate);
+  };
+
+  useEffect(() => {
+    if (!(coord.lat && coord.lon)) {
+      return;
+    }
+
+    currentMarker?.setMap(null);
+    const position = new Tmapv2.LatLng(coord.lat, coord.lon);
+    const marker = new Tmapv2.Marker({
+      position,
+      map: mapInstance,
+    });
+    setCurrentMarker(marker);
+    mapInstance?.setCenter(position);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coord, mapInstance]);
 
   return (
     <dialog className={styles.container} open={open}>
@@ -79,6 +116,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
                   const fullAddress =
                     address.newAddressList.newAddress[0].fullAddressRoad;
                   const addressName = address.name;
+                  const { noorLat: lat, noorLon: lon } = address;
                   return (
                     <li
                       role="option"
@@ -86,6 +124,8 @@ export function MapModal({ saveAddress }: MapModalProps) {
                       className={styles.listItem}
                       key={address.pkey}
                       value={`${fullAddress} ${addressName}`}
+                      data-lat={lat}
+                      data-lon={lon}
                       onClick={onClickAddressListItem}
                       onKeyDown={onClickAddressListItem}
                     >
