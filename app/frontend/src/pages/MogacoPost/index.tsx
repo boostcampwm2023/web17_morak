@@ -69,27 +69,17 @@ export function MogacoPostPage() {
     setValue('groupId', groupId);
   };
 
-  const onSubmit = async ({
-    title,
-    contents,
-    date,
-    maxHumanCount,
-    address,
-    groupId,
-  }: RequestCreateMogacoDto) => {
-    const formData = {
-      groupId,
-      title,
-      contents,
+  const onSubmit = async (formData: RequestCreateMogacoDto) => {
+    const { maxHumanCount, date } = formData;
+    const payload = {
+      ...formData,
       date: new Date(date).toISOString(),
       maxHumanCount: Number(maxHumanCount),
-      address,
-      status: '모집 중' as const,
     };
 
     const response = postId
-      ? await mutateAsyncEdit({ id: postId, form: formData })
-      : await mutateAsyncPost(formData);
+      ? await mutateAsyncEdit({ id: postId, form: payload })
+      : await mutateAsyncPost(payload);
 
     if (response.data) {
       navigate(`/mogaco/${response.data.id}`);
