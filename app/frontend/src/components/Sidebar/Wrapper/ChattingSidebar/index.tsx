@@ -1,5 +1,6 @@
-import { Sidebar } from '@/components';
+import { Error, Sidebar } from '@/components';
 import { Chatting } from '@/components/Sidebar/Contents/Chatting';
+import { useGetMyInfoQuery } from '@/queries/hooks';
 import { Member } from '@/types';
 
 export function ChattingSidebar({
@@ -15,9 +16,20 @@ export function ChattingSidebar({
   title: string;
   participants: Member[];
 }) {
+  const { data: currentUser } = useGetMyInfoQuery();
+
   return (
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
-      <Chatting id={id} title={title} participants={participants} />
+      {currentUser ? (
+        <Chatting
+          id={id}
+          title={title}
+          participants={participants}
+          currentUserId={currentUser.providerId}
+        />
+      ) : (
+        <Error message="로그인 필요" />
+      )}
     </Sidebar>
   );
 }

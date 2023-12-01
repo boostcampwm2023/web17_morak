@@ -1,7 +1,8 @@
+import { useEffect, useRef } from 'react';
+
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 
 import * as styles from './index.css';
-import { NotificationItem } from './NotificationItem';
 import { TalkItem } from './TalkItem';
 
 type ChatListProps = {
@@ -10,19 +11,28 @@ type ChatListProps = {
 };
 
 export function ChatList({ chatItems, currentUserId }: ChatListProps) {
+  const ref = useRef<HTMLUListElement>(null);
+
+  const scrollToBottom = () => {
+    if (!ref.current) return;
+
+    const { scrollHeight, clientHeight } = ref.current;
+    ref.current.scrollTop = scrollHeight - clientHeight;
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatItems]);
+
   return (
-    <ul className={styles.chatList}>
-      {chatItems.map((chatItem) =>
-        chatItem.messageType === 'talk' ? (
-          <TalkItem
-            key={chatItem.id}
-            talk={chatItem}
-            isMine={chatItem.senderId === currentUserId}
-          />
-        ) : (
-          <NotificationItem key={chatItem.id} notification={chatItem} />
-        ),
-      )}
+    <ul className={styles.chatList} ref={ref}>
+      {chatItems.map((chatItem) => (
+        <TalkItem
+          key={chatItem.id + chatItem.date.toString()}
+          chatItem={chatItem}
+          isMine={chatItem.user === currentUserId}
+        />
+      ))}
     </ul>
   );
 }
