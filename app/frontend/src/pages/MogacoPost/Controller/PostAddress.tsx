@@ -1,12 +1,10 @@
 import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
-import { useQuery } from '@tanstack/react-query';
 
 import { Input, MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
 import { useModal } from '@/hooks';
-import { queryKeys } from '@/queries';
 
 type PostAddressProps = {
   control: Control<RequestCreateMogacoDto>;
