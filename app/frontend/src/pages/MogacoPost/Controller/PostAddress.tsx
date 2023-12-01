@@ -14,8 +14,12 @@ type PostAddressProps = {
 export function PostAddress({ control, setValue }: PostAddressProps) {
   const saveAddress = ({
     address,
-  }: Pick<RequestCreateMogacoDto, 'address'>) => {
+    latitude,
+    longitude,
+  }: Pick<RequestCreateMogacoDto, 'address' | 'latitude' | 'longitude'>) => {
     setValue('address', address);
+    setValue('latitude', latitude);
+    setValue('longitude', longitude);
   };
   const { openModal } = useModal();
   const onClickInput = () => {
