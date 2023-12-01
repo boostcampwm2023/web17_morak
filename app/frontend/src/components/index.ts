@@ -10,6 +10,8 @@ export * from './Loading';
 export * from './Loading/LoadingIndicator';
 export * from './Map';
 export * from './Modal';
+export * from './Modal/InputModal';
+export * from './Modal/MapModal';
 export * from './Modal/ModalContainer';
 export * from './MogacoItem';
 export * from './Popover';
