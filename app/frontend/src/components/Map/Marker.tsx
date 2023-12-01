@@ -1,13 +1,14 @@
 import ReactDOMServer from 'react-dom/server';
 
 import { ReactComponent as Pin } from '@/assets/icons/pin.svg';
+import { TMap } from '@/types';
 
 import * as styles from './index.css';
 
 const { Tmapv2 } = window;
-type MapType = typeof Tmapv2;
+
 type MarkerProps = {
-  mapContent: MapType;
+  mapContent: TMap;
   latitude: number;
   longitude: number;
   theme: 'green' | 'red';
