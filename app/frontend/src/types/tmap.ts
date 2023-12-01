@@ -1,3 +1,8 @@
+export type LatLng = {
+  _lat: number;
+  _lng: number;
+};
+
 export type NewAddress = {
   centerLat: string;
   centerLon: string;
