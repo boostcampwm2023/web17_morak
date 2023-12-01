@@ -39,6 +39,7 @@ export class MogacoController {
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
   async getMogacoById(@Param('id', ParseIntPipe) id: number): Promise<MogacoWithMemberDto> {
     return this.mogacoService.getMogacoById(id);
   }
@@ -78,6 +79,7 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully updated', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
   async updateMogaco(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateMogacoDto: CreateMogacoDto,
@@ -94,6 +96,7 @@ export class MogacoController {
   @ApiParam({ name: 'id', description: '참가할 모각코의 Id' })
   @ApiResponse({ status: 201, description: 'Successfully join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   async joinMogaco(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.mogacoService.joinMogaco(id, member);
   }
@@ -119,6 +122,7 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully cancelled join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
   async cancelMogacoJoin(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.mogacoService.cancelMogacoJoin(id, member);
   }

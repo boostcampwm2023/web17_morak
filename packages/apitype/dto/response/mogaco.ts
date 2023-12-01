@@ -1,7 +1,7 @@
 import { ResponseMemberDto } from "./member";
 import { ResponseParticipant } from "./participant";
 import { Bigint } from "../type";
-import { GroupsDto } from "src/groups/dto/groups.dto";
+import { ResponseGroupsDto } from "..";
 
 export interface ResponseMogacoDto {
   id: Bigint;
@@ -11,11 +11,13 @@ export interface ResponseMogacoDto {
   date: Date;
   maxHumanCount: number;
   address: string;
+  latitude: number;
+  longitude: number;
   status: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
-  group: GroupsDto;
+  group: ResponseGroupsDto;
 }
 
 export interface ResponseMogacoWithMemberDto {
@@ -26,6 +28,8 @@ export interface ResponseMogacoWithMemberDto {
   date: Date;
   maxHumanCount: number;
   address: string;
+  latitude: number;
+  longitude: number;
   status: string;
   member: ResponseMemberDto;
   participants: ResponseParticipant[];

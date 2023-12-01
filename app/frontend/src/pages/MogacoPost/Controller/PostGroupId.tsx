@@ -4,6 +4,7 @@ import { Controller, Control } from 'react-hook-form';
 import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
+import { FieldLabel } from '@/components';
 import { queryKeys } from '@/queries';
 
 import * as styles from './group.css';
@@ -34,8 +35,7 @@ export function PostGroupId({
       rules={{ required: true }}
       render={({ field: { onChange } }) => (
         <>
-          {/* TODO: 그룹 라벨 */}
-          <div>그룹</div>
+          <FieldLabel label="그룹" required />
           {groups && groups.length > 0 ? (
             <select
               onChange={(event) => onChange(event.target.value)}
@@ -49,7 +49,10 @@ export function PostGroupId({
               ))}
             </select>
           ) : (
-            <div>그룹에 가입해 주세요!</div>
+            <div className={styles.message}>
+              속한 그룹이 1개 이상이어야 글을 작성할 수 있습니다. 그룹에 가입해
+              주세요!
+            </div>
           )}
         </>
       )}
