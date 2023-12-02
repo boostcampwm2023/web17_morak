@@ -8,6 +8,7 @@ import { MogacoModule } from './mogaco-boards/mogaco-boards.module';
 import { GroupsModule } from './groups/groups.module';
 import { ChatModule } from './chat/chat.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { MongooseModule } from '@nestjs/mongoose';
 import { getSecret } from 'vault';
 
 @Module({
@@ -18,6 +19,7 @@ import { getSecret } from 'vault';
       host: getSecret('REDIS_HOST'),
       port: getSecret('REDIS_PORT'),
     }),
+    MongooseModule.forRoot(`mongodb://${getSecret('CHAT_USER')}:${getSecret('CHAT_PASSWORD')}@${getSecret('MONGO_HOST')}:${getSecret('MONGO_PORT')}/${getSecret(`MONGO_CHAT_DB`)}`), // MongoDB 연결 문자열
     PrismaModule,
     AuthModule,
     MemberModule,
