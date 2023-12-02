@@ -70,7 +70,10 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   }, [mapInstance, currentCoord]);
 
   const updateMarker = useCallback(
-    (coord: { latitude: number | null; longitude: number | null }) => {
+    (coord: {
+      latitude: number | undefined;
+      longitude: number | undefined;
+    }) => {
       const { latitude, longitude } = coord;
       if (!(latitude && longitude) || !mapInstance) {
         return;
@@ -84,5 +87,14 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     [mapInstance],
   );
 
-  return { mapInstance, updateMarker };
+  const coord = {
+    latitude: currentCoord?.lat(),
+    longitude: currentCoord?.lng(),
+  };
+
+  const setCoord = (currCoord: { latitude: number; longitude: number }) => {
+    setCurrentCoord(new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude));
+  };
+
+  return { mapInstance, updateMarker, coord, setCoord };
 };
