@@ -1,9 +1,9 @@
-import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { MemberService } from './member.service';
-import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { MemberInformationDto } from './dto/member.dto';
+import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { MemberService } from './member.service';
 import { AtGuard } from '../../src/auth/guards/at.guard';
+import { MemberInformationDto } from './dto/member.dto';
 
 @ApiTags('Member Infomation API')
 @Controller('member')
