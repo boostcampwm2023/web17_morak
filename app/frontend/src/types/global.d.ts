@@ -1,4 +1,4 @@
-import { LatLng, TMap, TMapSize } from './tmap';
+import { TMapLatLng, TMap, TMapSize } from './tmap';
 
 declare global {
   interface Window {
@@ -6,7 +6,7 @@ declare global {
       Map: new (
         element: HTMLElement | string,
         options?: {
-          center?: LatLng;
+          center?: TMapLatLng;
           scaleBar?: boolean;
           width?: string | number;
           height?: string | number;
@@ -14,10 +14,10 @@ declare global {
           zoomControl?: boolean;
         },
       ) => TMap;
-      LatLng: new (lat, lon) => LatLng;
+      LatLng: new (lat, lon) => TMapLatLng;
       Marker: new (options?: {
         map: TMap;
-        position: LatLng;
+        position: TMapLatLng;
         iconHTML?: string;
         iconSize?: TMapSize;
       }) => TMapMarker;
