@@ -23,7 +23,7 @@ type ChattingProps = {
   currentUserId: string;
 };
 
-const dummyId = Number(Math.random() * 100).toString();
+const dummyId = (Math.random() * 100).toFixed().toString();
 
 export function Chatting({
   id,
@@ -31,26 +31,16 @@ export function Chatting({
   participants,
   currentUserId,
 }: ChattingProps) {
-  const [message, setMessage] = useState('');
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!message) return;
-
+  const sendMessage = (message: string) => {
     socketClient.sendMessage({
-      id: currentUserId,
+      messageType: 'talk',
+      user: dummyId || currentUserId,
       room: id,
-      user: dummyId,
       contents: message,
       date: new Date(),
-      messageType: 'talk',
     });
-    setMessage('');
   };
 
   useEffect(() => {
@@ -72,7 +62,7 @@ export function Chatting({
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
       <ChatList chatItems={chatItems} currentUserId={dummyId} />
-      <ChattingFooter value={message} onChange={onChange} onSubmit={onSubmit} />
+      <ChattingFooter sendMessage={sendMessage} />
     </div>
   );
 }
