@@ -29,7 +29,8 @@ const setMyLocation = (mapContent: MapType) => {
   const onSuccess = (position: Geolocation) => {
     const { latitude, longitude } = position.coords;
     mapContent.setCenter(new Tmapv2.LatLng(latitude, longitude));
-    const marker = Marker({ mapContent, latitude, longitude, theme: 'red' });
+    const mapPosition = new Tmapv2.LatLng(latitude, longitude);
+    const marker = Marker({ mapContent, position: mapPosition, theme: 'red' });
     marker.setLabel(`<span class=${styles.label}>현 위치</span>`);
   };
   navigator.geolocation.getCurrentPosition(onSuccess);
@@ -52,8 +53,7 @@ export function Map({ onClickMarker }: MapProps) {
         const position = new Tmapv2.LatLng(latitude, longitude);
         const marker = Marker({
           mapContent,
-          latitude,
-          longitude,
+          position,
           theme: 'green',
         });
         marker.addListener('click', () => {
