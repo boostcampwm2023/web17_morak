@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 
+import { MemorizedChatItem } from './ChatItem';
 import * as styles from './index.css';
-import { TalkItem } from './TalkItem';
 
 type ChatListProps = {
   chatItems: Chat[];
@@ -27,8 +27,8 @@ export function ChatList({ chatItems, currentUserId }: ChatListProps) {
   return (
     <ul className={styles.chatList} ref={ref}>
       {chatItems.map((chatItem) => (
-        <TalkItem
-          key={chatItem.id + chatItem.date.toString()}
+        <MemorizedChatItem
+          key={chatItem.date.toString()}
           chatItem={chatItem}
           isMine={chatItem.user === currentUserId}
         />
