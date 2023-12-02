@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ChatMessage } from '@morak/chat/dist/interface/message.interface';
+import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 
 export type ChatMessageDocument = ChatMessageDto & Document;
 

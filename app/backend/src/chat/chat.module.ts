@@ -7,7 +7,7 @@ import { ChatRepository } from './chat.repository';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: ChatMessageDto.name, schema: ChatMessageSchema }]),
+    MongooseModule.forFeature([{ name: "ChatMessages", schema: ChatMessageSchema }]),
   ],
   providers: [ChatGateway, ChatService, ChatRepository],
 })
