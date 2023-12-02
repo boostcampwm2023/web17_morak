@@ -1,8 +1,8 @@
 export interface ChatMessage {
-  room: string;
-  user: string;
-  contents: string;
   messageType: string;
+  user: string;
+  room: string;
+  contents: string;
   date: Date;
 }
 
