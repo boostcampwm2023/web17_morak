@@ -61,9 +61,9 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
 
       if (currentMarker) {
         const currMarker = currentMarker.getPosition();
-        const prevLatitude = currMarker.lat();
-        const prevLongitude = currMarker.lng();
-        if (prevLatitude === latitude && prevLongitude === longitude) {
+        const changedLatitude = currMarker.lat() !== latitude;
+        const changedLongitude = currMarker.lng() !== longitude;
+        if (changedLatitude || changedLongitude) {
           return;
         }
       }
