@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { CreateUserDto } from './dto/user.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Member } from '@prisma/client';
+import { CreateUserDto } from './dto/user.dto';
 import { getSecret } from 'vault';
 
 @Injectable()
@@ -14,27 +14,29 @@ export class AuthRepository {
   ) {}
 
   async saveUser(userDto: CreateUserDto): Promise<Member> {
+    const { providerId, socialType, email, nickname, profilePicture } = userDto;
+
     return this.prisma.member.create({
       data: {
-        providerId: userDto.providerId,
-        socialType: userDto.socialType,
-        email: userDto.email,
-        nickname: userDto.nickname,
-        profilePicture: userDto.profilePicture,
+        providerId,
+        socialType,
+        email,
+        nickname,
+        profilePicture,
       },
     });
   }
 
   async updateUser(userDto: CreateUserDto): Promise<Member> {
-    const providerId = userDto.providerId;
+    const { providerId, nickname, profilePicture } = userDto;
 
     return this.prisma.member.update({
       where: {
         providerId,
       },
       data: {
-        nickname: userDto.nickname,
-        profilePicture: userDto.profilePicture,
+        nickname,
+        profilePicture,
       },
     });
   }
