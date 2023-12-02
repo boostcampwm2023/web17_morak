@@ -5,7 +5,6 @@ import {
   ChatMessage,
   StatusType,
 } from '@morak/chat/src/interface/message.interface';
-import { RequestUserRoomDto } from '@morak/chat/src/interface/user.interface';
 
 import { Member } from '@/types';
 
@@ -17,7 +16,7 @@ import * as styles from './index.css';
 const socketClient = new SocketClient('http://localhost:8889/chat');
 
 type ChattingProps = {
-  id: string;
+  postId: string;
   title: string;
   participants: Member[];
   currentUserId: string;
@@ -26,7 +25,7 @@ type ChattingProps = {
 const dummyId = (Math.random() * 100).toFixed().toString();
 
 export function Chatting({
-  id,
+  postId,
   title,
   participants,
   currentUserId,
@@ -37,14 +36,14 @@ export function Chatting({
     socketClient.sendMessage({
       messageType: 'talk',
       user: dummyId || currentUserId,
-      room: id,
+      room: postId,
       contents: message,
       date: new Date(),
     });
   };
 
   useEffect(() => {
-    const userRoomInfo: RequestUserRoomDto = { user: dummyId, room: '1' };
+    const userRoomInfo = { user: dummyId || currentUserId, room: postId };
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
         setChatItems([...chatItems, ...msgs]);
@@ -56,7 +55,7 @@ export function Chatting({
     return () => {
       socketClient.leaveRoom(userRoomInfo);
     };
-  }, [chatItems]);
+  }, [chatItems, currentUserId, postId]);
 
   return (
     <div className={styles.container}>
