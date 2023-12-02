@@ -69,8 +69,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       const position = new Tmapv2.LatLng(latitude, longitude);
       const marker = Marker({
         mapContent: mapInstance,
-        latitude,
-        longitude,
+        position,
         theme: 'green',
       });
       setCurrentMarker(marker);
