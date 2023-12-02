@@ -6,7 +6,7 @@ import { AtGuard } from 'src/auth/guards/at.guard';
 import { Group, Member } from '@prisma/client';
 import { GroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
-import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
+import { ParticipantResponseDto } from 'src/mogaco-boards/dto/response-participants.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @ApiTags('Group API')

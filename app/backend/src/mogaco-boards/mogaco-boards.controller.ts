@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { MogacoService } from './mogaco.service';
-import { Member, Mogaco } from '@prisma/client';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Member, Mogaco } from '@prisma/client';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
-import { ParticipantResponseDto } from './dto/response-participants.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
+import { ParticipantResponseDto } from './dto/response-participants.dto';
 
 @ApiTags('Mogaco API')
-@Controller('mogaco')
+@Controller('posts')
 @UseGuards(AtGuard)
 @ApiBearerAuth('access_token')
 export class MogacoController {
