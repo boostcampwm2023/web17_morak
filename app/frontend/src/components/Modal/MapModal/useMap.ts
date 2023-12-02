@@ -6,7 +6,7 @@ import {
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
 } from '@/constants';
-import { TMap, TMapMarker } from '@/types';
+import { TMap, TMapEvent, TMapMarker } from '@/types';
 
 const { Tmapv2 } = window;
 
@@ -33,7 +33,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       return;
     }
 
-    mapInstance.addListener('click', (e) => {
+    const renderMarker = (e: TMapEvent) => {
       const { latLng } = e;
       const position = new Tmapv2.LatLng(latLng.lat(), latLng.lng());
 
@@ -47,7 +47,9 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       } else {
         currentMarker.setPosition(position);
       }
-    });
+    };
+
+    mapInstance.addListener('click', renderMarker);
   }, [mapInstance, currentMarker]);
 
   const updateMarker = useCallback(
