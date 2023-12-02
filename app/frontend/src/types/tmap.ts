@@ -1,3 +1,8 @@
+export type LatLng = {
+  _lat: number;
+  _lng: number;
+};
+
 export type NewAddress = {
   centerLat: string;
   centerLon: string;
@@ -29,7 +34,19 @@ export type SearchPoiInfo = {
   page: string;
   pois: Pois;
 };
-
+export type TMap = {
+  setCenter: (latLng: LatLng) => void;
+  setZoomLimit: (minZoom: number, maxZoom: number) => void;
+  destroy: () => void;
+};
+export type TMapMarker = {
+  setMap: (map: TMap | null) => void;
+  getPosition: () => LatLng;
+};
+export type TMapSize = {
+  _width: number;
+  _height: number;
+};
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
 };
