@@ -6,13 +6,39 @@ import {
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
 } from '@/constants';
-import { TMap, TMapEvent, TMapMarker } from '@/types';
+import { TMap, TMapEvent, TMapLatLng, TMapMarker } from '@/types';
 
 const { Tmapv2 } = window;
 
 export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
   const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
+  const [currentCoord, setCurrentCoord] = useState<TMapLatLng | null>(null);
+
+  useEffect(() => {
+    if (!currentCoord) {
+      return;
+    }
+
+    const makeMarker = (position: TMapLatLng) => {
+      if (!mapInstance) {
+        return;
+      }
+
+      currentMarker?.setMap(null);
+
+      const marker = Marker({
+        mapContent: mapInstance,
+        position,
+        theme: 'green',
+      });
+
+      setCurrentMarker(marker);
+    };
+
+    makeMarker(currentCoord);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCoord, mapInstance]);
 
   useEffect(() => {
     if (mapRef.current?.firstChild || mapInstance) {
@@ -37,20 +63,11 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       const { latLng } = e;
       const position = new Tmapv2.LatLng(latLng.lat(), latLng.lng());
 
-      if (!currentMarker) {
-        const marker = Marker({
-          mapContent: mapInstance,
-          position,
-          theme: 'green',
-        });
-        setCurrentMarker(marker);
-      } else {
-        currentMarker.setPosition(position);
-      }
+      setCurrentCoord(position);
     };
 
     mapInstance.addListener('click', renderMarker);
-  }, [mapInstance, currentMarker]);
+  }, [mapInstance, currentCoord]);
 
   const updateMarker = useCallback(
     (coord: { latitude: number | null; longitude: number | null }) => {
@@ -59,26 +76,12 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
         return;
       }
 
-      if (currentMarker) {
-        const currMarker = currentMarker.getPosition();
-        const changedLatitude = currMarker.lat() !== latitude;
-        const changedLongitude = currMarker.lng() !== longitude;
-        if (!(changedLatitude || changedLongitude)) {
-          return;
-        }
-      }
-
-      currentMarker?.setMap(null);
       const position = new Tmapv2.LatLng(latitude, longitude);
-      const marker = Marker({
-        mapContent: mapInstance,
-        position,
-        theme: 'green',
-      });
-      setCurrentMarker(marker);
+
+      setCurrentCoord(position);
       mapInstance?.setCenter(position);
     },
-    [mapInstance, currentMarker],
+    [mapInstance],
   );
 
   return { mapInstance, updateMarker };
