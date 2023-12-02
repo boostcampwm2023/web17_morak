@@ -27,6 +27,28 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     setMapInstance(map);
   }, [mapRef, mapInstance]);
 
+  useEffect(() => {
+    if (!mapInstance) {
+      return;
+    }
+
+    mapInstance.addListener('click', (e) => {
+      const { latLng } = e;
+      const position = new Tmapv2.LatLng(latLng.lat(), latLng.lng());
+
+      if (!currentMarker) {
+        const marker = Marker({
+          mapContent: mapInstance,
+          position,
+          theme: 'green',
+        });
+        setCurrentMarker(marker);
+      } else {
+        currentMarker.setPosition(position);
+      }
+    });
+  }, [mapInstance, currentMarker]);
+
   const updateMarker = useCallback(
     (coord: { latitude: number | null; longitude: number | null }) => {
       const { latitude, longitude } = coord;
