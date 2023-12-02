@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { PrismaModule } from 'prisma/prisma.module';
 import { MemberModule } from './member/member.module';
-import * as redisStore from 'cache-manager-redis-store';
-import { getSecret } from 'vault';
 import { MogacoModule } from './mogaco/mogaco.module';
 import { GroupsModule } from './groups/groups.module';
-import { PrismaModule } from 'prisma/prisma.module';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import * as redisStore from 'cache-manager-redis-store';
+import { getSecret } from 'vault';
 
 @Module({
   imports: [
