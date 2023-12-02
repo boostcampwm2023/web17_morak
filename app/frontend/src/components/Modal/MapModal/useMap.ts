@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { Marker } from '@/components/Map/Marker';
+import {
+  DEFAULT_ZOOM_LEVEL,
+  MAX_ZOOM_LEVEL,
+  MIN_ZOOM_LEVEL,
+} from '@/constants';
 import { TMap, TMapMarker } from '@/types';
 
 const { Tmapv2 } = window;
@@ -15,11 +20,10 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     }
 
     const map = new Tmapv2.Map('map', {
-      center: new Tmapv2.LatLng(37.566535, 126.9779692),
-      zoom: 14,
+      zoom: DEFAULT_ZOOM_LEVEL,
     });
 
-    map.setZoomLimit(7, 16);
+    map.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
     setMapInstance(map);
   }, [mapRef, mapInstance]);
 
