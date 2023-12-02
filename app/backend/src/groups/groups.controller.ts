@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
-import { Group, Member } from '@prisma/client';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
+import { Group, Member } from '@prisma/client';
 import { GroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @ApiTags('Group API')
