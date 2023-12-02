@@ -11,21 +11,38 @@ type ChattingFooterProps = {
 export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
   const [message, setMessage] = useState('');
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    if (/\S+/.test(message)) {
+      sendMessage(message);
+      setMessage('');
+    }
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!message) return;
+    handleSendMessage();
+  };
 
-    sendMessage(message);
-    setMessage('');
+  const onKeydownTextarea = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
     <form className={styles.footer} onSubmit={onSubmit}>
-      <Textarea maxLength={300} fullWidth onChange={onChange} value={message} />
+      <Textarea
+        value={message}
+        maxLength={300}
+        fullWidth
+        onChange={onChangeTextarea}
+        onKeyDown={onKeydownTextarea}
+      />
       <Button
         type="submit"
         theme="primary"
