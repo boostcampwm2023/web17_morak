@@ -21,7 +21,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@morak/chat": "^1.0.0",
     "@nestjs/cache-manager": "^2.1.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
@@ -47,6 +46,7 @@
     "vault": "^1.0.0"
   },
   "devDependencies": {
+    "@morak/chat": "^1.0.0",
     "@morak/apitype": "^1.0.0",
     "@morak/eslint-config": "*",
     "@morak/tsconfig": "*",
