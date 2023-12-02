@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { Group, Member } from '@prisma/client';
@@ -7,6 +7,7 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@ne
 import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
 import { GroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @ApiTags('Group API')
 @Controller('groups')
@@ -36,6 +37,11 @@ export class GroupsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getAllMembersOfGroup(@Param('id', ParseIntPipe) id: number): Promise<MemberInformationDto[]> {
     return this.groupsService.getAllMembersOfGroup(id);
+  }
+
+  @Post('/')
+  async createGroups(@Body() createGroupsDto: CreateGroupsDto): Promise<Group> {
+    return this.groupsService.createGroups(createGroupsDto);
   }
 
   @Post('/:id/join')
