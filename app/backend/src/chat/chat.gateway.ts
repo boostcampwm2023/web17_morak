@@ -34,6 +34,7 @@ class ChatGateway {
   @SubscribeMessage('chatMessage')
   handleMessage(@AuthUser() user: User, @ChatMessage() message) {
     console.log(message);
+    // this.chatService.writeMessageDB(message);
     this.server.to(message.room).emit('chat', StatusCode.success, message);
   }
 

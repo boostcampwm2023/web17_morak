@@ -1,5 +1,5 @@
 export interface ResponseChatUserDto {
-  userId: string;
+  user: string;
   nickname: string;
   profilePicture: string;
 }

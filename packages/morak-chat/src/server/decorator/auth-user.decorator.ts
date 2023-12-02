@@ -3,6 +3,7 @@ import { createParamDecorator, ExecutionContext, UnauthorizedException } from '@
 export const AuthUser = createParamDecorator(
   (user: string, ctx: ExecutionContext): any => {
     const message = ctx.switchToWs().getData();
+    console.log(message);
     if (!message || !message.user) {
       throw new UnauthorizedException('User is not authenticated');
     }

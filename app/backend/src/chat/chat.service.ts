@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@morak/chat/src/interface/user.interface';
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
+import { ChatRepository } from './chat.repository';
+import { ChatMessageDto } from './dto/chat.dto';
 
 @Injectable()
 export class ChatService {
@@ -46,6 +48,12 @@ export class ChatService {
   // temporary-chat-user
 
   // TODO) 231128 ccxz84 | chat 채팅 저장 로그 등 필요.
+
+  constructor(private chatRepository: ChatRepository) {}
+
+  writeMessageDB(message: ChatMessageDto) {
+    this.chatRepository.saveChatMessage(message);
+  }
 }
 
 export default ChatService;

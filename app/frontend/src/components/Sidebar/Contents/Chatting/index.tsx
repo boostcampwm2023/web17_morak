@@ -14,7 +14,7 @@ import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
 import * as styles from './index.css';
 
-const socketClient = new SocketClient('http://localhost:4000');
+const socketClient = new SocketClient('http://localhost:8889/chat');
 
 type ChattingProps = {
   id: string;
