@@ -20,7 +20,7 @@ export function ChattingSidebar({
     <Sidebar closed={closed} toggleClosed={toggleClosed}>
       {currentUser ? (
         <Chatting
-          id={id}
+          postId={id}
           title={title}
           participants={participants}
           currentUserId={currentUser.providerId}
