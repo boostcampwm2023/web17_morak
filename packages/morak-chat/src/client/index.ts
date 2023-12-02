@@ -44,6 +44,15 @@ class SocketClient {
   sendMessage(chatDto: ChatMessage): void {
     if (this.socket) this.socket.emit('chatMessage', chatDto);
   }
+
+  requestPrevMessage(room: string, cursorDate: Date ,cb: CallBack): void {
+    if (this.socket && room) {
+      this.socket.emit('requestPrevMessage', room, cursorDate);
+      this.socket.on('receivePrevMessage', (status: StatusType, msgs: ChatMessage[]) => {
+        cb(status, msgs);
+      });
+    }
+  }
 }
 
 export default SocketClient;
