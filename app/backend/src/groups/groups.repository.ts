@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { Group, Member } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @Injectable()
 export class GroupsRepository {
@@ -27,6 +28,22 @@ export class GroupsRepository {
       nickname: groupToUser.user.nickname,
       profilePicture: groupToUser.user.profilePicture,
     }));
+  }
+
+  async createGroups(createGroupsDto: CreateGroupsDto): Promise<Group> {
+    try {
+      const { title } = createGroupsDto;
+
+      const group = await this.prisma.group.create({
+        data: {
+          title,
+        },
+      });
+
+      return group;
+    } catch (error) {
+      throw new Error(`Failed to create group: ${error.message}`);
+    }
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {
