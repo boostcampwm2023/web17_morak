@@ -4,9 +4,10 @@ import { TMAP_API_KEY } from '@/constants';
 import { TmapResponse, TmapReverseGeocodingResponse } from '@/types';
 
 export const tmap = {
+  host: 'https://apis.openapi.sk.com/tmap',
   endPoint: {
-    pois: 'https://apis.openapi.sk.com/tmap/pois',
-    reverseGeocoding: 'https://apis.openapi.sk.com/tmap/geo/reversegeocoding',
+    pois: '/pois',
+    reverseGeocoding: '/geo/reversegeocoding',
   },
 
   searchAddress: async ({ searchKeyword }: { searchKeyword: string }) => {
@@ -28,7 +29,7 @@ export const tmap = {
     const queryString = new URLSearchParams(searchOptions).toString();
 
     const { data } = await axios.get<TmapResponse>(
-      `${tmap.endPoint.pois}?${queryString}`,
+      `${tmap.host}${tmap.endPoint.pois}?${queryString}`,
       options,
     );
     return data;
@@ -57,7 +58,7 @@ export const tmap = {
     const queryString = new URLSearchParams(searchOptions).toString();
 
     const { data } = await axios.get<TmapReverseGeocodingResponse>(
-      `${tmap.endPoint.reverseGeocoding}?${queryString}`,
+      `${tmap.host}${tmap.endPoint.reverseGeocoding}?${queryString}`,
       options,
     );
     return data;
