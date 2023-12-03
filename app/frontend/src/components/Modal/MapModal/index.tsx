@@ -27,9 +27,9 @@ export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const debouncedSearchKeyword = useDebounce(searchKeyword);
-  const [selectedAddress, setSelectedAddress] = useState('');
   const mapRef = useRef<HTMLDivElement>(null);
-  const { coord, setCoord } = useMap(mapRef);
+
+  const { coord, setCoord, currentAddress: selectedAddress } = useMap(mapRef);
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -62,7 +62,6 @@ export function MapModal({ saveAddress }: MapModalProps) {
   >(
     e: Event,
   ) => {
-    setSelectedAddress(e.currentTarget.getAttribute('value') || '');
     const coordinate = {
       latitude: Number(e.currentTarget.getAttribute('data-lat')),
       longitude: Number(e.currentTarget.getAttribute('data-lon')),

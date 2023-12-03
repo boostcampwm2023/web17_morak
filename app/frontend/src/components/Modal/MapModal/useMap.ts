@@ -113,5 +113,11 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     setCurrentCoord(new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude));
   };
 
-  return { mapInstance, updateMarker, coord, setCoord, currentAddress };
+  return {
+    mapInstance,
+    updateMarker,
+    coord,
+    setCoord,
+    currentAddress,
+  };
 };
