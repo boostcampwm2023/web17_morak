@@ -24,7 +24,10 @@ export function ChatList({
     if (!ref.current) return;
 
     const { scrollHeight, clientHeight } = ref.current;
-    ref.current.scrollTop = scrollHeight - clientHeight;
+    ref.current.scrollTo({
+      top: scrollHeight - clientHeight,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
