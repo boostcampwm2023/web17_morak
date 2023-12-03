@@ -11,6 +11,7 @@ declare global {
           width?: string | number;
           height?: string | number;
           zoom?: number;
+          zoomControl?: boolean;
         },
       ) => TMap;
       LatLng: new (lat, lon) => LatLng;

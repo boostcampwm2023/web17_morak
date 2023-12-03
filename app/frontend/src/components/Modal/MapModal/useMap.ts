@@ -21,6 +21,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
 
     const map = new Tmapv2.Map('map', {
       zoom: DEFAULT_ZOOM_LEVEL,
+      zoomControl: false,
     });
 
     map.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
