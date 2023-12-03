@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Controller, Get, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MemberService } from './member.service';
-import { AtGuard } from '../../src/auth/guards/at.guard';
+import { AtGuard } from 'src/auth/guards/at.guard';
 import { MemberInformationDto } from './dto/member.dto';
 
 @ApiTags('Member Infomation API')
