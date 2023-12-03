@@ -6,6 +6,7 @@ import {
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
 } from '@/constants';
+import { tmap } from '@/services';
 import { TMap, TMapEvent, TMapLatLng, TMapMarker } from '@/types';
 
 const { Tmapv2 } = window;
@@ -14,6 +15,26 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
   const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
   const [currentCoord, setCurrentCoord] = useState<TMapLatLng | null>(null);
+  const [currentAddress, setCurrentAddress] = useState('');
+
+  const coord = {
+    latitude: currentCoord?.lat(),
+    longitude: currentCoord?.lng(),
+  };
+
+  const getAddressFromCoord = async () => {
+    const { latitude, longitude } = coord;
+    if (!(latitude && longitude)) {
+      return;
+    }
+
+    const { addressInfo } = await tmap.getAddressFromCoord({
+      latitude,
+      longitude,
+    });
+    const { fullAddress } = addressInfo;
+    setCurrentAddress(fullAddress);
+  };
 
   useEffect(() => {
     if (!currentCoord) {
@@ -37,6 +58,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     };
 
     makeMarker(currentCoord);
+    getAddressFromCoord();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCoord, mapInstance]);
 
@@ -70,11 +92,11 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   }, [mapInstance, currentCoord]);
 
   const updateMarker = useCallback(
-    (coord: {
+    (tempCoord: {
       latitude: number | undefined;
       longitude: number | undefined;
     }) => {
-      const { latitude, longitude } = coord;
+      const { latitude, longitude } = tempCoord;
       if (!(latitude && longitude) || !mapInstance) {
         return;
       }
@@ -87,14 +109,9 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     [mapInstance],
   );
 
-  const coord = {
-    latitude: currentCoord?.lat(),
-    longitude: currentCoord?.lng(),
-  };
-
   const setCoord = (currCoord: { latitude: number; longitude: number }) => {
     setCurrentCoord(new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude));
   };
 
-  return { mapInstance, updateMarker, coord, setCoord };
+  return { mapInstance, updateMarker, coord, setCoord, currentAddress };
 };
