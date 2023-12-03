@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MogacoService } from './mogaco.service';
-import { MogacoController } from './mogaco.controller';
-import { MogacoRepository } from './mogaco.repository';
 import { AuthModule } from 'src/auth/auth.module';
+
+import { MogacoService } from './mogaco-boards.service';
+import { MogacoController } from './mogaco-boards.controller';
+import { MogacoRepository } from './mogaco-boards.repository';
 
 @Module({
   imports: [AuthModule],

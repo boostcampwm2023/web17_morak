@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MogacoRepository } from './mogaco.repository';
+import { MogacoRepository } from './mogaco-boards.repository';
 import { Member, Mogaco } from '@prisma/client';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
@@ -11,6 +11,10 @@ export class MogacoService {
 
   async getAllMogaco(): Promise<MogacoDto[]> {
     return this.mogacoRepository.getAllMogaco();
+  }
+
+  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
+    return this.mogacoRepository.getMogacoByDate(date);
   }
 
   async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
@@ -39,9 +43,5 @@ export class MogacoService {
 
   async cancelMogacoJoin(id: number, member: Member): Promise<void> {
     return this.mogacoRepository.cancelMogacoJoin(id, member);
-  }
-
-  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
-    return this.mogacoRepository.getMogacoByDate(date);
   }
 }
