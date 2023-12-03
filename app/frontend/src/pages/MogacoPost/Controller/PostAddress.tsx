@@ -1,15 +1,31 @@
-import { Controller, Control } from 'react-hook-form';
+import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
-import { Input } from '@/components';
+import { Input, MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
+import { useModal } from '@/hooks';
 
 type PostAddressProps = {
   control: Control<RequestCreateMogacoDto>;
+  setValue: UseFormSetValue<RequestCreateMogacoDto>;
 };
 
-export function PostAddress({ control }: PostAddressProps) {
+export function PostAddress({ control, setValue }: PostAddressProps) {
+  const saveAddress = ({
+    address,
+    latitude,
+    longitude,
+  }: Pick<RequestCreateMogacoDto, 'address' | 'latitude' | 'longitude'>) => {
+    setValue('address', address);
+    setValue('latitude', latitude);
+    setValue('longitude', longitude);
+  };
+  const { openModal } = useModal();
+  const onClickInput = () => {
+    openModal(<MapModal saveAddress={saveAddress} />);
+  };
+
   return (
     <Controller
       control={control}
@@ -20,9 +36,10 @@ export function PostAddress({ control }: PostAddressProps) {
           label={MOGACO_POST.ADDRESS.LABEL}
           placeholder={MOGACO_POST.ADDRESS.REQUIRED}
           required
-          onChange={onChange}
           value={value}
+          onChange={onChange}
           errorMessage={error && MOGACO_POST.ADDRESS.REQUIRED}
+          onClick={onClickInput}
         />
       )}
     />
