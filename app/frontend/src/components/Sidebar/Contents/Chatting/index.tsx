@@ -54,6 +54,14 @@ export function Chatting({
       getDummyChatItem(),
       getDummyChatItem(),
       getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
       ...items,
     ]);
   }, []);

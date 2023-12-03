@@ -37,16 +37,6 @@ export const header = style({
   background: vars.color.grayscale50,
 });
 
-export const observable = style([
-  sansRegular16,
-  {
-    display: 'flex',
-    padding: '1rem',
-    background: vars.color.morakRed,
-    color: vars.color.grayscaleWhite,
-  },
-]);
-
 export const participants = style([
   sansRegular16,
   {

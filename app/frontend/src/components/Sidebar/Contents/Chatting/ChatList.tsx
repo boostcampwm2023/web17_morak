@@ -26,30 +26,27 @@ export function ChatList({
   const observableRef = useRef<HTMLDivElement | null>(null);
   const exposed = useObserver(observableRef);
 
-  const scrollToBottom = () => {
-    if (!listElemRef.current) {
-      return;
-    }
-
-    const { scrollHeight, clientHeight } = listElemRef.current;
-    listElemRef.current.scrollTo({
-      top: scrollHeight - clientHeight,
-      behavior: 'smooth',
-    });
-  };
-
   useEffect(() => {
     if (!listElemRef.current) {
       return;
     }
 
     const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+    if (exposed) {
+      listElemRef.current.scrollTo({
+        top: scrollHeight - prevScrollHeightRef.current,
+      });
+    }
+
     if (scrollTop + clientHeight === prevScrollHeightRef.current) {
-      scrollToBottom();
+      listElemRef.current.scrollTo({
+        top: scrollHeight - clientHeight,
+        behavior: 'smooth',
+      });
     }
 
     prevScrollHeightRef.current = scrollHeight;
-  }, [chatItems]);
+  }, [chatItems, exposed]);
 
   useEffect(() => {
     if (exposed) {
@@ -59,9 +56,7 @@ export function ChatList({
 
   return (
     <ul className={styles.chatList} ref={listElemRef}>
-      <div ref={observableRef} className={styles.observable}>
-        옵저빙 타겟
-      </div>
+      <div ref={observableRef} />
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
           (participant) => participant.providerId === chatItem.user,
