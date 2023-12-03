@@ -18,23 +18,36 @@ export function ChatList({
   currentUserId,
   participants,
 }: ChatListProps) {
-  const ref = useRef<HTMLUListElement>(null);
+  const listElemRef = useRef<HTMLUListElement>(null);
+  const prevScrollHeightRef = useRef(0);
 
   const scrollToBottom = () => {
-    if (!ref.current) return;
+    if (!listElemRef.current) {
+      return;
+    }
 
-    const { scrollHeight, clientHeight } = ref.current;
-    ref.current.scrollTo({
+    const { scrollHeight, clientHeight } = listElemRef.current;
+    listElemRef.current.scrollTo({
       top: scrollHeight - clientHeight,
       behavior: 'smooth',
     });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (!listElemRef.current) {
+      return;
+    }
+
+    const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+    if (scrollTop + clientHeight === prevScrollHeightRef.current) {
+      scrollToBottom();
+    }
+
+    prevScrollHeightRef.current = scrollHeight;
   }, [chatItems]);
+
   return (
-    <ul className={styles.chatList} ref={ref}>
+    <ul className={styles.chatList} ref={listElemRef}>
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
           (participant) => participant.providerId === chatItem.user,
