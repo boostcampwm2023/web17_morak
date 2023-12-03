@@ -7,4 +7,8 @@ export const tmapKeys = createQueryKeys('tmap', {
     queryKey: [{ filters }],
     queryFn: () => tmap.searchAddress(filters),
   }),
+  getAddressFromCoord: (filters: { latitude: number; longitude: number }) => ({
+    queryKey: [{ filters }],
+    queryFn: () => tmap.getAddressFromCoord(filters),
+  }),
 });
