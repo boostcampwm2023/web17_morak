@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 import { TMAP_API_KEY } from '@/constants';
-import { TmapResponse } from '@/types';
+import { TmapResponse, TmapReverseGeocodingResponse } from '@/types';
 
 export const tmap = {
   endPoint: {
     pois: 'https://apis.openapi.sk.com/tmap/pois',
+    reverseGeocoding: 'https://apis.openapi.sk.com/tmap/geo/reversegeocoding',
   },
 
   searchAddress: async ({ searchKeyword }: { searchKeyword: string }) => {
@@ -28,6 +29,35 @@ export const tmap = {
 
     const { data } = await axios.get<TmapResponse>(
       `${tmap.endPoint.pois}?${queryString}`,
+      options,
+    );
+    return data;
+  },
+
+  getAddressFromCoord: async ({
+    latitude,
+    longitude,
+  }: {
+    latitude: number;
+    longitude: number;
+  }) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        appKey: TMAP_API_KEY,
+      },
+    };
+    const searchOptions = {
+      version: '1',
+      lat: latitude.toString(),
+      lon: longitude.toString(),
+      addressType: 'A04', // 새 주소
+    };
+    const queryString = new URLSearchParams(searchOptions).toString();
+
+    const { data } = await axios.get<TmapReverseGeocodingResponse>(
+      `${tmap.endPoint.reverseGeocoding}?${queryString}`,
       options,
     );
     return data;
