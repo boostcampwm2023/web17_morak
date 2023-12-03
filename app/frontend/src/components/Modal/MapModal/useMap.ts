@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { Marker } from '@/components/Map/Marker';
 import {
@@ -29,6 +29,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       longitude: coord.longitude,
     }),
     enabled: coord.latitude !== 0 && coord.longitude !== 0,
+    placeholderData: keepPreviousData,
   });
   const currentAddress = addressData?.addressInfo.fullAddress || '';
 
