@@ -60,7 +60,11 @@ export function Chatting({
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
-      <ChatList chatItems={chatItems} currentUserId={dummyId} />
+      <ChatList
+        chatItems={chatItems}
+        currentUserId={dummyId}
+        participants={participants}
+      />
       <ChattingFooter sendMessage={sendMessage} />
     </div>
   );
