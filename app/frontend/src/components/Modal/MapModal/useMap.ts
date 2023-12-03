@@ -33,6 +33,10 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   });
   const currentAddress = addressData?.addressInfo.fullAddress || '';
 
+  const setCenterToSelectedCoord = (position: TMapLatLng) => {
+    mapInstance?.setCenter(position);
+  };
+
   useEffect(() => {
     if (!currentCoord) {
       return;
@@ -106,7 +110,9 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   );
 
   const setCoord = (currCoord: { latitude: number; longitude: number }) => {
-    setCurrentCoord(new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude));
+    const position = new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude);
+    setCurrentCoord(position);
+    setCenterToSelectedCoord(position);
   };
 
   return {
