@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { Marker } from '@/components/Map/Marker';
 import {
   DEFAULT_ZOOM_LEVEL,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
 } from '@/constants';
-import { tmap } from '@/services';
+import { queryKeys } from '@/queries';
 import { TMap, TMapEvent, TMapLatLng, TMapMarker } from '@/types';
 
 const { Tmapv2 } = window;
@@ -15,26 +17,20 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
   const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
   const [currentCoord, setCurrentCoord] = useState<TMapLatLng | null>(null);
-  const [currentAddress, setCurrentAddress] = useState('');
 
   const coord = {
-    latitude: currentCoord?.lat(),
-    longitude: currentCoord?.lng(),
+    latitude: currentCoord?.lat() || 0,
+    longitude: currentCoord?.lng() || 0,
   };
 
-  const getAddressFromCoord = async () => {
-    const { latitude, longitude } = coord;
-    if (!(latitude && longitude)) {
-      return;
-    }
-
-    const { addressInfo } = await tmap.getAddressFromCoord({
-      latitude,
-      longitude,
-    });
-    const { fullAddress } = addressInfo;
-    setCurrentAddress(fullAddress);
-  };
+  const { data: addressData } = useQuery({
+    ...queryKeys.tmap.getAddressFromCoord({
+      latitude: coord.latitude,
+      longitude: coord.longitude,
+    }),
+    enabled: coord.latitude !== 0 && coord.longitude !== 0,
+  });
+  const currentAddress = addressData?.addressInfo.fullAddress || '';
 
   useEffect(() => {
     if (!currentCoord) {
@@ -58,7 +54,6 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     };
 
     makeMarker(currentCoord);
-    getAddressFromCoord();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCoord, mapInstance]);
 
