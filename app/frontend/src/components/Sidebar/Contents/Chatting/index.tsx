@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ResponseParticipant } from '@morak/apitype';
 import SocketClient from '@morak/chat/src/client/index';
@@ -21,7 +21,15 @@ type ChattingProps = {
   currentUserId: string;
 };
 
-const dummyId = (Math.random() * 100).toFixed().toString();
+function getDummyChatItem() {
+  return {
+    messageType: 'talk',
+    user: '1',
+    room: '1',
+    contents: '더미',
+    date: new Date(Math.floor(Math.random() * 10000000000)),
+  };
+}
 
 export function Chatting({
   postId,
@@ -34,15 +42,24 @@ export function Chatting({
   const sendMessage = (message: string) => {
     socketClient.sendMessage({
       messageType: 'talk',
-      user: dummyId || currentUserId,
+      user: currentUserId,
       room: postId,
       contents: message,
       date: new Date(),
     });
   };
 
+  const fetchPrevChatItems = useCallback(() => {
+    setChatItems((items) => [
+      getDummyChatItem(),
+      getDummyChatItem(),
+      getDummyChatItem(),
+      ...items,
+    ]);
+  }, []);
+
   useEffect(() => {
-    const userRoomInfo = { user: dummyId || currentUserId, room: postId };
+    const userRoomInfo = { user: currentUserId, room: postId };
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
         setChatItems([...chatItems, ...msgs]);
@@ -61,8 +78,9 @@ export function Chatting({
       <ChattingHeader title={title} participants={participants} />
       <ChatList
         chatItems={chatItems}
-        currentUserId={dummyId}
+        currentUserId={currentUserId}
         participants={participants}
+        fetchPrevChatItems={fetchPrevChatItems}
       />
       <ChattingFooter sendMessage={sendMessage} />
     </div>
