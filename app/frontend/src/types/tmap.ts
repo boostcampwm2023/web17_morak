@@ -57,6 +57,27 @@ export type TMapSize = {
   _width: number;
   _height: number;
 };
+export type TmapAddressInfo = {
+  fullAddress: string;
+  addressType: string;
+  city_do: string;
+  gu_gun: string;
+  eup_myun: string;
+  adminDong: string;
+  adminDongCode: string;
+  legalDong: string;
+  legalDongCode: string;
+  ri: string;
+  bunji: string;
+  roadName: string;
+  buildingIndex: string;
+  buildingName: string;
+  mappingDistance: string;
+  roadCode: string;
+};
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
+};
+export type TmapReverseGeocodingResponse = {
+  addressInfo: TmapAddressInfo;
 };
