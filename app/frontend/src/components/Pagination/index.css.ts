@@ -35,6 +35,12 @@ export const page = style([
         color: grayscale500,
       },
     },
+
+    '@media': {
+      'screen and (max-width: 768px)': {
+        fontSize: '1.2rem',
+      },
+    },
   },
 ]);
 
