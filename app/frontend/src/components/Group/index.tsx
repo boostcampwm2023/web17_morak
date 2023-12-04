@@ -9,38 +9,38 @@ import { Button } from '../Button';
 const { grayscale200 } = vars.color;
 
 type GroupProps = {
-  master?: boolean;
-  join?: boolean;
+  owned?: boolean;
+  joined?: boolean;
   name: string;
 };
-export function Group({ master = false, name, join = false }: GroupProps) {
+export function Group({ owned = false, name, joined = false }: GroupProps) {
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
         <div className={styles.info}>
-          {master && <Crown />}
+          {owned && <Crown />}
           <div className={styles.title}>{name}</div>
           <div className={styles.count}>
             <Count width={16} height={16} fill={grayscale200} />
             <span>200</span>
           </div>
         </div>
-        {master ? (
+        {owned ? (
           <Button type="button" theme="danger" shape="fill" size="medium">
             그룹 삭제
           </Button>
         ) : (
           <Button
             type="button"
-            theme={join ? 'danger' : 'primary'}
+            theme={joined ? 'danger' : 'primary'}
             shape="fill"
             size="medium"
           >
-            {join ? '나가기' : '참여하기'}
+            {joined ? '나가기' : '참여하기'}
           </Button>
         )}
       </div>
-      {master && (
+      {owned && (
         <div className={styles.detail}>
           <div className={styles.code}>
             <span>그룹 코드 | </span>
