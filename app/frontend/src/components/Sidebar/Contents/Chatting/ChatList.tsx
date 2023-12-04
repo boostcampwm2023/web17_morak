@@ -12,14 +12,14 @@ type ChatListProps = {
   chatItems: ChatMessage[];
   currentUserId: string;
   participants: ResponseParticipant[];
-  fetchPrevChatItems: () => void;
+  fetchPrevMessages: () => void;
 };
 
 export function ChatList({
   chatItems,
   currentUserId,
   participants,
-  fetchPrevChatItems,
+  fetchPrevMessages,
 }: ChatListProps) {
   const prevScrollHeightRef = useRef(0);
   const listElemRef = useRef<HTMLUListElement>(null);
@@ -50,9 +50,9 @@ export function ChatList({
 
   useEffect(() => {
     if (exposed) {
-      fetchPrevChatItems();
+      fetchPrevMessages();
     }
-  }, [exposed, fetchPrevChatItems]);
+  }, [exposed, fetchPrevMessages]);
 
   return (
     <ul className={styles.chatList} ref={listElemRef}>
