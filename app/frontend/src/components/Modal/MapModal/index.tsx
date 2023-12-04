@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
 import { useDebounce } from '@/hooks';
@@ -49,7 +49,9 @@ export function MapModal({ saveAddress }: MapModalProps) {
       searchKeyword: debouncedSearchKeyword,
     }),
     enabled: !!debouncedSearchKeyword,
+    placeholderData: keepPreviousData,
   });
+
   const addressData = tmapResponse?.searchPoiInfo?.pois?.poi;
 
   const resetSearchKeyword = () => {
