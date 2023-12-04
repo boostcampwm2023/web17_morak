@@ -5,6 +5,7 @@ export const vars = createGlobalTheme(':root', {
     morakGreen: '#1FAB70',
     subGreen: '#9EEECC',
     morakRed: '#F24242',
+    subRed: '#FBF1F1',
     grayscaleWhiteAlt: '#FFFFFFB3',
     grayscaleWhite: '#FFFFFF',
     grayscale50: '#F5F7F9',

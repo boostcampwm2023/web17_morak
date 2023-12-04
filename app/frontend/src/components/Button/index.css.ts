@@ -88,7 +88,7 @@ export const button = recipe({
       },
       style: {
         border: `1px solid ${vars.color.morakGreen}`,
-        background: vars.color.grayscaleWhite,
+        background: vars.color.grayscale50,
         color: vars.color.morakGreen,
       },
     },
@@ -99,7 +99,7 @@ export const button = recipe({
       },
       style: {
         border: `1px solid ${vars.color.morakRed}`,
-        background: vars.color.grayscaleWhite,
+        background: vars.color.subRed,
         color: vars.color.morakRed,
       },
     },
