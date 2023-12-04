@@ -1,12 +1,13 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { Group, Member } from '@prisma/client';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParticipantResponseDto } from 'src/mogaco/dto/response-participants.dto';
 import { GroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @ApiTags('Group API')
 @Controller('groups')
@@ -38,6 +39,18 @@ export class GroupsController {
     return this.groupsService.getAllMembersOfGroup(id);
   }
 
+  @Post('/')
+  @ApiOperation({
+    summary: '그룹 개설',
+    description: '새로운 모각코를 개설합니다.',
+  })
+  @ApiBody({ type: CreateGroupsDto })
+  @ApiResponse({ status: 201, description: 'Successfully created', type: CreateGroupsDto })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async createGroups(@Body() createGroupsDto: CreateGroupsDto): Promise<Group> {
+    return this.groupsService.createGroups(createGroupsDto);
+  }
+
   @Post('/:id/join')
   @ApiOperation({
     summary: '그룹 참가',
@@ -46,6 +59,8 @@ export class GroupsController {
   @ApiParam({ name: 'id', description: '참가할 그룹의 Id' })
   @ApiResponse({ status: 201, description: 'Successfully join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
   async joinGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.joinGroup(id, member);
   }
@@ -59,6 +74,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'Successfully leaved join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);
   }

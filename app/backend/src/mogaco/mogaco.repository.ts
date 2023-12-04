@@ -10,13 +10,33 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(): Promise<Mogaco[]> {
-    return this.prisma.mogaco.findMany({
+  async getAllMogaco(): Promise<MogacoDto[]> {
+    const mogacos = await this.prisma.mogaco.findMany({
       where: { deletedAt: null },
       include: {
         group: true,
       },
     });
+
+    return mogacos.map((mogaco) => ({
+      id: mogaco.id.toString(),
+      groupId: mogaco.group.id.toString(),
+      title: mogaco.title,
+      contents: mogaco.contents,
+      date: mogaco.date,
+      maxHumanCount: mogaco.maxHumanCount,
+      address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
+      status: mogaco.status,
+      createdAt: mogaco.createdAt,
+      updatedAt: mogaco.updatedAt,
+      deletedAt: mogaco.deletedAt,
+      group: {
+        id: mogaco.group.id.toString(),
+        title: mogaco.group.title,
+      },
+    }));
   }
 
   async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
@@ -50,6 +70,8 @@ export class MogacoRepository {
       date: mogaco.date,
       maxHumanCount: mogaco.maxHumanCount,
       address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
       status: mogaco.status,
       member: {
         providerId: mogaco.member.providerId,
@@ -63,7 +85,7 @@ export class MogacoRepository {
 
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     try {
-      const { groupId, title, contents, maxHumanCount, address, date } = createMogacoDto;
+      const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
 
       const mogaco = await this.prisma.mogaco.create({
         data: {
@@ -71,6 +93,8 @@ export class MogacoRepository {
           contents,
           maxHumanCount,
           address,
+          latitude,
+          longitude,
           status: MogacoStatus.RECRUITING,
           date: new Date(date),
           group: {
@@ -119,17 +143,6 @@ export class MogacoRepository {
     });
   }
 
-  async updateMogacoStatus(mogaco: MogacoDto): Promise<Mogaco> {
-    try {
-      return await this.prisma.mogaco.update({
-        where: { id: BigInt(mogaco.id) },
-        data: { status: mogaco.status },
-      });
-    } catch (error) {
-      throw new Error(`Failed to update Mogaco status: ${error.message}`);
-    }
-  }
-
   async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id },
@@ -150,8 +163,11 @@ export class MogacoRepository {
           title: updateMogacoDto.title,
           contents: updateMogacoDto.contents,
           date: new Date(updateMogacoDto.date),
+          status: updateMogacoDto.status,
           maxHumanCount: updateMogacoDto.maxHumanCount,
           address: updateMogacoDto.address,
+          latitude: updateMogacoDto.latitude,
+          longitude: updateMogacoDto.longitude,
         },
       });
     } catch (error) {
@@ -248,5 +264,56 @@ export class MogacoRepository {
         },
       },
     });
+  }
+
+  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
+    let startDate: Date;
+    let endDate: Date;
+
+    // 231129 ldhbenecia | 사용자가 날짜만 입력한 경우 (e.g., '2023-11')
+    if (date.length === 7) {
+      startDate = new Date(`${date}-01T00:00:00.000Z`);
+      endDate = new Date(`${date}-31T23:59:59.999Z`);
+    } else {
+      // 231129 ldhbenecia | 사용자가 날짜와 일자를 입력한 경우 (e.g., '2023-11-25')
+      startDate = new Date(`${date}T00:00:00.000Z`);
+      endDate = new Date(`${date}T23:59:59.999Z`);
+    }
+
+    const mogacos = await this.prisma.mogaco.findMany({
+      where: {
+        date: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      include: {
+        group: true,
+      },
+    });
+
+    if (!mogacos) {
+      throw new NotFoundException(`No Mogaco events found for the date ${date}`);
+    }
+
+    return mogacos.map((mogaco) => ({
+      id: mogaco.id.toString(),
+      groupId: mogaco.group.id.toString(),
+      title: mogaco.title,
+      contents: mogaco.contents,
+      date: mogaco.date,
+      maxHumanCount: mogaco.maxHumanCount,
+      address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
+      status: mogaco.status,
+      createdAt: mogaco.createdAt,
+      updatedAt: mogaco.updatedAt,
+      deletedAt: mogaco.deletedAt,
+      group: {
+        id: mogaco.group.id.toString(),
+        title: mogaco.group.title,
+      },
+    }));
   }
 }

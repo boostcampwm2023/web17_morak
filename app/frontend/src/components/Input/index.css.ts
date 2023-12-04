@@ -70,26 +70,6 @@ export const input = style([
   },
 ]);
 
-export const label = style([
-  fontStyle.sansRegular12,
-  {
-    color: vars.color.grayscaleBlack,
-    selectors: {
-      [`${disabled} &`]: {
-        color: vars.color.grayscale200,
-      },
-      [`${hide} &`]: {
-        visibility: 'hidden',
-      },
-    },
-  },
-]);
-
-export const required = style({
-  paddingLeft: '0.2rem',
-  color: vars.color.morakRed,
-});
-
 export const titleWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',

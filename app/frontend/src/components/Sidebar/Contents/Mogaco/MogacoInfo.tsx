@@ -1,6 +1,7 @@
+import { ResponseMogacoWithMemberDto } from '@morak/apitype';
+
 import { Button } from '@/components';
 import { sansRegular16 } from '@/styles/font.css';
-import { Mogaco } from '@/types';
 
 import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';
@@ -11,7 +12,7 @@ export function MogacoInfo({
   mogaco,
   onClickDetailPage,
 }: {
-  mogaco: Mogaco;
+  mogaco: ResponseMogacoWithMemberDto;
   onClickDetailPage: () => void;
 }) {
   const {

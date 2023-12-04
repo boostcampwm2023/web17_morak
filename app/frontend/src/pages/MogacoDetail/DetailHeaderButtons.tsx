@@ -11,6 +11,8 @@ import {
   useQuitMogacoQuery,
 } from '@/queries/hooks';
 
+import { useDeleteModal, useJoinModal, useQuitModal } from './useModal';
+
 type DetailHeaderButtonsProps = {
   id: string;
   openChatting: () => void;
@@ -40,24 +42,23 @@ export function DetailHeaderButtons({
     }
   };
 
+  const { openDeleteModal } = useDeleteModal();
   const onClickDelete = () => {
-    // eslint-disable-next-line no-alert
-    const answer = window.confirm('삭제하시겠습니까?');
-    if (answer) {
-      handleDelete();
-    }
+    openDeleteModal({ onClickConfirm: handleDelete });
   };
 
   const onClickEdit = () => {
     navigate(`/post?id=${id}`);
   };
 
-  const onClickJoin = async () => {
-    await joinMogaco.mutateAsync(id);
+  const { openJoinModal } = useJoinModal();
+  const onClickJoin = () => {
+    openJoinModal({ onClickConfirm: () => joinMogaco.mutate(id) });
   };
 
-  const onClickQuit = async () => {
-    await quitMogaco.mutateAsync(id);
+  const { openQuitModal } = useQuitModal();
+  const onClickQuit = () => {
+    openQuitModal({ onClickConfirm: () => quitMogaco.mutate(id) });
   };
 
   if (currentUserLoading || mogacoDataLoading) {

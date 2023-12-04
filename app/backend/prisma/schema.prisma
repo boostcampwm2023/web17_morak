@@ -34,6 +34,8 @@ model Mogaco {
   date          DateTime      @db.DateTime
   maxHumanCount Int           @default(1) @map("max_human_count") @db.TinyInt
   address       String        @db.VarChar(191)
+  latitude      Decimal       @db.Decimal(10, 8)
+  longitude     Decimal       @db.Decimal(11, 8)
   status        String        @db.VarChar(191)
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime?     @updatedAt() @map("updated_at")

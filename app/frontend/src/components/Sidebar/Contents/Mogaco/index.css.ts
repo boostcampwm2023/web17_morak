@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular12 } from '@/styles/font.css';
+import { sansBold24, sansRegular12 } from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -42,9 +42,14 @@ export const infoWrapper = style({
   flexDirection: 'column',
   gap: '0.4rem',
 });
+export const title = style([
+  sansBold24,
+  { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
+]);
 export const titleWrapper = style({
   display: 'flex',
   gap: '0.4rem',
+  alignItems: 'center',
 });
 export const wrapper = style({
   display: 'flex',

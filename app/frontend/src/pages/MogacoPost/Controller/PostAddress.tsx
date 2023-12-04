@@ -1,11 +1,12 @@
 import { Controller, Control } from 'react-hook-form';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
+
 import { Input } from '@/components';
 import { MOGACO_POST } from '@/constants';
-import { MogacoPostForm } from '@/types';
 
 type PostAddressProps = {
-  control: Control<MogacoPostForm>;
+  control: Control<RequestCreateMogacoDto>;
 };
 
 export function PostAddress({ control }: PostAddressProps) {

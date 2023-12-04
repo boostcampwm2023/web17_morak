@@ -2,33 +2,48 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { Group, Member } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
+import { CreateGroupsDto } from './dto/create-groups.dto';
 
 @Injectable()
 export class GroupsRepository {
   constructor(private prisma: PrismaService) {}
 
   async getAllGroups(): Promise<Group[]> {
-    return this.prisma.group.findMany();
+    return await this.prisma.group.findMany();
   }
 
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
-    return this.prisma.groupToUser
-      .findMany({
-        where: {
-          groupId: groupId,
+    const groupToUsers = await this.prisma.groupToUser.findMany({
+      where: {
+        groupId: groupId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return groupToUsers.map((groupToUser) => ({
+      providerId: groupToUser.user.providerId,
+      email: groupToUser.user.email,
+      nickname: groupToUser.user.nickname,
+      profilePicture: groupToUser.user.profilePicture,
+    }));
+  }
+
+  async createGroups(createGroupsDto: CreateGroupsDto): Promise<Group> {
+    try {
+      const { title } = createGroupsDto;
+
+      const group = await this.prisma.group.create({
+        data: {
+          title,
         },
-        include: {
-          user: true,
-        },
-      })
-      .then((groupToUsers) =>
-        groupToUsers.map((groupToUser) => ({
-          providerId: groupToUser.user.providerId,
-          email: groupToUser.user.email,
-          nickname: groupToUser.user.nickname,
-          profilePicture: groupToUser.user.profilePicture,
-        })),
-      );
+      });
+
+      return group;
+    } catch (error) {
+      throw new Error(`Failed to create group: ${error.message}`);
+    }
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {

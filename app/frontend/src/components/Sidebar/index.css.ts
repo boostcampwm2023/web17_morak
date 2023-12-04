@@ -42,7 +42,7 @@ export const wrapper = style({
   display: 'flex',
   alignItems: 'center',
   position: 'fixed',
-  top: '8.6rem',
+  top: '8.5rem',
   left: 0,
   zIndex: 10,
   height: 'calc(100% - 8.6rem)',

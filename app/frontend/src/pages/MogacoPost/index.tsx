@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button } from '@/components';
 import { queryKeys } from '@/queries';
 import { useSubmitEdit, useSubmitPost } from '@/queries/hooks/post';
-import { MogacoPostForm } from '@/types';
 
 import {
   PostMember,
@@ -31,7 +31,13 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
-  const { control, handleSubmit, reset } = useForm<MogacoPostForm>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { isValid },
+  } = useForm<RequestCreateMogacoDto>({
     defaultValues: {
       title: '',
       address: '',
@@ -39,16 +45,29 @@ export function MogacoPostPage() {
       date: '',
       groupId: '',
       maxHumanCount: 0,
-      memberId: '',
       status: '모집 중',
     },
+    mode: 'all',
   });
 
   useEffect(() => {
     if (mogacoData) {
-      reset({ ...mogacoData });
+      const { title, address, contents, maxHumanCount, date, status } =
+        mogacoData;
+      reset({
+        title,
+        address,
+        contents,
+        date: date.toString(),
+        maxHumanCount,
+        status,
+      });
     }
   }, [mogacoData, reset]);
+
+  const setGroup = (groupId: string) => {
+    setValue('groupId', groupId);
+  };
 
   const onSubmit = async ({
     title,
@@ -56,9 +75,10 @@ export function MogacoPostPage() {
     date,
     maxHumanCount,
     address,
-  }: MogacoPostForm) => {
+    groupId,
+  }: RequestCreateMogacoDto) => {
     const formData = {
-      groupId: '1', // 그룹 기능 추가 이전
+      groupId,
       title,
       contents,
       date: new Date(date).toISOString(),
@@ -81,7 +101,11 @@ export function MogacoPostPage() {
       <PostTitle control={control} />
       <div className={styles.formContent}>
         <PostMember />
-        <PostGroupId control={control} isEdit={!!mogacoData} />
+        <PostGroupId
+          control={control}
+          isEdit={!!mogacoData}
+          setGroup={setGroup}
+        />
         <PostMaxHumanCount control={control} isEdit={!!mogacoData} />
         <PostAddress control={control} />
         <PostDate control={control} isEdit={!!mogacoData} />
@@ -94,6 +118,7 @@ export function MogacoPostPage() {
           shape="fill"
           size="large"
           fullWidth
+          disabled={!isValid}
         >
           {postId ? '수정하기' : '등록하기'}
         </Button>

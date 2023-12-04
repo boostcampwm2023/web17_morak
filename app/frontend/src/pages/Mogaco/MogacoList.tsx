@@ -31,7 +31,6 @@ export function MogacoList() {
             address,
             status,
             group,
-            participants,
           }) => (
             <MogacoItem
               key={id}
@@ -44,7 +43,6 @@ export function MogacoList() {
               date={date}
               status={status}
               group={group}
-              participants={participants}
             />
           ),
         )}
