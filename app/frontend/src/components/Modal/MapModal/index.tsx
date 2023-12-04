@@ -4,6 +4,7 @@ import { RequestCreateMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button, Input } from '@/components';
+import { useDebounce } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
@@ -30,6 +31,7 @@ type Coord = {
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
+  const debouncedSearchKeyword = useDebounce(searchKeyword);
   const [selectedAddress, setSelectedAddress] = useState('');
   const [selectedCoord, setSelectedCoord] = useState<Coord>({
     latitude: null,
@@ -44,15 +46,16 @@ export function MapModal({ saveAddress }: MapModalProps) {
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
-      searchKeyword,
+      searchKeyword: debouncedSearchKeyword,
     }),
-    enabled: !!searchKeyword,
+    enabled: !!debouncedSearchKeyword,
   });
   const addressData = tmapResponse?.searchPoiInfo?.pois?.poi;
 
   const resetSearchKeyword = () => {
     setSearchKeyword('');
   };
+
   const closeModal = () => {
     resetSearchKeyword();
     setOpen(false);
