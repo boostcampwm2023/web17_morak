@@ -11,3 +11,9 @@ export const groupWrapper = style({
   gap: '2rem',
   marginTop: '2.4rem',
 });
+
+export const loading = style({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'center',
+});
