@@ -7,8 +7,13 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '3.6rem',
-  maxWidth: '72rem',
+  maxWidth: '80rem',
   margin: '0 auto 8rem auto',
+});
+
+export const groupButtons = style({
+  display: 'flex',
+  gap: '1.2rem',
 });
 
 export const list = style({
@@ -21,6 +26,10 @@ export const list = style({
 
 export const logoutButton = style({
   alignSelf: 'end',
+});
+
+export const navLink = style({
+  width: '100%',
 });
 
 export const section = style({

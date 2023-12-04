@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { Button, Divider, Group, MogacoItem } from '@/components';
 import { sansBold24, sansBold36 } from '@/styles/font.css';
 
@@ -65,6 +67,16 @@ export function ProfilePage() {
           <Group name="부스트캠프 웹·모바일 8기" joined owned />
           <Group name="부스트캠프 웹·모바일 7기" joined />
         </ul>
+        <div className={styles.groupButtons}>
+          <Button theme="primary" shape="line" size="large" fullWidth>
+            그룹 참여
+          </Button>
+          <NavLink to="/groups" className={styles.navLink}>
+            <Button theme="primary" shape="line" size="large" fullWidth>
+              새 그룹 추가
+            </Button>
+          </NavLink>
+        </div>
       </section>
     </div>
   );
