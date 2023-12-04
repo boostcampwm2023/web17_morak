@@ -8,7 +8,7 @@ export const container = style({
   flexDirection: 'column',
   gap: '3.6rem',
   maxWidth: '72rem',
-  margin: '0 auto',
+  margin: '0 auto 8rem auto',
 });
 
 export const list = style({

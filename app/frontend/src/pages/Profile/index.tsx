@@ -1,4 +1,4 @@
-import { Button, Divider, MogacoItem } from '@/components';
+import { Button, Divider, Group, MogacoItem } from '@/components';
 import { sansBold24, sansBold36 } from '@/styles/font.css';
 
 import * as styles from './index.css';
@@ -34,7 +34,7 @@ export function ProfilePage() {
           <MogacoItem
             id="1"
             groupId="1"
-            group={{ id: '1', title: '부스트캠프 웹모바일 8기' }}
+            group={{ id: '1', title: '부스트캠프 웹·모바일 8기' }}
             title="사당역 모각코"
             contents="사당역에서 같이 모각코 하실 분 구합니다~"
             address="서울 관악구 남현3길 71 크레이저커피"
@@ -47,10 +47,10 @@ export function ProfilePage() {
           <MogacoItem
             id="1"
             groupId="1"
-            group={{ id: '1', title: '부스트캠프 웹모바일 8기' }}
-            title="사당역 모각코"
-            contents="사당역에서 같이 모각코 하실 분 구합니다~"
-            address="서울 관악구 남현3길 71 크레이저커피"
+            group={{ id: '1', title: '부스트캠프 웹·모바일 8기' }}
+            title="인천역 모각코"
+            contents="인천역에서 같이 모각코 하실 분 구합니다~"
+            address="인천 남현3길 71 크레이저커피"
             maxHumanCount={5}
             date={new Date()}
             status="모집 중"
@@ -61,6 +61,10 @@ export function ProfilePage() {
       </section>
       <section className={styles.section}>
         <div className={sansBold24}>내가 속한 그룹</div>
+        <ul className={styles.list}>
+          <Group name="부스트캠프 웹·모바일 8기" joined owned />
+          <Group name="부스트캠프 웹·모바일 7기" joined />
+        </ul>
       </section>
     </div>
   );
