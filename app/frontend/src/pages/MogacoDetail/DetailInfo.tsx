@@ -8,7 +8,7 @@ import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Error, Loading, UserChip } from '@/components';
-import { useMap } from '@/components/Modal/MapModal/useMap';
+import { useMap } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 
