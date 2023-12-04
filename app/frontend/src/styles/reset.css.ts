@@ -57,3 +57,11 @@ globalStyle('table', {
 globalStyle('a', {
   textDecoration: 'none',
 });
+
+globalStyle('button', {
+  background: 'transparent',
+  border: 'none',
+  outline: 'none',
+  padding: '0',
+  cursor: 'pointer',
+});
