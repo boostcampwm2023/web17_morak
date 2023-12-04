@@ -66,6 +66,13 @@ export const sansBold24 = style([
   },
 ]);
 
+export const sansBold36 = style([
+  sansBold,
+  {
+    fontSize: '3.6rem',
+  },
+]);
+
 export const sansRegular12 = style([
   sansRegular,
   {
