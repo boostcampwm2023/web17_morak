@@ -102,7 +102,7 @@ export class MogacoRepository {
     }));
   }
 
-  async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
+  async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id, deletedAt: null },
       include: {
@@ -113,6 +113,18 @@ export class MogacoRepository {
 
     if (!mogaco) {
       throw new NotFoundException(`Mogaco with id ${id} not found`);
+    }
+
+    // 231204 ldhbenecia | 특정 게시물 조회 시 해당 사용자가 가입한 그룹의 게시글이 아닐 시 오류 처리
+    const userGroups = await this.prisma.groupToUser.findMany({
+      where: { userId: member.id },
+      select: { groupId: true },
+    });
+
+    const userGroupIds = userGroups.map((group) => group.groupId);
+
+    if (!userGroupIds.includes(mogaco.group.id)) {
+      throw new ForbiddenException(`User does not have access to Mogaco with id ${id}`);
     }
 
     const participants = await this.getParticipants(id);

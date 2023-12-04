@@ -17,8 +17,8 @@ export class MogacoService {
     return this.mogacoRepository.getMogacoByDate(date);
   }
 
-  async getMogacoById(id: number): Promise<MogacoWithMemberDto> {
-    return this.mogacoRepository.getMogacoById(id);
+  async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
+    return this.mogacoRepository.getMogacoById(id, member);
   }
 
   async createMogaco(createMogaco: CreateMogacoDto, member: Member): Promise<Mogaco> {
