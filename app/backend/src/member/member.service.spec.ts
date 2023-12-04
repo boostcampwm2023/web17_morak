@@ -40,8 +40,6 @@ describe('MemberService', () => {
       const encryptedToken = 'mockEncryptedToken';
       const userData = await memberService.getUserData(encryptedToken);
 
-      console.log('mockDecodedAccessToken', mockDecodedAccessToken);
-
       expect(userData).toEqual(mockDecodedAccessToken);
     });
 
