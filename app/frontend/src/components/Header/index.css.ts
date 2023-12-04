@@ -2,6 +2,8 @@ import { style } from '@vanilla-extract/css';
 
 import { vars, fontStyle } from '@/styles';
 
+export const active = style({});
+
 export const container = style({
   position: 'fixed',
   top: 0,
@@ -43,8 +45,14 @@ export const logoTitle = style([
   },
 ]);
 
-export const profile = style({
+export const profileButton = style({
   fill: vars.color.grayscale200,
+
+  selectors: {
+    [`${active} &`]: {
+      fill: vars.color.morakGreen,
+    },
+  },
 });
 
 export const sideMenu = style({

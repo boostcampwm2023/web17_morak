@@ -26,8 +26,11 @@ export function Header() {
               {menu}
             </NavLink>
           ))}
-          <NavLink to="/profile">
-            <Profile width={24} height={24} className={styles.profile} />
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            <Profile width={24} height={24} className={styles.profileButton} />
           </NavLink>
         </div>
       </div>
