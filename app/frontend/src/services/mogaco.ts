@@ -8,7 +8,7 @@ import { morakAPI } from './morakAPI';
 
 export const mogaco = {
   endPoint: {
-    index: '/mogaco',
+    default: '/posts',
   },
 
   list: async (filters?: { date?: string }) => {
@@ -16,31 +16,33 @@ export const mogaco = {
       ? `?${new URLSearchParams(filters).toString()}`
       : '';
     const { data } = await morakAPI.get<ResponseMogacoDto[]>(
-      `${mogaco.endPoint.index}${queryString}`,
+      `${mogaco.endPoint.default}${queryString}`,
     );
     return data;
   },
   detail: async (id: string) => {
     const { data } = await morakAPI.get<ResponseMogacoWithMemberDto>(
-      `${mogaco.endPoint.index}/${id}`,
+      `${mogaco.endPoint.default}/${id}`,
     );
     return data;
   },
   post: async (form: Partial<RequestCreateMogacoDto>) =>
-    morakAPI.post(mogaco.endPoint.index, form),
+    morakAPI.post(mogaco.endPoint.default, form),
   edit: async (id: string, form: Partial<RequestCreateMogacoDto>) =>
-    morakAPI.patch(`${mogaco.endPoint.index}/${id}`, form),
+    morakAPI.patch(`${mogaco.endPoint.default}/${id}`, form),
   delete: async (id: string) => {
-    const response = await morakAPI.delete(`${mogaco.endPoint.index}/${id}`);
+    const response = await morakAPI.delete(`${mogaco.endPoint.default}/${id}`);
     return response;
   },
   join: async (id: string) => {
-    const response = await morakAPI.post(`${mogaco.endPoint.index}/${id}/join`);
+    const response = await morakAPI.post(
+      `${mogaco.endPoint.default}/${id}/join`,
+    );
     return response;
   },
   quit: async (id: string) => {
     const response = await morakAPI.delete(
-      `${mogaco.endPoint.index}/${id}/join`,
+      `${mogaco.endPoint.default}/${id}/join`,
     );
     return response;
   },
