@@ -13,8 +13,8 @@ export class MogacoService {
     return this.mogacoRepository.getAllMogaco(member);
   }
 
-  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
-    return this.mogacoRepository.getMogacoByDate(date);
+  async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
+    return this.mogacoRepository.getMogacoByDate(date, member);
   }
 
   async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
