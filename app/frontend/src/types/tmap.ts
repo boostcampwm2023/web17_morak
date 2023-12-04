@@ -1,5 +1,5 @@
 export type MapOptions = {
-  zoomControl: boolean;
+  zoomControl?: boolean;
 };
 
 export type NewAddress = {
