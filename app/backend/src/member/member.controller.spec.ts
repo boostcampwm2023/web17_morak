@@ -55,8 +55,6 @@ describe('MemberController', () => {
       // memberController.getUserData를 호출하고 반환값이 예상된 값인지 확인합니다.
       await memberController.getUserData(mockRequest, mockResponse);
 
-      console.log('Response Data:', mockResponse.json.mock.calls[0]);
-
       expect(mockResponse.json).toHaveBeenCalledWith(mockUserData);
     });
 
