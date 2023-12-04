@@ -23,7 +23,7 @@ export function Pagination({
   return (
     <div className={styles.container}>
       <button type="button" onClick={onClickPrev}>
-        <Arrow width={16} fill={vars.color.grayscale200} />
+        <Arrow width={16} height={16} fill={vars.color.grayscale200} />
       </button>
       {array.map((page) => (
         <button
@@ -43,7 +43,7 @@ export function Pagination({
         className={styles.rotateArrow}
         onClick={onClickNext}
       >
-        <Arrow width={16} fill={vars.color.grayscale200} />
+        <Arrow width={16} height={16} fill={vars.color.grayscale200} />
       </button>
     </div>
   );
