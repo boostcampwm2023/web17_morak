@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import { ResponseParticipant } from '@morak/apitype';
 import SocketClient from '@morak/chat/src/client/index';
 import {
   ChatMessage,
   StatusType,
 } from '@morak/chat/src/interface/message.interface';
-
-import { Member } from '@/types';
 
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
@@ -18,7 +17,7 @@ const socketClient = new SocketClient('http://localhost:8889/chat');
 type ChattingProps = {
   postId: string;
   title: string;
-  participants: Member[];
+  participants: ResponseParticipant[];
   currentUserId: string;
 };
 

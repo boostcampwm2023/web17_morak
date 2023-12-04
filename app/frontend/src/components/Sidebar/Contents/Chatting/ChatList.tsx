@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import { ResponseParticipant } from '@morak/apitype';
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
-
-import { Member } from '@/types';
 
 import * as styles from './index.css';
 import { MemorizedTalkItem } from './TalkItem';
@@ -10,7 +9,7 @@ import { MemorizedTalkItem } from './TalkItem';
 type ChatListProps = {
   chatItems: ChatMessage[];
   currentUserId: string;
-  participants: Member[];
+  participants: ResponseParticipant[];
 };
 
 export function ChatList({
