@@ -41,7 +41,11 @@ export function MogacoDetailPage() {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <DetailHeader id={id!} />
-        <DetailInfo id={id!} />
+        <DetailInfo
+          id={id!}
+          latitude={mogacoData.latitude}
+          longitude={mogacoData.longitude}
+        />
         <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>
