@@ -8,6 +8,7 @@ import {
   MAX_ZOOM_LEVEL,
 } from '@/constants';
 import { queryKeys } from '@/queries';
+import { TMap } from '@/types';
 
 import * as styles from './index.css';
 import { Marker } from './Marker';
@@ -17,7 +18,6 @@ const { Tmapv2 } = window;
 type MapProps = {
   onClickMarker: (id: string) => void;
 };
-type MapType = typeof Tmapv2;
 type Geolocation = {
   coords: {
     latitude: number;
@@ -25,7 +25,7 @@ type Geolocation = {
   };
 };
 
-const setMyLocation = (mapContent: MapType) => {
+const setMyLocation = (mapContent: TMap) => {
   const onSuccess = (position: Geolocation) => {
     const { latitude, longitude } = position.coords;
     mapContent.setCenter(new Tmapv2.LatLng(latitude, longitude));

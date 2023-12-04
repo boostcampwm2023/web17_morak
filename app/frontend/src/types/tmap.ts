@@ -33,6 +33,7 @@ export type SearchPoiInfo = {
 export type TMap = {
   setCenter: (latLng: TMapLatLng) => void;
   setZoomLimit: (minZoom: number, maxZoom: number) => void;
+  setZoom: (zoomLevel: number) => void;
   destroy: () => void;
   addListener: (
     eventType: EventType,
