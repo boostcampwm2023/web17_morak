@@ -6,16 +6,24 @@ import { sansRegular18 } from '@/styles/font.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.6rem',
+  gap: '3.6rem',
   maxWidth: '72rem',
   margin: '0 auto',
+});
+
+export const list = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.6rem',
+  maxHeight: '48rem',
+  overflowY: 'auto',
 });
 
 export const logoutButton = style({
   alignSelf: 'end',
 });
 
-export const userInfo = style({
+export const section = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '2.4rem',

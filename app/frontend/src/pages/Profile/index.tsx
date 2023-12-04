@@ -1,12 +1,12 @@
-import { Button, Divider } from '@/components';
-import { sansBold36 } from '@/styles/font.css';
+import { Button, Divider, MogacoItem } from '@/components';
+import { sansBold24, sansBold36 } from '@/styles/font.css';
 
 import * as styles from './index.css';
 
 export function ProfilePage() {
   return (
     <div className={styles.container}>
-      <div className={styles.userInfo}>
+      <section className={styles.section}>
         <div className={sansBold36}>내 프로필</div>
         <div className={styles.userInfoBody}>
           <div className={styles.userInfoLine}>
@@ -26,8 +26,42 @@ export function ProfilePage() {
             로그아웃
           </Button>
         </div>
-      </div>
+      </section>
       <Divider />
+      <section className={styles.section}>
+        <div className={sansBold24}>현재 참가한 모각코</div>
+        <ul className={styles.list}>
+          <MogacoItem
+            id="1"
+            groupId="1"
+            group={{ id: '1', title: '부스트캠프 웹모바일 8기' }}
+            title="사당역 모각코"
+            contents="사당역에서 같이 모각코 하실 분 구합니다~"
+            address="서울 관악구 남현3길 71 크레이저커피"
+            maxHumanCount={5}
+            date={new Date()}
+            status="모집 중"
+            latitude={30}
+            longitude={30}
+          />
+          <MogacoItem
+            id="1"
+            groupId="1"
+            group={{ id: '1', title: '부스트캠프 웹모바일 8기' }}
+            title="사당역 모각코"
+            contents="사당역에서 같이 모각코 하실 분 구합니다~"
+            address="서울 관악구 남현3길 71 크레이저커피"
+            maxHumanCount={5}
+            date={new Date()}
+            status="모집 중"
+            latitude={30}
+            longitude={30}
+          />
+        </ul>
+      </section>
+      <section className={styles.section}>
+        <div className={sansBold24}>내가 속한 그룹</div>
+      </section>
     </div>
   );
 }
