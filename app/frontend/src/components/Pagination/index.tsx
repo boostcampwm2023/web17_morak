@@ -4,6 +4,7 @@ import { createRangeArray, get10UnitRange } from '@/utils';
 
 import * as styles from './index.css';
 
+const { grayscale200 } = vars.color;
 type PaginationProps = {
   currentPage: number;
   onClickPrev: () => void;
@@ -19,11 +20,11 @@ export function Pagination({
 }: PaginationProps) {
   const [start, end] = get10UnitRange(currentPage);
   const array = createRangeArray(start, end);
-
+  const arrow = <Arrow width={16} height={16} fill={grayscale200} />;
   return (
     <div className={styles.container}>
       <button type="button" onClick={onClickPrev}>
-        <Arrow width={16} height={16} fill={vars.color.grayscale200} />
+        {arrow}
       </button>
       {array.map((page) => (
         <button
@@ -43,7 +44,7 @@ export function Pagination({
         className={styles.rotateArrow}
         onClick={onClickNext}
       >
-        <Arrow width={16} height={16} fill={vars.color.grayscale200} />
+        {arrow}
       </button>
     </div>
   );
