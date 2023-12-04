@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -23,26 +23,13 @@ type MapModalProps = {
   >) => void;
 };
 
-type Coord = {
-  latitude: number | null;
-  longitude: number | null;
-};
-
 export function MapModal({ saveAddress }: MapModalProps) {
   const [open, setOpen] = useModalAtom();
   const [searchKeyword, setSearchKeyword] = useState('');
   const debouncedSearchKeyword = useDebounce(searchKeyword);
-  const [selectedAddress, setSelectedAddress] = useState('');
-  const [selectedCoord, setSelectedCoord] = useState<Coord>({
-    latitude: null,
-    longitude: null,
-  });
   const mapRef = useRef<HTMLDivElement>(null);
-  const { updateMarker } = useMap(mapRef);
 
-  useEffect(() => {
-    updateMarker(selectedCoord);
-  }, [selectedCoord, updateMarker]);
+  const { coord, setCoord, currentAddress: selectedAddress } = useMap(mapRef);
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -64,7 +51,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
   };
 
   const onClickConfirm = () => {
-    const { latitude, longitude } = selectedCoord;
+    const { latitude, longitude } = coord;
     if (!(latitude && longitude)) return;
     saveAddress({ address: selectedAddress, latitude, longitude });
     closeModal();
@@ -75,12 +62,11 @@ export function MapModal({ saveAddress }: MapModalProps) {
   >(
     e: Event,
   ) => {
-    setSelectedAddress(e.currentTarget.getAttribute('value') || '');
     const coordinate = {
       latitude: Number(e.currentTarget.getAttribute('data-lat')),
       longitude: Number(e.currentTarget.getAttribute('data-lon')),
     };
-    setSelectedCoord(coordinate);
+    setCoord(coordinate);
   };
 
   return (
