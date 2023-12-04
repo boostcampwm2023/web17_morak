@@ -15,7 +15,7 @@ const port = parseInt(getSecret('SOCKET_PORT'), 10);
 @WebSocketGateway(port, {
   namespace: 'chat',
   cors: { origin: '*' },
-  transports: ['websocket']
+  transports: ['websocket'],
 })
 class ChatGateway {
   @WebSocketServer() server: Server;
@@ -24,12 +24,8 @@ class ChatGateway {
   @SubscribeMessage('joinRoom')
   joinRoom(@ConnectedSocket() client: Socket, @AuthUser() user: User, @JoinRoom() room: string) {
     // 231203 ccxz84 | chat logging 유저 룸 떠나기 메시지 로깅 필요
-    console.log(`${user} join ${room}`);
     try {
-      const messages = this.chatService.loadMessageDB(room, new Date());
-      messages.then(data => {
-        client.emit('postJoinRoom', StatusCode.success, data); // 231129 ccxz84 | chat 임시 메시지 반환
-      });
+      client.emit('postJoinRoom', StatusCode.success, 'Join Room Success'); // 231129 ccxz84 | chat 임시 메시지 반환
     } catch (error) {
       client.emit('postJoinRoom', StatusCode.error, 'join Room Error');
     }
@@ -49,17 +45,16 @@ class ChatGateway {
 
   @SubscribeMessage('requestPrevMessage')
   getPrevMessages(@ConnectedSocket() client: Socket, @MessageBody() data: RequestGetPrevChatMessage) {
-    try{
+    try {
       if (data.room && data.cursorDate) {
         const messages = this.chatService.loadMessageDB(data.room, data.cursorDate);
-        messages.then(data => {
+        messages.then((data) => {
           client.emit('receivePrevMessage', StatusCode.success, data);
         });
       }
     } catch (error) {
       client.emit('receivePrevMessage', StatusCode.error, 'Get Chat Message Error');
     }
-    
   }
 
   afterInit(server: Server) {

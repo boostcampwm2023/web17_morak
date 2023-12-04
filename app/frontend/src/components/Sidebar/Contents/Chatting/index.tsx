@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 import { ResponseParticipant } from '@morak/apitype';
 import SocketClient from '@morak/chat/src/client/index';
@@ -21,16 +21,6 @@ type ChattingProps = {
   currentUserId: string;
 };
 
-function getDummyChatItem() {
-  return {
-    messageType: 'talk',
-    user: '1',
-    room: '1',
-    contents: '더미',
-    date: new Date(Math.floor(Math.random() * 10000000000)),
-  };
-}
-
 export function Chatting({
   postId,
   title,
@@ -38,6 +28,7 @@ export function Chatting({
   currentUserId,
 }: ChattingProps) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
+  const lastDateRef = useRef<Date | null>(new Date());
 
   const sendMessage = (message: string) => {
     socketClient.sendMessage({
@@ -49,37 +40,46 @@ export function Chatting({
     });
   };
 
-  const fetchPrevChatItems = useCallback(() => {
-    setChatItems((items) => [
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      getDummyChatItem(),
-      ...items,
-    ]);
-  }, []);
+  const fetchPrevMessages = useCallback(() => {
+    if (!lastDateRef.current) {
+      return;
+    }
+
+    socketClient.requestPrevMessage(
+      postId,
+      lastDateRef.current,
+      (status, messages) => {
+        if (status !== 200) {
+          return;
+        }
+
+        if (messages.length === 0) {
+          lastDateRef.current = null;
+          return;
+        }
+
+        lastDateRef.current = messages[messages.length - 1].date;
+        setChatItems((items) => [...messages.reverse(), ...items]);
+      },
+    );
+  }, [postId]);
 
   useEffect(() => {
-    const userRoomInfo = { user: currentUserId, room: postId };
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
-        setChatItems([...chatItems, ...msgs]);
+        setChatItems((items) => [...items, ...msgs]);
       }
     };
 
-    socketClient.joinRoom(userRoomInfo, fetchChatting);
+    socketClient.joinRoom({ user: currentUserId, room: postId }, (status) => {
+      if (status === 200) {
+        // console.log('입장 성공');
+      }
+    });
     socketClient.subscribeToChat(fetchChatting);
-    return () => {
-      socketClient.leaveRoom(userRoomInfo);
-    };
-  }, [chatItems, currentUserId, postId]);
+
+    return () => socketClient.leaveRoom({ user: currentUserId, room: postId });
+  }, [currentUserId, postId]);
 
   return (
     <div className={styles.container}>
@@ -88,7 +88,7 @@ export function Chatting({
         chatItems={chatItems}
         currentUserId={currentUserId}
         participants={participants}
-        fetchPrevChatItems={fetchPrevChatItems}
+        fetchPrevMessages={fetchPrevMessages}
       />
       <ChattingFooter sendMessage={sendMessage} />
     </div>

@@ -1,8 +1,8 @@
 import io, { Socket } from 'socket.io-client';
-import { RequestUserRoomDto } from '../interface/user.interface'
+import { RequestUserRoomDto } from '../interface/user.interface';
 import { ChatMessage, StatusType } from '../interface/message.interface';
 
-export type CallBack = (status: StatusType, msg: ChatMessage[]) => void;
+export type CallBack = (status: StatusType, msgs: ChatMessage[]) => void;
 
 class SocketClient {
   private socket: Socket | null = null;
@@ -20,10 +20,18 @@ class SocketClient {
     if (this.socket) this.socket.disconnect();
   }
 
-  joinRoom(user: RequestChatUser, room: string, cb: CallBack): void { 
-    this.connectSocket();
-    if (this.socket && room) {
-      this.socket.emit('joinRoom',{ user, room });
+  joinRoom(userRoomDto: RequestUserRoomDto, cb: CallBack): void {
+    try {
+      this.connectSocket();
+      if (this.socket) {
+        this.socket.emit('joinRoom', userRoomDto);
+        this.socket.on('postJoinRoom', (status: StatusType) => cb(status, []));
+      } else {
+        console.error('Socket connection not established.');
+        // 여기서 적절한 에러 처리를 할 수 있습니다.
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -41,17 +49,20 @@ class SocketClient {
       return cb(status, [msg]);
     });
   }
-  
+
   sendMessage(chatDto: ChatMessage): void {
     if (this.socket) this.socket.emit('chatMessage', chatDto);
   }
 
-  requestPrevMessage(room: string, cursorDate: Date ,cb: CallBack): void {
+  requestPrevMessage(room: string, cursorDate: Date, cb: CallBack): void {
     if (this.socket && room) {
-      this.socket.emit('requestPrevMessage', room, cursorDate);
-      this.socket.on('receivePrevMessage', (status: StatusType, msgs: ChatMessage[]) => {
-        cb(status, msgs);
-      });
+      this.socket.emit('requestPrevMessage', { room, cursorDate });
+      this.socket.once(
+        'receivePrevMessage',
+        (status: StatusType, msgs: ChatMessage[]) => {
+          cb(status, msgs);
+        }
+      );
     }
   }
 }
