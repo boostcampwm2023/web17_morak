@@ -1,13 +1,14 @@
+import { ResponseParticipant } from '@morak/apitype';
+
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Popover, UserChip } from '@/components';
 import { vars } from '@/styles';
-import { Member } from '@/types';
 
 import * as styles from './index.css';
 
 type ChattingHeaderProps = {
   title: string;
-  participants: Member[];
+  participants: ResponseParticipant[];
 };
 
 export function ChattingHeader({ title, participants }: ChattingHeaderProps) {
