@@ -51,7 +51,14 @@ export class MogacoRepository {
     }));
   }
 
-  async getMogacoByDate(date: string): Promise<MogacoDto[]> {
+  async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
+    const userGroups = await this.prisma.groupToUser.findMany({
+      where: { userId: member.id },
+      select: { groupId: true },
+    });
+
+    const userGroupIds = userGroups.map((group) => group.groupId);
+
     let startDate: Date;
     let endDate: Date;
 
@@ -67,6 +74,10 @@ export class MogacoRepository {
 
     const mogacos = await this.prisma.mogaco.findMany({
       where: {
+        deletedAt: null,
+        groupId: {
+          in: userGroupIds,
+        },
         date: {
           gte: startDate,
           lte: endDate,
