@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Run Frontend tests
-      #   run: npm run test -w=frontend
+      - name: Run Frontend tests
+        run: npm run test -w=frontend
 
       - name: Build Frontend
         run: npm run build -w=frontend
