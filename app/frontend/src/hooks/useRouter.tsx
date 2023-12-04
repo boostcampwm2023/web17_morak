@@ -8,6 +8,7 @@ import {
   MogacoPostPage,
   Calendar,
   MapLayout,
+  Groups,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -33,6 +34,10 @@ export const useRouter = () =>
         {
           path: 'profile',
           element: <>프로필</>,
+        },
+        {
+          path: 'groups',
+          element: <Groups />,
         },
       ],
     },
