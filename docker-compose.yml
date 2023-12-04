@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      dockerfile: app/backend/Dockerfile
+    environment:
+      - DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@db:3306/${DB_DATABASE_NAME}
+      - REDIS_HOST=redis
+      - MONGO_HOST=mongodb
+      - DOMAIN=${DOMAIN}
+      - PORT=${PORT}
+    depends_on:
+      - db
+      - redis
+      - mongodb
+    ports:
+      - "${PORT}:${PORT}"
+      - "${SOCKET_PORT}:${SOCKET_PORT}"
+  db:
+    image: ccxz84/morak-mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "${REDIS_PORT}:6379"
+
+  mongodb:
+    image: ccxz84/morak-mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - CHAT_USER=${CHAT_USER}
+      - CHAT_PASSWORD=${CHAT_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+
+  nginx:
+    image: ccxz84/morak-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - PORT=${PORT}
+    volumes:
+      - ./nginx.conf.template:/nginx.conf.template:ro
+      - frontend-dist:/usr/share/nginx/html # Nginx가 정적 파일을 서빙할 경로
+    command: /bin/sh -c "./nginx-entrypoint.sh /nginx.conf.template"
+    depends_on:
+      - backend
+
+  frontend-builder:
+    build:
+      dockerfile: app/frontend/Dockerfile.product
+    volumes:
+      - frontend-dist:/app/dist
+
+volumes:
+  mysql-data:
+  mongo-data:
+  frontend-dist:
