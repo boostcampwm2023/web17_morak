@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Error, Loading } from '@/components';
+import { Divider, Error, Loading } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 
@@ -43,7 +43,7 @@ export function MogacoDetailPage() {
         <DetailHeader id={id!} />
         <DetailInfo id={id!} />
         <div>{mogacoData.contents}</div>
-        <hr className={styles.horizontalLine} />
+        <Divider />
       </div>
     </div>
   );

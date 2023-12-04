@@ -1,4 +1,4 @@
-import { Button } from '@/components';
+import { Button, Divider } from '@/components';
 import { sansBold36 } from '@/styles/font.css';
 
 import * as styles from './index.css';
@@ -27,7 +27,7 @@ export function ProfilePage() {
           </Button>
         </div>
       </div>
-      <hr />
+      <Divider />
     </div>
   );
 }

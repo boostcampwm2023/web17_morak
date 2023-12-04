@@ -6,7 +6,7 @@ import { sansRegular18 } from '@/styles/font.css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '3.6rem',
+  gap: '1.6rem',
   maxWidth: '72rem',
   margin: '0 auto',
 });
@@ -26,7 +26,7 @@ export const userInfoBody = style([
   {
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.2rem',
+    gap: '1.6rem',
   },
 ]);
 
