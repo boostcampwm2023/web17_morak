@@ -39,9 +39,10 @@ export class MogacoController {
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
-  async getMogacoById(@Param('id', ParseIntPipe) id: number): Promise<MogacoWithMemberDto> {
-    return this.mogacoService.getMogacoById(id);
+  async getMogacoById(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<MogacoWithMemberDto> {
+    return this.mogacoService.getMogacoById(id, member);
   }
 
   @Post('/')
