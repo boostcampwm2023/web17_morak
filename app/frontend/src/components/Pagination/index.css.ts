@@ -1,14 +1,27 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
 import { sansRegular16 } from '@/styles/font.css';
 
-const { grayscale200, grayscale500 } = vars.color;
+const { grayscale200, grayscale500, grayscale50 } = vars.color;
 
 export const container = style({
   display: 'flex',
-  gap: '1.6rem',
+  gap: '1.2rem',
   justifyContent: 'center',
+  width: '100%',
+});
+
+globalStyle(`${container} button`, {
+  padding: '0.4rem',
+  borderRadius: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+globalStyle(`${container} button:hover`, {
+  backgroundColor: grayscale50,
 });
 
 export const current = style({});
