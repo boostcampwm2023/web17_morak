@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from '../libs/utils/swagger';
-import { getSecret, loadSecrets } from 'vault';
+import { getSecret, loadSecrets } from '@morak/vault';
 import '../libs/utils/bigIntToJson';
 
 async function bootstrap() {

@@ -1,0 +1,26 @@
+events { }
+http {
+    include       mime.types;
+
+    server {
+        listen 80;
+        # SSL 관련 설정...
+
+        location /server/ {
+            proxy_pass http://backend:${PORT};
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+
+            # URI의 /server 부분 제거
+            rewrite ^/server/(.*) /$1 break;
+        }
+
+        location / {
+            root /usr/share/nginx/html; # 정적 파일 경로
+            try_files $uri $uri/ /index.html; # SPA(Single Page Application) 대응
+        }
+    }
+}
