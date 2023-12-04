@@ -39,6 +39,7 @@ export type TMap = {
   setCenter: (latLng: TMapLatLng) => void;
   setZoomLimit: (minZoom: number, maxZoom: number) => void;
   setZoom: (zoomLevel: number) => void;
+  setOptions: ({ zoomControl }: MapOptions) => void;
   destroy: () => void;
   addListener: (
     eventType: EventType,

@@ -27,6 +27,7 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
 
   useEffect(() => {
     updateMarker({ latitude, longitude });
+    mapInstance?.setOptions({ zoomControl: false });
   }, [latitude, longitude, mapInstance, updateMarker]);
 
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
