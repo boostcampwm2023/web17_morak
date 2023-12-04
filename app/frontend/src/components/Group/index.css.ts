@@ -3,8 +3,13 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles';
 import { sansBold16, sansBold24, sansRegular16 } from '@/styles/font.css';
 
-const { grayscale200, grayscaleWhite, grayscale500, grayscaleBlack } =
-  vars.color;
+const {
+  grayscale200,
+  grayscaleWhite,
+  grayscale500,
+  grayscaleBlack,
+  grayscale50,
+} = vars.color;
 export const code = style([
   sansBold16,
   {
@@ -17,9 +22,16 @@ export const container = style({
   flexDirection: 'column',
   borderRadius: '0.8rem',
   border: `1px solid ${grayscale200}`,
-  background: grayscaleWhite,
+  backgroundColor: grayscaleWhite,
   padding: '2rem',
   gap: '0.8rem',
+
+  selectors: {
+    [`&:hover`]: {
+      backgroundColor: grayscale50,
+      cursor: 'pointer',
+    },
+  },
 });
 export const count = style([
   sansRegular16,

@@ -46,7 +46,9 @@ export function Group({ master = false, name, join = false }: GroupProps) {
             <span>그룹 코드 | </span>
             <span className={styles.groupCode}>FDGSIUH4RUR89U324R98</span>
           </div>
-          <Copy width={24} height={24} fill={grayscale200} />
+          <button type="button">
+            <Copy width={24} height={24} fill={grayscale200} />
+          </button>
         </div>
       )}
     </div>
