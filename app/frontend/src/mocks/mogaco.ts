@@ -237,19 +237,19 @@ const mogacoWithMemberList: ResponseMogacoWithMemberDto[] = [
 ];
 
 export const mogacoAPIHandlers = [
-  http.get('/mogaco', () => HttpResponse.json<ResponseMogacoDto[]>(mogacoList)),
-  http.post<never, RequestCreateMogacoDto>('/mogaco', async () =>
+  http.get('/posts', () => HttpResponse.json<ResponseMogacoDto[]>(mogacoList)),
+  http.post<never, RequestCreateMogacoDto>('/posts', async () =>
     HttpResponse.json(null, { status: 201 }),
   ),
-  http.patch<{ id: string }, RequestCreateMogacoDto>('/mogaco/:id', async () =>
+  http.patch<{ id: string }, RequestCreateMogacoDto>('/posts/:id', async () =>
     HttpResponse.json(null, { status: 200 }),
   ),
-  http.get('/mogaco/:id', ({ params: { id } }) =>
+  http.get('/posts/:id', ({ params: { id } }) =>
     HttpResponse.json<ResponseMogacoWithMemberDto>(
       mogacoWithMemberList.find((mogaco) => mogaco.id === id),
     ),
   ),
-  http.delete('/mogaco/:id', () => HttpResponse.json(null, { status: 200 })),
-  http.post('/mogaco/:id/join', () => HttpResponse.json(null, { status: 200 })),
-  http.delete('/mogaco/:id/join', () => HttpResponse.json({ status: 200 })),
+  http.delete('/posts/:id', () => HttpResponse.json(null, { status: 200 })),
+  http.post('/posts/:id/join', () => HttpResponse.json(null, { status: 200 })),
+  http.delete('/posts/:id/join', () => HttpResponse.json({ status: 200 })),
 ];
