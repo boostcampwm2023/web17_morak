@@ -23,11 +23,11 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
-  async getMogaco(@Query('date') date?: string): Promise<MogacoDto[]> {
+  async getMogaco(@Query('date') date?: string, @GetUser() member?: Member): Promise<MogacoDto[]> {
     if (date) {
       return this.mogacoService.getMogacoByDate(date);
     } else {
-      return this.mogacoService.getAllMogaco();
+      return this.mogacoService.getAllMogaco(member);
     }
   }
 
