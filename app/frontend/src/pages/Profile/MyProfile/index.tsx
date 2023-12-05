@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { Button, Error } from '@/components';
+import { Button, Error, Loading } from '@/components';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 import { auth } from '@/services';
 import { sansBold36 } from '@/styles/font.css';
@@ -8,10 +8,14 @@ import { sansBold36 } from '@/styles/font.css';
 import * as styles from './index.css';
 
 export function MyProfile() {
-  const { data: currentUser } = useGetMyInfoQuery();
+  const { isLoading, data: currentUser } = useGetMyInfoQuery();
   const { mutateAsync: logoutMutate } = useMutation({
     mutationFn: (providerId: string) => auth.logout({ providerId }),
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!currentUser) {
     return <Error message="사용자 정보를 불러오지 못했습니다." />;
