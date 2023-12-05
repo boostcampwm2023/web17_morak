@@ -10,7 +10,7 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(member: Member, page: number): Promise<{ data: MogacoDto[]; total: number }> {
+  async getAllMogaco(member: Member, page: number): Promise<MogacoDto[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
@@ -65,7 +65,7 @@ export class MogacoRepository {
       },
     }));
 
-    return { data: mappedMogacos, total };
+    return mappedMogacos;
   }
 
   async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {

@@ -9,7 +9,7 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoService {
   constructor(private mogacoRepository: MogacoRepository) {}
 
-  async getAllMogaco(member: Member, page: number = 1): Promise<{ data: MogacoDto[]; total: number }> {
+  async getAllMogaco(member: Member, page: number = 1): Promise<MogacoDto[]> {
     return this.mogacoRepository.getAllMogaco(member, page);
   }
 

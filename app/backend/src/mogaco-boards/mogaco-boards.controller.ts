@@ -28,10 +28,9 @@ export class MogacoController {
     @GetUser() member: Member,
     @Query('date') date?: string,
     @Query('page') page: number = 1,
-  ): Promise<{ data: MogacoDto[]; total: number }> {
+  ): Promise<MogacoDto[]> {
     if (date) {
-      const data = await this.mogacoService.getMogacoByDate(date, member);
-      return { data, total: data.length };
+      return this.mogacoService.getMogacoByDate(date, member);
     } else {
       return this.mogacoService.getAllMogaco(member, page);
     }
