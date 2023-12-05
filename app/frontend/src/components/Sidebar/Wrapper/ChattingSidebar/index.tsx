@@ -1,7 +1,7 @@
-import { ChattingProps } from '@/types';
+import { ResponseParticipant } from '@morak/apitype/dto/response/participant';
 
-import { Sidebar } from '../..';
-import { Chatting } from '../../Contents/Chatting';
+import { Sidebar } from '@/components';
+import { Chatting } from '@/components/Sidebar/Contents/Chatting';
 
 export function ChattingSidebar({
   closed,
@@ -10,7 +10,9 @@ export function ChattingSidebar({
 }: {
   closed: boolean;
   toggleClosed: () => void;
-  chattingProps: ChattingProps;
+  id: string;
+  title: string;
+  participants: ResponseParticipant[];
 }) {
   const { title, participants, chatItems, currentUsername } = chattingProps;
 
