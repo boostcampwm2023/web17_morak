@@ -15,6 +15,15 @@ export class ChatService {
   loadMessageDB(room: string, cursorDate: Date): Promise<ChatMessageDto[]> {
     return this.chatRepository.getChatMessages(room, cursorDate);
   }
+
+  async isUserInGroup(room: string, user: string) {
+    if (!Number.isNaN(room) && !Number.isNaN(user)) {
+      const groupId = parseInt(room, 10);
+      const userId = parseInt(user, 10);
+
+      return await this.chatRepository.isUserInGroup(groupId, userId);
+    }
+  }
 }
 
 export default ChatService;
