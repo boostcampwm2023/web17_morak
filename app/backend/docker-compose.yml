@@ -8,13 +8,16 @@ services:
     environment:
       - DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@db:3306/${DB_DATABASE_NAME}
       - REDIS_HOST=redis
+      - MONGO_HOST=mongodb
       - DOMAIN=${DOMAIN}
       - PORT=${PORT}
     depends_on:
       - db
       - redis
+      - mongodb
     ports:
-     - "${PORT}:${PORT}"
+      - "${PORT}:${PORT}"
+      - "${SOCKET_PORT}:${SOCKET_PORT}"
   db:
     image: ccxz84/morak-mysql:latest
     environment:
@@ -26,8 +29,19 @@ services:
 
   redis:
     image: redis:alpine
-    expose:
-      - "6379"
+    ports:
+      - "${REDIS_PORT}:6379"
+
+  mongodb:
+    image: ccxz84/morak-mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - CHAT_USER=${CHAT_USER}
+      - CHAT_PASSWORD=${CHAT_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
 
 volumes:
   mysql-data:
+  mongo-data:

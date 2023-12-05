@@ -11,7 +11,7 @@ import * as styles from './index.css';
 
 type MogacoProps = Omit<
   ResponseMogacoDto,
-  'createdAt' | 'deletedAt' | 'updatedAt'
+  'createdAt' | 'deletedAt' | 'updatedAt' | 'latitude' | 'longitude'
 >;
 
 export function MogacoItem({

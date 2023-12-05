@@ -71,7 +71,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
 
   return (
     <dialog className={styles.container} open={open}>
-      <form method="dialog" className={styles.form}>
+      <div className={styles.form}>
         <div className={styles.currentAddress}>
           <span className={sansRegular14}>선택한 주소: </span>
           <span className={sansBold14}>{selectedAddress}</span>
@@ -137,7 +137,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
             확인
           </Button>
         </div>
-      </form>
+      </div>
     </dialog>
   );
 }

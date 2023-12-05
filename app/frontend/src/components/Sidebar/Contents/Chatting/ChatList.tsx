@@ -1,28 +1,77 @@
-import { Chat } from '@/types';
+import { useEffect, useRef } from 'react';
+
+import { ResponseParticipant } from '@morak/apitype';
+import { ChatMessage } from '@morak/chat/src/interface/message.interface';
+
+import { useObserver } from '@/hooks/useObserver';
 
 import * as styles from './index.css';
-import { NotificationItem } from './NotificationItem';
-import { TalkItem } from './TalkItem';
+import { MemorizedTalkItem } from './TalkItem';
 
 type ChatListProps = {
-  chatItems: Chat[];
-  currentUsername: string;
+  chatItems: ChatMessage[];
+  currentUserId: string;
+  participants: ResponseParticipant[];
+  fetchPrevMessages: () => void;
 };
 
-export function ChatList({ chatItems, currentUsername }: ChatListProps) {
+export function ChatList({
+  chatItems,
+  currentUserId,
+  participants,
+  fetchPrevMessages,
+}: ChatListProps) {
+  const prevScrollHeightRef = useRef(0);
+  const listElemRef = useRef<HTMLUListElement>(null);
+  const observableRef = useRef<HTMLDivElement | null>(null);
+  const exposed = useObserver(observableRef);
+
+  useEffect(() => {
+    if (!listElemRef.current) {
+      return;
+    }
+
+    const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+    if (exposed) {
+      listElemRef.current.scrollTo({
+        top: scrollHeight - prevScrollHeightRef.current,
+      });
+    }
+
+    if (scrollTop + clientHeight === prevScrollHeightRef.current) {
+      listElemRef.current.scrollTo({
+        top: scrollHeight - clientHeight,
+        behavior: 'smooth',
+      });
+    }
+
+    prevScrollHeightRef.current = scrollHeight;
+  }, [chatItems, exposed]);
+
+  useEffect(() => {
+    if (exposed) {
+      fetchPrevMessages();
+    }
+  }, [exposed, fetchPrevMessages]);
+
   return (
-    <ul className={styles.chatList}>
-      {chatItems.map((chatItem) =>
-        chatItem.type === 'talk' ? (
-          <TalkItem
-            key={chatItem.id}
-            talk={chatItem}
-            isMine={chatItem.user.username === currentUsername}
+    <ul className={styles.chatList} ref={listElemRef}>
+      <div ref={observableRef} />
+      {chatItems.map((chatItem) => {
+        const participantInfo = participants.find(
+          (participant) => participant.providerId === chatItem.user,
+        );
+        return (
+          <MemorizedTalkItem
+            key={chatItem.date.toString()}
+            nickname={participantInfo?.nickname || ''}
+            profilePicture={participantInfo?.profilePicture || ''}
+            contents={chatItem.contents}
+            date={chatItem.date}
+            isMine={chatItem.user === currentUserId}
           />
-        ) : (
-          <NotificationItem key={chatItem.id} notification={chatItem} />
-        ),
-      )}
+        );
+      })}
     </ul>
   );
 }
