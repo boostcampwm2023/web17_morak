@@ -1,28 +1,23 @@
 import ReactDOMServer from 'react-dom/server';
 
 import { ReactComponent as Pin } from '@/assets/icons/pin.svg';
+import { TMap, TMapLatLng } from '@/types';
 
 import * as styles from './index.css';
 
 const { Tmapv2 } = window;
-type MapType = typeof Tmapv2;
+
 type MarkerProps = {
-  mapContent: MapType;
-  latitude: number;
-  longitude: number;
+  mapContent: TMap;
+  position: TMapLatLng;
   theme: 'green' | 'red';
 };
 
-export const Marker = ({
-  mapContent,
-  latitude,
-  longitude,
-  theme,
-}: MarkerProps) =>
+export const Marker = ({ mapContent, position, theme }: MarkerProps) =>
   new Tmapv2.Marker({
-    position: new Tmapv2.LatLng(latitude, longitude),
+    position,
     iconHTML: ReactDOMServer.renderToString(
-      <Pin className={styles.marker({ theme })} />,
+      <Pin className={styles.marker({ theme })} width={50} height={50} />,
     ),
     iconSize: new Tmapv2.Size(50, 50),
     map: mapContent,

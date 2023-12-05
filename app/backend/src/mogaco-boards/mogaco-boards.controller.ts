@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { MogacoService } from './mogaco.service';
-import { Member, Mogaco } from '@prisma/client';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Member, Mogaco } from '@prisma/client';
 import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
-import { ParticipantResponseDto } from './dto/response-participants.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
+import { ParticipantResponseDto } from './dto/response-participants.dto';
 
 @ApiTags('Mogaco API')
-@Controller('mogaco')
+@Controller('posts')
 @UseGuards(AtGuard)
 @ApiBearerAuth('access_token')
 export class MogacoController {
@@ -23,11 +23,11 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
-  async getMogaco(@Query('date') date?: string): Promise<MogacoDto[]> {
+  async getMogaco(@GetUser() member: Member, @Query('date') date?: string): Promise<MogacoDto[]> {
     if (date) {
-      return this.mogacoService.getMogacoByDate(date);
+      return this.mogacoService.getMogacoByDate(date, member);
     } else {
-      return this.mogacoService.getAllMogaco();
+      return this.mogacoService.getAllMogaco(member);
     }
   }
 
@@ -39,9 +39,10 @@ export class MogacoController {
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
-  async getMogacoById(@Param('id', ParseIntPipe) id: number): Promise<MogacoWithMemberDto> {
-    return this.mogacoService.getMogacoById(id);
+  async getMogacoById(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<MogacoWithMemberDto> {
+    return this.mogacoService.getMogacoById(id, member);
   }
 
   @Post('/')

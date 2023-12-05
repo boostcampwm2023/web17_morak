@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { AuthRepository } from './auth.repository';
 import { CreateUserDto } from './dto/user.dto';
-import { JwtService } from '@nestjs/jwt';
 import { Payload, Tokens } from './interface';
 import { getSecret } from 'vault';
 
@@ -38,24 +38,25 @@ export class AuthService {
   }
 
   async signIn(userDto: CreateUserDto): Promise<Tokens | null> {
-    const providerId = userDto.providerId;
+    const { providerId, socialType, email, profilePicture, nickname } = userDto;
+
     const existingUser = await this.authRepository.findUserByIdentifier(providerId);
 
     if (existingUser) {
-      if (userDto.nickname !== existingUser.nickname || userDto.profilePicture !== existingUser.profilePicture) {
+      if (nickname !== existingUser.nickname || profilePicture !== existingUser.profilePicture) {
         await this.authRepository.updateUser(userDto);
       }
     }
 
     const token = this.generateJwt({
-      providerId: userDto.providerId,
-      socialType: userDto.socialType,
-      email: userDto.email,
-      profilePicture: userDto.profilePicture,
-      nickname: userDto.nickname,
+      providerId,
+      socialType,
+      email,
+      profilePicture,
+      nickname,
     });
 
-    await this.authRepository.addRefreshToken(userDto.providerId, token.refresh_token);
+    await this.authRepository.addRefreshToken(providerId, token.refresh_token);
     return token;
   }
 
@@ -75,11 +76,11 @@ export class AuthService {
       }
 
       const token = this.generateJwt({
-        providerId: providerId,
-        socialType: socialType,
-        email: email,
-        profilePicture: profilePicture,
-        nickname: nickname,
+        providerId,
+        socialType,
+        email,
+        profilePicture,
+        nickname,
       });
 
       return token.access_token;

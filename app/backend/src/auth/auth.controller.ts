@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import {
   Body,
   Controller,
@@ -9,7 +10,6 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import {
   ApiBody,
   ApiCookieAuth,
@@ -19,8 +19,8 @@ import {
   ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
+import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
-import { Request, Response } from 'express';
 import { LogoutDto } from './dto/user.dto';
 import { getSecret } from 'vault';
 

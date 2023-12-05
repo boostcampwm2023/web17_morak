@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { Group, Member } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
+import { Group, Member } from '@prisma/client';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
 
