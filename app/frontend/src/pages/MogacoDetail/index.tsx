@@ -52,7 +52,11 @@ export function MogacoDetailPage() {
       />
       <div className={styles.container}>
         <DetailHeader id={id!} openChatting={openChatting} />
-        <DetailInfo id={id!} />
+        <DetailInfo
+          id={id!}
+          latitude={mogacoData.latitude}
+          longitude={mogacoData.longitude}
+        />
         <div>{mogacoData.contents}</div>
         <hr className={styles.horizontalLine} />
       </div>

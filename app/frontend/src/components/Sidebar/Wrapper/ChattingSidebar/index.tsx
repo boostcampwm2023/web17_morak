@@ -5,17 +5,21 @@ import { Chatting } from '@/components/Sidebar/Contents/Chatting';
 import * as styles from '@/components/Sidebar/index.css';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 
-export function ChattingSidebar({
-  closed,
-  toggleClosed,
-  chattingProps,
-}: {
+type ChattingSidebarProps = {
   closed: boolean;
   toggleClosed: () => void;
   id: string;
   title: string;
   participants: ResponseParticipant[];
-}) {
+};
+
+export function ChattingSidebar({
+  closed,
+  toggleClosed,
+  id,
+  title,
+  participants,
+}: ChattingSidebarProps) {
   const { data: currentUser } = useGetMyInfoQuery();
 
   if (!currentUser) {
