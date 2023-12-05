@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -8,7 +8,7 @@ import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
 import { ReactComponent as People } from '@/assets/icons/people.svg';
 import { Error, Loading, UserChip } from '@/components';
-import { MAP_SAMPLE_IMAGE } from '@/constants';
+import { useMap } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 
@@ -16,10 +16,19 @@ import * as styles from './index.css';
 
 type DetailInfoProps = {
   id: string;
+  latitude: number;
+  longitude: number;
 };
 
-export function DetailInfo({ id }: DetailInfoProps) {
+export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
   const [participantsShown, setParticipantsShown] = useState(false);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const { mapInstance, updateMarker } = useMap(mapRef);
+
+  useEffect(() => {
+    updateMarker({ latitude, longitude }, 'green');
+    mapInstance?.setOptions({ zoomControl: false });
+  }, [latitude, longitude, mapInstance, updateMarker]);
 
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
     queryKeys.mogaco.detail(id),
@@ -75,7 +84,7 @@ export function DetailInfo({ id }: DetailInfoProps) {
         <Map width={24} height={24} fill={vars.color.grayscale200} />
         <span>{mogacoData.address}</span>
       </div>
-      <img src={MAP_SAMPLE_IMAGE} alt="맵 샘플 이미지" className={styles.map} />
+      <div id="map" className={styles.map} ref={mapRef} />
     </div>
   );
 }
