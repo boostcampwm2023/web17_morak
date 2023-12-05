@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 import { ResponseParticipant } from '@morak/apitype';
 import SocketClient from '@morak/chat/src/client/index';
@@ -21,8 +21,6 @@ type ChattingProps = {
   currentUserId: string;
 };
 
-const dummyId = (Math.random() * 100).toFixed().toString();
-
 export function Chatting({
   postId,
   title,
@@ -30,39 +28,67 @@ export function Chatting({
   currentUserId,
 }: ChattingProps) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
+  const lastDateRef = useRef<Date | null>(new Date());
 
   const sendMessage = (message: string) => {
     socketClient.sendMessage({
       messageType: 'talk',
-      user: dummyId || currentUserId,
+      user: currentUserId,
       room: postId,
       contents: message,
       date: new Date(),
     });
   };
 
+  const fetchPrevMessages = useCallback(() => {
+    if (!lastDateRef.current) {
+      return;
+    }
+
+    socketClient.requestPrevMessage(
+      postId,
+      lastDateRef.current,
+      (status, messages) => {
+        if (status !== 200) {
+          return;
+        }
+
+        if (messages.length === 0) {
+          lastDateRef.current = null;
+          return;
+        }
+
+        lastDateRef.current = messages[messages.length - 1].date;
+        setChatItems((items) => [...messages.reverse(), ...items]);
+      },
+    );
+  }, [postId]);
+
   useEffect(() => {
-    const userRoomInfo = { user: dummyId || currentUserId, room: postId };
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
-        setChatItems([...chatItems, ...msgs]);
+        setChatItems((items) => [...items, ...msgs]);
       }
     };
 
-    socketClient.joinRoom(userRoomInfo, fetchChatting);
+    socketClient.joinRoom({ user: currentUserId, room: postId }, (status) => {
+      if (status === 200) {
+        // console.log('입장 성공');
+      }
+    });
     socketClient.subscribeToChat(fetchChatting);
-    return () => {
-      socketClient.leaveRoom(userRoomInfo);
-    };
-  }, [chatItems, currentUserId, postId]);
+
+    return () => socketClient.leaveRoom({ user: currentUserId, room: postId });
+  }, [currentUserId, postId]);
 
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
       <ChatList
         chatItems={chatItems}
-        currentUserId={dummyId}
+        currentUserId={currentUserId}
         participants={participants}
+        fetchPrevMessages={fetchPrevMessages}
       />
       <ChattingFooter sendMessage={sendMessage} />
     </div>

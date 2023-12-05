@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react';
 import { ResponseParticipant } from '@morak/apitype';
 import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 
+import { useObserver } from '@/hooks/useObserver';
+
 import * as styles from './index.css';
 import { MemorizedTalkItem } from './TalkItem';
 
@@ -10,27 +12,19 @@ type ChatListProps = {
   chatItems: ChatMessage[];
   currentUserId: string;
   participants: ResponseParticipant[];
+  fetchPrevMessages: () => void;
 };
 
 export function ChatList({
   chatItems,
   currentUserId,
   participants,
+  fetchPrevMessages,
 }: ChatListProps) {
-  const listElemRef = useRef<HTMLUListElement>(null);
   const prevScrollHeightRef = useRef(0);
-
-  const scrollToBottom = () => {
-    if (!listElemRef.current) {
-      return;
-    }
-
-    const { scrollHeight, clientHeight } = listElemRef.current;
-    listElemRef.current.scrollTo({
-      top: scrollHeight - clientHeight,
-      behavior: 'smooth',
-    });
-  };
+  const listElemRef = useRef<HTMLUListElement>(null);
+  const observableRef = useRef<HTMLDivElement | null>(null);
+  const exposed = useObserver(observableRef);
 
   useEffect(() => {
     if (!listElemRef.current) {
@@ -38,15 +32,31 @@ export function ChatList({
     }
 
     const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+    if (exposed) {
+      listElemRef.current.scrollTo({
+        top: scrollHeight - prevScrollHeightRef.current,
+      });
+    }
+
     if (scrollTop + clientHeight === prevScrollHeightRef.current) {
-      scrollToBottom();
+      listElemRef.current.scrollTo({
+        top: scrollHeight - clientHeight,
+        behavior: 'smooth',
+      });
     }
 
     prevScrollHeightRef.current = scrollHeight;
-  }, [chatItems]);
+  }, [chatItems, exposed]);
+
+  useEffect(() => {
+    if (exposed) {
+      fetchPrevMessages();
+    }
+  }, [exposed, fetchPrevMessages]);
 
   return (
     <ul className={styles.chatList} ref={listElemRef}>
+      <div ref={observableRef} />
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
           (participant) => participant.providerId === chatItem.user,
