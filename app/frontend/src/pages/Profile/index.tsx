@@ -45,6 +45,7 @@ export function ProfilePage() {
           <ArrowLeft
             fill={vars.color.morakGreen}
             width={24}
+            height={24}
             className={styles.rotateArrow}
           />
           그룹 리스트 보기
