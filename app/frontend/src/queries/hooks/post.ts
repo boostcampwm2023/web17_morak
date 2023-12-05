@@ -11,7 +11,7 @@ export const useDeleteMogacoQuery = () => {
     mutationFn: (postId: string) => post.delete(postId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.mogaco.list().queryKey,
+        queryKey: queryKeys.posts.list().queryKey,
       });
     },
   });
@@ -24,7 +24,7 @@ export const useJoinMogacoQuery = () => {
     mutationFn: (postId: string) => post.join(postId),
     onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.mogaco.detail(postId).queryKey,
+        queryKey: queryKeys.posts.detail(postId).queryKey,
       });
     },
   });
@@ -37,7 +37,7 @@ export const useQuitMogacoQuery = () => {
     mutationFn: (postId: string) => post.quit(postId),
     onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.mogaco.detail(postId).queryKey,
+        queryKey: queryKeys.posts.detail(postId).queryKey,
       });
     },
   });
@@ -56,7 +56,7 @@ export const useSubmitEdit = () => {
     }) => post.edit(id, form),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.mogaco.list().queryKey,
+        queryKey: queryKeys.posts.list().queryKey,
       });
     },
   });
@@ -69,7 +69,7 @@ export const useSubmitPost = () => {
     mutationFn: (form: Partial<RequestCreateMogacoDto>) => post.post(form),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.mogaco.list().queryKey,
+        queryKey: queryKeys.posts.list().queryKey,
       });
     },
   });

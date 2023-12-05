@@ -37,7 +37,7 @@ const setMyLocation = (updateMarker: UpdateMarker) => {
 };
 
 export function Map({ onClickMarker }: MapProps) {
-  const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
+  const { data: mogacoList } = useQuery(queryKeys.posts.list());
   const mapRef = useRef<HTMLDivElement>(null);
   const { mapInstance, updateMarker, currentMarker } = useMap(mapRef);
   setMyLocation(updateMarker);

@@ -28,7 +28,7 @@ export function MogacoPostPage() {
   const { mutateAsync: mutateAsyncPost } = useSubmitPost();
   const { mutateAsync: mutateAsyncEdit } = useSubmitEdit();
   const { data: mogacoData } = useQuery({
-    ...queryKeys.mogaco.detail(postId || ''),
+    ...queryKeys.posts.detail(postId || ''),
     enabled: !!postId,
   });
   const {

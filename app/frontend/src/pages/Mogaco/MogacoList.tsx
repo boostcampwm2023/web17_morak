@@ -6,7 +6,7 @@ import { queryKeys } from '@/queries';
 import * as styles from './MogacoList.css';
 
 export function MogacoList() {
-  const { data: mogacoList, isLoading } = useQuery(queryKeys.mogaco.list());
+  const { data: mogacoList, isLoading } = useQuery(queryKeys.posts.list());
 
   if (isLoading) {
     return (

@@ -9,6 +9,6 @@ const refineMogacoList = (mogacoList: ResponseMogacoDto[]) =>
 
 export const useCalendarMogacoQuery = (selectedDate: Date) =>
   useQuery({
-    ...queryKeys.mogaco.list({ date: dayjs(selectedDate).format('YYYY-MM') }),
+    ...queryKeys.posts.list({ date: dayjs(selectedDate).format('YYYY-MM') }),
     select: refineMogacoList,
   });

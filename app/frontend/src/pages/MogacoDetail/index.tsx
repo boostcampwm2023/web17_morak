@@ -15,7 +15,7 @@ export function MogacoDetailPage() {
   const { id } = useParams();
   const [chattingClosed, setChattingClosed] = useState(true);
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
-    queryKeys.mogaco.detail(id!),
+    queryKeys.posts.detail(id!),
   );
 
   const toggleChatting = () => setChattingClosed(!chattingClosed);
