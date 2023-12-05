@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="current" height="current"  viewBox="0 0 52 52" fill="none" class="Map__CurrentLocationIcon-sc-1x4t3xn-2 jtiIqW">
+<circle cx="26" cy="26" r="26" fill="none"></circle>
+<circle cx="26.007" cy="26" r="11.8" stroke="#454545" stroke-width="2"></circle>
+<circle cx="26.002" cy="26.001" r="6.4" fill="#454545"></circle>
+<path fill="#454545" d="M27 10a1 1 0 1 0-2 0h2Zm-2 3.2v1h2v-1h-2Zm0-3.2v3.2h2V10h-2ZM10 25a1 1 0 1 0 0 2v-2Zm3.2 2h1v-2h-1v2ZM10 27h3.2v-2H10v2ZM42 27a1 1 0 1 0 0-2v2Zm-3.2-2h-1v2h1v-2Zm3.2 0h-3.2v2H42v-2ZM25 42a1 1 0 1 0 2 0h-2Zm2-3.2v-1h-2v1h2Zm0 3.2v-3.2h-2V42h2Z"></path>
+</svg>
