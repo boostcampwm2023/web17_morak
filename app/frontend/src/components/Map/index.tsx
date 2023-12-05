@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+import { ResponseMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import ReactDOMServer from 'react-dom/server';
 
 import { MAX_ZOOM_LEVEL } from '@/constants';
 import { useMap } from '@/hooks';
@@ -46,9 +49,13 @@ export function Map({ onClickMarker }: MapProps) {
     if (!mapInstance) {
       return;
     }
-    currentMarker?.setLabel(`<span class=${styles.label}>현 위치</span>`);
+    currentMarker?.setLabel(
+      ReactDOMServer.renderToString(
+        <span className={styles.label({ theme: 'red' })}>현 위치</span>,
+      ),
+    );
 
-    mogacoList?.forEach((mogaco) => {
+    mogacoList?.forEach((mogaco: ResponseMogacoDto) => {
       const { id, latitude, longitude } = mogaco;
       if (latitude && longitude) {
         const position = new Tmapv2.LatLng(latitude, longitude);
@@ -62,6 +69,13 @@ export function Map({ onClickMarker }: MapProps) {
           mapInstance.setCenter(position);
           mapInstance.setZoom(MAX_ZOOM_LEVEL);
         });
+        marker.setLabel(
+          ReactDOMServer.renderToString(
+            <span className={styles.label({ theme: 'green' })}>
+              {dayjs(mogaco.date).format('YY/MM/DD HH:mm')}
+            </span>,
+          ),
+        );
       }
     });
   }, [mogacoList, currentMarker, mapInstance, onClickMarker]);

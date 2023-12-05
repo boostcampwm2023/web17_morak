@@ -3,18 +3,30 @@ import { recipe } from '@vanilla-extract/recipes';
 
 import { vars } from '@/styles';
 
-const { morakGreen, subGreen, morakRed, grayscale100 } = vars.color;
+const { morakGreen, subGreen, morakRed, grayscale100, grayscaleWhite } =
+  vars.color;
 
 export const container = style({
   height: '100%',
   paddingTop: '8.5rem',
 });
 
-export const label = style({
-  padding: '0.2rem',
-  background: vars.color.morakRed,
-  color: vars.color.grayscaleWhite,
-  borderRadius: '0.5rem',
+export const label = recipe({
+  base: {
+    padding: '0.2rem',
+    color: grayscaleWhite,
+    borderRadius: '0.5rem',
+  },
+  variants: {
+    theme: {
+      green: {
+        background: morakGreen,
+      },
+      red: {
+        background: morakRed,
+      },
+    },
+  },
 });
 
 export const marker = recipe({
