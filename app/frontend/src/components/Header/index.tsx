@@ -1,18 +1,16 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '@/assets/icons/morak.svg';
 
 import * as styles from './index.css';
+import { useClickMenu } from './useClickMenu';
 import { useMenu } from './useMenu';
 
 export function Header() {
   const { SIDE_MENU } = useMenu();
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
-  const onClickMenu = (path: string) => {
-    navigate(`/${path}`);
-  };
+  const { onClickMenu } = useClickMenu();
 
   return (
     <div className={styles.container}>
