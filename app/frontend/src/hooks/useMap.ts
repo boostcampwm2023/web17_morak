@@ -47,7 +47,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
         }
       }
 
-      currentMarker?.setMap(mapInstance);
+      currentMarker?.setMap(null);
       const position = new Tmapv2.LatLng(latitude, longitude);
       const marker = Marker({
         mapContent: mapInstance,
