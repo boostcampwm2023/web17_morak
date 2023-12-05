@@ -1,16 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { ReactComponent as Copy } from '@/assets/icons/copy.svg';
 import { ReactComponent as Crown } from '@/assets/icons/crown.svg';
 import { ReactComponent as Count } from '@/assets/icons/people.svg';
-import { useModal } from '@/hooks';
-import { queryKeys } from '@/queries';
-import { useJoinGroupQuery, useLeaveGroupQuery } from '@/queries/hooks/group';
 import { vars } from '@/styles';
 
+import { useGroupJoinAndLeave } from './hooks/useGroupJoinLeave';
+import { useGroupModal } from './hooks/useGroupModal';
 import * as styles from './index.css';
 import { Button } from '../Button';
-import { Modal } from '../Modal';
 
 const { grayscale200 } = vars.color;
 
@@ -21,38 +17,14 @@ type GroupProps = {
   name: string;
 };
 export function Group({ id, owned = false, name, joined = false }: GroupProps) {
-  const { mutate: leaveGroup } = useLeaveGroupQuery();
-  const { mutate: joinGroup } = useJoinGroupQuery();
-  const { openModal } = useModal();
+  const { handleLeave, handleJoin } = useGroupJoinAndLeave();
+  const { openLeaveModal, openJoinModal } = useGroupModal();
 
-  const { data: myGroup } = useQuery({
-    ...queryKeys.group.myGroup(),
-    staleTime: Infinity,
-  });
+  const onClickLeave = () =>
+    openLeaveModal({ onClickConfirm: () => handleLeave(id) });
+  const onClickJoin = () =>
+    openJoinModal({ onClickConfirm: () => handleJoin(id) });
 
-  const joinedGroupId = myGroup?.[0]?.id;
-
-  const join = () => {
-    if (joinedGroupId) {
-      leaveGroup(joinedGroupId);
-    }
-    joinGroup(id);
-  };
-  const handleGroupJoinAndLeave = () => {
-    if (joined) {
-      leaveGroup(id);
-    }
-    join();
-  };
-  const onClickLeave = () => {
-    openModal(
-      <Modal
-        title={joined ? '그룹에서 나가시겠습니까?' : '그룹에 참여하시겠습니까?'}
-        buttonType="double"
-        onClickConfirm={handleGroupJoinAndLeave}
-      />,
-    );
-  };
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
@@ -64,21 +36,33 @@ export function Group({ id, owned = false, name, joined = false }: GroupProps) {
             <span>200</span>
           </div>
         </div>
-        {owned ? (
+        {owned && (
           <Button type="button" theme="danger" shape="fill" size="medium">
             그룹 삭제
           </Button>
-        ) : (
-          <Button
-            type="button"
-            theme={joined ? 'danger' : 'primary'}
-            shape="fill"
-            size="medium"
-            onClick={onClickLeave}
-          >
-            {joined ? '나가기' : '참여하기'}
-          </Button>
         )}
+        {!owned &&
+          (joined ? (
+            <Button
+              type="button"
+              theme="danger"
+              shape="fill"
+              size="medium"
+              onClick={onClickLeave}
+            >
+              나가기
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              theme="primary"
+              shape="fill"
+              size="medium"
+              onClick={onClickJoin}
+            >
+              참여하기
+            </Button>
+          ))}
       </div>
       {owned && (
         <div className={styles.detail}>
