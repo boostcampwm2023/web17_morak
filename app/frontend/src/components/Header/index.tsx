@@ -19,10 +19,10 @@ export function Header() {
           <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
-        <li className={styles.sideMenu}>
+        <ul className={styles.sideMenu}>
           {SIDE_MENU.map((menu) => (
-            <ul
-              role="menu"
+            <li
+              role="menuitem"
               key={menu.pathname}
               onClick={() => onClickMenu(menu.pathname)}
               onKeyDown={() => onClickMenu(menu.pathname)}
@@ -31,9 +31,9 @@ export function Header() {
               }`}
             >
               {menu.value}
-            </ul>
+            </li>
           ))}
-        </li>
+        </ul>
       </div>
     </div>
   );
