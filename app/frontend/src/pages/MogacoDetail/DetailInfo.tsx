@@ -26,7 +26,7 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
   const { mapInstance, updateMarker } = useMap(mapRef);
 
   useEffect(() => {
-    updateMarker({ latitude, longitude });
+    updateMarker({ latitude, longitude }, 'green');
     mapInstance?.setOptions({ zoomControl: false });
   }, [latitude, longitude, mapInstance, updateMarker]);
 

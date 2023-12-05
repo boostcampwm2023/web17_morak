@@ -29,7 +29,10 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   }, [mapRef, mapInstance]);
 
   const updateMarker = useCallback(
-    (coord: { latitude: number | null; longitude: number | null }) => {
+    (
+      coord: { latitude: number | null; longitude: number | null },
+      theme: 'green' | 'red',
+    ) => {
       const { latitude, longitude } = coord;
       if (!(latitude && longitude) || !mapInstance) {
         return;
@@ -44,12 +47,12 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
         }
       }
 
-      currentMarker?.setMap(null);
+      currentMarker?.setMap(mapInstance);
       const position = new Tmapv2.LatLng(latitude, longitude);
       const marker = Marker({
         mapContent: mapInstance,
         position,
-        theme: 'green',
+        theme,
       });
       setCurrentMarker(marker);
       mapInstance?.setCenter(position);
@@ -57,5 +60,5 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     [mapInstance, currentMarker],
   );
 
-  return { mapInstance, updateMarker };
+  return { mapInstance, updateMarker, currentMarker };
 };
