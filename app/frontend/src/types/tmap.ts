@@ -59,6 +59,7 @@ export type TMapMarker = {
   setMap: (map: TMap | null) => void;
   getPosition: () => TMapLatLng;
   setPosition: (latLng: TMapLatLng) => void;
+  setLabel: (HTML: string) => void;
 };
 export type TMapSize = {
   _width: number;
