@@ -1,19 +1,58 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { ReactComponent as Copy } from '@/assets/icons/copy.svg';
 import { ReactComponent as Crown } from '@/assets/icons/crown.svg';
 import { ReactComponent as Count } from '@/assets/icons/people.svg';
+import { useModal } from '@/hooks';
+import { queryKeys } from '@/queries';
+import { useJoinGroupQuery, useLeaveGroupQuery } from '@/queries/hooks/group';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
 import { Button } from '../Button';
+import { Modal } from '../Modal';
 
 const { grayscale200 } = vars.color;
 
 type GroupProps = {
+  id: string;
   owned?: boolean;
   joined?: boolean;
   name: string;
 };
-export function Group({ owned = false, name, joined = false }: GroupProps) {
+export function Group({ id, owned = false, name, joined = false }: GroupProps) {
+  const { mutate: leaveGroup } = useLeaveGroupQuery();
+  const { mutate: joinGroup } = useJoinGroupQuery();
+  const { openModal } = useModal();
+
+  const { data: myGroup } = useQuery({
+    ...queryKeys.group.myGroup(),
+    staleTime: Infinity,
+  });
+
+  const joinedGroupId = myGroup?.[0]?.id;
+
+  const join = () => {
+    if (joinedGroupId) {
+      leaveGroup(joinedGroupId);
+    }
+    joinGroup(id);
+  };
+  const handleGroupJoinAndLeave = () => {
+    if (joined) {
+      leaveGroup(id);
+    }
+    join();
+  };
+  const onClickLeave = () => {
+    openModal(
+      <Modal
+        title={joined ? '그룹에서 나가시겠습니까?' : '그룹에 참여하시겠습니까?'}
+        buttonType="double"
+        onClickConfirm={handleGroupJoinAndLeave}
+      />,
+    );
+  };
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
@@ -35,6 +74,7 @@ export function Group({ owned = false, name, joined = false }: GroupProps) {
             theme={joined ? 'danger' : 'primary'}
             shape="fill"
             size="medium"
+            onClick={onClickLeave}
           >
             {joined ? '나가기' : '참여하기'}
           </Button>
