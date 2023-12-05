@@ -9,9 +9,4 @@ export interface RequestUserRoomDto {
   room: string;
 }
 
-export interface RequestChatDto {
-  user: string;
-  message: string;
-}
-
 export type User = string;

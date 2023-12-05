@@ -8,6 +8,8 @@ import { getSecret } from '@morak/vault';
 import ChatService from './chat.service';
 import { User } from '@morak/chat/src/interface/user.interface';
 import { Socket } from 'dgram';
+import { UseGuards } from '@nestjs/common';
+import { ChatGuard } from './chat.guard';
 
 const port = parseInt(getSecret('SOCKET_PORT'), 10);
 
@@ -20,15 +22,14 @@ class ChatGateway {
   @WebSocketServer() server: Server;
   constructor(private readonly chatService: ChatService) {}
 
+  @UseGuards(ChatGuard)
   @SubscribeMessage('joinRoom')
   joinRoom(@ConnectedSocket() client: Socket, @AuthUser() user: User, @JoinRoom() room: string) {
     // 231203 ccxz84 | chat logging 유저 룸 떠나기 메시지 로깅 필요
     console.log(`${user} join ${room}`);
     try {
-      const messages = this.chatService.loadMessageDB(room, new Date());
-      messages.then(data => {
-        client.emit('postJoinRoom', StatusCode.success, data); // 231129 ccxz84 | chat 임시 메시지 반환
-      });
+      // 231205 ccxz84 | chat error 유저 룸 조인 에러 체크를 위한 try catch
+      client.emit('postJoinRoom', StatusCode.success, 'join Room Success');
     } catch (error) {
       client.emit('postJoinRoom', StatusCode.error, 'join Room Error');
     }
