@@ -24,6 +24,7 @@ export const content = style([
     borderRadius: '0 0.8rem 0.8rem 0.8rem',
     background: vars.color.grayscaleWhite,
     lineHeight: '1.4',
+    wordBreak: 'break-word',
 
     selectors: {
       [`${isMine}&`]: {
