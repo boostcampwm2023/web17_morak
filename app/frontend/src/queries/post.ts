@@ -2,7 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 import { post } from '@/services';
 
-export const mogacoKeys = createQueryKeys('mogaco', {
+export const postKeys = createQueryKeys('posts', {
   list: (filters?: { date?: string }) => ({
     queryKey: [{ filters }],
     queryFn: () => post.list(filters),
