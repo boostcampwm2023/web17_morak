@@ -4,6 +4,6 @@ services:
   frontend:
     build:
       context: ../..
-      dockerfile: app/frontend/Dockerfile
+      dockerfile: app/frontend/Dockerfile.dev
     ports:
       - '4173:4173' # 호스트의 포트:컨테이너의 포트
