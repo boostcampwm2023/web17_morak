@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Payload } from '../interface';
-import { getSecret } from 'vault';
+import { getSecret } from '@morak/vault';
 
 @Injectable()
 export class RtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

@@ -4,11 +4,10 @@ import { AuthUser } from '@morak/chat/dist/server/decorator/auth-user.decorator'
 import { JoinRoom, LeaveRoom } from '@morak/chat/dist/server/decorator/room.decorator';
 import { ChatMessage } from '@morak/chat/dist/server/decorator/message.decorator';
 import { RequestGetPrevChatMessage, StatusCode } from '@morak/chat/dist/interface/message.interface';
-import { getSecret } from 'vault';
+import { getSecret } from '@morak/vault';
 import ChatService from './chat.service';
 import { User } from '@morak/chat/src/interface/user.interface';
 import { Socket } from 'dgram';
-import { DEFAULT_MAX_VERSION } from 'tls';
 
 const port = parseInt(getSecret('SOCKET_PORT'), 10);
 

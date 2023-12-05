@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Payload } from '../interface';
-import { getSecret } from 'vault';
+import { getSecret } from '@morak/vault';
 import { Member } from '@prisma/client';
 import { AuthRepository } from '../auth.repository';
 

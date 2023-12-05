@@ -9,7 +9,7 @@ import { GroupsModule } from './groups/groups.module';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as redisStore from 'cache-manager-redis-store';
-import { getSecret } from 'vault';
+import { getSecret } from '@morak/vault';
 
 @Module({
   imports: [
