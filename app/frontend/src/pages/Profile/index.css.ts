@@ -15,7 +15,6 @@ export const groupButtons = style({
   display: 'flex',
   gap: '1.2rem',
 });
-
 export const groupListButton = style([
   sansBold16,
   {
@@ -33,6 +32,12 @@ export const list = style({
   gap: '1.6rem',
   maxHeight: '48rem',
   overflowY: 'auto',
+});
+
+export const loading = style({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
 });
 
 export const logoutButton = style({
