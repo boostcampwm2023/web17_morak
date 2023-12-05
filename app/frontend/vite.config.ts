@@ -10,13 +10,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [react(), vanillaExtractPlugin(), svgr()],
   resolve: {
-    alias: [
-      {
-        find: '@/assets',
-        replacement: path.resolve(__dirname, 'public/assets'),
-      },
-      { find: '@', replacement: path.resolve(__dirname, 'src') },
-    ],
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.css.ts'],
   },
 });
