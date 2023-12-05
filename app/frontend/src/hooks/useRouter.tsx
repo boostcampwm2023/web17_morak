@@ -9,6 +9,7 @@ import {
   Calendar,
   MapLayout,
   Groups,
+  ProfilePage,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -33,7 +34,7 @@ export const useRouter = () =>
         },
         {
           path: 'profile',
-          element: <>프로필</>,
+          element: <ProfilePage />,
         },
         {
           path: 'groups',

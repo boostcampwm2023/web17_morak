@@ -32,12 +32,6 @@ export const header = style({
   gap: '0.4rem',
 });
 
-export const horizontalLine = style({
-  border: 'none',
-  borderBottom: `1px solid ${vars.color.grayscale100}`,
-  margin: 0,
-});
-
 export const hostUser = style([
   sansBold16,
   {

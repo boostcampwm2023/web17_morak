@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { ChattingSidebar, Error, Loading } from '@/components';
+import { ChattingSidebar, Divider, Error, Loading } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 
@@ -58,7 +58,7 @@ export function MogacoDetailPage() {
           longitude={mogacoData.longitude}
         />
         <div>{mogacoData.contents}</div>
-        <hr className={styles.horizontalLine} />
+        <Divider />
       </div>
     </div>
   );

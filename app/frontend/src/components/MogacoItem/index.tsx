@@ -30,7 +30,7 @@ export function MogacoItem({
   );
 
   return (
-    <NavLink to={`${id}`} className={styles.container}>
+    <NavLink to={`/mogaco/${id}`} className={styles.container}>
       <div className={styles.titleArea}>
         {MogacoLabel}
         <div className={styles.title}>{title}</div>
