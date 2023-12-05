@@ -43,6 +43,8 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
         const prevLatitude = currMarker.lat();
         const prevLongitude = currMarker.lng();
         if (prevLatitude === latitude && prevLongitude === longitude) {
+          mapInstance?.setCenter(new Tmapv2.LatLng(latitude, longitude));
+          mapInstance?.setZoom(DEFAULT_ZOOM_LEVEL);
           return;
         }
       }

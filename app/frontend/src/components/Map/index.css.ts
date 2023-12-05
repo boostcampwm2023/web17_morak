@@ -29,6 +29,10 @@ export const label = recipe({
   },
 });
 
+export const map = style({
+  height: '100%',
+});
+
 export const marker = recipe({
   base: {
     width: '5rem',
@@ -46,4 +50,16 @@ export const marker = recipe({
       },
     },
   },
+});
+
+export const myLocation = style({
+  width: '3rem',
+  height: '3rem',
+  position: 'absolute',
+  bottom: '6rem',
+  right: '2rem',
+  background: grayscaleWhite,
+  borderRadius: '0.8rem',
+  boxShadow: '0px 0px 8px 0px rgba(0 0 0 / 0.25)',
+  zIndex: '10',
 });

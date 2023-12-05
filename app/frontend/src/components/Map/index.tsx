@@ -11,11 +11,13 @@ import { queryKeys } from '@/queries';
 
 import * as styles from './index.css';
 import { Marker } from './Marker';
+import { MyLocation } from './MyLocation';
 
 const { Tmapv2 } = window;
 
 type MapProps = {
   onClickMarker: (id: string) => void;
+  onClickMyLocation: () => void;
 };
 type Geolocation = {
   coords: {
@@ -39,11 +41,19 @@ const setMyLocation = (updateMarker: UpdateMarker) => {
   navigator.geolocation.getCurrentPosition(onSuccess);
 };
 
-export function Map({ onClickMarker }: MapProps) {
+export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
   const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
   const mapRef = useRef<HTMLDivElement>(null);
   const { mapInstance, updateMarker, currentMarker } = useMap(mapRef);
-  setMyLocation(updateMarker);
+  const setCenterToMyLocation = () => {
+    onClickMyLocation();
+    setMyLocation(updateMarker);
+  };
+
+  useEffect(() => {
+    setCenterToMyLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapInstance]);
 
   useEffect(() => {
     if (!mapInstance) {
@@ -80,5 +90,10 @@ export function Map({ onClickMarker }: MapProps) {
     });
   }, [mogacoList, currentMarker, mapInstance, onClickMarker]);
 
-  return <div className={styles.container} id="map" ref={mapRef} />;
+  return (
+    <div className={styles.container}>
+      <div className={styles.map} id="map" ref={mapRef} />
+      <MyLocation onClick={setCenterToMyLocation} />
+    </div>
+  );
 }
