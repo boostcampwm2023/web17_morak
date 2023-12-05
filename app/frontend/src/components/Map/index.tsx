@@ -64,12 +64,7 @@ export function Map({ onClickMarker }: MapProps) {
         });
       }
     });
-
-    return () => {
-      mapInstance.destroy();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mogacoList]);
+  }, [mogacoList, currentMarker, mapInstance, onClickMarker]);
 
   return <div className={styles.container} id="map" ref={mapRef} />;
 }
