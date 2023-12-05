@@ -1,6 +1,6 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, ConnectedSocket, MessageBody } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { AuthUser } from '@morak/chat/dist/server/decorator/auth-user.decorator';
+import { AuthUser } from '@morak/chat/dist/server/decorator/user.decorator';
 import { JoinRoom, LeaveRoom } from '@morak/chat/dist/server/decorator/room.decorator';
 import { ChatMessage } from '@morak/chat/dist/server/decorator/message.decorator';
 import { RequestGetPrevChatMessage, StatusCode } from '@morak/chat/dist/interface/message.interface';
