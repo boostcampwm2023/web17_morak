@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { Member, Mogaco } from '@prisma/client';
-import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoDto, MogacoResponseDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -20,14 +20,20 @@ export class MogacoController {
     summary: '모든 모각코 조회 또는 모각코 기간별 조회',
     description: '존재하는 모든 모각코를 조회하거나, 요청된 기간 사이 존재하는 모각코를 조회합니다.',
   })
-  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoResponseDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
-  async getMogaco(@GetUser() member: Member, @Query('date') date?: string): Promise<MogacoDto[]> {
+  @ApiQuery({ name: 'page', description: 'Optional. Page number', required: false })
+  async getMogaco(
+    @GetUser() member: Member,
+    @Query('date') date?: string,
+    @Query('page') page: number = 1,
+  ): Promise<{ data: MogacoDto[]; total: number }> {
     if (date) {
-      return this.mogacoService.getMogacoByDate(date, member);
+      const data = await this.mogacoService.getMogacoByDate(date, member);
+      return { data, total: data.length };
     } else {
-      return this.mogacoService.getAllMogaco(member);
+      return this.mogacoService.getAllMogaco(member, page);
     }
   }
 
@@ -70,7 +76,7 @@ export class MogacoController {
     return this.mogacoService.deleteMogaco(id, member);
   }
 
-  @Patch('/:id')
+  @Put('/:id')
   @ApiOperation({
     summary: '모각코 수정',
     description: '특정 모각코를 수정합니다.',

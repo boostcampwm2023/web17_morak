@@ -10,7 +10,7 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(member: Member): Promise<MogacoDto[]> {
+  async getAllMogaco(member: Member, page: number): Promise<{ data: MogacoDto[]; total: number }> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
@@ -18,19 +18,34 @@ export class MogacoRepository {
 
     const userGroupIds = userGroups.map((group) => group.groupId);
 
-    const mogacos = await this.prisma.mogaco.findMany({
-      where: {
-        deletedAt: null,
-        groupId: {
-          in: userGroupIds,
-        },
-      },
-      include: {
-        group: true,
-      },
-    });
+    const pageSize = 10;
+    const skip = (page - 1) * pageSize;
 
-    return mogacos.map((mogaco) => ({
+    const [mogacos, total] = await Promise.all([
+      this.prisma.mogaco.findMany({
+        where: {
+          deletedAt: null,
+          groupId: {
+            in: userGroupIds,
+          },
+        },
+        include: {
+          group: true,
+        },
+        skip,
+        take: pageSize,
+      }),
+      this.prisma.mogaco.count({
+        where: {
+          deletedAt: null,
+          groupId: {
+            in: userGroupIds,
+          },
+        },
+      }),
+    ]);
+
+    const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
       groupId: mogaco.group.id.toString(),
       title: mogaco.title,
@@ -49,6 +64,8 @@ export class MogacoRepository {
         title: mogaco.group.title,
       },
     }));
+
+    return { data: mappedMogacos, total };
   }
 
   async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
