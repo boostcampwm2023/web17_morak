@@ -34,6 +34,7 @@ export function Groups() {
             <Group
               key={group.id}
               name={group.title}
+              id={group.id}
               joined={group.id === joinedGroup?.id}
             />
           ))
