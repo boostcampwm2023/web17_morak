@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular18 } from '@/styles/font.css';
+import { sansBold16, sansRegular18 } from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -15,6 +15,17 @@ export const groupButtons = style({
   display: 'flex',
   gap: '1.2rem',
 });
+
+export const groupListButton = style([
+  sansBold16,
+  {
+    display: 'flex',
+    gap: 0,
+    alignItems: 'center',
+    alignSelf: 'end',
+    color: vars.color.morakGreen,
+  },
+]);
 
 export const list = style({
   display: 'flex',
@@ -30,6 +41,10 @@ export const logoutButton = style({
 
 export const navLink = style({
   width: '100%',
+});
+
+export const rotateArrow = style({
+  transform: 'rotate(180deg)',
 });
 
 export const section = style({
