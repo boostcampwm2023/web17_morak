@@ -27,15 +27,5 @@ export const useGroupJoinAndLeave = () => {
     leaveGroup(id);
   };
 
-  // const onClickLeave = () => {
-  //   openModal(
-  //     <Modal
-  //       title="그룹에서 나가시겠습니까?"
-  //       buttonType="double"
-  //       onClickConfirm={handleGroupJoinAndLeave}
-  //     />,
-  //   );
-  // };
-
   return { handleLeave, handleJoin };
 };
