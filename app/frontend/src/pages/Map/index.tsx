@@ -18,11 +18,17 @@ export function MapLayout() {
     setClosedSidebar(false);
     setMogacoId(id);
   };
+  const onClickMyLocation = () => {
+    setClosedSidebar(true);
+  };
 
   return (
     <div className={styles.container}>
       <Header />
-      <Map onClickMarker={onClickMarker} />
+      <Map
+        onClickMarker={onClickMarker}
+        onClickMyLocation={onClickMyLocation}
+      />
       <MogacoSideBar
         closed={closedSidebar}
         toggleClosed={onClickCloseSidebar}
