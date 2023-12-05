@@ -25,9 +25,9 @@ RUN npm ci
 COPY --from=builder /app/out/full/ .
 
 WORKDIR /app
-RUN npx turbo run build --filter=backend...
+RUN npx turbo run build --filter=frontend...
  
-FROM base AS runner
+FROM scratch
 WORKDIR /app
 
 # 빌더 스테이지에서 필요한 파일만 복사

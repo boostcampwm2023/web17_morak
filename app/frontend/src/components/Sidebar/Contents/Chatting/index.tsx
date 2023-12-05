@@ -11,8 +11,9 @@ import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
 import * as styles from './index.css';
+import { URL } from '@/constants';
 
-const socketClient = new SocketClient('http://localhost:8889/chat');
+const socketClient = new SocketClient(URL.SOCKET);
 
 type ChattingProps = {
   postId: string;

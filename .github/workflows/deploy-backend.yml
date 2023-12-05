@@ -36,6 +36,6 @@ jobs:
     - name: Deploy to Server
       run: |
           ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            cd morak/backend
-            ./deploy.sh ${{ github.sha }}
+            cd morak
+            ./be-deploy.sh ${{ github.sha }}
           "
