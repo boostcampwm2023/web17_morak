@@ -11,7 +11,8 @@ type TextareaProps = {
   fullWidth?: boolean;
   rows?: number;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
 export function Textarea({
@@ -25,6 +26,7 @@ export function Textarea({
   rows = 2,
   value,
   onChange,
+  onKeyDown,
 }: TextareaProps) {
   return (
     <div
@@ -48,6 +50,7 @@ export function Textarea({
         maxLength={maxLength}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
       {!disabled && errorMessage && (
         <p className={styles.errorMessage}>{errorMessage}</p>
