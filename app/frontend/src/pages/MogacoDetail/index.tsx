@@ -14,9 +14,10 @@ import * as styles from './index.css';
 export function MogacoDetailPage() {
   const { id } = useParams();
   const [chattingClosed, setChattingClosed] = useState(true);
-  const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
-    queryKeys.mogaco.detail(id!),
-  );
+  const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery({
+    ...queryKeys.mogaco.detail(id!),
+    enabled: !!id,
+  });
 
   const toggleChatting = () => setChattingClosed(!chattingClosed);
   const openChatting = () => setChattingClosed(false);
@@ -31,7 +32,7 @@ export function MogacoDetailPage() {
     );
   }
 
-  if (!mogacoData) {
+  if (!mogacoData || !id) {
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
@@ -51,9 +52,9 @@ export function MogacoDetailPage() {
         participants={mogacoData.participants}
       />
       <div className={styles.container}>
-        <DetailHeader id={id!} openChatting={openChatting} />
+        <DetailHeader id={id} openChatting={openChatting} />
         <DetailInfo
-          id={id!}
+          id={id}
           latitude={mogacoData.latitude}
           longitude={mogacoData.longitude}
         />

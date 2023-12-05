@@ -20,9 +20,9 @@ export function ChattingSidebar({
   title,
   participants,
 }: ChattingSidebarProps) {
-  const { data: currentUser } = useGetMyInfoQuery();
+  const { data } = useGetMyInfoQuery();
 
-  if (!currentUser) {
+  if (!data) {
     return (
       <Sidebar closed={closed} toggleClosed={toggleClosed}>
         <Error message="로그인 필요" />
@@ -30,11 +30,10 @@ export function ChattingSidebar({
     );
   }
 
-  if (
-    !participants.find(
-      (participant) => participant.providerId === currentUser.providerId,
-    )
-  ) {
+  const currentUser = participants.find(
+    (participant) => participant.providerId === data.providerId,
+  );
+  if (!currentUser) {
     return (
       <Sidebar closed={closed} toggleClosed={toggleClosed}>
         <div className={styles.notParticipated}>
@@ -52,7 +51,7 @@ export function ChattingSidebar({
         postId={id}
         title={title}
         participants={participants}
-        currentUserId={currentUser.providerId}
+        currentUserId={currentUser.id}
       />
     </Sidebar>
   );
