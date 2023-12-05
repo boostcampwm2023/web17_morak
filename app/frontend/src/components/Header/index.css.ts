@@ -66,13 +66,13 @@ export const sideMenuButton = style([
   fontStyle.sansRegular18,
   {
     color: vars.color.grayscale200,
-  },
-]);
-
-export const sideMenuButtonActive = style([
-  fontStyle.sansBold18,
-  {
-    color: vars.color.morakGreen,
+    cursor: 'pointer',
+    selectors: {
+      [`${active}&`]: {
+        fontWeight: 700,
+        color: vars.color.morakGreen,
+      },
+    },
   },
 ]);
 
