@@ -21,29 +21,19 @@ export class MogacoRepository {
     const pageSize = 10;
     const skip = (page - 1) * pageSize;
 
-    const [mogacos, total] = await Promise.all([
-      this.prisma.mogaco.findMany({
-        where: {
-          deletedAt: null,
-          groupId: {
-            in: userGroupIds,
-          },
+    const mogacos = await this.prisma.mogaco.findMany({
+      where: {
+        deletedAt: null,
+        groupId: {
+          in: userGroupIds,
         },
-        include: {
-          group: true,
-        },
-        skip,
-        take: pageSize,
-      }),
-      this.prisma.mogaco.count({
-        where: {
-          deletedAt: null,
-          groupId: {
-            in: userGroupIds,
-          },
-        },
-      }),
-    ]);
+      },
+      include: {
+        group: true,
+      },
+      skip,
+      take: pageSize,
+    });
 
     const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
