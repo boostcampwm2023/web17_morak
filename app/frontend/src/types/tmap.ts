@@ -1,3 +1,8 @@
+export type LatLng = {
+  _lat: number;
+  _lng: number;
+};
+
 export type NewAddress = {
   centerLat: string;
   centerLon: string;
@@ -33,6 +38,8 @@ export type SearchPoiInfo = {
 export type TMap = {
   setCenter: (latLng: TMapLatLng) => void;
   setZoomLimit: (minZoom: number, maxZoom: number) => void;
+  setZoom: (zoomLevel: number) => void;
+  setOptions: ({ zoomControl }: MapOptions) => void;
   destroy: () => void;
   addListener: (
     eventType: EventType,
@@ -52,6 +59,7 @@ export type TMapMarker = {
   setMap: (map: TMap | null) => void;
   getPosition: () => TMapLatLng;
   setPosition: (latLng: TMapLatLng) => void;
+  setLabel: (HTML: string) => void;
 };
 export type TMapSize = {
   _width: number;
@@ -59,6 +67,10 @@ export type TMapSize = {
 };
 export type TmapAddressInfo = {
   fullAddress: string;
+};
+export type TMapSize = {
+  _width: number;
+  _height: number;
 };
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
