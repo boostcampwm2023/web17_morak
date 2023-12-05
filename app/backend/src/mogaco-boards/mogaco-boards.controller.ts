@@ -4,7 +4,7 @@ import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { Member, Mogaco } from '@prisma/client';
-import { MogacoDto, MogacoResponseDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
+import { MogacoDto, MogacoWithMemberDto } from './dto/response-mogaco.dto';
 import { CreateMogacoDto } from './dto/create-mogaco.dto';
 import { ParticipantResponseDto } from './dto/response-participants.dto';
 
@@ -20,7 +20,7 @@ export class MogacoController {
     summary: '모든 모각코 조회 또는 모각코 기간별 조회',
     description: '존재하는 모든 모각코를 조회하거나, 요청된 기간 사이 존재하는 모각코를 조회합니다.',
   })
-  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoResponseDto] })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
   @ApiQuery({ name: 'page', description: 'Optional. Page number', required: false })
@@ -38,8 +38,8 @@ export class MogacoController {
 
   @Get('/:id')
   @ApiOperation({
-    summary: '특정 게시물 조회',
-    description: '특정 게시물의 Id 값으로 해당 게시물을 조회합니다.',
+    summary: '특정 모각코 조회',
+    description: '특정 모각코의 Id 값으로 해당 게시물을 조회합니다.',
   })
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
