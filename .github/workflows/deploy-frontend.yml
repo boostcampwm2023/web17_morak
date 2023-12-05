@@ -21,7 +21,7 @@ jobs:
     
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile.product .
     - name: Push Docker Image to Registry
       run: |
         docker push ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }}

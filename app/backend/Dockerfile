@@ -28,6 +28,11 @@ COPY --from=builder /app/out/full/ .
 WORKDIR /app/app/backend
 RUN npx prisma generate
 
+# .env 파일이 있으면 복사, 없으면 빈 파일 생성
+RUN if [ ! -f ./.env ]; then \
+        touch ./.env; \
+    fi
+
 WORKDIR /app
 RUN npx turbo run build --filter=backend...
  
@@ -39,7 +44,7 @@ COPY --from=installer /app/app/backend/dist /app/dist
 COPY --from=installer /app/app/backend/prisma /app/prisma
 COPY --from=installer /app/node_modules /app/node_modules
 COPY --from=installer /app/packages /app/packages
-COPY app/backend/.env /app/app/backend/.env
+COPY --from=installer /app/app/backend/.env .env
 
 # 필요한 경우, 런타임에 필요한 추가 파일 복사
 # 예: 환경변수 파일, 정적 파일 등
