@@ -19,4 +19,8 @@ export const group = {
     );
     return data;
   },
+  join: async (id: number) =>
+    morakAPI.post<null>(`${group.endPoint.default}/${id}/join`),
+  leave: async (id: number) =>
+    morakAPI.delete<null>(`${group.endPoint.default}/${id}/leave`),
 };
