@@ -15,10 +15,11 @@ export const dropdown = style({
   flexDirection: 'column',
   position: 'absolute',
   border: `1px solid ${vars.color.grayscale200}`,
-  borderRadius: '0.5rem',
+  borderRadius: '0.8rem',
   overflow: 'hidden',
   transform: `translate(${calc.subtract('4.4rem', '100%')}, 0.5rem)`,
   boxShadow: '0px 4px 8px 0px rgba(0 0 0 / 0.1)',
+  background: vars.color.grayscaleWhite,
 
   selectors: {
     [`${opened}&`]: {

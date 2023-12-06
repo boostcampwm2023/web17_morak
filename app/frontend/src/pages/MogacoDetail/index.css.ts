@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold16, sansRegular16 } from '@/styles/font.css';
+import { sansBold16, sansBold24, sansRegular16 } from '@/styles/font.css';
 
 export const buttons = style({
   display: 'flex',
@@ -54,15 +54,17 @@ export const infoItem = style({
   alignItems: 'center',
 });
 
-const shown = style({});
-
 export const map = style({
-  width: '32rem',
+  maxWidth: '32rem',
+  width: '100%',
   height: '20rem',
   objectFit: 'cover',
   borderRadius: '0.8rem',
+  overflow: 'hidden',
   imageRendering: 'crisp-edges',
 });
+
+const shown = style({});
 
 export const participants = style({
   display: 'none',
@@ -84,6 +86,15 @@ export const title = style({
   alignItems: 'center',
   flexGrow: 1,
 });
+
+export const titleText = style([
+  sansBold24,
+  {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+]);
 
 export const togglePeopleButton = style({
   display: 'flex',

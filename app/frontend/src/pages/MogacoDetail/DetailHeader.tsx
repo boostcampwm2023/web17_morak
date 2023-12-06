@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 
 import { UserChip } from '@/components';
 import { queryKeys } from '@/queries';
-import { sansBold24 } from '@/styles/font.css';
 
 import { DetailHeaderButtons } from './DetailHeaderButtons';
 import * as styles from './index.css';
@@ -18,7 +17,7 @@ export function DetailHeader({ id, openChatting }: DetailHeaderProps) {
   return (
     <div className={styles.header}>
       <div className={styles.title}>
-        <div className={sansBold24}>{mogacoData?.title}</div>
+        <div className={styles.titleText}>{mogacoData?.title}</div>
         <div className={styles.buttons}>
           <DetailHeaderButtons id={id} openChatting={openChatting} />
         </div>
