@@ -1,6 +1,7 @@
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
+import MAIN_IMAGE from '@/assets/images/main.png';
 import { Button } from '@/components';
-import { MAIN_IMAGE, URL } from '@/constants';
+import { URL } from '@/constants';
 import { getCookies } from '@/utils';
 
 import * as styles from './index.css';
