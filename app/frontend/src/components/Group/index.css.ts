@@ -72,12 +72,16 @@ export const groupCode = style({
 export const info = style({
   display: 'flex',
   gap: '0.8rem',
+  minWidth: 0,
 });
 
 export const title = style([
   sansBold20,
   {
     color: grayscaleBlack,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 ]);
 
@@ -85,4 +89,5 @@ export const titleWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  gap: '0.8rem',
 });
