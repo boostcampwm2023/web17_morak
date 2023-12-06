@@ -9,7 +9,7 @@ import * as styles from './index.css';
 
 export function MyProfile() {
   const { isLoading, data: currentUser } = useGetMyInfoQuery();
-  const { mutateAsync: logoutMutate } = useMutation({
+  const { mutate: logout } = useMutation({
     mutationFn: (providerId: string) => auth.logout({ providerId }),
   });
 
@@ -23,7 +23,7 @@ export function MyProfile() {
 
   const { email, nickname } = currentUser;
   const onLogout = () => {
-    logoutMutate(currentUser.providerId);
+    logout(currentUser.providerId);
     window.location.href = '/';
   };
 
