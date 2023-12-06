@@ -1,18 +1,14 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular12 } from '@/styles/font.css';
+import { sansRegular14 } from '@/styles/font.css';
 
 export const container = style([
-  sansRegular12,
   {
     display: 'flex',
     alignItems: 'center',
     flexShrink: 0,
     gap: '0.4rem',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    lineHeight: 0,
   },
 ]);
 
@@ -20,6 +16,16 @@ export const defaultProfileImage = style({
   border: `1px solid ${vars.color.morakGreen}`,
   borderRadius: '50%',
 });
+
+export const nickname = style([
+  sansRegular14,
+  {
+    maxWidth: '10rem',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflowX: 'hidden',
+  },
+]);
 
 export const profileImage = style({
   display: 'flex',

@@ -22,7 +22,7 @@ export function UserChip({ username, profileSrc }: UserChipProps) {
           <Profile width={24} height={24} fill={vars.color.morakGreen} />
         )}
       </div>
-      <span>{username}</span>
+      <span className={styles.nickname}>{username}</span>
     </div>
   );
 }

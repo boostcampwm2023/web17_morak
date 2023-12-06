@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQueries } from '@tanstack/react-query';
 
 import { Button, Error, LoadingIndicator } from '@/components';
+import { MoreButton } from '@/components/Button/MoreButton';
 import { queryKeys } from '@/queries';
 import {
   getMyInfoQuery,
@@ -97,17 +98,18 @@ export function DetailHeaderButtons({
         >
           채팅
         </Button>
-        <Button theme="primary" shape="line" size="large" onClick={onClickEdit}>
-          수정
-        </Button>
-        <Button
-          theme="danger"
-          shape="line"
-          size="large"
-          onClick={onClickDelete}
-        >
-          삭제
-        </Button>
+        <MoreButton
+          options={[
+            {
+              value: '수정하기',
+              onClick: onClickEdit,
+            },
+            {
+              value: '삭제하기',
+              onClick: onClickDelete,
+            },
+          ]}
+        />
       </>
     );
   }

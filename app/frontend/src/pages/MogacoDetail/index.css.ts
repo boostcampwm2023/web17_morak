@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold16, sansRegular16 } from '@/styles/font.css';
+import { sansBold16, sansBold24, sansRegular16 } from '@/styles/font.css';
 
 export const buttons = style({
   display: 'flex',
@@ -14,7 +14,8 @@ export const container = style([
     display: 'flex',
     flexDirection: 'column',
     gap: '2.4rem',
-    width: '80rem',
+    width: '100%',
+    maxWidth: '80rem',
     lineHeight: '1.6',
   },
 ]);
@@ -26,20 +27,26 @@ export const error = style([
   },
 ]);
 
+export const groupTitle = style([
+  sansBold16,
+  {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+]);
+
 export const header = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
 });
 
-export const hostUser = style([
-  sansBold16,
-  {
-    display: 'flex',
-    gap: '1.6rem',
-    color: vars.color.grayscale200,
-  },
-]);
+export const hostUser = style({
+  display: 'flex',
+  gap: '1.6rem',
+  color: vars.color.grayscale200,
+});
 
 export const info = style({
   display: 'flex',
@@ -53,15 +60,17 @@ export const infoItem = style({
   alignItems: 'center',
 });
 
-const shown = style({});
-
 export const map = style({
-  width: '32rem',
+  maxWidth: '32rem',
+  width: '100%',
   height: '20rem',
   objectFit: 'cover',
   borderRadius: '0.8rem',
+  overflow: 'hidden',
   imageRendering: 'crisp-edges',
 });
+
+const shown = style({});
 
 export const participants = style({
   display: 'none',
@@ -83,6 +92,15 @@ export const title = style({
   alignItems: 'center',
   flexGrow: 1,
 });
+
+export const titleText = style([
+  sansBold24,
+  {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+]);
 
 export const togglePeopleButton = style({
   display: 'flex',
