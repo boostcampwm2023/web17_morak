@@ -1,7 +1,6 @@
 import { ResponseMogacoWithMemberDto } from '@morak/apitype';
 
 import { UserChip } from '@/components';
-import { sansBold14 } from '@/styles/font.css';
 
 import * as styles from './index.css';
 
@@ -12,7 +11,7 @@ export function GroupWrapper({
   return (
     <div className={styles.groupWrapper}>
       <UserChip username={member.nickname} profileSrc={member.profilePicture} />
-      <span className={sansBold14}>{groupTitle}</span>
+      <span className={styles.group}>{groupTitle}</span>
     </div>
   );
 }
