@@ -3,11 +3,11 @@ import { useEffect, useRef } from 'react';
 import { ResponseMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import ReactDOMServer from 'react-dom/server';
 
 import { MAX_ZOOM_LEVEL } from '@/constants';
 import { useMap } from '@/hooks';
 import { queryKeys } from '@/queries';
+import { reactElementToString } from '@/utils';
 
 import * as styles from './index.css';
 import { Marker } from './Marker';
@@ -60,7 +60,7 @@ export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
       return;
     }
     currentMarker?.setLabel(
-      ReactDOMServer.renderToString(
+      reactElementToString(
         <span className={styles.label({ theme: 'red' })}>현 위치</span>,
       ),
     );
@@ -80,7 +80,7 @@ export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
           mapInstance.setZoom(MAX_ZOOM_LEVEL);
         });
         marker.setLabel(
-          ReactDOMServer.renderToString(
+          reactElementToString(
             <span className={styles.label({ theme: 'green' })}>
               {dayjs(mogaco.date).format('YY/MM/DD HH:mm')}
             </span>,
