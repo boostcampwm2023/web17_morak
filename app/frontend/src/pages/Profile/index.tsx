@@ -1,11 +1,8 @@
-import { NavLink } from 'react-router-dom';
-
-import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
-import { Button, Divider, Group } from '@/components';
-import { vars } from '@/styles';
+import { Button, Divider } from '@/components';
 import { sansBold24, sansBold36 } from '@/styles/font.css';
 
 import * as styles from './index.css';
+import { MyGroup } from './MyGroup';
 
 export function ProfilePage() {
   return (
@@ -36,22 +33,7 @@ export function ProfilePage() {
         <div className={sansBold24}>현재 참가한 모각코</div>
         <ul className={styles.list}>{/* <MogacoItem /> */}</ul>
       </section>
-      <section className={styles.section}>
-        <div className={sansBold24}>내가 속한 그룹</div>
-        <ul className={styles.list}>
-          <Group name="부스트캠프 웹·모바일 8기 FE" joined />
-        </ul>
-        <NavLink to="/groups" className={styles.groupListButton}>
-          <ArrowLeft
-            fill={vars.color.morakGreen}
-            width={24}
-            height={24}
-            className={styles.rotateArrow}
-          />
-          그룹 리스트 보기
-        </NavLink>
-        <div className={styles.groupButtons}>{/* <Button /> */}</div>
-      </section>
+      <MyGroup />
     </div>
   );
 }
