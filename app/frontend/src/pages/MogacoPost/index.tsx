@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -65,9 +65,12 @@ export function MogacoPostPage() {
     }
   }, [mogacoData, reset]);
 
-  const setGroup = (groupId: string) => {
-    setValue('groupId', groupId);
-  };
+  const setGroup = useCallback(
+    (groupId: string) => {
+      setValue('groupId', groupId);
+    },
+    [setValue],
+  );
 
   const onSubmit = async (formData: RequestCreateMogacoDto) => {
     const { maxHumanCount, date } = formData;
