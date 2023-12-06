@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
@@ -23,18 +23,23 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiQuery({ name: 'date', description: 'Optional. Format: YYYY-MM or YYYY-MM-DD', required: false })
-  async getMogaco(@GetUser() member: Member, @Query('date') date?: string): Promise<MogacoDto[]> {
+  @ApiQuery({ name: 'page', description: 'Optional. Page number', required: false })
+  async getMogaco(
+    @GetUser() member: Member,
+    @Query('date') date?: string,
+    @Query('page') page: number = 1,
+  ): Promise<MogacoDto[]> {
     if (date) {
       return this.mogacoService.getMogacoByDate(date, member);
     } else {
-      return this.mogacoService.getAllMogaco(member);
+      return this.mogacoService.getAllMogaco(member, page);
     }
   }
 
   @Get('/:id')
   @ApiOperation({
-    summary: '특정 게시물 조회',
-    description: '특정 게시물의 Id 값으로 해당 게시물을 조회합니다.',
+    summary: '특정 모각코 조회',
+    description: '특정 모각코의 Id 값으로 해당 게시물을 조회합니다.',
   })
   @ApiParam({ name: 'id', description: '조회할 모각코의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: MogacoWithMemberDto })
@@ -70,7 +75,7 @@ export class MogacoController {
     return this.mogacoService.deleteMogaco(id, member);
   }
 
-  @Patch('/:id')
+  @Put('/:id')
   @ApiOperation({
     summary: '모각코 수정',
     description: '특정 모각코를 수정합니다.',

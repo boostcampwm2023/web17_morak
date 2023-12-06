@@ -10,13 +10,16 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(member: Member): Promise<MogacoDto[]> {
+  async getAllMogaco(member: Member, page: number): Promise<MogacoDto[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
     });
 
     const userGroupIds = userGroups.map((group) => group.groupId);
+
+    const pageSize = 10;
+    const skip = (page - 1) * pageSize;
 
     const mogacos = await this.prisma.mogaco.findMany({
       where: {
@@ -28,9 +31,11 @@ export class MogacoRepository {
       include: {
         group: true,
       },
+      skip,
+      take: pageSize,
     });
 
-    return mogacos.map((mogaco) => ({
+    const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
       groupId: mogaco.group.id.toString(),
       title: mogaco.title,
@@ -49,6 +54,8 @@ export class MogacoRepository {
         title: mogaco.group.title,
       },
     }));
+
+    return mappedMogacos;
   }
 
   async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
