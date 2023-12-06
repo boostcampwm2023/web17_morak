@@ -78,6 +78,13 @@ export const title = style([
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    fontSize: '1.8rem',
+
+    '@media': {
+      '(min-width: 768px)': {
+        fontSize: '2.4rem',
+      },
+    },
   },
 ]);
 
