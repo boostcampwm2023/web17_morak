@@ -17,9 +17,10 @@ export function PostAddress({ control, setValue }: PostAddressProps) {
     latitude,
     longitude,
   }: Pick<RequestCreateMogacoDto, 'address' | 'latitude' | 'longitude'>) => {
-    setValue('address', address, { shouldValidate: true });
-    setValue('latitude', latitude, { shouldValidate: true });
-    setValue('longitude', longitude, { shouldValidate: true });
+    const options = { shouldDirty: true, shouldValidate: true };
+    setValue('address', address, options);
+    setValue('latitude', latitude, options);
+    setValue('longitude', longitude, options);
   };
   const { openModal } = useModal();
   const onClickInput = () => {
