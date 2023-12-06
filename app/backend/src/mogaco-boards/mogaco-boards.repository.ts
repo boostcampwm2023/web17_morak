@@ -174,6 +174,7 @@ export class MogacoRepository {
 
     return {
       id: mogaco.id.toString(),
+      groupId: mogaco.groupId.toString(),
       groupTitle: mogaco.group.title,
       title: mogaco.title,
       contents: mogaco.contents,

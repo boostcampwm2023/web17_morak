@@ -54,6 +54,9 @@ export class MogacoWithMemberDto implements ResponseMogacoWithMemberDto {
   @ApiProperty({ description: 'ID of the Mogaco', example: '1' })
   id: Bigint;
 
+  @ApiProperty({ description: 'Group ID', example: '1' })
+  groupId: Bigint;
+
   @ApiProperty({ description: 'Group Title', example: '부스트캠프 웹' })
   groupTitle: string;
 
