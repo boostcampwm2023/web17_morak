@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { ResponseMogacoDto } from '@morak/apitype';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 import { MAX_ZOOM_LEVEL } from '@/constants';
 import { useMap } from '@/hooks';
@@ -14,6 +15,7 @@ import { Marker } from './Marker';
 import { MyLocation } from './MyLocation';
 
 const { Tmapv2 } = window;
+dayjs.locale('ko');
 
 type MapProps = {
   onClickMarker: (id: string) => void;
@@ -82,7 +84,7 @@ export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
         marker.setLabel(
           reactElementToString(
             <span className={styles.label({ theme: 'green' })}>
-              {dayjs(mogaco.date).format('YY/MM/DD HH:mm')}
+              {dayjs(mogaco.date).format('MM/DD(ddd) HH:mm')}
             </span>,
           ),
         );

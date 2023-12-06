@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { vars } from '@/styles';
+import { vars, fontStyle } from '@/styles';
 
 const { morakGreen, subGreen, morakRed, grayscale100, grayscaleWhite } =
   vars.color;
@@ -12,11 +12,18 @@ export const container = style({
 });
 
 export const label = recipe({
-  base: {
-    padding: '0.2rem',
-    color: grayscaleWhite,
-    borderRadius: '0.5rem',
-  },
+  base: [
+    fontStyle.sansRegular12,
+    {
+      position: 'absolute',
+      padding: '0.2rem',
+      color: grayscaleWhite,
+      borderRadius: '0.5rem',
+      top: '-6.5rem',
+      left: '50%',
+      transform: 'translate(-50%)',
+    },
+  ],
   variants: {
     theme: {
       green: {
