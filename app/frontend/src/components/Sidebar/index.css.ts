@@ -7,7 +7,7 @@ export const closeButton = style({
   display: 'flex',
   alignItems: 'center',
   width: '2.4rem',
-  height: '4.8rem',
+  height: '6.4rem',
   padding: 0,
   border: `1px solid ${vars.color.grayscale200}`,
   borderRadius: '0 0.8rem 0.8rem 0',

@@ -64,7 +64,7 @@ export const title = style([
 
 export const titleWrapper = style({
   display: 'flex',
-  gap: '0.4rem',
+  gap: '0.8rem',
   alignItems: 'center',
 });
 
