@@ -16,6 +16,7 @@ export const code = style([
   sansBold16,
   {
     display: 'flex',
+    flexGrow: 1,
     alignItems: 'center',
     gap: '0.4rem',
     color: grayscale200,
@@ -29,6 +30,7 @@ export const container = style({
   border: `1px solid ${grayscale200}`,
   backgroundColor: grayscaleWhite,
   padding: '2rem',
+  paddingBottom: '1.6rem',
   gap: '0.8rem',
   cursor: 'pointer',
 
@@ -59,6 +61,16 @@ export const count = style([
   },
 ]);
 
+export const desktop = style({
+  display: 'flex',
+
+  '@media': {
+    'screen and (max-width:425px)': {
+      display: 'none',
+    },
+  },
+});
+
 export const detail = style({
   display: 'flex',
   alignItems: 'center',
@@ -69,25 +81,26 @@ export const groupCode = style({
   marginLeft: '0.4rem',
 });
 
-export const info = style({
-  display: 'flex',
-  gap: '0.8rem',
-  minWidth: 0,
+export const mobile = style({
+  display: 'none',
+
+  '@media': {
+    'screen and (max-width:425px)': {
+      display: 'flex',
+    },
+  },
 });
 
 export const title = style([
   sansBold20,
   {
     color: grayscaleBlack,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
   },
 ]);
 
 export const titleWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'start',
   gap: '0.8rem',
 });
