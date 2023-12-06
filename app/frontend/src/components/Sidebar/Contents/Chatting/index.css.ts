@@ -88,5 +88,5 @@ export const userList = style({
   gap: '0.8rem',
   maxWidth: '15rem',
   maxHeight: '30rem',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 });
