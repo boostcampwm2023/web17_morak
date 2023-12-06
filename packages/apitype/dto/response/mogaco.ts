@@ -22,6 +22,7 @@ export interface ResponseMogacoDto {
 
 export interface ResponseMogacoWithMemberDto {
   id: Bigint;
+  groupId: Bigint;
   groupTitle: string;
   title: string;
   contents: string;
