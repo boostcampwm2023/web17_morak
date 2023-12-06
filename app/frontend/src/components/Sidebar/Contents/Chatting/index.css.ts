@@ -75,7 +75,6 @@ export const textarea = style([
 export const title = style([
   sansBold24,
   {
-    flexGrow: 0,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',

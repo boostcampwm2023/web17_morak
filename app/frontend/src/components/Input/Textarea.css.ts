@@ -7,5 +7,6 @@ export const textarea = style([
   input,
   {
     resize: 'none',
+    width: '100%',
   },
 ]);

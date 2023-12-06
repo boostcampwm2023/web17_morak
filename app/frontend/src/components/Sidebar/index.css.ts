@@ -47,6 +47,7 @@ export const notParticipated = style([
 export const panel = style({
   display: 'flex',
   flexGrow: '1',
+  maxWidth: 'calc(100% - 2.4rem)',
   height: '100%',
   borderRight: `1px solid ${vars.color.grayscale100}`,
   background: vars.color.grayscaleWhite,
