@@ -1,4 +1,4 @@
-import { sansBold12 } from '@/styles/font.css';
+import { sansBold14 } from '@/styles/font.css';
 
 import { container } from './index.css';
 
@@ -16,7 +16,7 @@ export function Label({
   children,
 }: LabelProps) {
   return (
-    <div className={`${container({ theme, shape, disabled })} ${sansBold12}`}>
+    <div className={`${container({ theme, shape, disabled })} ${sansBold14}`}>
       {children}
     </div>
   );
