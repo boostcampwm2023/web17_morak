@@ -14,7 +14,8 @@ export const container = style([
     display: 'flex',
     flexDirection: 'column',
     gap: '2.4rem',
-    width: '80rem',
+    width: '100%',
+    maxWidth: '80rem',
     lineHeight: '1.6',
   },
 ]);
