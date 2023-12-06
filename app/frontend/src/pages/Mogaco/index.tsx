@@ -13,6 +13,7 @@ export function MogacoPage() {
       <MogacoListHeader />
       <MogacoList currentPage={currentPage} />
       <Pagination
+        className={styles.pagination}
         currentPage={currentPage}
         onClickItem={onClickItem}
         onClickNext={onClickNext}

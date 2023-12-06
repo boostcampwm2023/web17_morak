@@ -7,3 +7,7 @@ export const container = style({
   maxWidth: '80rem',
   margin: '0 auto',
 });
+
+export const pagination = style({
+  marginTop: '2rem',
+});
