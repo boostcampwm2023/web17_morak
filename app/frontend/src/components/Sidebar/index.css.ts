@@ -24,7 +24,7 @@ export const closeButton = style({
 });
 
 export const closed = style({
-  transform: 'translateX(-40rem)',
+  transform: 'translateX(calc(-100% + 2.4rem))',
 });
 
 export const flip = style({
@@ -46,7 +46,7 @@ export const notParticipated = style([
 
 export const panel = style({
   display: 'flex',
-  width: '40rem',
+  flexGrow: '1',
   height: '100%',
   borderRight: `1px solid ${vars.color.grayscale100}`,
   background: vars.color.grayscaleWhite,
@@ -59,6 +59,8 @@ export const wrapper = style({
   top: '8.5rem',
   left: 0,
   zIndex: 10,
+  width: '100%',
+  maxWidth: '40rem',
   height: 'calc(100% - 8.6rem)',
   transition: 'transform 0.5s',
 });
