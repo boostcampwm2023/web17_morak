@@ -28,7 +28,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       latitude: coord.latitude,
       longitude: coord.longitude,
     }),
-    enabled: coord.latitude !== 0 && coord.longitude !== 0,
+
     placeholderData: keepPreviousData,
   });
   const currentAddress = addressData?.addressInfo.fullAddress || '';
@@ -115,11 +115,19 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     setCenterToSelectedCoord(position);
   };
 
+  const initMapModal = () => {
+    setCurrentCoord(null);
+    currentMarker?.setMap(null);
+    setCurrentCoord(null);
+    setCurrentMarker(null);
+  };
+
   return {
     mapInstance,
     updateMarker,
     coord,
     setCoord,
     currentAddress,
+    initMapModal,
   };
 };
