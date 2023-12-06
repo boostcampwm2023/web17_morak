@@ -5,6 +5,7 @@ import { sansBold16, sansBold20, sansRegular16 } from '@/styles/font.css';
 
 const {
   grayscale50,
+  grayscale100,
   grayscale200,
   grayscale400,
   grayscaleWhite,
@@ -38,6 +39,16 @@ export const container = style({
   },
 });
 
+export const copyButton = style({
+  display: 'flex',
+  padding: '0.4rem',
+  borderRadius: '50%',
+
+  ':hover': {
+    background: grayscale100,
+  },
+});
+
 export const count = style([
   sansRegular16,
   {
@@ -51,7 +62,7 @@ export const count = style([
 export const detail = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '0.8rem',
+  gap: '0.4rem',
 });
 
 export const groupCode = style({
