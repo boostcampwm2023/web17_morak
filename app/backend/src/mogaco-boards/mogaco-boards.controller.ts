@@ -27,12 +27,16 @@ export class MogacoController {
   async getMogaco(
     @GetUser() member: Member,
     @Query('date') date?: string,
-    @Query('page') page: number = 1,
+    @Query('page') page?: number,
   ): Promise<MogacoDto[]> {
     if (date) {
       return this.mogacoService.getMogacoByDate(date, member);
     } else {
-      return this.mogacoService.getAllMogaco(member, page);
+      if (page) {
+        return this.mogacoService.getAllMogaco(member, page);
+      } else {
+        return this.mogacoService.getAllMogaco(member);
+      }
     }
   }
 
@@ -58,6 +62,7 @@ export class MogacoController {
   @ApiBody({ type: CreateMogacoDto })
   @ApiResponse({ status: 201, description: 'Successfully created', type: MogacoWithMemberDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
   async createMogaco(@Body() createMogacoDto: CreateMogacoDto, @GetUser() member: Member): Promise<Mogaco> {
     return this.mogacoService.createMogaco(createMogacoDto, member);
   }

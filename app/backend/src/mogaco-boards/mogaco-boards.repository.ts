@@ -10,30 +10,47 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllMogaco(member: Member, page: number): Promise<MogacoDto[]> {
+  async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
     });
 
     const userGroupIds = userGroups.map((group) => group.groupId);
+    let mogacos;
 
-    const pageSize = 10;
-    const skip = (page - 1) * pageSize;
+    if (page) {
+      // page가 명시되면 페이지네이션을 적용
+      const pageSize = 10;
+      const skip = (page - 1) * pageSize;
 
-    const mogacos = await this.prisma.mogaco.findMany({
-      where: {
-        deletedAt: null,
-        groupId: {
-          in: userGroupIds,
+      mogacos = await this.prisma.mogaco.findMany({
+        where: {
+          deletedAt: null,
+          groupId: {
+            in: userGroupIds,
+          },
         },
-      },
-      include: {
-        group: true,
-      },
-      skip,
-      take: pageSize,
-    });
+        include: {
+          group: true,
+        },
+        skip,
+        take: pageSize,
+      });
+    } else {
+      // page가 명시되지 않으면 페이지네이션을 적용하지 않고 모든 결과를 반환
+      mogacos = await this.prisma.mogaco.findMany({
+        where: {
+          deletedAt: null,
+          groupId: {
+            in: userGroupIds,
+          },
+        },
+        include: {
+          group: true,
+        },
+      });
+    }
 
     const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
@@ -177,42 +194,49 @@ export class MogacoRepository {
   }
 
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
-    try {
-      const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
+    const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
 
-      const mogaco = await this.prisma.mogaco.create({
-        data: {
-          title,
-          contents,
-          maxHumanCount,
-          address,
-          latitude,
-          longitude,
-          status: MogacoStatus.RECRUITING,
-          date: new Date(date),
-          group: {
-            connect: { id: Number(groupId) },
-          },
-          member: {
-            connect: { id: Number(member.id) },
-          },
-        },
-        include: {
-          member: true,
-        },
-      });
+    const userGroups = await this.prisma.groupToUser.findMany({
+      where: { userId: member.id },
+      select: { groupId: true },
+    });
 
-      await this.prisma.participant.create({
-        data: {
-          postId: mogaco.id,
-          userId: Number(member.id),
-        },
-      });
+    const userGroupIds = userGroups.map((group) => group.groupId);
 
-      return mogaco;
-    } catch (error) {
-      throw new Error(`Failed to create Mogaco: ${error.message}`);
+    if (userGroupIds.length === 0 || !userGroupIds.includes(BigInt(groupId))) {
+      throw new NotFoundException(`Group with id ${groupId} not found.`);
     }
+
+    const mogaco = await this.prisma.mogaco.create({
+      data: {
+        title,
+        contents,
+        maxHumanCount,
+        address,
+        latitude,
+        longitude,
+        status: MogacoStatus.RECRUITING,
+        date: new Date(date),
+        group: {
+          connect: { id: Number(groupId) },
+        },
+        member: {
+          connect: { id: Number(member.id) },
+        },
+      },
+      include: {
+        member: true,
+      },
+    });
+
+    await this.prisma.participant.create({
+      data: {
+        postId: mogaco.id,
+        userId: Number(member.id),
+      },
+    });
+
+    return mogaco;
   }
 
   async deleteMogaco(id: number, member: Member): Promise<void> {
@@ -251,23 +275,19 @@ export class MogacoRepository {
       throw new ForbiddenException(`You do not have permission to update this Mogaco`);
     }
 
-    try {
-      return await this.prisma.mogaco.update({
-        where: { id: mogaco.id },
-        data: {
-          title,
-          contents,
-          date: new Date(date),
-          status,
-          maxHumanCount,
-          address,
-          latitude,
-          longitude,
-        },
-      });
-    } catch (error) {
-      throw new Error(`Failed to update Mogaco: ${error.message}`);
-    }
+    return await this.prisma.mogaco.update({
+      where: { id: mogaco.id },
+      data: {
+        title,
+        contents,
+        date: new Date(date),
+        status,
+        maxHumanCount,
+        address,
+        latitude,
+        longitude,
+      },
+    });
   }
 
   async joinMogaco(id: number, member: Member): Promise<void> {
