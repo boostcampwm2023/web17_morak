@@ -28,7 +28,7 @@ export function DetailHeader({ id, openChatting }: DetailHeaderProps) {
           username={mogacoData?.member.nickname || ''}
           profileSrc={mogacoData?.member.profilePicture}
         />
-        <span>부스트캠프 웹·모바일 8기</span>
+        <span>{mogacoData?.groupTitle}</span>
       </div>
     </div>
   );
