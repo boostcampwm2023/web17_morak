@@ -52,16 +52,32 @@ export function MogacoPostPage() {
 
   useEffect(() => {
     if (mogacoData) {
-      const { title, address, contents, maxHumanCount, date, status } =
-        mogacoData;
-      reset({
+      const {
         title,
         address,
+        latitude,
+        longitude,
         contents,
-        date: date.toString(),
         maxHumanCount,
+        date,
         status,
-      });
+      } = mogacoData;
+
+      reset(
+        {
+          title,
+          address,
+          latitude,
+          longitude,
+          contents,
+          date: date.toString(),
+          maxHumanCount,
+          status,
+        },
+        {
+          keepDirty: true,
+        },
+      );
     }
   }, [mogacoData, reset]);
 
