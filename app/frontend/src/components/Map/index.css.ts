@@ -1,20 +1,43 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { vars } from '@/styles';
+import { vars, fontStyle } from '@/styles';
 
-const { morakGreen, subGreen, morakRed, grayscale100 } = vars.color;
+const { morakGreen, subGreen, morakRed, grayscale100, grayscaleWhite } =
+  vars.color;
 
 export const container = style({
   height: '100%',
   paddingTop: '8.5rem',
 });
 
-export const label = style({
-  padding: '0.2rem',
-  background: vars.color.morakRed,
-  color: vars.color.grayscaleWhite,
-  borderRadius: '0.5rem',
+export const label = recipe({
+  base: [
+    fontStyle.sansRegular12,
+    {
+      position: 'absolute',
+      padding: '0.2rem',
+      color: grayscaleWhite,
+      borderRadius: '0.5rem',
+      top: '-6.5rem',
+      left: '50%',
+      transform: 'translate(-50%)',
+    },
+  ],
+  variants: {
+    theme: {
+      green: {
+        background: morakGreen,
+      },
+      red: {
+        background: morakRed,
+      },
+    },
+  },
+});
+
+export const map = style({
+  height: '100%',
 });
 
 export const marker = recipe({
@@ -34,4 +57,16 @@ export const marker = recipe({
       },
     },
   },
+});
+
+export const myLocation = style({
+  width: '3rem',
+  height: '3rem',
+  position: 'absolute',
+  bottom: '6rem',
+  right: '2rem',
+  background: grayscaleWhite,
+  borderRadius: '0.8rem',
+  boxShadow: '0px 0px 8px 0px rgba(0 0 0 / 0.25)',
+  zIndex: '10',
 });
