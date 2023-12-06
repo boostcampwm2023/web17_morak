@@ -75,10 +75,16 @@ export const textarea = style([
 export const title = style([
   sansBold24,
   {
-    flexGrow: 0,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    fontSize: '1.8rem',
+
+    '@media': {
+      '(min-width: 768px)': {
+        fontSize: '2.4rem',
+      },
+    },
   },
 ]);
 
@@ -89,5 +95,5 @@ export const userList = style({
   gap: '0.8rem',
   maxWidth: '15rem',
   maxHeight: '30rem',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 });

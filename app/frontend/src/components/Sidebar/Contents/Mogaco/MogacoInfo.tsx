@@ -24,17 +24,14 @@ export function MogacoInfo({
     address,
     participants,
     member,
+    groupTitle,
   } = mogaco;
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <TitleWrapper status={status} title={title} />
-        {/* TODO: group 받아와서 적용 */}
-        <GroupWrapper
-          nickname={member.nickname}
-          profilePicture={member.profilePicture}
-        />
+        <GroupWrapper member={member} groupTitle={groupTitle} />
         <InfoWrapper
           date={date}
           participantCount={participants.length}

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold24, sansRegular12 } from '@/styles/font.css';
+import { sansBold16, sansBold24, sansRegular14 } from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -11,23 +11,36 @@ export const container = style({
   color: vars.color.grayscaleBlack,
   padding: '2rem',
 });
+
+export const group = style([
+  sansBold16,
+  {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+]);
+
 export const groupWrapper = style({
   display: 'flex',
   alignItems: 'center',
   color: vars.color.grayscale200,
   gap: '1.6rem',
 });
+
 export const icon = style({
   fill: vars.color.grayscale200,
 });
+
 export const infoContent = style({
   display: 'flex',
   width: '100%',
   alignItems: 'center',
   gap: '0.4rem',
 });
+
 export const infoText = style([
-  sansRegular12,
+  sansRegular14,
   {
     width: '100%',
     alignItems: 'center',
@@ -37,20 +50,24 @@ export const infoText = style([
     textOverflow: 'ellipsis',
   },
 ]);
+
 export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
 });
+
 export const title = style([
   sansBold24,
   { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
 ]);
+
 export const titleWrapper = style({
   display: 'flex',
-  gap: '0.4rem',
+  gap: '0.8rem',
   alignItems: 'center',
 });
+
 export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
