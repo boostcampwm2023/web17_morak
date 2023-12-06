@@ -19,7 +19,7 @@ dayjs.locale('ko');
 
 type MapProps = {
   onClickMarker: (id: string) => void;
-  onClickMyLocation: () => void;
+  closeSidebar: () => void;
 };
 type Geolocation = {
   coords: {
@@ -43,17 +43,17 @@ const setMyLocation = (updateMarker: UpdateMarker) => {
   navigator.geolocation.getCurrentPosition(onSuccess);
 };
 
-export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
+export function Map({ onClickMarker, closeSidebar }: MapProps) {
   const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
   const mapRef = useRef<HTMLDivElement>(null);
   const { mapInstance, updateMarker, currentMarker } = useMap(mapRef);
-  const setCenterToMyLocation = () => {
-    onClickMyLocation();
+  const onClickMyLocation = () => {
+    closeSidebar();
     setMyLocation(updateMarker);
   };
 
   useEffect(() => {
-    setCenterToMyLocation();
+    onClickMyLocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapInstance]);
 
@@ -95,7 +95,7 @@ export function Map({ onClickMarker, onClickMyLocation }: MapProps) {
   return (
     <div className={styles.container}>
       <div className={styles.map} id="map" ref={mapRef} />
-      <MyLocation onClick={setCenterToMyLocation} />
+      <MyLocation onClick={onClickMyLocation} />
     </div>
   );
 }
