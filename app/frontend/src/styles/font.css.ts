@@ -59,6 +59,13 @@ export const sansBold18 = style([
   },
 ]);
 
+export const sansBold20 = style([
+  sansBold,
+  {
+    fontSize: '2.0rem',
+  },
+]);
+
 export const sansBold24 = style([
   sansBold,
   {

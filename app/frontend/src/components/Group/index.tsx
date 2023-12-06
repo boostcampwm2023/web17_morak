@@ -67,8 +67,9 @@ export function Group({ id, owned = false, name, joined = false }: GroupProps) {
       {owned && (
         <div className={styles.detail}>
           <div className={styles.code}>
-            <span>그룹 코드 | </span>
-            <span className={styles.groupCode}>FDGSIUH4RUR89U324R98</span>
+            <span>그룹 코드</span>
+            <span>|</span>
+            <span>FDGSIUH4RUR89U324R98</span>
           </div>
           <button type="button">
             <Copy width={24} height={24} fill={grayscale200} />
