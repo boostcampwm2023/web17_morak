@@ -12,7 +12,8 @@
     "prettier": "prettier --write .",
     "preview": "vite preview --host 0.0.0.0",
     "prepare": "cd ../.. && husky install app/frontend/.husky",
-    "lint-front": "lint-staged"
+    "lint-front": "lint-staged",
+    "test": "vitest"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -67,6 +68,7 @@
     "msw": "^2.0.8",
     "prettier": "^3.0.3",
     "vite": "^4.4.5",
-    "vite-plugin-svgr": "^3.2.0"
+    "vite-plugin-svgr": "^3.2.0",
+    "vitest": "^0.34.6"
   }
 }
