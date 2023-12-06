@@ -59,7 +59,7 @@ export function ChatList({
       <div ref={observableRef} />
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
-          (participant) => participant.providerId === chatItem.user,
+          (participant) => participant.id === chatItem.user,
         );
         return (
           <MemorizedTalkItem
