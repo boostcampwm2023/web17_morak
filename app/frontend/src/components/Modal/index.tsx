@@ -10,7 +10,7 @@ type ModalProps = {
   buttonType: 'single' | 'double';
   confirmButtonText?: string;
   cancelButtonText?: string;
-  onClickConfirm: () => void;
+  onClickConfirm?: () => void;
 };
 
 export function Modal({

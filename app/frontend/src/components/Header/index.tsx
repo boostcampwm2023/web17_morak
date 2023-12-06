@@ -1,12 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '@/assets/icons/morak.svg';
-import { ReactComponent as Profile } from '@/assets/icons/profile.svg';
-import { SIDE_MENU } from '@/constants';
 
 import * as styles from './index.css';
+import { useClickMenu } from './useClickMenu';
+import { useMenu } from './useMenu';
 
 export function Header() {
+  const { SIDE_MENU } = useMenu();
+  const { pathname } = useLocation();
+
+  const { onClickMenu } = useClickMenu();
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -14,25 +19,21 @@ export function Header() {
           <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
-        <div className={styles.sideMenu}>
-          {SIDE_MENU.map((menu: string) => (
-            <NavLink
-              key={menu}
-              to={`/${menu}`}
-              className={({ isActive }) =>
-                isActive ? styles.sideMenuButtonActive : styles.sideMenuButton
-              }
+        <ul className={styles.sideMenu}>
+          {SIDE_MENU.map((menu) => (
+            <li
+              role="menuitem"
+              key={menu.pathname}
+              onClick={() => onClickMenu(menu.pathname)}
+              onKeyDown={() => onClickMenu(menu.pathname)}
+              className={`${styles.sideMenuButton} ${
+                pathname === `/${menu.pathname}` ? styles.active : ''
+              }`}
             >
-              {menu}
-            </NavLink>
+              {menu.value}
+            </li>
           ))}
-          <NavLink
-            to="/profile"
-            className={({ isActive }) => (isActive ? styles.active : '')}
-          >
-            <Profile width={24} height={24} className={styles.profileButton} />
-          </NavLink>
-        </div>
+        </ul>
       </div>
     </div>
   );

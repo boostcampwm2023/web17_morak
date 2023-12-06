@@ -2,6 +2,8 @@ import { style } from '@vanilla-extract/css';
 
 import { vars, fontStyle } from '@/styles';
 
+const { grayscaleWhite, grayscale100, grayscale200, morakGreen } = vars.color;
+
 export const active = style({});
 
 export const container = style({
@@ -12,8 +14,8 @@ export const container = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  background: vars.color.grayscaleWhite,
-  borderBottom: `1px solid ${vars.color.grayscale100}`,
+  background: grayscaleWhite,
+  borderBottom: `1px solid ${grayscale100}`,
   zIndex: 20,
 });
 
@@ -46,11 +48,11 @@ export const logoTitle = style([
 ]);
 
 export const profileButton = style({
-  fill: vars.color.grayscale200,
+  fill: grayscale200,
 
   selectors: {
     [`${active} &`]: {
-      fill: vars.color.morakGreen,
+      fill: morakGreen,
     },
   },
 });
@@ -65,14 +67,14 @@ export const sideMenu = style({
 export const sideMenuButton = style([
   fontStyle.sansRegular18,
   {
-    color: vars.color.grayscale200,
-  },
-]);
-
-export const sideMenuButtonActive = style([
-  fontStyle.sansBold18,
-  {
-    color: vars.color.morakGreen,
+    color: grayscale200,
+    cursor: 'pointer',
+    selectors: {
+      [`${active}&`]: {
+        fontWeight: 700,
+        color: morakGreen,
+      },
+    },
   },
 ]);
 
@@ -80,6 +82,6 @@ export const title = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.4rem',
-  color: vars.color.morakGreen,
+  color: morakGreen,
   textAlign: 'center',
 });

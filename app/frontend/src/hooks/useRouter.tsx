@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Layout } from '@/components';
+import { AuthRequired, Layout } from '@/components';
 import {
   MainPage,
   MogacoPage,
@@ -17,8 +17,16 @@ export const useRouter = () =>
     {
       path: '/',
       element: <Layout />,
+      children: [{ index: true, element: <MainPage /> }],
+    },
+    {
+      path: '/',
+      element: (
+        <AuthRequired>
+          <Layout />
+        </AuthRequired>
+      ),
       children: [
-        { index: true, element: <MainPage /> },
         {
           path: 'mogaco',
           element: <MogacoPage />,
@@ -44,6 +52,10 @@ export const useRouter = () =>
     },
     {
       path: '/map',
-      element: <MapLayout />,
+      element: (
+        <AuthRequired>
+          <MapLayout />
+        </AuthRequired>
+      ),
     },
   ]);
