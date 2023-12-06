@@ -65,6 +65,12 @@ export const moreButton = style({
   ':active': {
     background: vars.color.grayscale100,
   },
+
+  selectors: {
+    [`${opened}&`]: {
+      background: vars.color.grayscale100,
+    },
+  },
 });
 
 export { opened };

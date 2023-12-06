@@ -19,7 +19,7 @@ export function MoreButton({ options }: DropdownButtonProps) {
     <div className={styles.container}>
       <button
         type="button"
-        className={styles.moreButton}
+        className={`${styles.moreButton} ${opened && styles.opened}`}
         onClick={() => setOpened(!opened)}
       >
         <More width={24} height={24} fill={vars.color.grayscale200} />

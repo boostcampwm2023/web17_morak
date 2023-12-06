@@ -98,17 +98,6 @@ export function DetailHeaderButtons({
         >
           채팅
         </Button>
-        {/*         <Button theme="primary" shape="line" size="large" onClick={onClickEdit}>
-          수정
-        </Button>
-        <Button
-          theme="danger"
-          shape="line"
-          size="large"
-          onClick={onClickDelete}
-        >
-          삭제
-        </Button> */}
         <MoreButton
           options={[
             {
