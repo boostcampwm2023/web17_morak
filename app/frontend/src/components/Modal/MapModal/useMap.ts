@@ -116,7 +116,6 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   };
 
   const initMapModal = () => {
-    setCurrentCoord(null);
     currentMarker?.setMap(null);
     setCurrentCoord(null);
     setCurrentMarker(null);
