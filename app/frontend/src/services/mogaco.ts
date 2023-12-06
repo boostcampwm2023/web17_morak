@@ -11,7 +11,7 @@ export const mogaco = {
     default: '/posts',
   },
 
-  list: async (filters?: { date?: string }) => {
+  list: async (filters?: { date?: string; page?: string }) => {
     const queryString = filters
       ? `?${new URLSearchParams(filters).toString()}`
       : '';
