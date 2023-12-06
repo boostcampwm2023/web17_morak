@@ -5,7 +5,7 @@ export const container = style({
   flexDirection: 'column',
   gap: '3.6rem',
   maxWidth: '80rem',
-  margin: '0 auto 8rem auto',
+  margin: '0 auto',
 });
 
 export const list = style({

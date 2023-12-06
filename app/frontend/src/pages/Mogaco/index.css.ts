@@ -6,5 +6,4 @@ export const container = style({
   gap: '1.2rem',
   maxWidth: '80rem',
   margin: '0 auto',
-  paddingBottom: '4rem',
 });
