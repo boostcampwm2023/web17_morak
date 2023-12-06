@@ -27,20 +27,26 @@ export const error = style([
   },
 ]);
 
+export const groupTitle = style([
+  sansBold16,
+  {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+]);
+
 export const header = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.4rem',
 });
 
-export const hostUser = style([
-  sansBold16,
-  {
-    display: 'flex',
-    gap: '1.6rem',
-    color: vars.color.grayscale200,
-  },
-]);
+export const hostUser = style({
+  display: 'flex',
+  gap: '1.6rem',
+  color: vars.color.grayscale200,
+});
 
 export const info = style({
   display: 'flex',

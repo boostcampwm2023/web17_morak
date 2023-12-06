@@ -27,7 +27,7 @@ export function DetailHeader({ id, openChatting }: DetailHeaderProps) {
           username={mogacoData?.member.nickname || ''}
           profileSrc={mogacoData?.member.profilePicture}
         />
-        <span>{mogacoData?.groupTitle}</span>
+        <span className={styles.groupTitle}>{mogacoData?.groupTitle}</span>
       </div>
     </div>
   );
