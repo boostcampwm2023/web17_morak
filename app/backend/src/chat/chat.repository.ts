@@ -7,8 +7,8 @@ import { PrismaService } from 'prisma/prisma.service';
 @Injectable()
 export class ChatRepository {
   constructor(
-    @InjectModel("ChatMessages") private chatMessageModel: Model<ChatMessageDocument>,
-    private prisma: PrismaService
+    @InjectModel('ChatMessages') private chatMessageModel: Model<ChatMessageDocument>,
+    private prisma: PrismaService,
   ) {}
 
   async saveChatMessage(createChatDto: ChatMessageDto): Promise<ChatMessageDto> {
@@ -28,11 +28,8 @@ export class ChatRepository {
   async isUserInGroup(groupId: number, userId: number): Promise<boolean> {
     const count = await this.prisma.groupToUser.count({
       where: {
-        AND: [
-          { groupId: groupId },
-          { userId: userId }
-        ]
-      }
+        AND: [{ groupId: groupId }, { userId: userId }],
+      },
     });
     return count > 0;
   }

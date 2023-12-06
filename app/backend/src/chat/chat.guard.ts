@@ -1,5 +1,5 @@
-import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
-import ChatService from "./chat.service";
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import ChatService from './chat.service';
 
 @Injectable()
 export class ChatGuard implements CanActivate {
