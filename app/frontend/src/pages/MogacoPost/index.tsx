@@ -55,6 +55,7 @@ export function MogacoPostPage() {
     if (mogacoData) {
       const {
         title,
+        groupId,
         address,
         latitude,
         longitude,
@@ -67,6 +68,7 @@ export function MogacoPostPage() {
       reset(
         {
           title,
+          groupId,
           address,
           latitude,
           longitude,
