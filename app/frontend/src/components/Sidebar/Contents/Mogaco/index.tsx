@@ -16,7 +16,7 @@ export function MogacoSidebarItem() {
   const [mogacoId] = useAtom(mogacoAtom);
 
   const { data: mogaco, isLoading } = useQuery({
-    ...queryKeys.mogaco.detail(mogacoId),
+    ...queryKeys.posts.detail(mogacoId),
     enabled: Number(mogacoId) !== -1,
   });
 

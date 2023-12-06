@@ -13,7 +13,7 @@ type DetailHeaderProps = {
 };
 
 export function DetailHeader({ id, openChatting }: DetailHeaderProps) {
-  const { data: mogacoData } = useQuery(queryKeys.mogaco.detail(id));
+  const { data: mogacoData } = useQuery(queryKeys.posts.detail(id));
 
   return (
     <div className={styles.header}>

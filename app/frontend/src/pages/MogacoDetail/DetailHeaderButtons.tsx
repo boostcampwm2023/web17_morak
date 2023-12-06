@@ -28,7 +28,7 @@ export function DetailHeaderButtons({
     { data: currentUser, isLoading: currentUserLoading },
     { data: mogacoData, isLoading: mogacoDataLoading },
   ] = useQueries({
-    queries: [getMyInfoQuery, queryKeys.mogaco.detail(id)],
+    queries: [getMyInfoQuery, queryKeys.posts.detail(id)],
   });
 
   const deleteMogaco = useDeleteMogacoQuery();

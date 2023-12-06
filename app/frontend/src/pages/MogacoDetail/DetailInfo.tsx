@@ -31,7 +31,7 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
   }, [latitude, longitude, mapInstance, updateMarker]);
 
   const { data: mogacoData, isLoading: mogacoDataLoading } = useQuery(
-    queryKeys.mogaco.detail(id),
+    queryKeys.posts.detail(id),
   );
 
   const toggleParticipantsShown = () =>
