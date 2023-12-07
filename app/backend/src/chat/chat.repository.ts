@@ -25,10 +25,10 @@ export class ChatRepository {
       .exec();
   }
 
-  async isUserInGroup(groupId: number, userId: number): Promise<boolean> {
+  async isUserInPost(postId: number, userId: number): Promise<boolean> {
     const count = await this.prisma.participant.count({
       where: {
-        AND: [{ groupId: groupId }, { userId: userId }],
+        AND: [{ postId: BigInt(postId) }, { userId: BigInt(userId) }],
       },
     });
     return count > 0;

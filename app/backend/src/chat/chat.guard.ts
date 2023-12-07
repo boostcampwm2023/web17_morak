@@ -14,6 +14,6 @@ export class ChatGuard implements CanActivate {
 
     const { user, room } = message;
 
-    return await this.chatService.isUserInGroup(room, user);
+    return await this.chatService.isUserInPost(room, user);
   }
 }

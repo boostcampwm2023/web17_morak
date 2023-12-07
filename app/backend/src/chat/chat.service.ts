@@ -16,12 +16,12 @@ export class ChatService {
     return this.chatRepository.getChatMessages(room, cursorDate);
   }
 
-  async isUserInGroup(room: string, user: string) {
+  async isUserInPost(room: string, user: string) {
     if (!Number.isNaN(room) && !Number.isNaN(user)) {
-      const groupId = parseInt(room, 10);
+      const postId = parseInt(room, 10);
       const userId = parseInt(user, 10);
 
-      return await this.chatRepository.isUserInGroup(groupId, userId);
+      return await this.chatRepository.isUserInPost(postId, userId);
     }
   }
 }
