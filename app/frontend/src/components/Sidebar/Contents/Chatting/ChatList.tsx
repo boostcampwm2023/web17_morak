@@ -38,10 +38,12 @@ export function ChatList({
       });
     }
 
-    if (scrollTop + clientHeight === prevScrollHeightRef.current) {
+    if (
+      scrollTop + clientHeight >=
+      prevScrollHeightRef.current - clientHeight
+    ) {
       listElemRef.current.scrollTo({
         top: scrollHeight - clientHeight,
-        behavior: 'smooth',
       });
     }
 
