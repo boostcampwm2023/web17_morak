@@ -41,6 +41,7 @@ export function PostAddress({ control, setValue }: PostAddressProps) {
           onChange={onChange}
           errorMessage={error && MOGACO_POST.ADDRESS.REQUIRED}
           onClick={onClickInput}
+          readOnly
         />
       )}
     />
