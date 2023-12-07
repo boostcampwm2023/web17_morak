@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Loading, MogacoItem } from '@/components';
+import { Error, Loading, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
 import { EmptyPage } from './EmptyPage';
@@ -21,6 +21,10 @@ export function MogacoList({ currentPage }: MogacoListProp) {
         <Loading />
       </div>
     );
+  }
+
+  if (!mogacoList) {
+    return <Error message="모각코 정보를 불러오는 데에 실패했습니다." />;
   }
 
   return (
