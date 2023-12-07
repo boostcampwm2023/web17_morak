@@ -30,11 +30,15 @@ export function DetailHeaderButtons({
   openChatting,
 }: DetailHeaderButtonsProps) {
   const navigate = useNavigate();
+  const { notifyToJoin, notifyToLeave } = useChatting(
+    postId,
+    currentUser.id,
+    currentUser.nickname,
+  );
 
-  useChatting(postId, currentUser.id, currentUser.nickname);
   const deleteMogaco = useDeleteMogacoQuery();
-  const joinMogaco = useJoinMogacoQuery();
-  const quitMogaco = useQuitMogacoQuery();
+  const joinMogaco = useJoinMogacoQuery(notifyToJoin);
+  const quitMogaco = useQuitMogacoQuery(notifyToLeave);
 
   const handleDelete = async () => {
     const res = await deleteMogaco.mutateAsync(postId);

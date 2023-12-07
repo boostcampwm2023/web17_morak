@@ -16,7 +16,7 @@ export const useDeleteMogacoQuery = () => {
   });
 };
 
-export const useJoinMogacoQuery = () => {
+export const useJoinMogacoQuery = (notifyCallback: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -25,11 +25,12 @@ export const useJoinMogacoQuery = () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.detail(postId).queryKey,
       });
+      notifyCallback();
     },
   });
 };
 
-export const useQuitMogacoQuery = () => {
+export const useQuitMogacoQuery = (notifyCallback: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -38,6 +39,7 @@ export const useQuitMogacoQuery = () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.mogaco.detail(postId).queryKey,
       });
+      notifyCallback();
     },
   });
 };
