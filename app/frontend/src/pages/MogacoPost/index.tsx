@@ -31,12 +31,13 @@ export function MogacoPostPage() {
     ...queryKeys.mogaco.detail(postId || ''),
     enabled: !!postId,
   });
+
   const {
     control,
     handleSubmit,
-    reset,
     setValue,
-    formState: { isValid },
+    reset,
+    formState: { isValid, isDirty },
   } = useForm<RequestCreateMogacoDto>({
     defaultValues: {
       title: '',
@@ -52,22 +53,40 @@ export function MogacoPostPage() {
 
   useEffect(() => {
     if (mogacoData) {
-      const { title, address, contents, maxHumanCount, date, status } =
-        mogacoData;
-      reset({
+      const {
         title,
+        groupId,
         address,
+        latitude,
+        longitude,
         contents,
-        date: date.toString(),
         maxHumanCount,
+        date,
         status,
-      });
+      } = mogacoData;
+
+      reset(
+        {
+          title,
+          groupId,
+          address,
+          latitude,
+          longitude,
+          contents,
+          date: date.toString(),
+          maxHumanCount,
+          status,
+        },
+        {
+          keepDirty: true,
+        },
+      );
     }
   }, [mogacoData, reset]);
 
   const setGroup = useCallback(
     (groupId: string) => {
-      setValue('groupId', groupId);
+      setValue('groupId', groupId, { shouldDirty: true, shouldValidate: true });
     },
     [setValue],
   );
@@ -111,7 +130,7 @@ export function MogacoPostPage() {
           shape="fill"
           size="large"
           fullWidth
-          disabled={!isValid}
+          disabled={!(isValid && isDirty)}
         >
           {postId ? '수정하기' : '등록하기'}
         </Button>
