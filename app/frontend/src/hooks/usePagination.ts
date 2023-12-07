@@ -16,9 +16,7 @@ export const usePagination = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const page = searchParams.get('page');
-    if (page) {
-      setCurrentPage(Number(page));
-    }
+    setCurrentPage(page ? Number(page) : 1);
   }, [location]);
 
   const onClickNext = () => {

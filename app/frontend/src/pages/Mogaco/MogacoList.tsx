@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Loading, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
+import { EmptyPage } from './EmptyPage';
 import * as styles from './MogacoList.css';
 
 type MogacoListProp = {
@@ -24,8 +25,7 @@ export function MogacoList({ currentPage }: MogacoListProp) {
 
   return (
     <div className={styles.container}>
-      {mogacoList &&
-        mogacoList.length > 0 &&
+      {mogacoList && mogacoList.length > 0 ? (
         mogacoList.map(
           ({
             id,
@@ -51,7 +51,10 @@ export function MogacoList({ currentPage }: MogacoListProp) {
               group={group}
             />
           ),
-        )}
+        )
+      ) : (
+        <EmptyPage />
+      )}
     </div>
   );
 }

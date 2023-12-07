@@ -24,6 +24,11 @@ globalStyle(`${container} button:hover`, {
   backgroundColor: grayscale50,
 });
 
+globalStyle(`${container} button[disabled]`, {
+  cursor: 'not-allowed',
+  backgroundColor: 'transparent',
+});
+
 export const current = style({});
 export const page = style([
   sansRegular16,
