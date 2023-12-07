@@ -65,7 +65,7 @@ export const desktop = style({
   display: 'flex',
 
   '@media': {
-    'screen and (max-width:425px)': {
+    'screen and (max-width:768px)': {
       display: 'none',
     },
   },
@@ -73,6 +73,7 @@ export const desktop = style({
 
 export const detail = style({
   display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
   gap: '0.4rem',
 });
@@ -85,7 +86,7 @@ export const mobile = style({
   display: 'none',
 
   '@media': {
-    'screen and (max-width:425px)': {
+    'screen and (max-width:768px)': {
       display: 'flex',
     },
   },
