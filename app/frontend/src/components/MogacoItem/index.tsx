@@ -40,11 +40,11 @@ export function MogacoItem({
         <div className={styles.detail}>{contents}</div>
         <div className={styles.info}>
           <div className={styles.infoContent}>
-            <Map className={styles.icon} width={16} height={16} />
+            <Map className={styles.icon} width={20} height={20} />
             <div className={styles.infoText}>{address}</div>
           </div>
           <div className={styles.infoContent}>
-            <Calendar className={styles.icon} width={16} height={16} />
+            <Calendar className={styles.icon} width={20} height={20} />
             <div className={styles.infoText}>
               {dayjs(date).format('YYYY/MM/DD HH:mm~')}
             </div>
