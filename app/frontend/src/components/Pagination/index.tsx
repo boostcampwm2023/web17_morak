@@ -7,6 +7,7 @@ import * as styles from './index.css';
 const { grayscale200 } = vars.color;
 type PaginationProps = {
   currentPage: number;
+  pageCount?: number;
   onClickPrev: () => void;
   onClickNext: () => void;
   onClickItem: React.MouseEventHandler<HTMLButtonElement>;
@@ -15,17 +16,22 @@ type PaginationProps = {
 
 export function Pagination({
   currentPage,
+  pageCount,
   onClickPrev,
   onClickNext,
   onClickItem,
   className,
 }: PaginationProps) {
   const [start, end] = get10UnitRange(currentPage);
-  const array = createRangeArray(start, end);
+  const lastPageNum = pageCount ? Math.min(end, pageCount) : end;
+  const array = createRangeArray(start, lastPageNum);
   const arrow = <Arrow width={16} height={16} fill={grayscale200} />;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === lastPageNum;
+
   return (
     <div className={`${styles.container} ${className}`}>
-      <button type="button" onClick={onClickPrev}>
+      <button type="button" onClick={onClickPrev} disabled={isFirstPage}>
         {arrow}
       </button>
       {array.map((page) => (
@@ -45,6 +51,7 @@ export function Pagination({
         type="button"
         className={styles.rotateArrow}
         onClick={onClickNext}
+        disabled={isLastPage}
       >
         {arrow}
       </button>

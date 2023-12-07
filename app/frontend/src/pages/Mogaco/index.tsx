@@ -8,6 +8,7 @@ import * as styles from './index.css';
 import { MogacoList } from './MogacoList';
 import { MogacoListHeader } from './MogacoListHeader';
 
+const PAGE_UNIT = 10;
 export function MogacoPage() {
   const { currentPage, onClickItem, onClickNext, onClickPrev } =
     usePagination();
@@ -15,6 +16,10 @@ export function MogacoPage() {
   const { data: mogacoList } = useQuery(
     queryKeys.mogaco.list({ page: currentPage.toString() }),
   );
+  const { data: allMogacoList } = useQuery(queryKeys.mogaco.list());
+
+  const maxPage = Math.floor((allMogacoList?.length || 0) / PAGE_UNIT + 1);
+
   return (
     <div className={styles.container}>
       <MogacoListHeader />
@@ -23,6 +28,7 @@ export function MogacoPage() {
         <Pagination
           className={styles.pagination}
           currentPage={currentPage}
+          pageCount={maxPage}
           onClickItem={onClickItem}
           onClickNext={onClickNext}
           onClickPrev={onClickPrev}
