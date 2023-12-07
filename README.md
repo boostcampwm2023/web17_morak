@@ -1,3 +1,6 @@
+
+<img src='https://github.com/boostcampwm2023/web17_morak/assets/43867711/113814b6-0fc2-4ae0-adce-94238ecc2f6b' />
+
 # 모락 | Morak
 
 네이버 부스트캠프 내 모각코 모집/관리 플랫폼
