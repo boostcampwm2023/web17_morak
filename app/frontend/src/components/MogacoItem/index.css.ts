@@ -2,8 +2,17 @@ import { style } from '@vanilla-extract/css';
 
 import { vars, fontStyle } from '@/styles';
 
+const {
+  grayscale50,
+  grayscale200,
+  grayscale500,
+  grayscaleWhite,
+  grayscaleBlack,
+} = vars.color;
+const { sansRegular14, sansBold14, sansBold20 } = fontStyle;
+
 export const container = style([
-  fontStyle.sansRegular12,
+  sansRegular14,
   {
     display: 'flex',
     padding: '2rem',
@@ -12,26 +21,26 @@ export const container = style([
     alignItems: 'flex-start',
     gap: '1.2rem',
     borderRadius: '0.8rem',
-    border: `1px solid ${vars.color.grayscale200}`,
-    background: vars.color.grayscaleWhite,
+    border: `1px solid ${grayscale200}`,
+    background: grayscaleWhite,
     boxSizing: 'border-box',
     selectors: {
       '&:hover': {
-        background: vars.color.grayscale50,
+        background: grayscale50,
       },
     },
   },
 ]);
 
 export const content = style([
-  fontStyle.sansRegular12,
+  sansRegular14,
   {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: '0.8rem',
     width: '100%',
-    color: vars.color.grayscaleBlack,
+    color: grayscaleBlack,
   },
 ]);
 
@@ -48,15 +57,19 @@ export const detail = style({
 });
 
 export const group = style([
-  fontStyle.sansBold12,
+  sansBold14,
   {
-    color: vars.color.grayscale500,
-    textAlign: 'center',
+    width: '100%',
+    color: grayscale500,
+    textAlign: 'left',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 ]);
 
 export const icon = style({
-  fill: vars.color.grayscale200,
+  fill: grayscale200,
 });
 
 export const info = style({
@@ -84,9 +97,9 @@ export const infoText = style({
 });
 
 export const title = style([
-  fontStyle.sansBold24,
+  sansBold20,
   {
-    color: vars.color.grayscaleBlack,
+    color: grayscaleBlack,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
