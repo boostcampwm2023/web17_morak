@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 import { vars, fontStyle } from '@/styles';
 
 const { grayscaleWhite, grayscale100, grayscale200, morakGreen } = vars.color;
+const { poppinsBold30, sansRegular18 } = fontStyle;
 
 export const active = style({});
 
@@ -26,6 +27,12 @@ export const header = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   boxSizing: 'border-box',
+
+  '@media': {
+    'screen and (max-width:768px)': {
+      padding: '2rem 1.6rem',
+    },
+  },
 });
 
 export const logo = style({
@@ -36,7 +43,7 @@ export const logo = style({
 });
 
 export const logoTitle = style([
-  fontStyle.poppinsBold30,
+  poppinsBold30,
   {
     display: 'flex',
     width: '10.3rem',
@@ -44,6 +51,12 @@ export const logoTitle = style([
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+
+    '@media': {
+      'screen and (max-width:768px)': {
+        display: 'none',
+      },
+    },
   },
 ]);
 
@@ -62,10 +75,16 @@ export const sideMenu = style({
   justifyContent: 'flex-end',
   alignItems: 'center',
   gap: '3.6rem',
+
+  '@media': {
+    'screen and (max-width:768px)': {
+      gap: '1.8rem',
+    },
+  },
 });
 
 export const sideMenuButton = style([
-  fontStyle.sansRegular18,
+  sansRegular18,
   {
     color: grayscale200,
     cursor: 'pointer',
@@ -75,11 +94,18 @@ export const sideMenuButton = style([
         color: morakGreen,
       },
     },
+
+    '@media': {
+      'screen and (max-width:768px)': {
+        fontSize: '1.4rem',
+      },
+    },
   },
 ]);
 
 export const title = style({
   display: 'flex',
+  height: '4.5rem',
   alignItems: 'center',
   gap: '0.4rem',
   color: morakGreen,
