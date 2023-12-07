@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useQueries } from '@tanstack/react-query';
-
-import { Button, Error, LoadingIndicator } from '@/components';
-import { MoreButton } from '@/components/Button/MoreButton';
-import { queryKeys } from '@/queries';
 import {
-  getMyInfoQuery,
+  ResponseMogacoWithMemberDto,
+  ResponseParticipant,
+} from '@morak/apitype';
+
+import { Button } from '@/components';
+import { MoreButton } from '@/components/Button/MoreButton';
+import { useChatting } from '@/hooks';
+import {
   useDeleteMogacoQuery,
   useJoinMogacoQuery,
   useQuitMogacoQuery,
@@ -15,29 +17,27 @@ import {
 import { useDeleteModal, useJoinModal, useQuitModal } from './useModal';
 
 type DetailHeaderButtonsProps = {
-  id: string;
+  postId: string;
+  currentUser: ResponseParticipant;
+  mogacoData: ResponseMogacoWithMemberDto;
   openChatting: () => void;
 };
 
 export function DetailHeaderButtons({
-  id,
+  postId,
+  currentUser,
+  mogacoData,
   openChatting,
 }: DetailHeaderButtonsProps) {
   const navigate = useNavigate();
 
-  const [
-    { data: currentUser, isLoading: currentUserLoading },
-    { data: mogacoData, isLoading: mogacoDataLoading },
-  ] = useQueries({
-    queries: [getMyInfoQuery, queryKeys.mogaco.detail(id)],
-  });
-
+  useChatting(postId, currentUser.id, currentUser.nickname);
   const deleteMogaco = useDeleteMogacoQuery();
   const joinMogaco = useJoinMogacoQuery();
   const quitMogaco = useQuitMogacoQuery();
 
   const handleDelete = async () => {
-    const res = await deleteMogaco.mutateAsync(id);
+    const res = await deleteMogaco.mutateAsync(postId);
     if (res.status === 200) {
       navigate('/mogaco');
     }
@@ -49,38 +49,18 @@ export function DetailHeaderButtons({
   };
 
   const onClickEdit = () => {
-    navigate(`/post?id=${id}`);
+    navigate(`/post?id=${postId}`);
   };
 
   const { openJoinModal } = useJoinModal();
   const onClickJoin = () => {
-    openJoinModal({ onClickConfirm: () => joinMogaco.mutate(id) });
+    openJoinModal({ onClickConfirm: () => joinMogaco.mutate(postId) });
   };
 
   const { openQuitModal } = useQuitModal();
   const onClickQuit = () => {
-    openQuitModal({ onClickConfirm: () => quitMogaco.mutate(id) });
+    openQuitModal({ onClickConfirm: () => quitMogaco.mutate(postId) });
   };
-
-  if (currentUserLoading || mogacoDataLoading) {
-    return (
-      <Button theme="primary" shape="fill" size="large" disabled>
-        <LoadingIndicator size={20} />
-      </Button>
-    );
-  }
-
-  if (!currentUser) {
-    return (
-      <Button theme="primary" shape="fill" size="large" disabled>
-        로그인 필요
-      </Button>
-    );
-  }
-
-  if (!mogacoData) {
-    return <Error message="정보 불러오기 오류" />;
-  }
 
   const userHosted = mogacoData.member.providerId === currentUser.providerId;
   const userParticipated = !!mogacoData.participants.find(
