@@ -1,12 +1,9 @@
-import { ReactComponent as Copy } from '@/assets/icons/copy.svg';
 import { ReactComponent as Crown } from '@/assets/icons/crown.svg';
 import { ReactComponent as Count } from '@/assets/icons/people.svg';
 import { vars } from '@/styles';
 
-import { useGroupJoinAndLeave } from './hooks/useGroupJoinLeave';
-import { useGroupModal } from './hooks/useGroupModal';
+import { GroupButton } from './GroupButton';
 import * as styles from './index.css';
-import { Button } from '../Button';
 
 const { grayscale200 } = vars.color;
 
@@ -17,62 +14,35 @@ type GroupProps = {
   name: string;
 };
 export function Group({ id, owned = false, name, joined = false }: GroupProps) {
-  const { handleLeave, handleJoin } = useGroupJoinAndLeave();
-  const { openLeaveModal, openJoinModal } = useGroupModal();
-
-  const onClickLeave = () =>
-    openLeaveModal({ onClickConfirm: () => handleLeave(id) });
-  const onClickJoin = () =>
-    openJoinModal({ onClickConfirm: () => handleJoin(id) });
-
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
-        <div className={styles.info}>
-          {owned && <Crown />}
-          <div className={styles.title}>{name}</div>
-          <div className={styles.count}>
-            <Count width={16} height={16} fill={grayscale200} />
-            <span>200</span>
-          </div>
+        {owned && <Crown />}
+        <div className={styles.title}>{name}</div>
+        <div className={styles.desktop}>
+          <GroupButton id={id} owned={owned} joined={joined} />
         </div>
-        {owned && (
-          <Button type="button" theme="danger" shape="fill" size="medium">
-            그룹 삭제
-          </Button>
-        )}
-        {!owned &&
-          (joined ? (
-            <Button
-              type="button"
-              theme="danger"
-              shape="fill"
-              size="medium"
-              onClick={onClickLeave}
-            >
-              나가기
-            </Button>
-          ) : (
-            <Button
-              type="button"
-              theme="primary"
-              shape="fill"
-              size="medium"
-              onClick={onClickJoin}
-            >
-              참여하기
-            </Button>
-          ))}
       </div>
-      {owned && (
+      <div className={styles.count}>
+        <Count width={16} height={16} fill={grayscale200} />
+        <span>200</span>
+      </div>
+      {!owned && (
         <div className={styles.detail}>
           <div className={styles.code}>
-            <span>그룹 코드 | </span>
-            <span className={styles.groupCode}>FDGSIUH4RUR89U324R98</span>
+            {/* 
+            <span>그룹 코드</span>
+            <span className={styles.desktop}>
+              <span className={sansRegular16}>FDGSIUH4RUR89U324R98</span>
+            </span>
+            <button type="button" className={styles.copyButton}>
+              <Copy width={24} height={24} fill={grayscale200} />
+            </button>
+            */}
           </div>
-          <button type="button">
-            <Copy width={24} height={24} fill={grayscale200} />
-          </button>
+          <div className={styles.mobile}>
+            <GroupButton id={id} owned={owned} joined={joined} />
+          </div>
         </div>
       )}
     </div>
