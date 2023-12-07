@@ -10,7 +10,7 @@ export function PostMember() {
       label={MOGACO_POST.MEMBER.LABEL}
       required
       disabled
-      value={data?.nickname}
+      defaultValue={data?.nickname}
     />
   );
 }
