@@ -12,6 +12,7 @@ export * from './Layout';
 export * from './Loading';
 export * from './Loading/LoadingIndicator';
 export * from './Map';
+export * from './MessageWrapper';
 export * from './Modal';
 export * from './Modal/InputModal';
 export * from './Modal/MapModal';

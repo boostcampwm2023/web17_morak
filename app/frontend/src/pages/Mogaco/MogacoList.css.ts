@@ -14,24 +14,11 @@ export const back = style([
     cursor: 'pointer',
   },
 ]);
-export const background = style({
-  width: '80%',
-  height: '80%',
-  opacity: '0.1',
-});
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '2rem',
-});
-
-export const emptyWrapper = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  maxWidth: '80rem',
 });
 
 export const text = style([
@@ -40,6 +27,5 @@ export const text = style([
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
-    position: 'absolute',
   },
 ]);

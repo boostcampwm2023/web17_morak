@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import BackgroundImage from '@/assets/images/main.png';
-import { Loading, MogacoItem } from '@/components';
+import { Loading, MessageWrapper, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
 import * as styles from './MogacoList.css';
@@ -53,17 +52,12 @@ export function MogacoList({ currentPage }: MogacoListProp) {
           ),
         )
       ) : (
-        <div className={styles.emptyWrapper}>
-          <img
-            src={BackgroundImage}
-            alt="morak background"
-            className={styles.background}
-          />
+        <MessageWrapper>
           <p className={styles.text}>
             게시물이 없습니다.
             <span className={styles.back}>이전 페이지로 돌아가기</span>
           </p>
-        </div>
+        </MessageWrapper>
       )}
     </div>
   );
