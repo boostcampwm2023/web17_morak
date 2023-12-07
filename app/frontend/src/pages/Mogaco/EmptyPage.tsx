@@ -6,9 +6,7 @@ import * as styles from './EmptyPage.css';
 
 export function EmptyPage() {
   const navigate = useNavigate();
-  const onClickBack = () => {
-    navigate(-1);
-  };
+  const onClickBack = () => navigate(-1);
 
   return (
     <MessageWrapper>
