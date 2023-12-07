@@ -2,7 +2,7 @@ import { BadRequestException, createParamDecorator, ExecutionContext } from '@ne
 import { Socket } from 'socket.io';
 
 export const JoinRoom = createParamDecorator(
-  (ctx: ExecutionContext) => {
+  (room: string, ctx: ExecutionContext) => {
     const client = ctx.switchToWs().getClient<Socket>();
     const message = ctx.switchToWs().getData();
     if (!message || !message.room) {
@@ -15,7 +15,7 @@ export const JoinRoom = createParamDecorator(
 );
 
 export const LeaveRoom = createParamDecorator(
-  (ctx: ExecutionContext) => {
+  (room: string, ctx: ExecutionContext) => {
     const client = ctx.switchToWs().getClient<Socket>();
     const message = ctx.switchToWs().getData();
     if (!message || !message.room) {

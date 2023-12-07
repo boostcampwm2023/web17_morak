@@ -10,9 +10,10 @@ import {
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
+import { URL } from '@/constants';
 import * as styles from './index.css';
 
-const socketClient = new SocketClient('http://localhost:8889/chat');
+const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
 type ChattingProps = {
   postId: string;

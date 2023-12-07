@@ -4,7 +4,7 @@ import {
   ExecutionContext,
 } from '@nestjs/common';
 
-export const ChatMessage = createParamDecorator((ctx: ExecutionContext) => {
+export const ChatMessage = createParamDecorator((chatMessage: string, ctx: ExecutionContext) => {
   const message = ctx.switchToWs().getData();
 
   if (!message) {

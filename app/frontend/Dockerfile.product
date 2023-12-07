@@ -14,6 +14,15 @@ FROM base AS installer
 RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
+
+ARG VITE_API_URL
+ARG VITE_SOCKET_URL
+ARG VITE_SOCKET_URL_PATH
+
+# .env.product 파일 생성
+RUN echo "VITE_API_URL=${VITE_API_URL}" >> .env.product
+RUN echo "VITE_SOCKET_URL=${VITE_SOCKET_URL}" >> .env.product
+RUN echo "VITE_SOCKET_URL_PATH=${VITE_SOCKET_URL_PATH}" >> .env.product
  
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
@@ -25,9 +34,9 @@ RUN npm ci
 COPY --from=builder /app/out/full/ .
 
 WORKDIR /app
-RUN npx turbo run build --filter=backend...
+RUN npx turbo run build --filter=frontend...
  
-FROM base AS runner
+FROM scratch
 WORKDIR /app
 
 # 빌더 스테이지에서 필요한 파일만 복사
