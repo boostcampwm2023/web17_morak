@@ -7,7 +7,7 @@ type FooterProps = {
   confirmButtonText: string;
   cancelButtonText: string;
   closeModal: () => void;
-  onClickConfirm: () => void;
+  onClickConfirm?: () => void;
 };
 
 export function Footer({
@@ -18,7 +18,7 @@ export function Footer({
   onClickConfirm,
 }: FooterProps) {
   const confirmModal = () => {
-    onClickConfirm();
+    onClickConfirm?.();
     closeModal();
   };
 
