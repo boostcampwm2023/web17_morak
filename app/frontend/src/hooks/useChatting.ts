@@ -13,7 +13,7 @@ const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 export function useChatting(
   postId: string,
   userId: string,
-  userNickname: string,
+  // userNickname: string,
 ) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
   const lastDateRef = useRef<Date | null>(new Date());
@@ -28,7 +28,7 @@ export function useChatting(
     });
   };
 
-  const notifyToJoin = () => {
+  /* const notifyToJoin = () => {
     socketClient.sendMessage({
       messageType: 'notification',
       user: userId,
@@ -46,7 +46,7 @@ export function useChatting(
       contents: `${userNickname} 님이 퇴장하셨습니다.`,
       date: new Date(),
     });
-  };
+  }; */
 
   const fetchPrevMessages = useCallback(() => {
     if (!lastDateRef.current) {
@@ -93,8 +93,8 @@ export function useChatting(
     chatItems,
     sendMessage,
     fetchPrevMessages,
-    notifyToJoin,
-    notifyToLeave,
     effectCallback,
+    // notifyToJoin,
+    // notifyToLeave
   };
 }
