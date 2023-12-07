@@ -18,6 +18,8 @@ export const usePagination = () => {
     const page = searchParams.get('page');
     if (page) {
       setCurrentPage(Number(page));
+    } else {
+      setCurrentPage(1);
     }
   }, [location]);
 
