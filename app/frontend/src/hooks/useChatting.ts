@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import SocketClient from '@morak/chat/src/client/index';
 import {
@@ -72,7 +72,7 @@ export function useChatting(
     );
   }, [postId]);
 
-  useEffect(() => {
+  const effectCallback = () => {
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
         setChatItems((items) => [...items, ...msgs]);
@@ -87,7 +87,7 @@ export function useChatting(
     socketClient.subscribeToChat(fetchChatting);
 
     return () => socketClient.leaveRoom({ user: userId, room: postId });
-  }, [userId, postId]);
+  };
 
   return {
     chatItems,
@@ -95,5 +95,6 @@ export function useChatting(
     fetchPrevMessages,
     notifyToJoin,
     notifyToLeave,
+    effectCallback,
   };
 }

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { ResponseParticipant } from '@morak/apitype';
 
 import { useChatting } from '@/hooks';
@@ -22,11 +24,10 @@ export function Chatting({
   userId,
   userNickname,
 }: ChattingProps) {
-  const { sendMessage, fetchPrevMessages, chatItems } = useChatting(
-    postId,
-    userId,
-    userNickname,
-  );
+  const { sendMessage, fetchPrevMessages, chatItems, effectCallback } =
+    useChatting(postId, userId, userNickname);
+
+  useEffect(effectCallback, [userId, postId, effectCallback]);
 
   return (
     <div className={styles.container}>
