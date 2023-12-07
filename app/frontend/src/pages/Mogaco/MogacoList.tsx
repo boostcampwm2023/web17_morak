@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Error, Loading, MogacoItem } from '@/components';
+import { Loading, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
 import { EmptyPage } from './EmptyPage';
+import { ErrorPage } from './ErrorPage';
 import * as styles from './MogacoList.css';
 
 type MogacoListProp = {
@@ -24,7 +25,11 @@ export function MogacoList({ currentPage }: MogacoListProp) {
   }
 
   if (!mogacoList) {
-    return <Error message="모각코 정보를 불러오는 데에 실패했습니다." />;
+    return (
+      <div className={styles.container}>
+        <ErrorPage />
+      </div>
+    );
   }
 
   return (
