@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GroupsController } from './groups.controller';
 import { GroupsService } from './groups.service';
-import { GroupsRepository } from './groups.repository';
 import { CreateGroupsDto } from './dto/create-groups.dto';
 import { Member } from '@prisma/client';
 
@@ -15,7 +14,7 @@ describe('GroupsController', () => {
       providers: [
         GroupsService,
         {
-          provide: GroupsRepository,
+          provide: GroupsService,
           useValue: {
             getAllGroups: jest.fn(),
             getAllMembersOfGroup: jest.fn(),
