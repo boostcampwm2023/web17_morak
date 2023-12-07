@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Loading, MessageWrapper, MogacoItem } from '@/components';
+import { Loading, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
+import { EmptyPage } from './EmptyPage';
 import * as styles from './MogacoList.css';
 
 type MogacoListProp = {
@@ -52,12 +53,7 @@ export function MogacoList({ currentPage }: MogacoListProp) {
           ),
         )
       ) : (
-        <MessageWrapper>
-          <p className={styles.text}>
-            게시물이 없습니다.
-            <span className={styles.back}>이전 페이지로 돌아가기</span>
-          </p>
-        </MessageWrapper>
+        <EmptyPage />
       )}
     </div>
   );
