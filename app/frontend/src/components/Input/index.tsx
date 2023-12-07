@@ -6,9 +6,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string;
 };
 
-export function Input(props: InputProps) {
-  const { label = '', errorMessage = '', ...rest } = props;
-
+export function Input({ label = '', errorMessage = '', ...rest }: InputProps) {
   const { value, maxLength, disabled, required } = rest;
 
   return (
