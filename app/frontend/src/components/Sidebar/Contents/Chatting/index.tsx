@@ -14,14 +14,13 @@ type ChattingProps = {
   title: string;
   participants: ResponseParticipant[];
   userId: string;
-  // userNickname: string;
 };
 
 export function Chatting({
   postId,
   title,
   participants,
-  userId, // userNickname,
+  userId,
 }: ChattingProps) {
   const { sendMessage, fetchPrevMessages, chatItems, effectCallback } =
     useChatting(postId, userId);
