@@ -65,6 +65,9 @@ services:
         VITE_API_URL: ${VITE_API_URL}
     volumes:
       - frontend-dist:/app/dist
+    command: sh
+    depends_on:
+      - nginx
 
 volumes:
   mysql-data:
