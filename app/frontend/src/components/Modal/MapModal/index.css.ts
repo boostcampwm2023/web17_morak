@@ -6,12 +6,18 @@ import { sansRegular12 } from '@/styles/font.css';
 
 import { container as modalContainer } from '../index.css';
 
-const { grayscale500, grayscale200, grayscale50 } = vars.color;
+const { grayscale500, grayscale200, grayscale50, grayscaleWhite } = vars.color;
 export const addressWrapper = style({
   display: 'flex',
   flex: '1',
   gap: '0.8rem',
   maxHeight: calc.subtract('100%', '5.7rem'),
+
+  '@media': {
+    'screen and (max-width: 768px)': {
+      flexDirection: 'column',
+    },
+  },
 });
 export const buttonWrapper = style({
   display: 'flex',
@@ -43,6 +49,7 @@ export const inputWrapper = style({
   marginBottom: '0.4rem',
   display: 'flex',
   flexDirection: 'column',
+  position: 'relative',
 });
 
 export const list = style([
@@ -56,6 +63,16 @@ export const list = style([
     marginTop: '0.4rem',
     overflowY: 'auto',
     cursor: 'pointer',
+    backgroundColor: grayscaleWhite,
+    position: 'absolute',
+    top: '5rem',
+    zIndex: 1,
+    height: '94%',
+    '@media': {
+      'screen and (max-width: 768px)': {
+        height: '13rem',
+      },
+    },
   },
 ]);
 
