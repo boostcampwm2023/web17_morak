@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import { sansRegular16 } from '@/styles/font.css';
+
 const open = style({});
 
 export const background = style({
@@ -40,6 +42,14 @@ export const container = style({
     },
   },
 });
+
+export const contents = style([
+  sansRegular16,
+  {
+    whiteSpace: 'pre-line',
+    textAlign: 'center',
+  },
+]);
 
 export const form = style({
   display: 'flex',
