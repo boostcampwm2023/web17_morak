@@ -26,7 +26,7 @@ export class ChatRepository {
   }
 
   async isUserInGroup(groupId: number, userId: number): Promise<boolean> {
-    const count = await this.prisma.groupToUser.count({
+    const count = await this.prisma.participant.count({
       where: {
         AND: [{ groupId: groupId }, { userId: userId }],
       },

@@ -22,7 +22,7 @@ jobs:
     - name: Build Docker Image
       run: |
         export DOCKER_BUILDKIT=1
-        docker build --build-arg VITE_SOCKET_URL=${{ secrets.DEV_VITE_SOCKET_URL }} --build-arg VITE_API_URL=${{ secrets.DEV_VITE_API_URL }} -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile.product .
+        docker build --build-arg VITE_SOCKET_URL=${{ secrets.DEV_VITE_SOCKET_URL }} --build-arg VITE_API_URL=${{ secrets.DEV_VITE_API_URL }} --build-arg VITE_SOCKET_URL_PATH=${{ secrets.DEV_VITE_SOCKET_URL_PATH }} -t ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }} -f ./app/frontend/Dockerfile.product .
     - name: Push Docker Image to Registry
       run: |
         docker push ${{ secrets.DOCKER_REGISTRY }}/morak_frontend:${{ github.sha }}

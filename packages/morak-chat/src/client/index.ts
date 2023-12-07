@@ -7,13 +7,15 @@ export type CallBack = (status: StatusType, msgs: ChatMessage[]) => void;
 class SocketClient {
   private socket: Socket | null = null;
   private static URL: string;
+  private static path: string;
 
-  constructor(URL: string) {
+  constructor(URL: string, path: string) {
     SocketClient.URL = URL;
+    SocketClient.path = path;
   }
 
   connectSocket(): void {
-    this.socket = io(SocketClient.URL, { transports: ['websocket'] });
+    this.socket = io(SocketClient.URL, { path: SocketClient.path });
   }
 
   disconnectSocket(): void {
@@ -24,11 +26,12 @@ class SocketClient {
     try {
       this.connectSocket();
       if (this.socket) {
-        this.socket.emit('joinRoom', userRoomDto);
-        this.socket.on('postJoinRoom', (status: StatusType) => cb(status, []));
-      } else {
-        console.error('Socket connection not established.');
-        // 여기서 적절한 에러 처리를 할 수 있습니다.
+        this.socket!.on("connect", () => {
+          this.socket!.emit('joinRoom', userRoomDto);
+          this.socket!.on('postJoinRoom', (status: StatusType) => {
+            cb(status, [])
+          });
+        });
       }
     } catch (e) {
       console.log(e);

@@ -14,9 +14,9 @@ services:
       - db
       - redis
       - mongodb
-    ports:
-      - "${PORT}:${PORT}"
-      - "${SOCKET_PORT}:${SOCKET_PORT}"
+    expose:
+      - "${PORT}"
+      - "${SOCKET_PORT}"
   db:
     image: ccxz84/morak-mysql:latest
     environment:
@@ -48,6 +48,7 @@ services:
       - "443:443"
     environment:
       - PORT=${PORT}
+      - SOCKET_PORT=${SOCKET_PORT}
     volumes:
       - ./nginx.conf.template:/nginx.conf.template:ro
       - frontend-dist:/usr/share/nginx/html # Nginx가 정적 파일을 서빙할 경로
@@ -58,6 +59,10 @@ services:
   frontend-builder:
     build:
       dockerfile: app/frontend/Dockerfile.product
+      args:
+        VITE_SOCKET_URL: ${VITE_SOCKET_URL}
+        VITE_SOCKET_URL_PATH: ${VITE_SOCKET_URL_PATH}
+        VITE_API_URL: ${VITE_API_URL}
     volumes:
       - frontend-dist:/app/dist
 

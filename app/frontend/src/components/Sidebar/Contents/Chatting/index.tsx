@@ -10,10 +10,11 @@ import {
 import { ChatList } from './ChatList';
 import { ChattingFooter } from './ChattingFooter';
 import { ChattingHeader } from './ChattingHeader';
-import * as styles from './index.css';
 import { URL } from '@/constants';
+import * as styles from './index.css';
 
-const socketClient = new SocketClient(URL.SOCKET);
+// const socketClient = new SocketClient('http://localhost:8080', '/socket/chat' );
+const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
 type ChattingProps = {
   postId: string;
