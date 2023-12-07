@@ -10,6 +10,7 @@ type PaginationProps = {
   onClickPrev: () => void;
   onClickNext: () => void;
   onClickItem: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 };
 
 export function Pagination({
@@ -17,12 +18,13 @@ export function Pagination({
   onClickPrev,
   onClickNext,
   onClickItem,
+  className,
 }: PaginationProps) {
   const [start, end] = get10UnitRange(currentPage);
   const array = createRangeArray(start, end);
   const arrow = <Arrow width={16} height={16} fill={grayscale200} />;
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       <button type="button" onClick={onClickPrev}>
         {arrow}
       </button>

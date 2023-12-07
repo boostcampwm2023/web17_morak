@@ -5,9 +5,13 @@ import { queryKeys } from '@/queries';
 
 import * as styles from './MogacoList.css';
 
-export function MogacoList() {
+type MogacoListProp = {
+  currentPage: number;
+};
+
+export function MogacoList({ currentPage }: MogacoListProp) {
   const { data: mogacoList, isLoading } = useQuery(
-    queryKeys.mogaco.list({ page: '1' }),
+    queryKeys.mogaco.list({ page: currentPage.toString() }),
   );
 
   if (isLoading) {
