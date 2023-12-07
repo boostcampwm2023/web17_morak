@@ -1,5 +1,5 @@
 import { useModalAtom } from '@/stores';
-import { sansBold24, sansRegular16 } from '@/styles/font.css';
+import { sansBold24 } from '@/styles/font.css';
 
 import { Footer } from './Footer';
 import * as styles from './index.css';
@@ -32,7 +32,7 @@ export function Modal({
       <form method="dialog" className={styles.form}>
         <div className={styles.textArea}>
           <div className={sansBold24}>{title}</div>
-          {content && <div className={sansRegular16}>{content}</div>}
+          {content && <div className={styles.contents}>{content}</div>}
         </div>
         <Footer
           buttonType={buttonType}
