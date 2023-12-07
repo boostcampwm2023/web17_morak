@@ -11,10 +11,12 @@ export function ModalContainer() {
   const [currentModal] = useAtom(currentModalAtom);
 
   return createPortal(
-    <div role="dialog">
-      <div className={`${styles.background} ${open ? styles.open : ''}`} />
-      {currentModal}
-    </div>,
+    open && (
+      <div role="dialog">
+        <div className={`${styles.background} ${open ? styles.open : ''}`} />
+        {currentModal}
+      </div>
+    ),
     document.body,
   );
 }

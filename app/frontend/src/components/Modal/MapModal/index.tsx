@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -29,7 +29,12 @@ export function MapModal({ saveAddress }: MapModalProps) {
   const debouncedSearchKeyword = useDebounce(searchKeyword);
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const { coord, setCoord, currentAddress: selectedAddress } = useMap(mapRef);
+  const {
+    coord,
+    setCoord,
+    currentAddress: selectedAddress,
+    initMapModal,
+  } = useMap(mapRef);
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
@@ -68,6 +73,14 @@ export function MapModal({ saveAddress }: MapModalProps) {
     };
     setCoord(coordinate);
   };
+
+  useEffect(
+    () => () => {
+      initMapModal();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return (
     <dialog className={styles.container} open={open}>
