@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useState, useRef } from 'react';
 
 import { ResponseParticipant } from '@morak/apitype';
@@ -19,14 +20,16 @@ type ChattingProps = {
   postId: string;
   title: string;
   participants: ResponseParticipant[];
-  currentUserId: string;
+  userId: string;
+  userNickname: string;
 };
 
 export function Chatting({
   postId,
   title,
   participants,
-  currentUserId,
+  userId,
+  userNickname,
 }: ChattingProps) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
   const lastDateRef = useRef<Date | null>(new Date());
@@ -34,9 +37,29 @@ export function Chatting({
   const sendMessage = (message: string) => {
     socketClient.sendMessage({
       messageType: 'talk',
-      user: currentUserId,
+      user: userId,
       room: postId,
       contents: message,
+      date: new Date(),
+    });
+  };
+
+  const notifyToJoin = () => {
+    socketClient.sendMessage({
+      messageType: 'notification',
+      user: userId,
+      room: postId,
+      contents: `${userNickname} 님이 입장하셨습니다.`,
+      date: new Date(),
+    });
+  };
+
+  const notifyToLeave = () => {
+    socketClient.sendMessage({
+      messageType: 'notification',
+      user: userId,
+      room: postId,
+      contents: `${userNickname} 님이 퇴장하셨습니다.`,
       date: new Date(),
     });
   };
@@ -72,22 +95,22 @@ export function Chatting({
       }
     };
 
-    socketClient.joinRoom({ user: currentUserId, room: postId }, (status) => {
+    socketClient.joinRoom({ user: userId, room: postId }, (status) => {
       if (status === 200) {
         // console.log('입장 성공');
       }
     });
     socketClient.subscribeToChat(fetchChatting);
 
-    return () => socketClient.leaveRoom({ user: currentUserId, room: postId });
-  }, [currentUserId, postId]);
+    return () => socketClient.leaveRoom({ user: userId, room: postId });
+  }, [userId, postId]);
 
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
       <ChatList
         chatItems={chatItems}
-        currentUserId={currentUserId}
+        userId={userId}
         participants={participants}
         fetchPrevMessages={fetchPrevMessages}
       />
