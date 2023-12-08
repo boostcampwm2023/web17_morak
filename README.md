@@ -62,3 +62,10 @@ $ npm run dev -w=frontend
 ```
 
 - 이외 명령어들도 각 app 내의 script 명령어를 root(web17_morak)에서  `npm run <command> -w={workspace}` 형태로 입력하여 실행하면 됩니다.
+
+
+<br />
+<br />
+<br />
+
+<p align="center"><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm2023%2Fweb17_morak&count_bg=%231FAB70&title_bg=%23A8AEAC&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
