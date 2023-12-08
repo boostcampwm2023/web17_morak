@@ -10,7 +10,11 @@ import { URL } from '@/constants';
 
 const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
-export function useChatting(postId: string, userId: string) {
+export function useChatting(
+  postId: string,
+  userId: string,
+  // userNickname: string,
+) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
   const lastDateRef = useRef<Date | null>(new Date());
 

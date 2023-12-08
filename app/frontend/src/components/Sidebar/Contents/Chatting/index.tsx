@@ -11,18 +11,19 @@ type ChattingProps = {
   postId: string;
   title: string;
   participants: ResponseParticipant[];
-  userId: string;
+  currentUser: ResponseParticipant;
 };
 
 export function Chatting({
   postId,
   title,
   participants,
-  userId,
+  currentUser,
 }: ChattingProps) {
   const { chatItems, sendMessage, fetchPrevMessages } = useChatting(
     postId,
-    userId,
+    currentUser.id,
+    currentUser.nickname,
   );
 
   return (
@@ -30,7 +31,7 @@ export function Chatting({
       <ChattingHeader title={title} participants={participants} />
       <ChatList
         chatItems={chatItems}
-        userId={userId}
+        userId={currentUser.id}
         participants={participants}
         fetchPrevMessages={fetchPrevMessages}
       />
