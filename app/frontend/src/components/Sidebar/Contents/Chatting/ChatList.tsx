@@ -10,14 +10,14 @@ import { MemorizedTalkItem } from './TalkItem';
 
 type ChatListProps = {
   chatItems: ChatMessage[];
-  currentUserId: string;
+  userId: string;
   participants: ResponseParticipant[];
   fetchPrevMessages: () => void;
 };
 
 export function ChatList({
   chatItems,
-  currentUserId,
+  userId,
   participants,
   fetchPrevMessages,
 }: ChatListProps) {
@@ -38,10 +38,12 @@ export function ChatList({
       });
     }
 
-    if (scrollTop + clientHeight === prevScrollHeightRef.current) {
+    if (
+      scrollTop + clientHeight >=
+      prevScrollHeightRef.current - clientHeight
+    ) {
       listElemRef.current.scrollTo({
         top: scrollHeight - clientHeight,
-        behavior: 'smooth',
       });
     }
 
@@ -68,7 +70,7 @@ export function ChatList({
             profilePicture={participantInfo?.profilePicture || ''}
             contents={chatItem.contents}
             date={chatItem.date}
-            isMine={chatItem.user === currentUserId}
+            isMine={chatItem.user === userId}
           />
         );
       })}

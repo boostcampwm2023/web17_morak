@@ -51,7 +51,8 @@ export function ChattingSidebar({
         postId={id}
         title={title}
         participants={participants}
-        currentUserId={currentUser.id}
+        userId={currentUser.id}
+        userNickname={currentUser.nickname}
       />
     </Sidebar>
   );

@@ -23,7 +23,7 @@ export const nickname = style([
     maxWidth: '10rem',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    overflowX: 'hidden',
+    overflow: 'hidden',
   },
 ]);
 
