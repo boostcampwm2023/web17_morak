@@ -5,29 +5,6 @@ import { sansRegular12, sansRegular14 } from '@/styles/font.css';
 
 const isMine = style({});
 
-export const content = style([
-  sansRegular14,
-  {
-    display: 'flex',
-    alignSelf: 'start',
-    maxWidth: '30rem',
-    padding: '1.2rem 1.6rem',
-    border: `1px solid ${vars.color.grayscale200}`,
-    borderRadius: '0 0.8rem 0.8rem 0.8rem',
-    background: vars.color.grayscaleWhite,
-    lineHeight: '1.4',
-    wordBreak: 'break-word',
-
-    selectors: {
-      [`${isMine}&`]: {
-        borderRadius: '0.8rem 0 0.8rem 0.8rem',
-        background: vars.color.subGreen,
-        alignSelf: 'end',
-      },
-    },
-  },
-]);
-
 export const datetime = style([
   sansRegular12,
   {
@@ -50,18 +27,47 @@ export const notification = style([
   {
     display: 'flex',
     justifyContent: 'center',
+    flexShrink: 0,
+    alignSelf: 'center',
+    padding: '0.4rem 1.6rem',
+    border: `1px solid ${vars.color.grayscale100}`,
     borderRadius: '100rem',
-    padding: '0.4rem',
     margin: '1rem 0',
-    background: vars.color.grayscale100,
-    color: vars.color.grayscale400,
+    color: vars.color.grayscale200,
+    overflow: 'hidden auto',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 ]);
 
-export const talk = style({
+export const talkContainer = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'stretch',
   gap: '0.8rem',
   width: '100%',
 });
+
+export const talkContents = style([
+  sansRegular14,
+  {
+    display: 'flex',
+    alignSelf: 'start',
+    maxWidth: '30rem',
+    padding: '1.2rem 1.6rem',
+    border: `1px solid ${vars.color.grayscale200}`,
+    borderRadius: '0 0.8rem 0.8rem 0.8rem',
+    background: vars.color.grayscale50,
+    lineHeight: '1.4',
+    wordBreak: 'break-word',
+
+    selectors: {
+      [`${isMine}&`]: {
+        borderRadius: '0.8rem 0 0.8rem 0.8rem',
+        border: `1px solid ${vars.color.morakGreen}`,
+        background: vars.color.subGreen,
+        alignSelf: 'end',
+      },
+    },
+  },
+]);
