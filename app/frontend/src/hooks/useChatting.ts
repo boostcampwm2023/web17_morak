@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import SocketClient from '@morak/chat/src/client/index';
 import {
@@ -48,7 +48,7 @@ export function useChatting(postId: string, userId: string) {
     );
   }, [postId]);
 
-  const effectCallback = () => {
+  useEffect(() => {
     const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
       if (status === 200) {
         setChatItems((items) => [...items, ...msgs]);
@@ -57,18 +57,16 @@ export function useChatting(postId: string, userId: string) {
 
     socketClient.joinRoom({ user: userId, room: postId }, (status) => {
       if (status === 200) {
-        // console.log('입장 성공');
+        socketClient.subscribeToChat(fetchChatting);
       }
     });
-    socketClient.subscribeToChat(fetchChatting);
 
     return () => socketClient.leaveRoom({ user: userId, room: postId });
-  };
+  }, [userId, postId]);
 
   return {
     chatItems,
     sendMessage,
     fetchPrevMessages,
-    effectCallback,
   };
 }
