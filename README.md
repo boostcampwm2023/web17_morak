@@ -26,7 +26,7 @@
 
 ### [🔍 위키](https://github.com/boostcampwm2023/web17_morak/wiki)
 
-## 개발 일지
+## 📚 개발 일지
 
 - [assets는 어디에 두어야 할까요?](https://www.notion.so/assets-9b3e50f913cb4fdbabce2c0b5a06851f?pvs=21)
 - [폼 작성 시 장소 선택 TMAP API 적용하기](https://www.notion.so/TMAP-API-1645d224b33d4f968ee81dca843bd8ae?pvs=21)
