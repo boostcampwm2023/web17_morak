@@ -4,6 +4,7 @@ import { Loading, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 
 import { EmptyPage } from './EmptyPage';
+import { ErrorPage } from './ErrorPage';
 import * as styles from './MogacoList.css';
 
 type MogacoListProp = {
@@ -19,6 +20,14 @@ export function MogacoList({ currentPage }: MogacoListProp) {
     return (
       <div className={styles.container}>
         <Loading />
+      </div>
+    );
+  }
+
+  if (!mogacoList) {
+    return (
+      <div className={styles.container}>
+        <ErrorPage />
       </div>
     );
   }
