@@ -5,14 +5,6 @@ import { sansRegular12, sansRegular14 } from '@/styles/font.css';
 
 const isMine = style({});
 
-export const container = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  gap: '0.8rem',
-  width: '100%',
-});
-
 export const content = style([
   sansRegular14,
   {
@@ -52,3 +44,24 @@ export const datetime = style([
 ]);
 
 export { isMine };
+
+export const notification = style([
+  sansRegular14,
+  {
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: '100rem',
+    padding: '0.4rem',
+    margin: '1rem 0',
+    background: vars.color.grayscale100,
+    color: vars.color.grayscale400,
+  },
+]);
+
+export const talk = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  gap: '0.8rem',
+  width: '100%',
+});

@@ -6,6 +6,7 @@ import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 import { useObserver } from '@/hooks/useObserver';
 
 import * as styles from './index.css';
+import { MemorizedNotificationItem } from './NotificationItem';
 import { MemorizedTalkItem } from './TalkItem';
 
 type ChatListProps = {
@@ -63,7 +64,7 @@ export function ChatList({
         const participantInfo = participants.find(
           (participant) => participant.id === chatItem.user,
         );
-        return (
+        return chatItem.messageType === 'talk' ? (
           <MemorizedTalkItem
             key={chatItem.date.toString()}
             nickname={participantInfo?.nickname || ''}
@@ -72,6 +73,8 @@ export function ChatList({
             date={chatItem.date}
             isMine={chatItem.user === userId}
           />
+        ) : (
+          <MemorizedNotificationItem contents={chatItem.contents} />
         );
       })}
     </ul>
