@@ -26,6 +26,18 @@
 
 ### [🔍 위키](https://github.com/boostcampwm2023/web17_morak/wiki)
 
+## 개발 일지
+
+- [assets는 어디에 두어야 할까요?](https://www.notion.so/assets-9b3e50f913cb4fdbabce2c0b5a06851f?pvs=21)
+- [폼 작성 시 장소 선택 TMAP API 적용하기](https://www.notion.so/TMAP-API-1645d224b33d4f968ee81dca843bd8ae?pvs=21)
+- [FE 채팅 기능 구현과 트러블슈팅](https://www.notion.so/FE-9c866a10d5754c81bf86850a881486ef?pvs=21)
+- [NestJS JWT 유저 정보 반환](https://www.notion.so/NestJS-JWT-67f910a8f32140ccb43bf9d9622c8b84?pvs=21)
+- [Jest path alios 설정](https://www.notion.so/Jest-path-alios-433965335b5845878257813e3e733cac?pvs=21)
+- [NestJS 빡치는 라우팅 시스템에 대해 알아보자](https://www.notion.so/NestJS-f3d7e301dd5040d2950f423ca211ecae?pvs=21)
+- [react-query와 컴포넌트 props 전달](https://www.notion.so/react-query-props-a86d59c0a6924b27b764e589df34af41?pvs=21)
+
+이 외에도 [모락 팀의 개발 일지](https://www.notion.so/ttaerrim/50a6652038d04e61920dbf8faecb80db?v=5eec47d4350b45b8b10da4c1ec7dc5d6)를 구경해 보세요!
+
 ## 🧑🏻‍💻 `command`
 
 ### package install
