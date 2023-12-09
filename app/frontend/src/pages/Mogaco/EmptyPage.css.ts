@@ -5,7 +5,7 @@ import { sansBold16, sansRegular16 } from '@/styles/font.css';
 
 const { morakGreen } = vars.color;
 
-export const back = style([
+export const button = style([
   sansBold16,
   {
     textDecorationLine: 'underline',
@@ -21,5 +21,6 @@ export const text = style([
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
+    whiteSpace: 'break-spaces',
   },
 ]);

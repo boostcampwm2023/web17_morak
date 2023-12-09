@@ -12,7 +12,7 @@ export function EmptyPage() {
     <MessageWrapper>
       <p className={styles.text}>
         게시물이 없습니다.
-        <button type="button" className={styles.back} onClick={onClickBack}>
+        <button type="button" className={styles.button} onClick={onClickBack}>
           이전 페이지로 돌아가기
         </button>
       </p>
