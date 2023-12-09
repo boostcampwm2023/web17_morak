@@ -326,7 +326,7 @@ export class MogacoRepository {
       },
     });
 
-    if (participantsCount >= mogaco.maxHumanCount) {
+    if (participantsCount + 1 >= mogaco.maxHumanCount) {
       await this.prisma.mogaco.update({
         where: { id: mogaco.id },
         data: {
