@@ -29,6 +29,8 @@ export function Chatting({
   const {
     chatItems,
     sendMessage,
+    notifyToJoin,
+    notifyToLeave,
     fetchPrevMessages,
     joinRoom,
     leaveRoom,
@@ -36,32 +38,46 @@ export function Chatting({
   } = useChatting(postId);
 
   useEffect(() => {
-    if (!userData) {
-      return;
-    }
-
-    joinRoom(userData.id);
-    subscribeToChat();
-
-    return () => leaveRoom(userData.id);
-  }, [joinRoom, leaveRoom, subscribeToChat, userData]);
-
-  useEffect(() => {
     const participated = participants.find(
       (p) => p.providerId === currentUser.providerId,
     );
-    if (participated && !participatedRef.current) {
-      console.log('모각코 참석');
-      participatedRef.current = participated;
+    if (participated) {
+      if (!participatedRef.current) {
+        joinRoom(participated.id, () =>
+          notifyToJoin(participated.nickname, participated.id),
+        );
+        participatedRef.current = participated;
+      } else {
+        joinRoom(participated.id);
+      }
     }
 
     if (!participated && participatedRef.current) {
-      console.log('모각코 참석 취소');
+      notifyToLeave(
+        participatedRef.current.nickname,
+        participatedRef.current.id,
+      );
       participatedRef.current = undefined;
     }
 
     setUserData(participated);
-  }, [participants, currentUser.providerId]);
+  }, [
+    participants,
+    currentUser,
+    notifyToJoin,
+    notifyToLeave,
+    joinRoom,
+    leaveRoom,
+    subscribeToChat,
+  ]);
+
+  useEffect(() => {
+    if (!userData) return;
+
+    subscribeToChat();
+
+    return () => leaveRoom(userData.id);
+  }, [userData, leaveRoom, subscribeToChat]);
 
   if (!userData) {
     return (

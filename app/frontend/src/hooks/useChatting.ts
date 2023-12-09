@@ -24,25 +24,31 @@ export function useChatting(postId: string) {
     });
   };
 
-  const notifyToJoin = (nickname: string, userId: string) => {
-    socketClient.sendMessage({
-      messageType: 'notification',
-      user: userId,
-      room: postId,
-      contents: `${nickname} 님이 입장하셨습니다.`,
-      date: new Date(),
-    });
-  };
+  const notifyToJoin = useCallback(
+    (nickname: string, userId: string) => {
+      socketClient.sendMessage({
+        messageType: 'notification',
+        user: userId,
+        room: postId,
+        contents: `${nickname} 님이 입장하셨습니다.`,
+        date: new Date(),
+      });
+    },
+    [postId],
+  );
 
-  const notifyToLeave = (nickname: string, userId: string) => {
-    socketClient.sendMessage({
-      messageType: 'notification',
-      user: userId,
-      room: postId,
-      contents: `${nickname} 님이 퇴장하셨습니다.`,
-      date: new Date(),
-    });
-  };
+  const notifyToLeave = useCallback(
+    (nickname: string, userId: string) => {
+      socketClient.sendMessage({
+        messageType: 'notification',
+        user: userId,
+        room: postId,
+        contents: `${nickname} 님이 퇴장하셨습니다.`,
+        date: new Date(),
+      });
+    },
+    [postId],
+  );
 
   const fetchPrevMessages = useCallback(() => {
     if (!lastDateRef.current) {
@@ -69,8 +75,12 @@ export function useChatting(postId: string) {
   }, [postId]);
 
   const joinRoom = useCallback(
-    (userId: string) =>
-      socketClient.joinRoom({ user: userId, room: postId }, () => {}),
+    (userId: string, callback?: () => void) =>
+      socketClient.joinRoom({ user: userId, room: postId }, (status) => {
+        if (status === 200 && callback) {
+          callback();
+        }
+      }),
     [postId],
   );
 
