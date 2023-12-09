@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular16 } from '@/styles/font.css';
 
 export const closeButton = style({
   display: 'flex',
@@ -30,19 +29,6 @@ export const closed = style({
 export const flip = style({
   transform: 'rotate(180deg)',
 });
-
-export const notParticipated = style([
-  sansRegular16,
-  {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    color: vars.color.grayscale200,
-    lineHeight: '1.4',
-    textAlign: 'center',
-  },
-]);
 
 export const panel = style({
   display: 'flex',

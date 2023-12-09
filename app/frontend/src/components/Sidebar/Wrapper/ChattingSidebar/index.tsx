@@ -2,7 +2,6 @@ import { ResponseParticipant } from '@morak/apitype';
 
 import { Error, Sidebar } from '@/components';
 import { Chatting } from '@/components/Sidebar/Contents/Chatting';
-import * as styles from '@/components/Sidebar/index.css';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 
 type ChattingSidebarProps = {
@@ -20,27 +19,12 @@ export function ChattingSidebar({
   title,
   participants,
 }: ChattingSidebarProps) {
-  const { data } = useGetMyInfoQuery();
+  const { data: currentUser } = useGetMyInfoQuery();
 
-  if (!data) {
-    return (
-      <Sidebar closed={closed} toggleClosed={toggleClosed}>
-        <Error message="로그인 필요" />
-      </Sidebar>
-    );
-  }
-
-  const currentUser = participants.find(
-    (participant) => participant.providerId === data.providerId,
-  );
   if (!currentUser) {
     return (
       <Sidebar closed={closed} toggleClosed={toggleClosed}>
-        <div className={styles.notParticipated}>
-          아직 해당 모각코에 참여하지 않았습니다!
-          <br />
-          채팅방에 입장하려면 먼저 모각코에 참석해 주세요.
-        </div>
+        <Error message="로그인 필요" />
       </Sidebar>
     );
   }

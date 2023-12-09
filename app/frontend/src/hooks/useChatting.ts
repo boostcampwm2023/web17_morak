@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import SocketClient from '@morak/chat/src/client/index';
 import {
@@ -10,20 +10,36 @@ import { URL } from '@/constants';
 
 const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
-export function useChatting(
-  postId: string,
-  userId: string,
-  userNickname: string,
-) {
+export function useChatting(postId: string) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
   const lastDateRef = useRef<Date | null>(new Date());
 
-  const sendMessage = (message: string) => {
+  const sendMessage = (message: string, userId: string) => {
     socketClient.sendMessage({
       messageType: 'talk',
       user: userId,
       room: postId,
       contents: message,
+      date: new Date(),
+    });
+  };
+
+  const notifyToJoin = (nickname: string, userId: string) => {
+    socketClient.sendMessage({
+      messageType: 'notification',
+      user: userId,
+      room: postId,
+      contents: `${nickname} 님이 입장하셨습니다.`,
+      date: new Date(),
+    });
+  };
+
+  const notifyToLeave = (nickname: string, userId: string) => {
+    socketClient.sendMessage({
+      messageType: 'notification',
+      user: userId,
+      room: postId,
+      contents: `${nickname} 님이 퇴장하셨습니다.`,
       date: new Date(),
     });
   };
@@ -52,49 +68,37 @@ export function useChatting(
     );
   }, [postId]);
 
-  useEffect(() => {
-    const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
-      if (status === 200) {
-        setChatItems((items) => [...items, ...msgs]);
-      }
-    };
+  const joinRoom = useCallback(
+    (userId: string) =>
+      socketClient.joinRoom({ user: userId, room: postId }, () => {}),
+    [postId],
+  );
 
-    const notifyToJoin = () => {
-      socketClient.sendMessage({
-        messageType: 'notification',
-        user: userId,
-        room: postId,
-        contents: `${userNickname} 님이 입장하셨습니다.`,
-        date: new Date(),
-      });
-    };
+  const leaveRoom = useCallback(
+    (userId: string) => socketClient.leaveRoom({ user: userId, room: postId }),
+    [postId],
+  );
 
-    const notifyToLeave = () => {
-      socketClient.sendMessage({
-        messageType: 'notification',
-        user: userId,
-        room: postId,
-        contents: `${userNickname} 님이 퇴장하셨습니다.`,
-        date: new Date(),
-      });
-    };
-
-    socketClient.joinRoom({ user: userId, room: postId }, (status) => {
-      if (status === 200) {
-        notifyToJoin();
-      }
-    });
-    socketClient.subscribeToChat(fetchChatting);
-
-    return () => {
-      notifyToLeave();
-      socketClient.leaveRoom({ user: userId, room: postId });
-    };
-  }, [postId, userId, userNickname]);
+  const subscribeToChat = useCallback(
+    () =>
+      socketClient.subscribeToChat(
+        (status: StatusType, msgs: ChatMessage[]) => {
+          if (status === 200) {
+            setChatItems((items) => [...items, ...msgs]);
+          }
+        },
+      ),
+    [],
+  );
 
   return {
     chatItems,
     sendMessage,
     fetchPrevMessages,
+    notifyToJoin,
+    notifyToLeave,
+    joinRoom,
+    leaveRoom,
+    subscribeToChat,
   };
 }
