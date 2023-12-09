@@ -74,7 +74,10 @@ export function ChatList({
             isMine={chatItem.user === userId}
           />
         ) : (
-          <MemorizedNotificationItem contents={chatItem.contents} />
+          <MemorizedNotificationItem
+            key={chatItem.date.toString()}
+            contents={chatItem.contents}
+          />
         );
       })}
     </ul>
