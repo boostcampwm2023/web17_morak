@@ -40,7 +40,6 @@ export function MogacoPostPage() {
         contents: '',
         date: '',
         groupId: '',
-        maxHumanCount: 0,
         status: '모집 중',
       },
       mode: 'all',
