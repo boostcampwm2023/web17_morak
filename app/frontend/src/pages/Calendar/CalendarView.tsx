@@ -40,6 +40,7 @@ export function CalendarView({
           minute: '2-digit',
           hour12: false,
         }}
+        contentHeight="auto"
       />
     </div>
   );
