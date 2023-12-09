@@ -300,6 +300,12 @@ export class MogacoRepository {
       throw new NotFoundException(`Mogaco with id ${id} not found`);
     }
 
+    const participantsCount = await this.getParticipantsCount(Number(mogaco.id));
+
+    if (participantsCount >= mogaco.maxHumanCount) {
+      throw new ForbiddenException(`Mogaco with id ${id} has reached the maximum number of participants`);
+    }
+
     const existingParticipant = await this.prisma.participant.findUnique({
       where: {
         postId_userId: {
@@ -319,6 +325,15 @@ export class MogacoRepository {
         userId: member.id,
       },
     });
+
+    if (participantsCount >= mogaco.maxHumanCount) {
+      await this.prisma.mogaco.update({
+        where: { id: mogaco.id },
+        data: {
+          status: MogacoStatus.CLOSED,
+        },
+      });
+    }
   }
 
   async getParticipants(id: number): Promise<ParticipantResponseDto[]> {
@@ -368,6 +383,15 @@ export class MogacoRepository {
       throw new NotFoundException(`Member with id ${member.id} is not participating in Mogaco with id ${id}`);
     }
 
+    if (mogaco.status === MogacoStatus.CLOSED) {
+      await this.prisma.mogaco.update({
+        where: { id: mogaco.id },
+        data: {
+          status: MogacoStatus.RECRUITING,
+        },
+      });
+    }
+
     if (mogaco.memberId !== member.id && participant.userId !== member.id) {
       throw new ForbiddenException(`You do not have permission to cancel participation in this Mogaco`);
     }
@@ -380,5 +404,15 @@ export class MogacoRepository {
         },
       },
     });
+  }
+
+  async getParticipantsCount(id: number): Promise<number> {
+    const participantsCount = await this.prisma.participant.count({
+      where: {
+        postId: id,
+      },
+    });
+
+    return participantsCount;
   }
 }
