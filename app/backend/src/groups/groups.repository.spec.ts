@@ -38,8 +38,8 @@ describe('GroupsRepository', () => {
   describe('getAllGroups', () => {
     it('모든 그룹을 반환해야 함', async () => {
       const expectedGroups = [
-        { id: BigInt(1), title: '부스트캠프 웹·모바일 8기' },
-        { id: BigInt(2), title: '부스트캠프 웹·모바일 9기' },
+        { id: BigInt(1), title: '부스트캠프 웹·모바일 8기', membersCount: 212 },
+        { id: BigInt(2), title: '부스트캠프 웹·모바일 9기', membersCount: 187 },
       ];
       jest.spyOn(prismaService.group, 'findMany').mockResolvedValue(expectedGroups);
 
