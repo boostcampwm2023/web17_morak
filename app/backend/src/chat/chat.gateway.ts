@@ -8,17 +8,18 @@ import { getSecret } from '@morak/vault';
 import ChatService from './chat.service';
 import { User } from '@morak/chat/src/interface/user.interface';
 import { Socket } from 'dgram';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { ChatGuard } from './chat.guard';
 
 const port = parseInt(getSecret('SOCKET_PORT'), 10);
 
 @WebSocketGateway(port, {
   path: '/chat',
-  cors: { origin: '*' }
+  cors: { origin: '*' },
 })
 class ChatGateway {
   @WebSocketServer() server: Server;
+  private readonly logger = new Logger('Chat');
   constructor(private readonly chatService: ChatService) {}
 
   @UseGuards(ChatGuard)
@@ -61,7 +62,7 @@ class ChatGateway {
   }
 
   afterInit(server: Server) {
-    console.log('웹소켓 서버 초기화 ✅');
+    this.logger.log('WebSocket server initialized ✅');
   }
 }
 
