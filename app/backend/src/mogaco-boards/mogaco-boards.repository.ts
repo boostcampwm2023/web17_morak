@@ -29,6 +29,16 @@ export class MogacoRepository {
     }
   }
 
+  private async getParticipantsCount(id: number): Promise<number> {
+    const participantsCount = await this.prisma.participant.count({
+      where: {
+        postId: id,
+      },
+    });
+
+    return participantsCount;
+  }
+
   async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
@@ -427,15 +437,5 @@ export class MogacoRepository {
         },
       },
     });
-  }
-
-  async getParticipantsCount(id: number): Promise<number> {
-    const participantsCount = await this.prisma.participant.count({
-      where: {
-        postId: id,
-      },
-    });
-
-    return participantsCount;
   }
 }
