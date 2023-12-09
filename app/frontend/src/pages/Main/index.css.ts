@@ -3,10 +3,10 @@ import { style } from '@vanilla-extract/css';
 import { vars, fontStyle } from '@/styles';
 
 export const container = style({
-  position: 'relative',
   display: 'flex',
+  flexDirection: 'column',
   margin: '0 auto',
-  width: '104rem',
+  maxWidth: '104rem',
   height: '81.7rem',
   color: vars.color.grayscale400,
   background: vars.color.grayscaleWhite,
@@ -19,9 +19,9 @@ export const login = style({
 });
 
 export const mainImage = style({
-  width: '69.7rem',
-  height: '69.7rem',
-  alignSelf: 'flex-end',
+  width: '100%',
+  maxWidth: '69.7rem',
+  maxHeight: '69.7rem',
   objectFit: 'contain',
 });
 
@@ -31,12 +31,16 @@ export const text = style([
     color: vars.color.grayscale400,
     textAlign: 'right',
     lineHeight: '3.5rem',
+
+    '@media': {
+      'screen and (max-width:768px)': {
+        fontSize: '1.8rem',
+      },
+    },
   },
 ]);
 
 export const textArea = style({
-  position: 'absolute',
-  right: '0',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
@@ -50,5 +54,11 @@ export const title = style([
     justifyContent: 'center',
     textAlign: 'center',
     color: vars.color.morakGreen,
+
+    '@media': {
+      'screen and (max-width:768px)': {
+        fontSize: '4.8rem',
+      },
+    },
   },
 ]);
