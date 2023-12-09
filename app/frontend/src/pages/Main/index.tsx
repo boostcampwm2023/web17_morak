@@ -15,7 +15,6 @@ export function MainPage() {
 
   return (
     <div className={styles.container}>
-      <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
       <div className={styles.textArea}>
         <div className={styles.title}>morak</div>
         <div className={styles.text}>
@@ -38,6 +37,7 @@ export function MainPage() {
           )}
         </div>
       </div>
+      <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
     </div>
   );
 }
