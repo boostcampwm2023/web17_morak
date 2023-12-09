@@ -4,7 +4,7 @@ import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { Group, Member } from '@prisma/client';
-import { GroupsDto } from './dto/groups.dto';
+import { GroupsDto, GroupsWithMemberCountDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { ParticipantResponseDto } from 'src/mogaco-boards/dto/response-participants.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
@@ -21,9 +21,9 @@ export class GroupsController {
     summary: '모든 그룹 조회',
     description: '존재하는 모든 그룹을 조회합니다.',
   })
-  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsDto] })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getAllGroups(): Promise<Group[]> {
+  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
     return this.groupsService.getAllGroups();
   }
 

@@ -8,7 +8,7 @@ import { CreateGroupsDto } from './dto/create-groups.dto';
 export class GroupsService {
   constructor(private groupsRepository: GroupsRepository) {}
 
-  async getAllGroups(): Promise<Group[]> {
+  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
     return this.groupsRepository.getAllGroups();
   }
 

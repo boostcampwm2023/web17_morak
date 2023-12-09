@@ -8,8 +8,23 @@ import { CreateGroupsDto } from './dto/create-groups.dto';
 export class GroupsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getAllGroups(): Promise<Group[]> {
-    return await this.prisma.group.findMany();
+  private async getGroupMembersCount(groupId: number): Promise<number> {
+    return this.prisma.groupToUser.count({
+      where: {
+        groupId: groupId,
+      },
+    });
+  }
+
+  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
+    const groups = await this.prisma.group.findMany();
+
+    const groupPromises = groups.map(async (group) => {
+      const membersCount = await this.getGroupMembersCount(Number(group.id));
+      return { ...group, membersCount };
+    });
+
+    return Promise.all(groupPromises);
   }
 
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
