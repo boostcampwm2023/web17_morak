@@ -29,7 +29,6 @@ export function PostDate({ control, isEdit = false }: PostDateProps) {
         <Input
           label={MOGACO_POST.DATE.LABEL}
           type="datetime-local"
-          required
           disabled={isEdit}
           min={isEdit ? undefined : currentDate}
           onChange={onChange}
