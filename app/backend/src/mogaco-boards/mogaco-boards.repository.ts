@@ -10,6 +10,35 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 export class MogacoRepository {
   constructor(private prisma: PrismaService) {}
 
+  private async updateCompletedMogacos(mogacos): Promise<void> {
+    const currentDate = new Date();
+
+    const mogacoIdsToUpdate = mogacos.filter((mogaco) => mogaco.date < currentDate).map((mogaco) => mogaco.id);
+
+    if (mogacoIdsToUpdate.length > 0) {
+      await this.prisma.mogaco.updateMany({
+        where: {
+          id: {
+            in: mogacoIdsToUpdate,
+          },
+        },
+        data: {
+          status: MogacoStatus.COMPLETED,
+        },
+      });
+    }
+  }
+
+  private async getParticipantsCount(id: number): Promise<number> {
+    const participantsCount = await this.prisma.participant.count({
+      where: {
+        postId: id,
+      },
+    });
+
+    return participantsCount;
+  }
+
   async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
@@ -20,7 +49,6 @@ export class MogacoRepository {
     let mogacos;
 
     if (page) {
-      // page가 명시되면 페이지네이션을 적용
       const pageSize = 10;
       const skip = (page - 1) * pageSize;
 
@@ -38,7 +66,6 @@ export class MogacoRepository {
         take: pageSize,
       });
     } else {
-      // page가 명시되지 않으면 페이지네이션을 적용하지 않고 모든 결과를 반환
       mogacos = await this.prisma.mogaco.findMany({
         where: {
           deletedAt: null,
@@ -51,6 +78,9 @@ export class MogacoRepository {
         },
       });
     }
+
+    // 모각코 진행일(Date)를 넘긴 경우 종료로 변환
+    this.updateCompletedMogacos(mogacos);
 
     const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
@@ -115,6 +145,9 @@ export class MogacoRepository {
     if (!mogacos) {
       throw new NotFoundException(`No Mogaco events found for the date ${date}`);
     }
+
+    // 모각코 진행일(Date)를 넘긴 경우 종료로 변환
+    this.updateCompletedMogacos(mogacos);
 
     return mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
@@ -300,6 +333,12 @@ export class MogacoRepository {
       throw new NotFoundException(`Mogaco with id ${id} not found`);
     }
 
+    const participantsCount = await this.getParticipantsCount(Number(mogaco.id));
+
+    if (participantsCount >= mogaco.maxHumanCount) {
+      throw new ForbiddenException(`Mogaco with id ${id} has reached the maximum number of participants`);
+    }
+
     const existingParticipant = await this.prisma.participant.findUnique({
       where: {
         postId_userId: {
@@ -319,6 +358,15 @@ export class MogacoRepository {
         userId: member.id,
       },
     });
+
+    if (participantsCount + 1 >= mogaco.maxHumanCount) {
+      await this.prisma.mogaco.update({
+        where: { id: mogaco.id },
+        data: {
+          status: MogacoStatus.CLOSED,
+        },
+      });
+    }
   }
 
   async getParticipants(id: number): Promise<ParticipantResponseDto[]> {
@@ -366,6 +414,15 @@ export class MogacoRepository {
 
     if (!participant) {
       throw new NotFoundException(`Member with id ${member.id} is not participating in Mogaco with id ${id}`);
+    }
+
+    if (mogaco.status === MogacoStatus.CLOSED) {
+      await this.prisma.mogaco.update({
+        where: { id: mogaco.id },
+        data: {
+          status: MogacoStatus.RECRUITING,
+        },
+      });
     }
 
     if (mogaco.memberId !== member.id && participant.userId !== member.id) {

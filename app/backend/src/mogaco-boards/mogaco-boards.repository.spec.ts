@@ -20,6 +20,7 @@ describe('MogacoRepository', () => {
               findUnique: jest.fn(),
               create: jest.fn(),
               update: jest.fn(),
+              updateMany: jest.fn(),
             },
             groupToUser: {
               findMany: jest.fn().mockResolvedValueOnce([{ groupId: BigInt(1), userId: mockMember.id }]),
@@ -29,6 +30,7 @@ describe('MogacoRepository', () => {
               findUnique: jest.fn(),
               create: jest.fn(),
               delete: jest.fn(),
+              count: jest.fn(),
             },
           },
         },
