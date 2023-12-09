@@ -93,7 +93,6 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "workerThreads": true
+    "testEnvironment": "node"
   }
 }
