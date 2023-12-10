@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { Button } from '@/components';
 import { PATH } from '@/constants';
+import { queryKeys } from '@/queries';
 
 import * as styles from './MogacoListHeader.css';
 
@@ -10,6 +13,13 @@ export function MogacoListHeader() {
   const onClickPost = () => {
     navigate(PATH.POST);
   };
+
+  const { data: myGroup } = useQuery({
+    ...queryKeys.group.myGroup(),
+    staleTime: Infinity,
+  });
+
+  const noGroup = myGroup?.length === 0;
 
   return (
     <div className={styles.container}>
@@ -24,6 +34,7 @@ export function MogacoListHeader() {
         theme="primary"
         shape="fill"
         onClick={onClickPost}
+        disabled={noGroup}
       >
         글쓰기
       </Button>
