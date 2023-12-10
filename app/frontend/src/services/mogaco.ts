@@ -46,4 +46,10 @@ export const mogaco = {
     );
     return response;
   },
+  myMogaco: async () => {
+    const { data } = await morakAPI.get<ResponseMogacoDto[]>(
+      `${mogaco.endPoint.default}/my-mogacos`,
+    );
+    return data;
+  },
 };
