@@ -170,37 +170,36 @@ export class MogacoRepository {
   }
 
   async getMyMogacos(member: Member): Promise<MogacoDto[]> {
-    const userGroupIds = await this.getUserGroupIds(member);
-
-    const mogacos = await this.prisma.mogaco.findMany({
+    const mogacos = await this.prisma.participant.findMany({
       where: {
-        deletedAt: null,
-        groupId: {
-          in: userGroupIds,
-        },
+        userId: member.id,
       },
       include: {
-        group: true,
+        mogaco: {
+          include: {
+            group: true,
+          },
+        },
       },
     });
 
-    const mappedMogacos = mogacos.map((mogaco) => ({
-      id: mogaco.id.toString(),
-      groupId: mogaco.group.id.toString(),
-      title: mogaco.title,
-      contents: mogaco.contents,
-      date: mogaco.date,
-      maxHumanCount: mogaco.maxHumanCount,
-      address: mogaco.address,
-      latitude: Number(mogaco.latitude),
-      longitude: Number(mogaco.longitude),
-      status: mogaco.status,
-      createdAt: mogaco.createdAt,
-      updatedAt: mogaco.updatedAt,
-      deletedAt: mogaco.deletedAt,
+    const mappedMogacos = mogacos.map((participant) => ({
+      id: participant.mogaco.id.toString(),
+      groupId: participant.mogaco.group.id.toString(),
+      title: participant.mogaco.title,
+      contents: participant.mogaco.contents,
+      date: participant.mogaco.date,
+      maxHumanCount: participant.mogaco.maxHumanCount,
+      address: participant.mogaco.address,
+      latitude: Number(participant.mogaco.latitude),
+      longitude: Number(participant.mogaco.longitude),
+      status: participant.mogaco.status,
+      createdAt: participant.mogaco.createdAt,
+      updatedAt: participant.mogaco.updatedAt,
+      deletedAt: participant.mogaco.deletedAt,
       group: {
-        id: mogaco.group.id.toString(),
-        title: mogaco.group.title,
+        id: participant.mogaco.group.id.toString(),
+        title: participant.mogaco.group.title,
       },
     }));
 
