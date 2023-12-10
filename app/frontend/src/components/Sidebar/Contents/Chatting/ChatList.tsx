@@ -33,6 +33,11 @@ export function ChatList({
     }
 
     const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+
+    if (scrollHeight === prevScrollHeightRef.current) {
+      return;
+    }
+
     if (exposed) {
       listElemRef.current.scrollTo({
         top: scrollHeight - prevScrollHeightRef.current,
