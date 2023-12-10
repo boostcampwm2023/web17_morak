@@ -5,14 +5,18 @@ import {
   ChatMessage,
   StatusType,
 } from '@morak/chat/src/interface/message.interface';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { URL } from '@/constants';
+import { queryKeys } from '@/queries';
 
 const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
 export function useChatting(postId: string) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
+  const userIdRef = useRef<string | null>(null);
   const lastDateRef = useRef<Date | null | undefined>(undefined);
+  const queryClient = useQueryClient();
 
   const sendMessage = (message: string, userId: string) => {
     socketClient.sendMessage({
@@ -82,29 +86,46 @@ export function useChatting(postId: string) {
     () =>
       socketClient.subscribeToChat(
         (status: StatusType, msgs: ChatMessage[]) => {
-          if (status === 200) {
-            setChatItems((items) => [...items, ...msgs]);
+          if (status !== 200) {
+            return;
+          }
+
+          setChatItems((items) => [...items, ...msgs]);
+          if (msgs.length === 1 && msgs[0].messageType === 'notification') {
+            queryClient.invalidateQueries({
+              queryKey: queryKeys.mogaco.detail(postId).queryKey,
+            });
           }
         },
       ),
-    [],
+    [postId, queryClient],
   );
 
   const joinRoom = useCallback(
-    (userId: string, callback?: () => void) =>
+    (userId: string, callback?: () => void) => {
+      if (userIdRef.current) {
+        return;
+      }
+
+      userIdRef.current = userId;
       socketClient.joinRoom({ user: userId, room: postId }, (status) => {
         if (status === 200) {
           subscribeToChat();
           callback?.();
         }
-      }),
+      });
+    },
     [postId, subscribeToChat],
   );
 
-  const leaveRoom = useCallback(
-    (userId: string) => socketClient.leaveRoom({ user: userId, room: postId }),
-    [postId],
-  );
+  const leaveRoom = useCallback(() => {
+    if (!userIdRef.current) {
+      return;
+    }
+
+    socketClient.leaveRoom({ user: userIdRef.current, room: postId });
+    userIdRef.current = null;
+  }, [postId]);
 
   const resetChatItems = useCallback(() => {
     setChatItems([]);

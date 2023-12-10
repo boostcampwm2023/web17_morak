@@ -57,6 +57,7 @@ export function Chatting({
         participatedRef.current.nickname,
         participatedRef.current.id,
       );
+      leaveRoom();
       resetChatItems();
       participatedRef.current = undefined;
     }
@@ -72,13 +73,7 @@ export function Chatting({
     leaveRoom,
   ]);
 
-  useEffect(() => {
-    if (!userData) {
-      return;
-    }
-
-    return () => leaveRoom(userData.id);
-  }, [userData, leaveRoom]);
+  useEffect(() => () => leaveRoom(), [leaveRoom]);
 
   if (!userData) {
     return (
