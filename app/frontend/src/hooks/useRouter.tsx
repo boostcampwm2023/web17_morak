@@ -10,6 +10,7 @@ import {
   MapLayout,
   Groups,
   ProfilePage,
+  NotFound,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -17,6 +18,7 @@ export const useRouter = () =>
     {
       path: '/',
       element: <Layout />,
+      errorElement: <NotFound />,
       children: [{ index: true, element: <MainPage /> }],
     },
     {
