@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import { UserChip } from '@/components';
 
-import * as styles from './TalkItem.css';
+import * as styles from './ChatItem.css';
 
 type TalkItemProps = {
   nickname: string;
@@ -27,9 +27,9 @@ function TalkItem({
     : wrappedDate.format('MM.DD h:mm A');
 
   return (
-    <div className={styles.container}>
+    <div className={styles.talkContainer}>
       {!isMine && <UserChip username={nickname} profileSrc={profilePicture} />}
-      <div className={`${styles.content} ${isMine && styles.isMine}`}>
+      <div className={`${styles.talkContents} ${isMine && styles.isMine}`}>
         {contents}
       </div>
       <div className={`${styles.datetime} ${isMine && styles.isMine}`}>

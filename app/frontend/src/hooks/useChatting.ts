@@ -10,11 +10,11 @@ import { URL } from '@/constants';
 
 const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
-export function useChatting(postId: string, userId: string) {
+export function useChatting(postId: string) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
-  const lastDateRef = useRef<Date | null>(new Date());
+  const lastDateRef = useRef<Date | null | undefined>(undefined);
 
-  const sendMessage = (message: string) => {
+  const sendMessage = (message: string, userId: string) => {
     socketClient.sendMessage({
       messageType: 'talk',
       user: userId,
@@ -24,9 +24,39 @@ export function useChatting(postId: string, userId: string) {
     });
   };
 
+  const notifyToJoin = useCallback(
+    (nickname: string, userId: string) => {
+      socketClient.sendMessage({
+        messageType: 'notification',
+        user: userId,
+        room: postId,
+        contents: `${nickname} 님이 입장하셨습니다.`,
+        date: new Date(),
+      });
+    },
+    [postId],
+  );
+
+  const notifyToLeave = useCallback(
+    (nickname: string, userId: string) => {
+      socketClient.sendMessage({
+        messageType: 'notification',
+        user: userId,
+        room: postId,
+        contents: `${nickname} 님이 퇴장하셨습니다.`,
+        date: new Date(),
+      });
+    },
+    [postId],
+  );
+
   const fetchPrevMessages = useCallback(() => {
-    if (!lastDateRef.current) {
+    if (lastDateRef.current === null) {
       return;
+    }
+
+    if (lastDateRef.current === undefined) {
+      lastDateRef.current = new Date();
     }
 
     socketClient.requestPrevMessage(
@@ -48,25 +78,55 @@ export function useChatting(postId: string, userId: string) {
     );
   }, [postId]);
 
+  const subscribeToChat = useCallback(
+    () =>
+      socketClient.subscribeToChat(
+        (status: StatusType, msgs: ChatMessage[]) => {
+          if (status === 200) {
+            setChatItems((items) => [...items, ...msgs]);
+          }
+        },
+      ),
+    [],
+  );
+
+  const joinRoom = useCallback(
+    (userId: string, callback?: () => void) =>
+      socketClient.joinRoom({ user: userId, room: postId }, (status) => {
+        if (status === 200) {
+          subscribeToChat();
+          callback?.();
+        }
+      }),
+    [postId, subscribeToChat],
+  );
+
+  const leaveRoom = useCallback(
+    (userId: string) => socketClient.leaveRoom({ user: userId, room: postId }),
+    [postId],
+  );
+
+  const resetChatItems = useCallback(() => {
+    setChatItems([]);
+    lastDateRef.current = undefined;
+  }, []);
+
   useEffect(() => {
-    const fetchChatting = (status: StatusType, msgs: ChatMessage[]) => {
-      if (status === 200) {
-        setChatItems((items) => [...items, ...msgs]);
-      }
-    };
+    if (lastDateRef.current === null) {
+      return;
+    }
 
-    socketClient.joinRoom({ user: userId, room: postId }, (status) => {
-      if (status === 200) {
-        socketClient.subscribeToChat(fetchChatting);
-      }
-    });
-
-    return () => socketClient.leaveRoom({ user: userId, room: postId });
-  }, [userId, postId]);
+    lastDateRef.current = chatItems.length > 0 ? chatItems[0].date : undefined;
+  }, [chatItems]);
 
   return {
     chatItems,
+    resetChatItems,
     sendMessage,
     fetchPrevMessages,
+    notifyToJoin,
+    notifyToLeave,
+    joinRoom,
+    leaveRoom,
   };
 }

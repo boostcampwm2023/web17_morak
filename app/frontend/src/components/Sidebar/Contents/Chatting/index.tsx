@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+
 import { ResponseParticipant } from '@morak/apitype';
 
 import { useChatting } from '@/hooks';
@@ -11,30 +13,92 @@ type ChattingProps = {
   postId: string;
   title: string;
   participants: ResponseParticipant[];
-  userId: string;
+  currentUser: ResponseParticipant;
 };
 
 export function Chatting({
   postId,
   title,
   participants,
-  userId,
+  currentUser,
 }: ChattingProps) {
-  const { chatItems, sendMessage, fetchPrevMessages } = useChatting(
-    postId,
-    userId,
+  const [userData, setUserData] = useState(
+    participants.find((p) => p.providerId === currentUser.providerId),
   );
+  const participatedRef = useRef(userData);
+  const {
+    chatItems,
+    resetChatItems,
+    sendMessage,
+    notifyToJoin,
+    notifyToLeave,
+    fetchPrevMessages,
+    joinRoom,
+    leaveRoom,
+  } = useChatting(postId);
 
+  useEffect(() => {
+    const participated = participants.find(
+      (p) => p.providerId === currentUser.providerId,
+    );
+    if (participated) {
+      if (!participatedRef.current) {
+        joinRoom(participated.id, () =>
+          notifyToJoin(participated.nickname, participated.id),
+        );
+        participatedRef.current = participated;
+      } else {
+        joinRoom(participated.id);
+      }
+    }
+
+    if (!participated && participatedRef.current) {
+      notifyToLeave(
+        participatedRef.current.nickname,
+        participatedRef.current.id,
+      );
+      resetChatItems();
+      participatedRef.current = undefined;
+    }
+
+    setUserData(participated);
+  }, [
+    participants,
+    currentUser,
+    resetChatItems,
+    notifyToJoin,
+    notifyToLeave,
+    joinRoom,
+    leaveRoom,
+  ]);
+
+  useEffect(() => {
+    if (!userData) {
+      return;
+    }
+
+    return () => leaveRoom(userData.id);
+  }, [userData, leaveRoom]);
+
+  if (!userData) {
+    return (
+      <div className={styles.notParticipated}>
+        아직 해당 모각코에 참여하지 않았습니다!
+        <br />
+        채팅방에 입장하려면 먼저 모각코에 참석해 주세요.
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />
       <ChatList
         chatItems={chatItems}
-        userId={userId}
+        userId={userData.id}
         participants={participants}
         fetchPrevMessages={fetchPrevMessages}
       />
-      <ChattingFooter sendMessage={sendMessage} />
+      <ChattingFooter userId={userData.id} sendMessage={sendMessage} />
     </div>
   );
 }

@@ -5,10 +5,11 @@ import { Button, Textarea } from '@/components';
 import * as styles from './index.css';
 
 type ChattingFooterProps = {
-  sendMessage: (message: string) => void;
+  userId: string;
+  sendMessage: (message: string, userId: string) => void;
 };
 
-export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
+export function ChattingFooter({ userId, sendMessage }: ChattingFooterProps) {
   const [message, setMessage] = useState('');
 
   const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -17,7 +18,7 @@ export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
 
   const handleSendMessage = () => {
     if (/\S+/.test(message)) {
-      sendMessage(message);
+      sendMessage(message, userId);
       setMessage('');
     }
   };

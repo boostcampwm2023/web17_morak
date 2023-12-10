@@ -37,6 +37,19 @@ export const header = style({
   background: vars.color.grayscale50,
 });
 
+export const notParticipated = style([
+  sansRegular16,
+  {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    color: vars.color.grayscale200,
+    lineHeight: '1.4',
+    textAlign: 'center',
+  },
+]);
+
 export const participants = style([
   sansRegular16,
   {
