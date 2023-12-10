@@ -50,7 +50,7 @@ export function MyMogaco() {
           ) : (
             <div className={styles.notParticipated}>
               <span>현재 참가한 모각코가 없습니다.</span>
-              <NavLink to="/mogaco" className={styles.mogacoListButton}>
+              <NavLink to="/mogaco" className={styles.navLinkButton}>
                 <ArrowLeft
                   fill={vars.color.morakGreen}
                   width={24}
