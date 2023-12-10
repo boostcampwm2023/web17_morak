@@ -39,13 +39,17 @@ export class MogacoRepository {
     return participantsCount;
   }
 
-  async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
+  private async getUserGroupIds(member: Member): Promise<bigint[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
     });
 
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    return userGroups.map((group) => group.groupId);
+  }
+
+  async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
+    const userGroupIds = await this.getUserGroupIds(member);
     let mogacos;
 
     if (page) {
@@ -106,12 +110,7 @@ export class MogacoRepository {
   }
 
   async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     let startDate: Date;
     let endDate: Date;
@@ -171,12 +170,7 @@ export class MogacoRepository {
   }
 
   async getMyMogacos(member: Member): Promise<MogacoDto[]> {
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     const mogacos = await this.prisma.mogaco.findMany({
       where: {
@@ -227,12 +221,7 @@ export class MogacoRepository {
     }
 
     // 231204 ldhbenecia | 특정 게시물 조회 시 해당 사용자가 가입한 그룹의 게시글이 아닐 시 오류 처리
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     if (!userGroupIds.includes(mogaco.group.id)) {
       throw new ForbiddenException(`User does not have access to Mogaco with id ${id}`);
@@ -273,12 +262,7 @@ export class MogacoRepository {
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
 
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     if (userGroupIds.length === 0 || !userGroupIds.includes(BigInt(groupId))) {
       throw new NotFoundException(`Group with id ${groupId} not found.`);
