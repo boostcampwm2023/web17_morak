@@ -40,6 +40,17 @@ export class MogacoController {
     }
   }
 
+  @Get('/my-mogacos')
+  @ApiOperation({
+    summary: '가입한 모각코 확인',
+    description: '해당 사용자가 가입한 모각코를 확인합니다.',
+  })
+  @ApiResponse({ status: 200, description: 'Successfully Check', type: [MogacoDto] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getMyMogacos(@GetUser() member: Member): Promise<MogacoDto[]> {
+    return this.mogacoService.getMyMogacos(member);
+  }
+
   @Get('/:id')
   @ApiOperation({
     summary: '특정 모각코 조회',

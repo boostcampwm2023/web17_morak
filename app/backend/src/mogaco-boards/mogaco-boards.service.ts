@@ -21,6 +21,10 @@ export class MogacoService {
     return this.mogacoRepository.getMogacoByDate(date, member);
   }
 
+  async getMyMogacos(member: Member): Promise<MogacoDto[]> {
+    return this.mogacoRepository.getMyMogacos(member);
+  }
+
   async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
     return this.mogacoRepository.getMogacoById(id, member);
   }
