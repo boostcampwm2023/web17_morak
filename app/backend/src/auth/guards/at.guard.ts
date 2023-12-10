@@ -24,12 +24,9 @@ export class AtGuard extends AuthGuard('jwt') {
       });
 
       const { userId, providerId, socialType, email, profilePicture, nickname } = decodedToken;
-
       const userIdBigInt = BigInt(userId);
 
       request.user = { id: userIdBigInt, providerId, socialType, email, profilePicture, nickname };
-
-      console.log(request.user);
 
       return true;
     } catch (error) {
