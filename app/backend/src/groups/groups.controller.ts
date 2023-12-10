@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
@@ -12,7 +12,6 @@ import { CreateGroupsDto } from './dto/create-groups.dto';
 @ApiTags('Group API')
 @Controller('groups')
 @UseGuards(AtGuard)
-@ApiBearerAuth('access_token')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 

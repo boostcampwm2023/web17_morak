@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MogacoService } from './mogaco-boards.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
@@ -11,7 +11,6 @@ import { ParticipantResponseDto } from './dto/response-participants.dto';
 @ApiTags('Mogaco API')
 @Controller('posts')
 @UseGuards(AtGuard)
-@ApiBearerAuth('access_token')
 export class MogacoController {
   constructor(private readonly mogacoService: MogacoService) {}
 
