@@ -50,37 +50,33 @@ export function useChatting(postId: string) {
     [postId],
   );
 
-  const fetchPrevMessages = useCallback(
-    (callback: () => void) => {
-      if (lastDateRef.current === null) {
-        return;
-      }
+  const fetchPrevMessages = useCallback(() => {
+    if (lastDateRef.current === null) {
+      return;
+    }
 
-      if (lastDateRef.current === undefined) {
-        lastDateRef.current = new Date();
-      }
+    if (lastDateRef.current === undefined) {
+      lastDateRef.current = new Date();
+    }
 
-      socketClient.requestPrevMessage(
-        postId,
-        lastDateRef.current,
-        (status, messages) => {
-          if (status !== 200) {
-            return;
-          }
+    socketClient.requestPrevMessage(
+      postId,
+      lastDateRef.current,
+      (status, messages) => {
+        if (status !== 200) {
+          return;
+        }
 
-          if (messages.length === 0) {
-            lastDateRef.current = null;
-            return;
-          }
+        if (messages.length === 0) {
+          lastDateRef.current = null;
+          return;
+        }
 
-          lastDateRef.current = messages[messages.length - 1].date;
-          setChatItems((items) => [...messages.reverse(), ...items]);
-          callback();
-        },
-      );
-    },
-    [postId],
-  );
+        lastDateRef.current = messages[messages.length - 1].date;
+        setChatItems((items) => [...messages.reverse(), ...items]);
+      },
+    );
+  }, [postId]);
 
   const subscribeToChat = useCallback(
     () =>

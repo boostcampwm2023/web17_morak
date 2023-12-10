@@ -13,7 +13,7 @@ type ChatListProps = {
   chatItems: ChatMessage[];
   userId: string;
   participants: ResponseParticipant[];
-  fetchPrevMessages: (callback: () => void) => void;
+  fetchPrevMessages: () => void;
 };
 
 export function ChatList({
@@ -26,7 +26,6 @@ export function ChatList({
   const listElemRef = useRef<HTMLUListElement>(null);
   const observableRef = useRef<HTMLDivElement | null>(null);
   const exposed = useObserver(observableRef);
-  const loading = useRef(false);
 
   useEffect(() => {
     if (!listElemRef.current) {
@@ -60,11 +59,8 @@ export function ChatList({
   }, [chatItems, exposed]);
 
   useEffect(() => {
-    if (exposed && !loading.current) {
-      loading.current = true;
-      fetchPrevMessages(() => {
-        loading.current = false;
-      });
+    if (exposed) {
+      fetchPrevMessages();
     }
   }, [exposed, fetchPrevMessages]);
 
