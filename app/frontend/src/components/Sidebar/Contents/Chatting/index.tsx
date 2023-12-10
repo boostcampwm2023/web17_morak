@@ -28,13 +28,13 @@ export function Chatting({
   const participatedRef = useRef(userData);
   const {
     chatItems,
+    resetChatItems,
     sendMessage,
     notifyToJoin,
     notifyToLeave,
     fetchPrevMessages,
     joinRoom,
     leaveRoom,
-    subscribeToChat,
   } = useChatting(postId);
 
   useEffect(() => {
@@ -57,6 +57,7 @@ export function Chatting({
         participatedRef.current.nickname,
         participatedRef.current.id,
       );
+      resetChatItems();
       participatedRef.current = undefined;
     }
 
@@ -64,20 +65,20 @@ export function Chatting({
   }, [
     participants,
     currentUser,
+    resetChatItems,
     notifyToJoin,
     notifyToLeave,
     joinRoom,
     leaveRoom,
-    subscribeToChat,
   ]);
 
   useEffect(() => {
-    if (!userData) return;
-
-    subscribeToChat();
+    if (!userData) {
+      return;
+    }
 
     return () => leaveRoom(userData.id);
-  }, [userData, leaveRoom, subscribeToChat]);
+  }, [userData, leaveRoom]);
 
   if (!userData) {
     return (
@@ -88,7 +89,6 @@ export function Chatting({
       </div>
     );
   }
-
   return (
     <div className={styles.container}>
       <ChattingHeader title={title} participants={participants} />

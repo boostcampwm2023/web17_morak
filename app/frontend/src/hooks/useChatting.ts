@@ -12,7 +12,7 @@ const socketClient = new SocketClient(URL.SOCKET, URL.SOCKET_PATH);
 
 export function useChatting(postId: string) {
   const [chatItems, setChatItems] = useState<ChatMessage[]>([]);
-  const lastDateRef = useRef<Date | null>(new Date());
+  const lastDateRef = useRef<Date | null | undefined>(undefined);
 
   const sendMessage = (message: string, userId: string) => {
     socketClient.sendMessage({
@@ -51,8 +51,13 @@ export function useChatting(postId: string) {
   );
 
   const fetchPrevMessages = useCallback(() => {
-    if (!lastDateRef.current) {
+    if (lastDateRef.current === null) {
       return;
+    }
+
+    if (lastDateRef.current === undefined) {
+      lastDateRef.current =
+        chatItems.length > 0 ? chatItems[0].date : new Date();
     }
 
     socketClient.requestPrevMessage(
@@ -72,22 +77,7 @@ export function useChatting(postId: string) {
         setChatItems((items) => [...messages.reverse(), ...items]);
       },
     );
-  }, [postId]);
-
-  const joinRoom = useCallback(
-    (userId: string, callback?: () => void) =>
-      socketClient.joinRoom({ user: userId, room: postId }, (status) => {
-        if (status === 200 && callback) {
-          callback();
-        }
-      }),
-    [postId],
-  );
-
-  const leaveRoom = useCallback(
-    (userId: string) => socketClient.leaveRoom({ user: userId, room: postId }),
-    [postId],
-  );
+  }, [postId, chatItems]);
 
   const subscribeToChat = useCallback(
     () =>
@@ -101,14 +91,35 @@ export function useChatting(postId: string) {
     [],
   );
 
+  const joinRoom = useCallback(
+    (userId: string, callback?: () => void) =>
+      socketClient.joinRoom({ user: userId, room: postId }, (status) => {
+        if (status === 200) {
+          subscribeToChat();
+          callback?.();
+        }
+      }),
+    [postId, subscribeToChat],
+  );
+
+  const leaveRoom = useCallback(
+    (userId: string) => socketClient.leaveRoom({ user: userId, room: postId }),
+    [postId],
+  );
+
+  const resetChatItems = useCallback(() => {
+    setChatItems([]);
+    lastDateRef.current = undefined;
+  }, []);
+
   return {
     chatItems,
+    resetChatItems,
     sendMessage,
     fetchPrevMessages,
     notifyToJoin,
     notifyToLeave,
     joinRoom,
     leaveRoom,
-    subscribeToChat,
   };
 }
