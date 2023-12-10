@@ -42,8 +42,8 @@ export class MogacoController {
 
   @Get('/my-mogacos')
   @ApiOperation({
-    summary: '가입 그룹 확인',
-    description: '해당 사용자가 가입한 그룹을 확인합니다.',
+    summary: '가입한 모각코 확인',
+    description: '해당 사용자가 가입한 모각코를 확인합니다.',
   })
   @ApiResponse({ status: 200, description: 'Successfully Check', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
