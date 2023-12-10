@@ -8,15 +8,6 @@ export function setupSwagger(app: INestApplication): void {
     .setVersion('1.0.0')
     .addTag('moraks')
     .addCookieAuth('token')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        name: 'JWT',
-        in: 'header',
-      },
-      'access_token',
-    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
