@@ -13,6 +13,18 @@ export class AuthRepository {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
+  async getUserIdFromToken(providerId: string): Promise<bigint> {
+    const user = await this.prisma.member.findUnique({
+      where: {
+        providerId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return user.id;
+  }
   async saveUser(userDto: CreateUserDto): Promise<Member> {
     const { providerId, socialType, email, nickname, profilePicture } = userDto;
 
