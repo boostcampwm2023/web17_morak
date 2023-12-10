@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import SocketClient from '@morak/chat/src/client/index';
 import {
@@ -50,34 +50,37 @@ export function useChatting(postId: string) {
     [postId],
   );
 
-  const fetchPrevMessages = useCallback(() => {
-    if (lastDateRef.current === null) {
-      return;
-    }
+  const fetchPrevMessages = useCallback(
+    (callback: () => void) => {
+      if (lastDateRef.current === null) {
+        return;
+      }
 
-    if (lastDateRef.current === undefined) {
-      lastDateRef.current =
-        chatItems.length > 0 ? chatItems[0].date : new Date();
-    }
+      if (lastDateRef.current === undefined) {
+        lastDateRef.current = new Date();
+      }
 
-    socketClient.requestPrevMessage(
-      postId,
-      lastDateRef.current,
-      (status, messages) => {
-        if (status !== 200) {
-          return;
-        }
+      socketClient.requestPrevMessage(
+        postId,
+        lastDateRef.current,
+        (status, messages) => {
+          if (status !== 200) {
+            return;
+          }
 
-        if (messages.length === 0) {
-          lastDateRef.current = null;
-          return;
-        }
+          if (messages.length === 0) {
+            lastDateRef.current = null;
+            return;
+          }
 
-        lastDateRef.current = messages[messages.length - 1].date;
-        setChatItems((items) => [...messages.reverse(), ...items]);
-      },
-    );
-  }, [postId, chatItems]);
+          lastDateRef.current = messages[messages.length - 1].date;
+          setChatItems((items) => [...messages.reverse(), ...items]);
+          callback();
+        },
+      );
+    },
+    [postId],
+  );
 
   const subscribeToChat = useCallback(
     () =>
@@ -111,6 +114,14 @@ export function useChatting(postId: string) {
     setChatItems([]);
     lastDateRef.current = undefined;
   }, []);
+
+  useEffect(() => {
+    if (lastDateRef.current === null) {
+      return;
+    }
+
+    lastDateRef.current = chatItems.length > 0 ? chatItems[0].date : undefined;
+  }, [chatItems]);
 
   return {
     chatItems,

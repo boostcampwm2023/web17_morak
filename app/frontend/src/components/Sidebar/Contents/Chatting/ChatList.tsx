@@ -13,7 +13,7 @@ type ChatListProps = {
   chatItems: ChatMessage[];
   userId: string;
   participants: ResponseParticipant[];
-  fetchPrevMessages: () => void;
+  fetchPrevMessages: (callback: () => void) => void;
 };
 
 export function ChatList({
@@ -26,6 +26,7 @@ export function ChatList({
   const listElemRef = useRef<HTMLUListElement>(null);
   const observableRef = useRef<HTMLDivElement | null>(null);
   const exposed = useObserver(observableRef);
+  const loading = useRef(false);
 
   useEffect(() => {
     if (!listElemRef.current) {
@@ -42,6 +43,9 @@ export function ChatList({
       listElemRef.current.scrollTo({
         top: scrollHeight - prevScrollHeightRef.current,
       });
+      prevScrollHeightRef.current = scrollHeight;
+
+      return;
     }
 
     if (
@@ -51,14 +55,16 @@ export function ChatList({
       listElemRef.current.scrollTo({
         top: scrollHeight - clientHeight,
       });
+      prevScrollHeightRef.current = scrollHeight;
     }
-
-    prevScrollHeightRef.current = scrollHeight;
   }, [chatItems, exposed]);
 
   useEffect(() => {
-    if (exposed) {
-      fetchPrevMessages();
+    if (exposed && !loading.current) {
+      loading.current = true;
+      fetchPrevMessages(() => {
+        loading.current = false;
+      });
     }
   }, [exposed, fetchPrevMessages]);
 
