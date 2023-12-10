@@ -170,6 +170,49 @@ export class MogacoRepository {
     }));
   }
 
+  async getMyMogacos(member: Member): Promise<MogacoDto[]> {
+    const userGroups = await this.prisma.groupToUser.findMany({
+      where: { userId: member.id },
+      select: { groupId: true },
+    });
+
+    const userGroupIds = userGroups.map((group) => group.groupId);
+
+    const mogacos = await this.prisma.mogaco.findMany({
+      where: {
+        deletedAt: null,
+        groupId: {
+          in: userGroupIds,
+        },
+      },
+      include: {
+        group: true,
+      },
+    });
+
+    const mappedMogacos = mogacos.map((mogaco) => ({
+      id: mogaco.id.toString(),
+      groupId: mogaco.group.id.toString(),
+      title: mogaco.title,
+      contents: mogaco.contents,
+      date: mogaco.date,
+      maxHumanCount: mogaco.maxHumanCount,
+      address: mogaco.address,
+      latitude: Number(mogaco.latitude),
+      longitude: Number(mogaco.longitude),
+      status: mogaco.status,
+      createdAt: mogaco.createdAt,
+      updatedAt: mogaco.updatedAt,
+      deletedAt: mogaco.deletedAt,
+      group: {
+        id: mogaco.group.id.toString(),
+        title: mogaco.group.title,
+      },
+    }));
+
+    return mappedMogacos;
+  }
+
   async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id, deletedAt: null },
