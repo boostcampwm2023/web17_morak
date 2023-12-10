@@ -1,6 +1,9 @@
+import { NavLink } from 'react-router-dom';
+
 import { useQuery } from '@tanstack/react-query';
 
-import { Button, Error, LoadingIndicator, MogacoItem } from '@/components';
+import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
+import { Error, LoadingIndicator, MogacoItem } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
 import { sansBold24 } from '@/styles/font.css';
@@ -46,10 +49,16 @@ export function MyMogaco() {
             )
           ) : (
             <div className={styles.notParticipated}>
-              <span>참여한 모각코가 없습니다. 참여해 보세요!</span>
-              <Button theme="primary" shape="text" size="large">
-                바로가기
-              </Button>
+              <span>현재 참가한 모각코가 없습니다.</span>
+              <NavLink to="/mogaco" className={styles.mogacoListButton}>
+                <ArrowLeft
+                  fill={vars.color.morakGreen}
+                  width={24}
+                  height={24}
+                  className={styles.rotateArrow}
+                />
+                둘러보기
+              </NavLink>
             </div>
           ))}
       </ul>
