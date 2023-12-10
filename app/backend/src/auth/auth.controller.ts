@@ -81,7 +81,7 @@ export class AuthController {
 
       res.setHeader('Authorization', 'Bearer ' + [tokens.access_token, tokens.refresh_token]);
 
-      res.cookie('access_token', tokens.access_token, { httpOnly: false, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
+      res.cookie('access_token', tokens.access_token, { httpOnly: true, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
       res.cookie('refresh_token', tokens.refresh_token, {
         httpOnly: true,
         maxAge: getSecret('MAX_AGE_REFRESH_TOKEN'),
@@ -119,14 +119,14 @@ export class AuthController {
 
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: getSecret('MAX_AGE_ACCESS_TOKEN'),
       });
 
       res.json({ newAccessToken });
     } catch (err) {
-      res.clearCookie('access_token', { httpOnly: false });
-      res.clearCookie('refresh_token', { httpOnly: false });
+      res.clearCookie('access_token', { httpOnly: true });
+      res.clearCookie('refresh_token', { httpOnly: true });
       throw new UnauthorizedException('Failed to refresh token');
     }
   }
@@ -149,8 +149,8 @@ export class AuthController {
       const { providerId } = body;
       await this.authService.logout(providerId);
 
-      res.clearCookie('access_token', { httpOnly: false });
-      res.clearCookie('refresh_token', { httpOnly: false });
+      res.clearCookie('access_token', { httpOnly: true });
+      res.clearCookie('refresh_token', { httpOnly: true });
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');
