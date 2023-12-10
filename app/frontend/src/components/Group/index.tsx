@@ -38,9 +38,6 @@ export function Group({ id, owned = false, name, joined = false }: GroupProps) {
               <Copy width={24} height={24} fill={grayscale200} />
             </button>
           </div>
-          <div className={styles.mobile}>
-            <GroupButton id={id} owned={owned} joined={joined} />
-          </div>
         </div>
       )} */}
     </div>
