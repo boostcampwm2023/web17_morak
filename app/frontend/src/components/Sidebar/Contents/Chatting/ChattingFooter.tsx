@@ -29,7 +29,7 @@ export function ChattingFooter({ userId, sendMessage }: ChattingFooterProps) {
   };
 
   const onKeydownTextarea = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSendMessage();
     }
