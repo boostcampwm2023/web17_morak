@@ -101,10 +101,14 @@ $ npm install <package-name> -w=frontend
 
 ```bash
 $ npm run start:dev -w=backend
+$ turbo run start:dev --filter backend
+
 $ npm run dev -w=frontend
+$ turbo run dev --filter frontend
 ```
 
 - 이외 명령어들도 각 app 내의 script 명령어를 root(web17_morak)에서 `npm run <command> -w={workspace}` 형태로 입력하여 실행하면 됩니다.
+- turbo scripts를 이용하고 싶을 경우 `turbo.json`에 추가가 필요합니다.
 
 ## 팀원
 
