@@ -34,7 +34,7 @@ export function useChatting(postId: string) {
         messageType: 'notification',
         user: userId,
         room: postId,
-        contents: `${nickname} 님이 입장하셨습니다.`,
+        contents: `${nickname.slice(0, 10)} 님이 입장하셨습니다.`,
         date: new Date(),
       });
     },
@@ -47,7 +47,7 @@ export function useChatting(postId: string) {
         messageType: 'notification',
         user: userId,
         room: postId,
-        contents: `${nickname} 님이 퇴장하셨습니다.`,
+        contents: `${nickname.slice(0, 10)} 님이 퇴장하셨습니다.`,
         date: new Date(),
       });
     },
