@@ -12,6 +12,7 @@ export const list = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
+  minHeight: '1.8rem',
   maxHeight: '48rem',
   overflowY: 'auto',
 });
