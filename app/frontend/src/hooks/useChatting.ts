@@ -30,11 +30,13 @@ export function useChatting(postId: string) {
 
   const notifyToJoin = useCallback(
     (nickname: string, userId: string) => {
+      const parsedNickname =
+        nickname.length > 10 ? `${nickname.slice(0, 10)}...` : nickname;
       socketClient.sendMessage({
         messageType: 'notification',
         user: userId,
         room: postId,
-        contents: `${nickname.slice(0, 10)} 님이 입장하셨습니다.`,
+        contents: `${parsedNickname} 님이 입장하셨습니다.`,
         date: new Date(),
       });
     },
@@ -43,11 +45,13 @@ export function useChatting(postId: string) {
 
   const notifyToLeave = useCallback(
     (nickname: string, userId: string) => {
+      const parsedNickname =
+        nickname.length > 10 ? `${nickname.slice(0, 10)}...` : nickname;
       socketClient.sendMessage({
         messageType: 'notification',
         user: userId,
         room: postId,
-        contents: `${nickname.slice(0, 10)} 님이 퇴장하셨습니다.`,
+        contents: `${parsedNickname} 님이 퇴장하셨습니다.`,
         date: new Date(),
       });
     },
