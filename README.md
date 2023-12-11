@@ -2,7 +2,7 @@
 
 <p align='center'><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm2023%2Fweb17_morak&count_bg=%231FAB70&title_bg=%23A8AEAC&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
 
-<h3 align='center'><a href='https://morak.io/'>https://morak.io/</a></h3>
+<h3 align='center'><a href='https://morak.io/'>https://morak.io</a></h3>
 <p align='center'>
 <a href='https://www.notion.so/Morak-11ea873b5f3d4ac8b741bb933ee41170?pvs=21'>📒 팀 노션</a> | 
 <a href='https://www.notion.so/e55bfedb723443adb14dfa0e3910cc42?pvs=21'>🖋️ 그라운드 룰</a> | 
