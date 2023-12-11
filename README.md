@@ -11,12 +11,38 @@
 
 이후의 모든 부스트캠프 캠퍼들이 이 서비스를 통해 더욱 활발한 오프라인 모각코 문화를 만들어가길 소망합니다.
 
+## 기능 설명
+
+**📌 내가 속한 그룹의 모임 글을 리스트 형태로 볼 수 있습니다**
+
+<img width="1552" alt="모임 글 리스트 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/eb832e09-b798-4866-bd7b-812a60b82402">
+
+**🗓️ 내가 속한 그룹의 모임을 달력 뷰로 확인할 수 있습니다**
+
+<img width="1508" alt="달력 뷰 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/d6cd8dbd-70e1-4149-bf33-30add3faf3b8">
+
+**🗺️ 내가 속한 그룹의 모임을 지도 뷰로 확인할 수 있습니다**
+<img width="1552" alt="지도 뷰 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/09a25d3c-2a0c-4bd7-82e5-cf6dbf505902">
+
+**📌 달력과 지도 뷰에서 모임에 대한 상세 내용을 사이드 바로 확인할 수 있습니다**
+|<img width="1508" alt="달력 뷰 사이드 바 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/8986f0c4-58e1-47f7-a118-ce2c84838f79">|<img width="1552" alt="지도 뷰 사이드 바 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/a357742e-1c18-4a2d-a213-9c82a73d5325">|
+|:--:|:--:|
+
+**📌 참여한 모임에서는 채팅으로 소통할 수 있습니다**
+<img width="1552" alt="채팅 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/b771289c-9b12-4211-82bd-1c683a193955">
+
+
+**👥 그룹에서 참여하고 나갈 수 있습니다**
+<img width="1552" alt="그룹 리스트 캡처 화면" src="https://github.com/boostcampwm2023/web17_morak/assets/43867711/2cf1e4a6-2d44-499c-a7f8-bd0b73fabc88">
+
+
 ## 팀원
 
 |                                   FrontEnd                                   |                                   FrontEnd                                    |                                   FrontEnd                                   |                                   BackEnd                                    |                                   BackEnd                                    |
 | :--------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/u/43867711?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/110762136?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/50646827?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/77393976?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/22430531?v=4" width="100"> |
 |                    [이태림](https://github.com/ttaerrim)                     |                    [이지원](https://github.com/LEEJW1953)                     |                      [맹지승](https://github.com/js43o)                      |                   [임동혁](https://github.com/ldhbenecia)                    |                     [서지원](https://github.com/ccxz84)                      |
+
 
 ## 🔗 링크
 
