@@ -13,7 +13,8 @@
     "preview": "vite preview --host 0.0.0.0",
     "prepare": "cd ../.. && husky install app/frontend/.husky",
     "lint-front": "lint-staged",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress:open": "cypress open"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -56,6 +57,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vanilla-extract/vite-plugin": "^3.9.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cypress": "^13.6.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
