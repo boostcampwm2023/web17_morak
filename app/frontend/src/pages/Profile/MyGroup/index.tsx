@@ -40,7 +40,7 @@ export function MyGroup() {
           <Error message="현재 속한 그룹이 없습니다. 그룹에 참여해 주세요." />
         )}
       </ul>
-      <NavLink to="/groups" className={styles.groupListButton}>
+      <NavLink to="/groups" className={styles.navLinkButton}>
         <ArrowLeft
           fill={vars.color.morakGreen}
           width={24}
