@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
 import { MessageWrapper } from '@/components';
+import * as styles from '@/styles/message.css';
 
-import * as styles from './index.css';
+import { container } from './index.css';
 
 export function NotFound() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export function NotFound() {
     navigate('/');
   };
   return (
-    <div className={styles.container}>
+    <div className={container}>
       <MessageWrapper>
         <p className={styles.text}>
           {`페이지를 찾을 수 없습니다.\n`}

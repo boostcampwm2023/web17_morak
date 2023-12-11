@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { MessageWrapper } from '@/components';
-
-import * as styles from './EmptyPage.css';
+import * as styles from '@/styles/message.css';
 
 export function EmptyPage() {
   const navigate = useNavigate();
