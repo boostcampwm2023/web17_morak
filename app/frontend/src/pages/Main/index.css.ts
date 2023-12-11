@@ -7,7 +7,6 @@ export const container = style({
   flexDirection: 'column',
   margin: '0 auto',
   maxWidth: '104rem',
-  height: '81.7rem',
   color: vars.color.grayscale400,
   background: vars.color.grayscaleWhite,
 });
