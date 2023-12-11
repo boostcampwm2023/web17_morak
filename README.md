@@ -33,11 +33,19 @@
 
 ### [🔍 위키](https://github.com/boostcampwm2023/web17_morak/wiki)
 
+## 기술 스택
+| **Common** | <img src="https://img.shields.io/badge/TypeScript-5.0.2-3178C6?logo=typescript&logoColor=white&color=5C5C5C&labelColor=3178C6"/> <img src="https://img.shields.io/badge/Node.js-20.9.0-339933?logo=Node.js&color=5C5C5C&labelColor=339933&logoColor=white"/> <img src="https://img.shields.io/badge/npm-10.1.0-CB3837?logo=npm&color=5C5C5C&labelColor=CB3837"/> <img src="https://img.shields.io/badge/Turborepo-EF4444?logo=turborepo&logoColor=white"/> <img src="https://img.shields.io/badge/Socket.io-4.7.2-010101?logo=Socket.io&logoColor=white&color=5C5C5C&labelColor=010101"/>|
+|:---:|:---|
+| **FrontEnd** | <img src="https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=5C5C5C"/> <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white"/> <img src="https://img.shields.io/badge/React_Query-FF4154?logo=reactquery&logoColor=white"/> <img src="https://img.shields.io/badge/Vanilla_Extract-CCFBF2?logo=vanillaextract&logoColor=white"/> <img src="https://img.shields.io/badge/Jotai-171717?logo=ghostery&logoColor=white"/> <img src="https://img.shields.io/badge/React_Hook_Form-EC5990?logo=reacthookform&logoColor=white"/> <img src="https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white"/>  |
+| **BackEnd** | <img src="https://img.shields.io/badge/NextJS-10.0.0-E0234E?logo=nestjs&color=5C5C5C&labelColor=E0234E"/>  <img src="https://img.shields.io/badge/Prisma-5.5.2-2D3748?logo=prisma&color=5C5C5C&labelColor=2D3748"/> <img src="https://img.shields.io/badge/MySQL-8.2.0-4479A1?logo=mysql&logoColor=white&color=5C5C5C&labelColor=4479A1"/> <img src="https://img.shields.io/badge/Redis-7.2.3-DC382D?logo=redis&color=5C5C5C&labelColor=DC382D&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-7.0.3-47A248?logo=mongodb&color=5C5C5C&labelColor=47A248&logoColor=white"/> <img src="https://img.shields.io/badge/Jest-29.5.0-C21325?logo=jest&color=5C5C5C&labelColor=C21325"/>|
+| **Infra** | <img src="https://img.shields.io/badge/Github_Action-2088FF?logo=githubactions&logoColor=white"/> <img src="https://img.shields.io/badge/Naver_Cloud_Platform-03C75A?logo=naver&logoColor=white"/> <img src="https://img.shields.io/badge/Docker-24.0.7-2496ED?logo=docker&color=5C5C5C&labelColor=2496ED&logoColor=white"/> <img src="https://img.shields.io/badge/Docker_Compose-2.21.0-2496ED?logo=docker&color=5C5C5C&labelColor=2496ED&logoColor=white"/> <img src="https://img.shields.io/badge/nginx-1.25.3-009639?logo=nginx&color=5C5C5C&labelColor=009639"/> <img src="https://img.shields.io/badge/Vault-1.13.3-FFEC6E?logo=vault&color=5C5C5C&labelColor=FFEC6E&logoColor=white"/>|
+| **Collaboration** | <img src="https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white"/>	<img src="https://img.shields.io/badge/Notion-000000?logo=Notion"> <img src="https://img.shields.io/badge/Figma-F24E1E?logo=Figma&logoColor=ffffff"> <img src="https://img.shields.io/badge/Discord-5865F2?logo=Discord&logoColor=ffffff"> |
+
 ## 📚 개발 일지
 
 - [assets는 어디에 두어야 할까요?](https://www.notion.so/assets-9b3e50f913cb4fdbabce2c0b5a06851f?pvs=21)
 - [폼 작성 시 장소 선택 TMAP API 적용하기](https://www.notion.so/TMAP-API-1645d224b33d4f968ee81dca843bd8ae?pvs=21)
-- [FE 채팅 기능 구현과 트러블슈팅](https://www.notion.so/FE-9c866a10d5754c81bf86850a881486ef?pvs=21)
+- [**FE** 채팅 기능 구현과 트러블슈팅](https://www.notion.so/FE-9c866a10d5754c81bf86850a881486ef?pvs=21)
 - [NestJS JWT 유저 정보 반환](https://www.notion.so/NestJS-JWT-67f910a8f32140ccb43bf9d9622c8b84?pvs=21)
 - [Jest path alios 설정](https://www.notion.so/Jest-path-alios-433965335b5845878257813e3e733cac?pvs=21)
 - [NestJS 빡치는 라우팅 시스템에 대해 알아보자](https://www.notion.so/NestJS-f3d7e301dd5040d2950f423ca211ecae?pvs=21)
