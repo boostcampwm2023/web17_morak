@@ -48,7 +48,7 @@
 
 | <!-- -->     | <!-- -->                                                                                                       |
 | ------------ | :------------------------------------------------------------------------------------------------------------- |
-| **Common**   | • Monorepo <br/>• http://Socket.io 채팅                                                                        |
+| **Common**   | • Monorepo <br/>• socket.io 채팅                                                                               |
 | **FrontEnd** | • Test Code 작성 <br/>• 성능 최적화 <br/>• 패키지 배포                                                         |
 | **BackEnd**  | • OAuth, 인증・인가 <br/>• Unit Test Code 작성                                                                 |
 | **Infra**    | • Github Action CI/CD 구축 <br/>• VPN 서버 구축 <br/>• Nginx 서버 구축 <br/>• Docker Registry, Vault 서버 구축 |
@@ -62,6 +62,10 @@
 |    **BackEnd**    | <img src="https://img.shields.io/badge/NextJS-10.0.0-E0234E?logo=nestjs&color=5C5C5C&labelColor=E0234E"/> <img src="https://img.shields.io/badge/Prisma-5.5.2-2D3748?logo=prisma&color=5C5C5C&labelColor=2D3748"/> <img src="https://img.shields.io/badge/MySQL-8.2.0-4479A1?logo=mysql&logoColor=white&color=5C5C5C&labelColor=4479A1"/> <img src="https://img.shields.io/badge/Redis-7.2.3-DC382D?logo=redis&color=5C5C5C&labelColor=DC382D&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-7.0.3-47A248?logo=mongodb&color=5C5C5C&labelColor=47A248&logoColor=white"/> <img src="https://img.shields.io/badge/Jest-29.5.0-C21325?logo=jest&color=5C5C5C&labelColor=C21325"/> |
 |     **Infra**     | <img src="https://img.shields.io/badge/Github_Action-2088FF?logo=githubactions&logoColor=white"/> <img src="https://img.shields.io/badge/Naver_Cloud_Platform-03C75A?logo=naver&logoColor=white"/> <img src="https://img.shields.io/badge/Docker-24.0.7-2496ED?logo=docker&color=5C5C5C&labelColor=2496ED&logoColor=white"/> <img src="https://img.shields.io/badge/Docker_Compose-2.21.0-2496ED?logo=docker&color=5C5C5C&labelColor=2496ED&logoColor=white"/> <img src="https://img.shields.io/badge/nginx-1.25.3-009639?logo=nginx&color=5C5C5C&labelColor=009639"/> <img src="https://img.shields.io/badge/Vault-1.13.3-FFEC6E?logo=vault&color=5C5C5C&labelColor=FFEC6E&logoColor=white"/>    |
 | **Collaboration** | <img src="https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?logo=Notion"> <img src="https://img.shields.io/badge/Figma-F24E1E?logo=Figma&logoColor=ffffff"> <img src="https://img.shields.io/badge/Discord-5865F2?logo=Discord&logoColor=ffffff">                                                                                                                                                                                                                                                                                                                                                                      |
+
+## 아키텍처 구조도
+
+![image](https://github.com/boostcampwm2023/web17_morak/assets/43867711/adf6c3ca-7fff-4cf0-a7ae-4ae79ac1e28f)
 
 ## 브랜치 전략
 
