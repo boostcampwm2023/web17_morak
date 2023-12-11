@@ -1,9 +1,5 @@
 export type MapOptions = {
   zoomControl?: boolean;
-  draggable?: boolean;
-  scrollwheel?: boolean;
-  scaleBar?: boolean;
-  pinchZoom?: boolean;
 };
 
 export type NewAddress = {
@@ -42,13 +38,7 @@ export type TMap = {
   setCenter: (latLng: TMapLatLng) => void;
   setZoomLimit: (minZoom: number, maxZoom: number) => void;
   setZoom: (zoomLevel: number) => void;
-  setOptions: ({
-    zoomControl,
-    draggable,
-    scrollwheel,
-    scaleBar,
-    pinchZoom,
-  }: MapOptions) => void;
+  setOptions: ({ zoomControl }: MapOptions) => void;
   destroy: () => void;
   addListener: (
     eventType: EventType,
