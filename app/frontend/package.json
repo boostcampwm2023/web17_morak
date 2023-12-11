@@ -14,7 +14,8 @@
     "prepare": "cd ../.. && husky install app/frontend/.husky",
     "lint-front": "lint-staged",
     "test": "vitest",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -58,7 +59,7 @@
     "@vanilla-extract/vite-plugin": "^3.9.0",
     "@vitejs/plugin-react": "^4.0.3",
     "cypress": "^13.6.1",
-    "cypress-image-diff-js": "^2.0.0",
+    "cypress-image-snapshot": "^4.0.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
