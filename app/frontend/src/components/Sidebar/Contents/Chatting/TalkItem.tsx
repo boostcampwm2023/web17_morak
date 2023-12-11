@@ -7,8 +7,8 @@ import { UserChip } from '@/components';
 import * as styles from './ChatItem.css';
 
 type TalkItemProps = {
-  nickname: string;
-  profilePicture: string;
+  nickname?: string;
+  profilePicture?: string;
   contents: string;
   date: Date;
   isMine: boolean;
