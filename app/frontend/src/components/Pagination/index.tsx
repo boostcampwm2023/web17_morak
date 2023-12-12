@@ -31,7 +31,12 @@ export function Pagination({
 
   return (
     <div className={`${styles.container} ${className}`}>
-      <button type="button" onClick={onClickPrev} disabled={isFirstPage}>
+      <button
+        type="button"
+        onClick={onClickPrev}
+        disabled={isFirstPage}
+        aria-label="prev-page"
+      >
         {arrow}
       </button>
       {array.map((page) => (
@@ -52,6 +57,7 @@ export function Pagination({
         className={styles.rotateArrow}
         onClick={onClickNext}
         disabled={isLastPage}
+        aria-label="next-page"
       >
         {arrow}
       </button>

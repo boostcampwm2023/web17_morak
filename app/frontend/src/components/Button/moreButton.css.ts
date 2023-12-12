@@ -31,7 +31,7 @@ export const dropdown = style({
 export const dropdownButton = style([
   sansRegular16,
   {
-    padding: '1rem',
+    padding: '0.8rem',
     width: '100%',
     whiteSpace: 'nowrap',
 
@@ -57,7 +57,7 @@ export const dropdownItem = style({
 export const moreButton = style({
   display: 'flex',
   borderRadius: '50%',
-  padding: '1rem',
+  padding: '0.8rem',
 
   ':hover': {
     background: vars.color.grayscale50,
