@@ -1,4 +1,4 @@
-import { Button } from '@/components';
+import { Button } from '@morak/ui';
 
 import * as styles from './index.css';
 

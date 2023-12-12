@@ -1,6 +1,5 @@
 import { ResponseMogacoWithMemberDto } from '@morak/apitype';
-
-import { Button } from '@/components';
+import { Button } from '@morak/ui';
 
 import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';

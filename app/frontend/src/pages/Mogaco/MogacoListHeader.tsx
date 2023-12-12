@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Button } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { Button } from '@/components';
 import { PATH } from '@/constants';
 import { queryKeys } from '@/queries';
 

@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
-import { Input } from '@morak/ui';
+import { Input, Button } from '@morak/ui';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import { Button } from '@/components';
 import { useDebounce } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';

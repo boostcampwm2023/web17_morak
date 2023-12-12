@@ -15,6 +15,7 @@
   },
   "peerDependencies": {
     "@vanilla-extract/css": "^1.14.0",
+    "@vanilla-extract/recipes": "^1.14.0",
     "react": "^18.2.0"
   }
 }
