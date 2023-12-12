@@ -13,8 +13,16 @@ export const getMyInfoQuery = {
 
 export { memberKeys };
 
-export const useGetLoginBasedMyInfoQuery = () =>
-  useQuery({ ...getMyInfoQuery, staleTime: 0 });
+export const useGetLoginBasedMyInfoQuery = () => {
+  const { data, isLoading, isSuccess } = useQuery({
+    ...getMyInfoQuery,
+    staleTime: 0,
+  });
+
+  const isLogin = isSuccess && data;
+
+  return { isLoading, isLogin };
+};
 
 export const useGetMyInfoQuery = () =>
   useQuery({ ...getMyInfoQuery, staleTime: Infinity });
