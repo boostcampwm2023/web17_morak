@@ -1,31 +1,18 @@
-import { TextLabel } from '@morak/ui';
-
-import * as styles from './Textarea.css';
+import * as styles from './index.css';
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  label?: string;
   errorMessage?: string;
   fullWidth?: boolean;
 };
 
-export function Textarea({ label = '', errorMessage = '', fullWidth = false, ...rest }: TextareaProps) {
-  const { value, maxLength, disabled, required } = rest;
+export function Textarea({ errorMessage = '', fullWidth = false, ...rest }: TextareaProps) {
+  const { maxLength, disabled } = rest;
 
   return (
     <div
       className={`${styles.container} ${errorMessage && styles.error}
       ${disabled && styles.disabled} ${fullWidth && styles.fullWidth}`}
     >
-      {label && (
-        <div className={styles.titleWrapper}>
-          <TextLabel label={label} required={required} />
-          {maxLength && (
-            <span className={styles.count}>
-              {value?.toString()?.length || 0}/{maxLength}
-            </span>
-          )}
-        </div>
-      )}
       <textarea
         className={styles.textarea}
         disabled={disabled}

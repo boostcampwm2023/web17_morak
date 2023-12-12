@@ -2,6 +2,7 @@ export * from './Auth';
 export * from './Divider';
 export * from './Error';
 export * from './FormInput';
+export * from './FormInput/Textarea';
 export * from './Group';
 export * from './Header';
 export * from './Label';

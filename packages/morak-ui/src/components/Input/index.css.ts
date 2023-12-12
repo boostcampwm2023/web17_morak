@@ -35,7 +35,11 @@ export const errorMessage = style([
   },
 ]);
 
+export const fullWidth = style({
+  flexGrow: 1,
+});
 export const hide = style({});
+
 export const input = style([
   fontStyle.sansRegular14,
   {
@@ -66,5 +70,13 @@ export const input = style([
         WebkitAppearance: 'none',
       },
     },
+  },
+]);
+
+export const textarea = style([
+  input,
+  {
+    resize: 'none',
+    width: '100%',
   },
 ]);
