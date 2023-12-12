@@ -1,13 +1,19 @@
 describe('메인 페이지 비로그인 테스트', () => {
-  it('로그인하지 않고 메뉴를 클릭했을 경우 로그인 필요 모달이 떠야 한다', () => {
+  beforeEach(() => {
+    cy.clearCookie('access_token');
     cy.viewport('macbook-13');
     cy.visit('/');
+  });
+
+  it('로그인하지 않고 메뉴를 클릭했을 경우 로그인 필요 모달이 떠야 한다', () => {
+    cy.clearCookie('access_token');
     cy.get('[data-cy="header-menu"] > [data-cy="header-menu-item"]').each(
       ($li) => {
         cy.wrap($li).click().wait(100);
         cy.get('dialog').find('button').click();
       },
     );
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
     cy.get('[data-cy="login-button"] > button').should('be.visible');
   });
 });
