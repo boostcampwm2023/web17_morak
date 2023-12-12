@@ -1,28 +1,14 @@
 import * as styles from './index.css';
 
-type ButtonProps = {
-  type?: 'button' | 'submit' | 'reset';
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   theme: 'primary' | 'danger';
   shape: 'fill' | 'line' | 'text';
   size: 'small' | 'medium' | 'large';
-  disabled?: boolean;
   fullWidth?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  children: React.ReactNode;
-  className?: string;
 };
 
-export function Button({
-  type = 'button',
-  theme,
-  shape,
-  size,
-  disabled = false,
-  fullWidth = false,
-  onClick,
-  children,
-  className,
-}: ButtonProps) {
+export function Button({ theme, shape, size, fullWidth = false, ...rest }: ButtonProps) {
+  const { type = 'button', disabled = false, children, className } = rest;
   return (
     <button
       // eslint-disable-next-line react/button-has-type
@@ -34,8 +20,8 @@ export function Button({
         disabled,
         fullWidth,
       })} ${className || ''}`}
-      onClick={onClick}
-      disabled={disabled}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...rest}
     >
       {children}
     </button>
