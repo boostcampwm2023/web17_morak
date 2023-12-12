@@ -1,4 +1,3 @@
-import { CookiesProvider } from 'react-cookie';
 import { RouterProvider } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -16,12 +15,10 @@ function App() {
   const router = useRouter();
 
   return (
-    <CookiesProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </CookiesProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
