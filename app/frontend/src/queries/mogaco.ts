@@ -11,4 +11,8 @@ export const mogacoKeys = createQueryKeys('mogaco', {
     queryKey: [id],
     queryFn: () => mogaco.detail(id),
   }),
+  myMogaco: () => ({
+    queryKey: ['myMogaco'],
+    queryFn: () => mogaco.myMogaco(),
+  }),
 });

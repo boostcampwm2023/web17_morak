@@ -35,3 +35,7 @@ export const profileImage = style({
   borderRadius: '50%',
   overflow: 'hidden',
 });
+
+export const unknown = style({
+  color: vars.color.grayscale200,
+});

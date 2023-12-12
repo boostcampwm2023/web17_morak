@@ -74,8 +74,8 @@ export function ChatList({
         return chatItem.messageType === 'talk' ? (
           <MemorizedTalkItem
             key={chatItem.date.toString()}
-            nickname={participantInfo?.nickname || ''}
-            profilePicture={participantInfo?.profilePicture || ''}
+            nickname={participantInfo?.nickname}
+            profilePicture={participantInfo?.profilePicture}
             contents={chatItem.contents}
             date={chatItem.date}
             isMine={chatItem.user === userId}
