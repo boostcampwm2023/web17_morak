@@ -1,4 +1,4 @@
-import { FieldLabel } from '@morak/ui';
+import { TextLabel } from '@morak/ui';
 
 import * as styles from './Textarea.css';
 
@@ -8,12 +8,7 @@ type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   fullWidth?: boolean;
 };
 
-export function Textarea({
-  label = '',
-  errorMessage = '',
-  fullWidth = false,
-  ...rest
-}: TextareaProps) {
+export function Textarea({ label = '', errorMessage = '', fullWidth = false, ...rest }: TextareaProps) {
   const { value, maxLength, disabled, required } = rest;
 
   return (
@@ -23,7 +18,7 @@ export function Textarea({
     >
       {label && (
         <div className={styles.titleWrapper}>
-          <FieldLabel label={label} required={required} />
+          <TextLabel label={label} required={required} />
           {maxLength && (
             <span className={styles.count}>
               {value?.toString()?.length || 0}/{maxLength}
@@ -38,9 +33,7 @@ export function Textarea({
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
-      {!disabled && errorMessage && (
-        <p className={styles.errorMessage}>{errorMessage}</p>
-      )}
+      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 }
