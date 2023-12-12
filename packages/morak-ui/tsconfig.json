@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+
+  "extends": "@morak/tsconfig/frontend.json",
+  "include": ["src"]
+}
