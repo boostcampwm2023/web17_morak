@@ -2,7 +2,6 @@ export * from './Auth';
 export * from './Button';
 export * from './Divider';
 export * from './Error';
-export * from './FieldLabel';
 export * from './Group';
 export * from './Header';
 export * from './Input';
