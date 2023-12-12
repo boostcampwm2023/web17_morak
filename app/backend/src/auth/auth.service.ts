@@ -12,6 +12,10 @@ export class AuthService {
     private authRepository: AuthRepository,
   ) {}
 
+  private async getUserIdFromToken(providerId: string): Promise<bigint> {
+    return await this.authRepository.getUserIdFromToken(providerId);
+  }
+
   async handleLogin(userDto: CreateUserDto): Promise<Tokens> {
     const { providerId } = userDto;
     const existingUser = await this.authRepository.findUserByIdentifier(providerId);
@@ -39,6 +43,7 @@ export class AuthService {
 
   async signIn(userDto: CreateUserDto): Promise<Tokens | null> {
     const { providerId, socialType, email, profilePicture, nickname } = userDto;
+    const userId = await this.getUserIdFromToken(providerId);
 
     const existingUser = await this.authRepository.findUserByIdentifier(providerId);
 
@@ -49,6 +54,7 @@ export class AuthService {
     }
 
     const token = this.generateJwt({
+      userId,
       providerId,
       socialType,
       email,
@@ -67,7 +73,7 @@ export class AuthService {
   async refresh(refreshToken: string): Promise<string> {
     try {
       const decodedRefreshToken = this.jwtService.verify(refreshToken, { secret: getSecret('JWT_REFRESH_SECRET') });
-      const { providerId, socialType, email, profilePicture, nickname } = decodedRefreshToken;
+      const { userId, providerId, socialType, email, profilePicture, nickname } = decodedRefreshToken;
 
       const storedRefreshToken = await this.authRepository.getRefreshToken(providerId);
 
@@ -76,6 +82,7 @@ export class AuthService {
       }
 
       const token = this.generateJwt({
+        userId,
         providerId,
         socialType,
         email,
