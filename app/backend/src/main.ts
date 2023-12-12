@@ -19,8 +19,6 @@ async function bootstrap() {
     setupSwagger(app);
   }
 
-  console.log(getSecret('NODE_ENV'));
-
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
   await app.listen(getSecret('PORT'));
 }
