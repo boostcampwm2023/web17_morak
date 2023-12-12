@@ -1,5 +1,6 @@
+import { FieldLabel } from '@morak/ui';
+
 import * as styles from './index.css';
-import { FieldLabel } from '../FieldLabel';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
+import { FieldLabel } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { FieldLabel } from '@/components';
 import { queryKeys } from '@/queries';
 
 import * as styles from './group.css';

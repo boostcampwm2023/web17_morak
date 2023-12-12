@@ -1,5 +1,6 @@
+import { FieldLabel } from '@morak/ui';
+
 import * as styles from './Textarea.css';
-import { FieldLabel } from '../FieldLabel';
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
