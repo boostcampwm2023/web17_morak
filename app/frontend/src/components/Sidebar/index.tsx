@@ -18,6 +18,7 @@ export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
         className={styles.closeButton}
         onClick={toggleClosed}
         data-cy="sidebar-button"
+        aria-label={closed ? '사이드바 열기' : '사이드바 닫기'}
       >
         <ArrowLeft
           className={closed ? styles.flip : ''}

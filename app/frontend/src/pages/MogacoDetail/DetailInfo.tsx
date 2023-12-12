@@ -56,6 +56,7 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
             participantsShown ? styles.shown : ''
           }`}
           onClick={toggleParticipantsShown}
+          aria-label="toggle-participants"
         >
           <ArrowDown width={16} height={16} fill={vars.color.grayscaleBlack} />
         </button>
