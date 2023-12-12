@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-import { Button, Textarea } from '@/components';
+import { Textarea } from '@morak/ui';
+
+import { Button } from '@/components';
 
 import * as styles from './index.css';
 

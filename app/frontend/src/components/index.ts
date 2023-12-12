@@ -4,8 +4,6 @@ export * from './Divider';
 export * from './Error';
 export * from './Group';
 export * from './Header';
-export * from './Input';
-export * from './Input/Textarea';
 export * from './Label';
 export * from './Layout';
 export * from './Loading';
