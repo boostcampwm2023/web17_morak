@@ -8,5 +8,6 @@ describe('메인 페이지 비로그인 테스트', () => {
         cy.get('dialog').find('button').click();
       },
     );
+    cy.get('[data-cy="login-button"] > button').should('be.visible');
   });
 });
