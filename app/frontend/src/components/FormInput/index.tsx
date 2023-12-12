@@ -15,11 +15,7 @@ export function FormInput({
   const { value, maxLength, disabled, required } = rest;
 
   return (
-    <div
-      className={`${styles.container} ${errorMessage && styles.error} ${
-        disabled && styles.disabled
-      }`}
-    >
+    <div className={styles.container}>
       {label && (
         <div className={styles.titleWrapper}>
           <TextLabel label={label} required={required} />

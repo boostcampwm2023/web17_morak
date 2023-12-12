@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars, fontStyle } from '@/styles';
+import { sansRegular14 } from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -9,7 +9,7 @@ export const container = style({
 });
 
 export const count = style([
-  fontStyle.sansRegular14,
+  sansRegular14,
   {
     visibility: 'hidden',
 
@@ -20,23 +20,6 @@ export const count = style([
     },
   },
 ]);
-export const disabled = style({});
-
-export const error = style({});
-
-export const errorMessage = style([
-  fontStyle.sansRegular14,
-  {
-    color: vars.color.morakRed,
-    marginTop: '0.4rem',
-  },
-]);
-
-export const fullWidth = style({
-  flexGrow: 1,
-});
-
-export const hide = style({});
 
 export const titleWrapper = style({
   display: 'flex',
