@@ -19,7 +19,7 @@ export function Header() {
           <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
-        <ul className={styles.sideMenu}>
+        <ul className={styles.sideMenu} data-cy="header-menu">
           {SIDE_MENU.map((menu) => (
             <li
               role="menuitem"
@@ -29,6 +29,7 @@ export function Header() {
               className={`${styles.sideMenuButton} ${
                 pathname === `/${menu.pathname}` ? styles.active : ''
               }`}
+              data-cy="header-menu-item"
             >
               {menu.value}
             </li>
