@@ -1,6 +1,7 @@
+import { Button } from '@morak/ui';
+
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import MAIN_IMAGE from '@/assets/images/main.png';
-import { Button } from '@/components';
 import { URL } from '@/constants';
 import { getCookies } from '@/utils';
 
