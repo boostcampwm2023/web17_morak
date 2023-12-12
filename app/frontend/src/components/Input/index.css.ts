@@ -9,7 +9,7 @@ export const container = style({
 });
 
 export const count = style([
-  fontStyle.sansRegular12,
+  fontStyle.sansRegular14,
   {
     visibility: 'hidden',
 
@@ -25,7 +25,7 @@ export const disabled = style({});
 export const error = style({});
 
 export const errorMessage = style([
-  fontStyle.sansRegular12,
+  fontStyle.sansRegular14,
   {
     color: vars.color.morakRed,
     marginTop: '0.4rem',
@@ -38,7 +38,7 @@ export const fullWidth = style({
 
 export const hide = style({});
 export const input = style([
-  fontStyle.sansRegular12,
+  fontStyle.sansRegular14,
   {
     padding: '0.8rem',
     color: vars.color.grayscale500,

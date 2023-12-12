@@ -1,6 +1,8 @@
+import { Button } from '@morak/ui';
+
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
-import MAIN_IMAGE from '@/assets/images/main.png';
-import { Button } from '@/components';
+import MAIN_IMAGE_PNG from '@/assets/images/main.png';
+import MAIN_IMAGE_WEBP from '@/assets/images/main.webp';
 import { URL } from '@/constants';
 import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
 
@@ -37,7 +39,18 @@ export function MainPage() {
           )}
         </div>
       </div>
-      <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
+      <picture>
+        <source
+          type="image/webp"
+          srcSet={MAIN_IMAGE_WEBP}
+          className={styles.mainImage}
+        />
+        <img
+          src={MAIN_IMAGE_PNG}
+          alt="메인 이미지"
+          className={styles.mainImage}
+        />
+      </picture>
     </div>
   );
 }

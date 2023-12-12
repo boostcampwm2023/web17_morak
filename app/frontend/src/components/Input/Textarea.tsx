@@ -1,56 +1,41 @@
 import * as styles from './Textarea.css';
 import { FieldLabel } from '../FieldLabel';
 
-type TextareaProps = {
+type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
-  maxLength: number;
-  placeholder?: string;
   errorMessage?: string;
-  disabled?: boolean;
-  required?: boolean;
   fullWidth?: boolean;
-  rows?: number;
-  value?: string;
-  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
-  onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
 export function Textarea({
-  label,
-  placeholder = '',
+  label = '',
   errorMessage = '',
-  disabled = false,
-  maxLength,
-  required = false,
   fullWidth = false,
-  rows = 2,
-  value,
-  onChange,
-  onKeyDown,
+  ...rest
 }: TextareaProps) {
+  const { value, maxLength, disabled, required } = rest;
+
   return (
     <div
-      className={`${styles.container} ${errorMessage && styles.error} ${
-        disabled && styles.disabled
-      } ${fullWidth && styles.fullWidth}`}
+      className={`${styles.container} ${errorMessage && styles.error}
+      ${disabled && styles.disabled} ${fullWidth && styles.fullWidth}`}
     >
       {label && (
         <div className={styles.titleWrapper}>
           <FieldLabel label={label} required={required} />
-          <span className={styles.count}>
-            {value ? value.length : 0}/{maxLength}
-          </span>
+          {maxLength && (
+            <span className={styles.count}>
+              {value?.toString()?.length || 0}/{maxLength}
+            </span>
+          )}
         </div>
       )}
       <textarea
-        rows={rows}
         className={styles.textarea}
-        placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
-        value={value}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...rest}
       />
       {!disabled && errorMessage && (
         <p className={styles.errorMessage}>{errorMessage}</p>
