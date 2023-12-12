@@ -17,6 +17,7 @@ export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
         type="button"
         className={styles.closeButton}
         onClick={toggleClosed}
+        data-cy="sidebar-button"
       >
         <ArrowLeft
           className={closed ? styles.flip : ''}
