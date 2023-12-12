@@ -24,7 +24,7 @@ export function ChatList({
 }: ChatListProps) {
   const prevScrollHeightRef = useRef(0);
   const listElemRef = useRef<HTMLUListElement>(null);
-  const observableRef = useRef<HTMLDivElement | null>(null);
+  const observableRef = useRef<HTMLLIElement | null>(null);
   const exposed = useObserver(observableRef);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export function ChatList({
 
   return (
     <ul className={styles.chatList} ref={listElemRef}>
-      <div ref={observableRef} />
+      <li ref={observableRef} />
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
           (participant) => participant.id === chatItem.user,

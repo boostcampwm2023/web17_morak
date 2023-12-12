@@ -27,7 +27,7 @@ function TalkItem({
     : wrappedDate.format('MM.DD h:mm A');
 
   return (
-    <div className={styles.talkContainer}>
+    <li className={styles.talkContainer}>
       {!isMine && <UserChip username={nickname} profileSrc={profilePicture} />}
       <div className={`${styles.talkContents} ${isMine && styles.isMine}`}>
         {contents}
@@ -35,7 +35,7 @@ function TalkItem({
       <div className={`${styles.datetime} ${isMine && styles.isMine}`}>
         {dateString}
       </div>
-    </div>
+    </li>
   );
 }
 
