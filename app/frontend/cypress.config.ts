@@ -8,4 +8,8 @@ export default defineConfig({
       addMatchImageSnapshotPlugin(on, config);
     },
   },
+  env: {
+    // ACCESS_TOKEN을 넣은 채로 커밋하지 않도록 주의
+    ACCESS_TOKEN: '',
+  },
 });

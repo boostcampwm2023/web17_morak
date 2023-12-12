@@ -20,7 +20,7 @@ export function Header() {
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
         <nav>
-          <ul className={styles.sideMenu} role="menubar">
+          <ul className={styles.sideMenu} role="menubar" data-cy="header-menu">
             {SIDE_MENU.map((menu) => (
               <li
                 key={menu.pathname}
@@ -31,6 +31,7 @@ export function Header() {
                 }`}
                 role="menuitem"
                 aria-label={menu.pathname}
+                data-cy="header-menu-item"
               >
                 {menu.value}
               </li>
