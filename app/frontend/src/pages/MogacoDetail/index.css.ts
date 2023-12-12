@@ -1,7 +1,12 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold16, sansBold24, sansRegular16 } from '@/styles/font.css';
+import {
+  sansBold16,
+  sansBold24,
+  sansRegular14,
+  sansRegular16,
+} from '@/styles/font.css';
 
 export const buttons = style({
   display: 'flex',
@@ -17,6 +22,13 @@ export const container = style([
     width: '100%',
     maxWidth: '80rem',
     lineHeight: '1.6',
+  },
+]);
+
+export const contents = style([
+  sansRegular14,
+  {
+    wordBreak: 'break-all',
   },
 ]);
 
