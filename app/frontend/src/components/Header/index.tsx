@@ -19,22 +19,24 @@ export function Header() {
           <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
-        <ul className={styles.sideMenu} role="menubar">
-          {SIDE_MENU.map((menu) => (
-            <li
-              key={menu.pathname}
-              onClick={() => onClickMenu(menu.pathname)}
-              onKeyDown={() => onClickMenu(menu.pathname)}
-              className={`${styles.sideMenuButton} ${
-                pathname === `/${menu.pathname}` ? styles.active : ''
-              }`}
-              role="menuitem"
-              aria-label={menu.pathname}
-            >
-              {menu.value}
-            </li>
-          ))}
-        </ul>
+        <nav>
+          <ul className={styles.sideMenu} role="menubar">
+            {SIDE_MENU.map((menu) => (
+              <li
+                key={menu.pathname}
+                onClick={() => onClickMenu(menu.pathname)}
+                onKeyDown={() => onClickMenu(menu.pathname)}
+                className={`${styles.sideMenuButton} ${
+                  pathname === `/${menu.pathname}` ? styles.active : ''
+                }`}
+                role="menuitem"
+                aria-label={menu.pathname}
+              >
+                {menu.value}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   );
