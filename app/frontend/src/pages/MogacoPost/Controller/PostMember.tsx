@@ -1,5 +1,4 @@
-import { Input } from '@morak/ui';
-
+import { FormInput } from '@/components';
 import { MOGACO_POST } from '@/constants';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 
@@ -7,7 +6,7 @@ export function PostMember() {
   const { data } = useGetMyInfoQuery();
 
   return (
-    <Input
+    <FormInput
       label={MOGACO_POST.MEMBER.LABEL}
       required
       disabled
