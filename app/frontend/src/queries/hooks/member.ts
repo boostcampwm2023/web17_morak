@@ -9,8 +9,12 @@ const memberKeys = {
 export const getMyInfoQuery = {
   queryKey: memberKeys.me,
   queryFn: () => member.myInfo(),
-  staleTime: Infinity,
 };
 
 export { memberKeys };
-export const useGetMyInfoQuery = () => useQuery(getMyInfoQuery);
+
+export const useGetLoginBasedMyInfoQuery = () =>
+  useQuery({ ...getMyInfoQuery, staleTime: 0 });
+
+export const useGetMyInfoQuery = () =>
+  useQuery({ ...getMyInfoQuery, staleTime: Infinity });
