@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 
 import { ResponseMogacoDto } from '@morak/apitype';
+import { Label } from '@morak/ui';
 import dayjs from 'dayjs';
 
 import { ReactComponent as Calendar } from '@/assets/icons/calendar.svg';
 import { ReactComponent as Map } from '@/assets/icons/map.svg';
-import { Label } from '@/components';
 
 import * as styles from './index.css';
 
