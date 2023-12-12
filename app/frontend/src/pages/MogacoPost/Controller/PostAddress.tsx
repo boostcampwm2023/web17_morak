@@ -1,8 +1,9 @@
 import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
+import { Input } from '@morak/ui';
 
-import { Input, MapModal } from '@/components';
+import { MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
 import { useModal } from '@/hooks';
 

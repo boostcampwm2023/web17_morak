@@ -1,4 +1,5 @@
-import { Input } from '@/components';
+import { Input } from '@morak/ui';
+
 import { useModalAtom } from '@/stores';
 import { sansRegular16 } from '@/styles/font.css';
 

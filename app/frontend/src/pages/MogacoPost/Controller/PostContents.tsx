@@ -1,8 +1,8 @@
 import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
+import { Textarea } from '@morak/ui';
 
-import { Textarea } from '@/components';
 import { MOGACO_POST } from '@/constants';
 
 type PostContentsProps = {

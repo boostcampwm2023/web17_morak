@@ -1,9 +1,9 @@
 import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
+import { Input } from '@morak/ui';
 import dayjs from 'dayjs';
 
-import { Input } from '@/components';
 import { MOGACO_POST } from '@/constants';
 
 type PostDateProps = {

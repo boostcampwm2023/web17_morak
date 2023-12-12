@@ -1,24 +1,20 @@
-import * as styles from './Textarea.css';
-import { FieldLabel } from '../FieldLabel';
+import { FieldLabel } from '@morak/ui';
 
-type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+import * as styles from './index.css';
+
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   errorMessage?: string;
-  fullWidth?: boolean;
 };
 
-export function Textarea({
-  label = '',
-  errorMessage = '',
-  fullWidth = false,
-  ...rest
-}: TextareaProps) {
+export function Input({ label = '', errorMessage = '', ...rest }: InputProps) {
   const { value, maxLength, disabled, required } = rest;
 
   return (
     <div
-      className={`${styles.container} ${errorMessage && styles.error}
-      ${disabled && styles.disabled} ${fullWidth && styles.fullWidth}`}
+      className={`${styles.container} ${errorMessage && styles.error} ${
+        disabled && styles.disabled
+      }`}
     >
       {label && (
         <div className={styles.titleWrapper}>
@@ -30,8 +26,8 @@ export function Textarea({
           )}
         </div>
       )}
-      <textarea
-        className={styles.textarea}
+      <input
+        className={styles.input}
         disabled={disabled}
         maxLength={maxLength}
         // eslint-disable-next-line react/jsx-props-no-spreading

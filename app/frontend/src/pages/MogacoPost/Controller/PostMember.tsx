@@ -1,4 +1,5 @@
-import { Input } from '@/components';
+import { Input } from '@morak/ui';
+
 import { MOGACO_POST } from '@/constants';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 
