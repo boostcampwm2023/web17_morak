@@ -20,6 +20,8 @@
     "dev": {},
     "dev:test": {},
     "lint": {},
-    "lint:fix": {}
+    "lint:fix": {},
+    "cypress:open": {},
+    "cypress:run": {}
   }
 }
