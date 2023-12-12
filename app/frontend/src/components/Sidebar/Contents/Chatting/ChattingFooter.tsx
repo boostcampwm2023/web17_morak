@@ -38,6 +38,7 @@ export function ChattingFooter({ userId, sendMessage }: ChattingFooterProps) {
   return (
     <form className={styles.footer} onSubmit={onSubmit}>
       <Textarea
+        aria-label="메시지 입력"
         value={message}
         maxLength={300}
         fullWidth
