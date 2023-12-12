@@ -1,11 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars } from '@/styles';
-import { sansRegular12 } from '@/styles/font.css';
+import { vars, fontStyle } from '@/styles';
 
 const { grayscaleBlack } = vars.color;
 export const label = style([
-  sansRegular12,
+  fontStyle.sansRegular14,
   {
     color: grayscaleBlack,
   },
