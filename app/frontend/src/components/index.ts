@@ -3,7 +3,6 @@ export * from './Divider';
 export * from './Error';
 export * from './Group';
 export * from './Header';
-export * from './Label';
 export * from './Layout';
 export * from './Loading';
 export * from './Loading/LoadingIndicator';
