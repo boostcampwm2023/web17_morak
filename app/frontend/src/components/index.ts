@@ -1,5 +1,4 @@
 export * from './Auth';
-export * from './Button';
 export * from './Divider';
 export * from './Error';
 export * from './Group';
