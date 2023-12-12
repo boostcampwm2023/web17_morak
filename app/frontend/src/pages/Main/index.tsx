@@ -2,7 +2,7 @@ import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import MAIN_IMAGE from '@/assets/images/main.png';
 import { Button } from '@/components';
 import { URL } from '@/constants';
-import { getCookies } from '@/utils';
+import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
 
 import * as styles from './index.css';
 
@@ -11,7 +11,13 @@ export function MainPage() {
     window.location.href = `${URL.API}/auth/google/login`;
   };
 
-  const isLogin = getCookies('access_token');
+  const {
+    data: userInfo,
+    isLoading,
+    isSuccess,
+  } = useGetLoginBasedMyInfoQuery();
+
+  const isLogin = !isLoading && isSuccess && userInfo;
 
   return (
     <div className={styles.container}>

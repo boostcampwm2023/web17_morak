@@ -1,14 +1,20 @@
 import { ReactNode, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { getCookies } from '@/utils';
+import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
 
 type AuthProps = {
   children: ReactNode;
 };
 
 export function AuthRequired({ children }: AuthProps) {
-  const accessToken = getCookies('access_token');
+  const {
+    data: userInfo,
+    isLoading,
+    isSuccess,
+  } = useGetLoginBasedMyInfoQuery();
+
+  const isLogin = !isLoading && isSuccess && userInfo;
 
   const navigate = useNavigate();
   const redirectToMain = useCallback(() => {
@@ -16,10 +22,10 @@ export function AuthRequired({ children }: AuthProps) {
   }, [navigate]);
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!isLogin) {
       redirectToMain();
     }
-  }, [accessToken, redirectToMain]);
+  }, [isLogin, redirectToMain]);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;

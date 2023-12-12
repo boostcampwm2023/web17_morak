@@ -1,13 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
-import { getCookies } from '@/utils';
+import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
 
 import { useLoginRequireModal } from './useLoginRequireModal';
 
 export const useClickMenu = () => {
   const navigate = useNavigate();
   const { openLoginRequireModal } = useLoginRequireModal();
-  const isLogin = getCookies('access_token');
+  const {
+    data: userInfo,
+    isLoading,
+    isSuccess,
+  } = useGetLoginBasedMyInfoQuery();
+
+  const isLogin = !isLoading && isSuccess && userInfo;
 
   const onClickMenu = (path: string) => {
     if (!isLogin) {
