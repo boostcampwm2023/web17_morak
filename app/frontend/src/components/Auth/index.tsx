@@ -8,13 +8,7 @@ type AuthProps = {
 };
 
 export function AuthRequired({ children }: AuthProps) {
-  const {
-    data: userInfo,
-    isLoading,
-    isSuccess,
-  } = useGetLoginBasedMyInfoQuery();
-
-  const isLogin = !isLoading && isSuccess && userInfo;
+  const { isLoading, isLogin } = useGetLoginBasedMyInfoQuery();
 
   const navigate = useNavigate();
   const redirectToMain = useCallback(() => {
@@ -22,10 +16,10 @@ export function AuthRequired({ children }: AuthProps) {
   }, [navigate]);
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLoading && !isLogin) {
       redirectToMain();
     }
-  }, [isLogin, redirectToMain]);
+  }, [isLogin, isLoading, redirectToMain]);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;

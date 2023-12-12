@@ -11,13 +11,7 @@ export function MainPage() {
     window.location.href = `${URL.API}/auth/google/login`;
   };
 
-  const {
-    data: userInfo,
-    isLoading,
-    isSuccess,
-  } = useGetLoginBasedMyInfoQuery();
-
-  const isLogin = !isLoading && isSuccess && userInfo;
+  const { isLoading, isLogin } = useGetLoginBasedMyInfoQuery();
 
   return (
     <div className={styles.container}>
@@ -29,7 +23,7 @@ export function MainPage() {
           모락과 함께하세요
         </div>
         <div className={styles.login} data-cy="login-button">
-          {!isLogin && (
+          {!isLoading && !isLogin && (
             <Button
               type="button"
               theme="primary"
