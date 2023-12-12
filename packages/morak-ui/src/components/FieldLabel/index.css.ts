@@ -1,10 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars, fontStyle } from '@/styles';
+import { vars } from '@/styles';
+import { sansRegular14 } from '@/styles/font.css';
 
-const { grayscaleBlack } = vars.color;
+const { grayscaleBlack, morakRed } = vars.color;
 export const label = style([
-  fontStyle.sansRegular14,
+  sansRegular14,
   {
     color: grayscaleBlack,
   },
@@ -12,5 +13,5 @@ export const label = style([
 
 export const required = style({
   paddingLeft: '0.2rem',
-  color: vars.color.morakRed,
+  color: morakRed,
 });
