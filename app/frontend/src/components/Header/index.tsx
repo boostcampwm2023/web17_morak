@@ -13,7 +13,7 @@ export function Header() {
   const { onClickMenu } = useClickMenu();
 
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <div className={styles.header}>
         <NavLink to="/" className={styles.title}>
           <Logo className={styles.logo} />
@@ -38,6 +38,6 @@ export function Header() {
           </ul>
         </nav>
       </div>
-    </div>
+    </header>
   );
 }
