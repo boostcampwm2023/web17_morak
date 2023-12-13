@@ -36,11 +36,15 @@ export function MogacoItem({
   );
 
   return (
-    <NavLink to={`/mogaco/${id}`} className={styles.container}>
-      <h2 className={styles.titleArea}>
+    <NavLink
+      to={`/mogaco/${id}`}
+      className={styles.container}
+      aria-label={`${title}, ${status}`}
+    >
+      <div className={styles.titleArea}>
         {MogacoLabel}
-        <div className={styles.title}>{title}</div>
-      </h2>
+        <h2 className={styles.title}>{title}</h2>
+      </div>
       <span className={styles.group}>{groupTitle}</span>
       <div className={styles.content}>
         <p className={styles.detail}>{contents}</p>
