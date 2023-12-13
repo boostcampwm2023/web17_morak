@@ -55,7 +55,7 @@ export function MogacoItem({
           >
             <Calendar className={styles.icon} width={20} height={20} />
             <span className={styles.infoText}>
-              {dayjs(date).format('YYYY/MM/DD HH:mm~')}
+              {dayjs(date).format('YYYY-MM-DD HH:mm~')}
             </span>
           </time>
         </div>
