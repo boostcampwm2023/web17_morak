@@ -1,4 +1,5 @@
 import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
+import { ReactComponent as Morak } from '@/assets/icons/morak.svg';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
@@ -12,7 +13,15 @@ type SidebarProps = {
 export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
   return (
     <div className={`${styles.wrapper} ${closed && styles.closed}`}>
-      <div className={styles.panel}>{children}</div>
+      {closed ? (
+        <div className={styles.emptyPanel}>
+          <Morak width={64} height={64} />
+        </div>
+      ) : (
+        <div className={`${styles.panel} ${closed && styles.hidden}`}>
+          {children}
+        </div>
+      )}
       <button
         type="button"
         className={styles.closeButton}
