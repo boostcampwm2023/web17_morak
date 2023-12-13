@@ -7,7 +7,8 @@ import * as styles from './index.css';
 const { grayscale200 } = vars.color;
 type PaginationProps = {
   currentPage: number;
-  pageCount?: number;
+  postPerPage: number;
+  postCount: number;
   onClickPrev: () => void;
   onClickNext: () => void;
   onClickItem: React.MouseEventHandler<HTMLButtonElement>;
@@ -16,14 +17,15 @@ type PaginationProps = {
 
 export function Pagination({
   currentPage,
-  pageCount,
+  postPerPage,
+  postCount,
   onClickPrev,
   onClickNext,
   onClickItem,
   className,
 }: PaginationProps) {
   const [start, end] = get10UnitRange(currentPage);
-  const lastPageNum = pageCount ? Math.min(end, pageCount) : end;
+  const lastPageNum = Math.min(end, Math.ceil(postCount / postPerPage));
   const pageNumbers = createRangeArray(start, lastPageNum);
   const arrow = <Arrow width={16} height={16} fill={grayscale200} />;
   const isFirstPage = currentPage === 1;
