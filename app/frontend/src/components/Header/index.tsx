@@ -31,7 +31,7 @@ export function Header() {
                   pathname === `/${menu.pathname}` ? styles.active : ''
                 }`}
                 role="menuitem"
-                aria-label={menu.pathname}
+                aria-label={menu.ariaLabel}
                 data-cy="header-menu-item"
               >
                 {menu.value}
