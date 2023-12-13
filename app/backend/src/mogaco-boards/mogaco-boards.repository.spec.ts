@@ -280,6 +280,32 @@ describe('MogacoRepository', () => {
     deletedAt: null,
   };
 
+  describe('updateCompletedMogacos', () => {
+    it('모각코 시간이 지나면 "모집 중"에서 "종료"로 변경해야 함', async () => {
+      const currentDate = new Date();
+      const mogacosMock = [
+        { id: 1, date: new Date(currentDate.getTime() - 1000), status: '모집 중' },
+        { id: 2, date: new Date(currentDate.getTime() + 1000), status: '종료' },
+      ];
+
+      // findMany 메서드를 Jest의 Mock으로 형변환, Prisma의 Mock이 Jest Mock이 아니기 때문에 타입 캐스팅
+      (prismaService.mogaco.findMany as jest.Mock).mockResolvedValue(mogacosMock);
+
+      await repository['updateCompletedMogacos'](mogacosMock);
+
+      expect(prismaService.mogaco.updateMany).toHaveBeenCalledWith({
+        where: {
+          id: {
+            in: [1],
+          },
+        },
+        data: {
+          status: MogacoStatus.COMPLETED,
+        },
+      });
+    });
+  });
+
   describe('getMogaco', () => {
     it('가입한 그룹의 모든 모각코 조회해야 함', async () => {
       jest.spyOn(prismaService.mogaco, 'findMany').mockResolvedValueOnce(mockResult);
