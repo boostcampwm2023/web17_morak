@@ -3,7 +3,7 @@ import { MogacoRepository } from './mogaco-boards.repository';
 import { PrismaService } from 'prisma/prisma.service';
 import { Member } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
-import { NotFoundException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { MogacoStatus } from './enum/mogaco-status.enum';
 
 describe('MogacoRepository', () => {
@@ -326,7 +326,7 @@ describe('MogacoRepository', () => {
       expect(result).toEqual(expectedMogaco);
     });
 
-    it('해당 날짜에 모각코가 없으면 NotFoundException 처리', async () => {
+    it('해당 날짜에 모각코가 없으면 NotFoundException 발생', async () => {
       const date = '2023-12-31';
       jest.spyOn(prismaService.mogaco, 'findMany').mockResolvedValue([]);
 
@@ -341,20 +341,18 @@ describe('MogacoRepository', () => {
 
   describe('getMogacoById', () => {
     it('특정 id에 해당하는 모각코를 반환해야 함', async () => {
-      const id = 999;
       jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
       jest.spyOn(repository, 'getParticipants').mockResolvedValueOnce(mockParticipants);
 
       const result = await repository.getMogacoById(Number(mockMogaco.id), mockMember);
-
-      try {
-        await repository.getMogacoById(id, mockMember);
-      } catch (error) {
-        expect(error).toBeInstanceOf(NotFoundException);
-        expect(error.message).toBe(`Mogaco with id ${id} not found`);
-      }
-
       expect(result).toEqual(expectedMogacoById);
+    });
+
+    it('존재하지 않는 모각코를 조회할 경우 NotFoundException 발생', async () => {
+      const id = 999;
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(null);
+
+      await expect(repository.getMogacoById(id, mockMember)).rejects.toThrowError(NotFoundException);
     });
   });
 
@@ -377,7 +375,7 @@ describe('MogacoRepository', () => {
       jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
       jest.spyOn(prismaService.mogaco, 'update').mockResolvedValueOnce(mockMogacoNoGroupMember);
 
-      await repository.deleteMogaco(1, mockMember);
+      await repository.deleteMogaco(Number(mockMogaco.id), mockMember);
 
       expect(prismaService.mogaco.findUnique).toHaveBeenCalledWith({
         where: { id: Number(mockMogaco.id) },
@@ -390,6 +388,21 @@ describe('MogacoRepository', () => {
         },
       });
     });
+
+    it('존재하지 않는 모각코를 삭제할 경우 NotFoundException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(null);
+
+      await expect(repository.deleteMogaco(999, mockMember)).rejects.toThrowError(NotFoundException);
+    });
+
+    it('다른 멤버가 작성한 모각코를 삭제할 경우 ForbiddenException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+
+      // mockMember.id와 다른 멤버의 ID 설정
+      const otherMember = { id: BigInt(999), providerId: 'otherProviderId' } as Member;
+
+      await expect(repository.deleteMogaco(1, otherMember)).rejects.toThrowError(ForbiddenException);
+    });
   });
 
   describe('updateMogaco', () => {
@@ -400,6 +413,27 @@ describe('MogacoRepository', () => {
       const result = await repository.updateMogaco(Number(mockMogaco.id), mockUpdateMogacoDto, mockMember);
 
       expect(result).toEqual(expectedUpdateMogaco);
+    });
+
+    it('존재하지 않는 모각코인 경우 NotFoundException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(null);
+
+      await expect(
+        repository.updateMogaco(Number(mockMogaco.id), mockUpdateMogacoDto, mockMember),
+      ).rejects.toThrowError(NotFoundException);
+    });
+
+    it('멤버의 ID와 모각코의 작성자 ID가 다른 경우 ForbiddenException 발생', async () => {
+      const mockOtherMember = {
+        ...mockMember,
+        id: BigInt(2),
+      };
+
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+
+      await expect(
+        repository.updateMogaco(Number(mockMogaco.id), mockUpdateMogacoDto, mockOtherMember),
+      ).rejects.toThrowError(ForbiddenException);
     });
   });
 
@@ -431,6 +465,24 @@ describe('MogacoRepository', () => {
           status: MogacoStatus.CLOSED,
         },
       });
+    });
+
+    it('모각코가 이미 참가 인원이 가득 찬 경우 ForbiddenException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+      jest.spyOn(prismaService.participant, 'findUnique').mockResolvedValueOnce(null);
+      jest.spyOn(repository, 'getParticipantsCount' as any).mockResolvedValueOnce(mockMogaco.maxHumanCount);
+
+      await expect(repository.joinMogaco(Number(mockMogaco.id), mockMember)).rejects.toThrowError(ForbiddenException);
+    });
+
+    it('모각코에 이미 참가한 경우 ForbiddenException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+      jest.spyOn(prismaService.participant, 'findUnique').mockResolvedValueOnce({
+        postId: mockMogaco.id,
+        userId: mockMember.id,
+      });
+
+      await expect(repository.joinMogaco(Number(mockMogaco.id), mockMember)).rejects.toThrowError(ForbiddenException);
     });
   });
 
@@ -494,6 +546,33 @@ describe('MogacoRepository', () => {
           },
         },
       });
+    });
+
+    it('취소할 모각코가 없는 경우 NotFoundException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(null);
+
+      await expect(repository.cancelMogacoJoin(1, mockMember)).rejects.toThrowError(NotFoundException);
+    });
+
+    it('해당 모각코 참여자에 없는 경우 NotFoundException 발생', async () => {
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+      jest.spyOn(prismaService.participant, 'findUnique').mockResolvedValueOnce(null);
+
+      await expect(repository.cancelMogacoJoin(1, mockMember)).rejects.toThrowError(NotFoundException);
+    });
+
+    it('취소 권한이 없는 경우 Forbidden 발생', async () => {
+      const participantId = 999; // Some other user's ID
+      const mockParticipant = { postId: BigInt(1), userId: BigInt(participantId) };
+
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
+      jest.spyOn(prismaService.participant, 'findUnique').mockResolvedValueOnce(mockParticipant);
+
+      try {
+        await repository.cancelMogacoJoin(1, mockMember);
+      } catch (error) {
+        expect(error).toBeInstanceOf(ForbiddenException);
+      }
     });
   });
 });
