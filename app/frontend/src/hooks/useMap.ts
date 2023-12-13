@@ -6,6 +6,8 @@ import {
   DEFAULT_ZOOM_LEVEL,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
+  INITIAL_LATITUDE,
+  INITIAL_LONGITUDE,
 } from '@/constants';
 import { TMap, TMapMarker } from '@/types';
 
@@ -21,6 +23,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     }
 
     const map = new Tmapv3.Map('map', {
+      center: new Tmapv3.LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE),
       zoom: DEFAULT_ZOOM_LEVEL,
       zoomControl: false,
     });
