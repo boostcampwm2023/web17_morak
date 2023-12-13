@@ -17,5 +17,11 @@ export const useClickMenu = () => {
     }
   };
 
-  return { onClickMenu };
+  const onEnterMenu = (e: React.KeyboardEvent, path: string) => {
+    if (e.key === 'Enter') {
+      onClickMenu(path);
+    }
+  };
+
+  return { onClickMenu, onEnterMenu };
 };
