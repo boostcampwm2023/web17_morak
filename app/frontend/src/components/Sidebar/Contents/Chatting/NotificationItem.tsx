@@ -7,7 +7,7 @@ type NotificationItemProps = {
 };
 
 function NotificationItem({ contents }: NotificationItemProps) {
-  return <div className={styles.notification}>{contents}</div>;
+  return <li className={styles.notification}>{contents}</li>;
 }
 
 export const MemorizedNotificationItem = memo(NotificationItem);

@@ -51,7 +51,7 @@ export function MogacoDetailPage() {
         title={mogacoData.title}
         participants={mogacoData.participants}
       />
-      <div className={styles.container}>
+      <main className={styles.container}>
         <DetailHeader id={id} openChatting={openChatting} />
         <DetailInfo
           id={id}
@@ -60,7 +60,7 @@ export function MogacoDetailPage() {
         />
         <div className={styles.contents}>{mogacoData.contents}</div>
         <Divider />
-      </div>
+      </main>
     </div>
   );
 }

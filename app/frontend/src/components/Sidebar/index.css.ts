@@ -26,11 +26,7 @@ export const closed = style({
   transform: 'translateX(calc(-100% + 2.4rem))',
 });
 
-export const flip = style({
-  transform: 'rotate(180deg)',
-});
-
-export const panel = style({
+const panel = style({
   display: 'flex',
   flexGrow: '1',
   maxWidth: 'calc(100% - 2.4rem)',
@@ -38,6 +34,25 @@ export const panel = style({
   borderRight: `1px solid ${vars.color.grayscale100}`,
   background: vars.color.grayscaleWhite,
 });
+
+export const emptyPanel = style([
+  panel,
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: vars.color.grayscale50,
+  },
+]);
+
+export const flip = style({
+  transform: 'rotate(180deg)',
+});
+
+export const hidden = style({
+  visibility: 'hidden',
+});
+
+export { panel };
 
 export const wrapper = style({
   display: 'flex',
