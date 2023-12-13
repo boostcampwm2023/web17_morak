@@ -13,15 +13,12 @@ type SidebarProps = {
 export function Sidebar({ closed, toggleClosed, children }: SidebarProps) {
   return (
     <div className={`${styles.wrapper} ${closed && styles.closed}`}>
-      {closed ? (
-        <div className={styles.emptyPanel}>
-          <Morak width={64} height={64} />
-        </div>
-      ) : (
-        <div className={`${styles.panel} ${closed && styles.hidden}`}>
-          {children}
-        </div>
-      )}
+      <div className={`${styles.panel} ${closed && styles.hidden}`}>
+        {children}
+      </div>
+      <div className={styles.emptyPanel}>
+        <Morak width={64} height={64} />
+      </div>
       <button
         type="button"
         className={styles.closeButton}
