@@ -29,6 +29,7 @@ export const closed = style({
 const panel = style({
   display: 'flex',
   flexGrow: '1',
+  zIndex: 10,
   maxWidth: 'calc(100% - 2.4rem)',
   height: '100%',
   borderRight: `1px solid ${vars.color.grayscale100}`,
@@ -38,8 +39,11 @@ const panel = style({
 export const emptyPanel = style([
   panel,
   {
+    position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 5,
+    width: '100%',
     background: vars.color.grayscale50,
   },
 ]);
