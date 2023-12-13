@@ -7,7 +7,13 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   fullWidth?: boolean;
 };
 
-export function Button({ theme, shape, size, fullWidth = false, ...rest }: ButtonProps) {
+export function Button({
+  theme,
+  shape,
+  size,
+  fullWidth = false,
+  ...rest
+}: ButtonProps) {
   const { type = 'button', disabled = false, children, className } = rest;
 
   return (

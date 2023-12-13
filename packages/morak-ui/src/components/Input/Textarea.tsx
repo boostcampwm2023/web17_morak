@@ -5,7 +5,11 @@ type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   fullWidth?: boolean;
 };
 
-export function Textarea({ errorMessage = '', fullWidth = false, ...rest }: TextareaProps) {
+export function Textarea({
+  errorMessage = '',
+  fullWidth = false,
+  ...rest
+}: TextareaProps) {
   const { maxLength, disabled } = rest;
 
   return (
@@ -20,7 +24,9 @@ export function Textarea({ errorMessage = '', fullWidth = false, ...rest }: Text
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
-      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {!disabled && errorMessage && (
+        <p className={styles.errorMessage}>{errorMessage}</p>
+      )}
     </div>
   );
 }

@@ -8,7 +8,11 @@ export function Input({ errorMessage = '', ...rest }: InputProps) {
   const { maxLength, disabled } = rest;
 
   return (
-    <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
+    <div
+      className={`${styles.container} ${errorMessage && styles.error} ${
+        disabled && styles.disabled
+      }`}
+    >
       <input
         className={styles.input}
         disabled={disabled}
@@ -16,7 +20,9 @@ export function Input({ errorMessage = '', ...rest }: InputProps) {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
-      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {!disabled && errorMessage && (
+        <p className={styles.errorMessage}>{errorMessage}</p>
+      )}
     </div>
   );
 }

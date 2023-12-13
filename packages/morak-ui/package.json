@@ -6,7 +6,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo No build required for @morak/ui"
+    "build": "echo No build required for @morak/ui",
+    "prettier": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
