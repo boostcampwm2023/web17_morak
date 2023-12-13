@@ -3,6 +3,8 @@ import { MogacoRepository } from './mogaco-boards.repository';
 import { PrismaService } from 'prisma/prisma.service';
 import { Member } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { NotFoundException } from '@nestjs/common';
+import { MogacoStatus } from './enum/mogaco-status.enum';
 
 describe('MogacoRepository', () => {
   let repository: MogacoRepository;
@@ -281,6 +283,7 @@ describe('MogacoRepository', () => {
   describe('getMogaco', () => {
     it('가입한 그룹의 모든 모각코 조회해야 함', async () => {
       jest.spyOn(prismaService.mogaco, 'findMany').mockResolvedValueOnce(mockResult);
+      jest.spyOn(repository, 'updateCompletedMogacos' as any).mockImplementationOnce(() => Promise.resolve());
 
       const result = await repository.getAllMogaco(mockMember);
 
@@ -290,19 +293,40 @@ describe('MogacoRepository', () => {
     it('가입한 그룹 내 특정 기간 모각코 조회해야 함', async () => {
       const date = '2023-12-01';
       jest.spyOn(prismaService.mogaco, 'findMany').mockResolvedValue(mockResult);
+      jest.spyOn(repository, 'updateCompletedMogacos' as any).mockImplementationOnce(() => Promise.resolve());
 
       const result = await repository.getMogacoByDate(date, mockMember);
 
       expect(result).toEqual(expectedMogaco);
     });
+
+    it('해당 날짜에 모각코가 없으면 NotFoundException 처리', async () => {
+      const date = '2023-12-31';
+      jest.spyOn(prismaService.mogaco, 'findMany').mockResolvedValue([]);
+
+      try {
+        await repository.getMogacoByDate(date, mockMember);
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundException);
+        expect(error.message).toBe(`No Mogaco events found for the date ${date}`);
+      }
+    });
   });
 
   describe('getMogacoById', () => {
     it('특정 id에 해당하는 모각코를 반환해야 함', async () => {
+      const id = 999;
       jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
       jest.spyOn(repository, 'getParticipants').mockResolvedValueOnce(mockParticipants);
 
       const result = await repository.getMogacoById(Number(mockMogaco.id), mockMember);
+
+      try {
+        await repository.getMogacoById(id, mockMember);
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundException);
+        expect(error.message).toBe(`Mogaco with id ${id} not found`);
+      }
 
       expect(result).toEqual(expectedMogacoById);
     });
@@ -360,6 +384,7 @@ describe('MogacoRepository', () => {
         postId: mockMogaco.id,
         userId: mockMember.id,
       });
+      jest.spyOn(repository, 'getParticipantsCount' as any).mockResolvedValueOnce(mockMogaco.maxHumanCount - 1);
 
       await repository.joinMogaco(Number(mockMogaco.id), mockMember);
 
@@ -371,6 +396,13 @@ describe('MogacoRepository', () => {
         data: {
           postId: mockMogaco.id,
           userId: mockMember.id,
+        },
+      });
+
+      expect(prismaService.mogaco.update).toHaveBeenCalledWith({
+        where: { id: mockMogaco.id },
+        data: {
+          status: MogacoStatus.CLOSED,
         },
       });
     });
@@ -404,28 +436,34 @@ describe('MogacoRepository', () => {
 
   describe('cancelMogacoJoin', () => {
     it('모각코 참가를 취소해야 함', async () => {
-      const mockParticipant = {
-        postId: mockMogaco.id,
-        userId: mockMember.id,
+      const mockClosedMogaco = {
+        ...mockMogaco,
+        status: MogacoStatus.CLOSED,
       };
 
-      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockMogaco);
-      jest.spyOn(prismaService.participant, 'findMany').mockResolvedValueOnce([mockParticipant]);
+      jest.spyOn(prismaService.mogaco, 'findUnique').mockResolvedValueOnce(mockClosedMogaco);
       jest.spyOn(prismaService.participant, 'findUnique').mockResolvedValueOnce({
-        postId: mockMogaco.id,
+        postId: mockClosedMogaco.id,
         userId: mockMember.id,
       });
       jest.spyOn(prismaService.participant, 'delete').mockResolvedValueOnce({
-        postId: mockMogaco.id,
+        postId: mockClosedMogaco.id,
         userId: mockMember.id,
       });
 
-      await repository.cancelMogacoJoin(Number(mockMogaco.id), mockMember);
+      await repository.cancelMogacoJoin(Number(mockClosedMogaco.id), mockMember);
+
+      expect(prismaService.mogaco.update).toHaveBeenCalledWith({
+        where: { id: mockClosedMogaco.id },
+        data: {
+          status: MogacoStatus.RECRUITING,
+        },
+      });
 
       expect(prismaService.participant.delete).toHaveBeenCalledWith({
         where: {
           postId_userId: {
-            postId: mockMogaco.id,
+            postId: mockClosedMogaco.id,
             userId: mockMember.id,
           },
         },
