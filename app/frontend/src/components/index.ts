@@ -5,7 +5,6 @@ export * from './FormInput';
 export * from './FormInput/Textarea';
 export * from './Group';
 export * from './Header';
-export * from './Label';
 export * from './Layout';
 export * from './Loading';
 export * from './Loading/LoadingIndicator';

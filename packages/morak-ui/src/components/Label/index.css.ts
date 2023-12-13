@@ -2,6 +2,7 @@ import { recipe } from '@vanilla-extract/recipes';
 
 import { vars } from '@/styles';
 
+const { grayscale50, morakGreen, morakRed, grayscale200 } = vars.color;
 export const container = recipe({
   base: {
     display: 'inline-flex',
@@ -20,11 +21,11 @@ export const container = recipe({
     },
     shape: {
       fill: {
-        color: vars.color.grayscale50,
+        color: grayscale50,
         border: '1px solid transparent',
       },
       line: {
-        background: vars.color.grayscale50,
+        background: grayscale50,
       },
     },
     disabled: {
@@ -39,7 +40,7 @@ export const container = recipe({
         shape: 'fill',
       },
       style: {
-        background: vars.color.morakGreen,
+        background: morakGreen,
       },
     },
     {
@@ -48,7 +49,7 @@ export const container = recipe({
         shape: 'fill',
       },
       style: {
-        background: vars.color.morakRed,
+        background: morakRed,
       },
     },
     {
@@ -57,8 +58,8 @@ export const container = recipe({
         shape: 'line',
       },
       style: {
-        color: vars.color.morakGreen,
-        border: `1px solid ${vars.color.morakGreen}`,
+        color: morakGreen,
+        border: `1px solid ${morakGreen}`,
       },
     },
     {
@@ -67,8 +68,8 @@ export const container = recipe({
         shape: 'line',
       },
       style: {
-        color: vars.color.morakRed,
-        border: `1px solid ${vars.color.morakRed}`,
+        color: morakRed,
+        border: `1px solid ${morakRed}`,
       },
     },
     {
@@ -77,7 +78,7 @@ export const container = recipe({
         shape: 'fill',
       },
       style: {
-        background: vars.color.grayscale200,
+        background: grayscale200,
       },
     },
     {
@@ -86,8 +87,8 @@ export const container = recipe({
         shape: 'line',
       },
       style: {
-        color: vars.color.grayscale200,
-        border: `1px solid ${vars.color.grayscale200}`,
+        color: grayscale200,
+        border: `1px solid ${grayscale200}`,
       },
     },
   ],
