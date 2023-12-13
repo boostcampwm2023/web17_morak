@@ -1,3 +1,5 @@
+import markerGreen from '@/assets/icons/marker-green.svg';
+import markerRed from '@/assets/icons/marker-red.svg';
 import { TMap, TMapLatLng } from '@/types';
 import { reactElementToString } from '@/utils';
 
@@ -19,10 +21,11 @@ export function Marker({
   theme,
   labelText,
 }: MarkerProps) {
+  const markerIcon = theme === 'green' ? markerGreen : markerRed;
   return new Tmapv3.Marker({
     position,
     map: mapContent,
-    icon: `/src/assets/icons/marker-${theme}.svg`,
+    icon: markerIcon,
     iconSize: new Tmapv3.Size(50, 50),
     label: labelText
       ? reactElementToString(
