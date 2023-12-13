@@ -36,25 +36,32 @@ export function MogacoItem({
   );
 
   return (
-    <NavLink to={`/mogaco/${id}`} className={styles.container}>
+    <NavLink
+      to={`/mogaco/${id}`}
+      className={styles.container}
+      aria-label={`${title}, ${status}`}
+    >
       <div className={styles.titleArea}>
         {MogacoLabel}
-        <div className={styles.title}>{title}</div>
+        <h2 className={styles.title}>{title}</h2>
       </div>
-      <div className={styles.group}>{groupTitle}</div>
+      <span className={styles.group}>{groupTitle}</span>
       <div className={styles.content}>
-        <div className={styles.detail}>{contents}</div>
+        <p className={styles.detail}>{contents}</p>
         <div className={styles.info}>
-          <div className={styles.infoContent}>
+          <address className={styles.infoContent}>
             <Map className={styles.icon} width={20} height={20} />
-            <div className={styles.infoText}>{address}</div>
-          </div>
-          <div className={styles.infoContent}>
+            <span className={styles.infoText}>{address}</span>
+          </address>
+          <time
+            className={styles.infoContent}
+            dateTime={dayjs(date).format('YYYY-MM-DD HH:MM')}
+          >
             <Calendar className={styles.icon} width={20} height={20} />
-            <div className={styles.infoText}>
-              {dayjs(date).format('YYYY/MM/DD HH:mm~')}
-            </div>
-          </div>
+            <span className={styles.infoText}>
+              {dayjs(date).format('YYYY-MM-DD HH:mm~')}
+            </span>
+          </time>
         </div>
       </div>
     </NavLink>

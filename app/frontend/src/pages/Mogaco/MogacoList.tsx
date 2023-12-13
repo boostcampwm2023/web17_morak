@@ -49,25 +49,26 @@ export function MogacoList({ currentPage }: MogacoListProp) {
   }
 
   return (
-    <main className={styles.container}>
+    <ul className={styles.container}>
       {mogacoList && mogacoList.length > 0 ? (
         mogacoList.map(
           ({ id, title, contents, date, address, status, group }) => (
-            <MogacoItem
-              key={id}
-              id={id}
-              group={group}
-              title={title}
-              contents={contents}
-              date={date}
-              address={address}
-              status={status}
-            />
+            <li key={id}>
+              <MogacoItem
+                id={id}
+                group={group}
+                title={title}
+                contents={contents}
+                date={date}
+                address={address}
+                status={status}
+              />
+            </li>
           ),
         )
       ) : (
         <EmptyPage />
       )}
-    </main>
+    </ul>
   );
 }

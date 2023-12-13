@@ -21,7 +21,7 @@ export function MogacoPage() {
   const maxPage = Math.floor((allMogacoList?.length || 0) / PAGE_UNIT + 1);
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <MogacoListHeader />
       <MogacoList currentPage={currentPage} />
       {mogacoList?.length !== 0 && (
@@ -34,6 +34,6 @@ export function MogacoPage() {
           onClickPrev={onClickPrev}
         />
       )}
-    </div>
+    </main>
   );
 }

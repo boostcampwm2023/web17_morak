@@ -76,14 +76,17 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
           />
         ))}
       </div>
-      <div className={styles.infoItem}>
+      <time
+        className={styles.infoItem}
+        dateTime={dayjs(mogacoData.date).format('YYYY-MM-DD HH:MM')}
+      >
         <Calendar width={24} height={24} fill={vars.color.grayscale200} />
-        <span>{dayjs(mogacoData.date).format('YYYY/MM/DD HH:mm~')}</span>
-      </div>
-      <div className={styles.infoItem}>
+        <span>{dayjs(mogacoData.date).format('YYYY-MM-DD HH:MM~')}</span>
+      </time>
+      <address className={styles.infoItem}>
         <Map width={24} height={24} fill={vars.color.grayscale200} />
         <span>{mogacoData.address}</span>
-      </div>
+      </address>
       <img
         className={styles.map}
         src={staticMapURL}
