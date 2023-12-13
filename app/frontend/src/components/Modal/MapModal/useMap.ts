@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useCallback, useEffect, useState } from 'react';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -5,13 +6,15 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Marker } from '@/components/Map/Marker';
 import {
   DEFAULT_ZOOM_LEVEL,
+  INITIAL_LATITUDE,
+  INITIAL_LONGITUDE,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
 } from '@/constants';
 import { queryKeys } from '@/queries';
 import { TMap, TMapEvent, TMapLatLng, TMapMarker } from '@/types';
 
-const { Tmapv2 } = window;
+const { Tmapv3 } = window;
 
 export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
@@ -67,9 +70,10 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       return;
     }
 
-    const map = new Tmapv2.Map('map', {
+    const map = new Tmapv3.Map('map', {
       zoom: DEFAULT_ZOOM_LEVEL,
       zoomControl: false,
+      center: new Tmapv3.LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE),
     });
 
     map.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
@@ -82,13 +86,13 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     }
 
     const renderMarker = (e: TMapEvent) => {
-      const { latLng } = e;
-      const position = new Tmapv2.LatLng(latLng.lat(), latLng.lng());
+      const { lngLat } = e.data;
+      const position = new Tmapv3.LatLng(lngLat._lat, lngLat._lng);
 
       setCurrentCoord(position);
     };
 
-    mapInstance.addListener('click', renderMarker);
+    mapInstance.on('Click', renderMarker);
   }, [mapInstance, currentCoord]);
 
   const updateMarker = useCallback(
@@ -101,7 +105,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
         return;
       }
 
-      const position = new Tmapv2.LatLng(latitude, longitude);
+      const position = new Tmapv3.LatLng(latitude, longitude);
 
       setCurrentCoord(position);
       mapInstance?.setCenter(position);
@@ -110,7 +114,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   );
 
   const setCoord = (currCoord: { latitude: number; longitude: number }) => {
-    const position = new Tmapv2.LatLng(currCoord.latitude, currCoord.longitude);
+    const position = new Tmapv3.LatLng(currCoord.latitude, currCoord.longitude);
     setCurrentCoord(position);
     setCenterToSelectedCoord(position);
   };
