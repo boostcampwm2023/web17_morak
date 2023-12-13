@@ -19,7 +19,7 @@ export const label = recipe({
       padding: '0.2rem',
       color: grayscaleWhite,
       borderRadius: '0.5rem',
-      top: '-6.5rem',
+      top: '-5.5rem',
       left: '50%',
       transform: 'translate(-50%)',
       whiteSpace: 'pre',
