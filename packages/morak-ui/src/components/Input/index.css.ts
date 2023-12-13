@@ -2,10 +2,13 @@ import { style } from '@vanilla-extract/css';
 
 import { vars, fontStyle } from '@/styles';
 
+const { morakGreen, morakRed, grayscale200, grayscale500 } = vars.color;
+
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+  width: '100%',
 });
 
 export const count = style([
@@ -27,7 +30,7 @@ export const error = style({});
 export const errorMessage = style([
   fontStyle.sansRegular14,
   {
-    color: vars.color.morakRed,
+    color: morakRed,
     marginTop: '0.4rem',
   },
 ]);
@@ -35,30 +38,30 @@ export const errorMessage = style([
 export const fullWidth = style({
   flexGrow: 1,
 });
-
 export const hide = style({});
+
 export const input = style([
   fontStyle.sansRegular14,
   {
     padding: '0.8rem',
-    color: vars.color.grayscale500,
+    color: grayscale500,
     width: ['100%', '-webkit-fill-available'],
     outline: 'none',
-    border: `2px solid ${vars.color.grayscale200}`,
+    border: `2px solid ${grayscale200}`,
     borderRadius: '0.4rem',
 
     selectors: {
       '&:focus': {
-        border: `2px solid ${vars.color.morakGreen}`,
+        border: `2px solid ${morakGreen}`,
       },
       '&::placeholder': {
-        color: vars.color.grayscale200,
+        color: grayscale200,
       },
       [`${error} &`]: {
-        border: `2px solid ${vars.color.morakRed}`,
+        border: `2px solid ${morakRed}`,
       },
       [`${disabled} &`]: {
-        border: `2px solid ${vars.color.grayscale200}`,
+        border: `2px solid ${grayscale200}`,
         cursor: 'not-allowed',
       },
       '&::-webkit-inner-spin-button': {
@@ -70,11 +73,10 @@ export const input = style([
   },
 ]);
 
-export const titleWrapper = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  minHeight: '1.2rem',
-  marginBottom: '0.4rem',
-});
+export const textarea = style([
+  input,
+  {
+    resize: 'none',
+    width: '100%',
+  },
+]);

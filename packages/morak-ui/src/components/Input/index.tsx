@@ -1,31 +1,14 @@
-import { FieldLabel } from '@morak/ui';
-
 import * as styles from './index.css';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
   errorMessage?: string;
 };
 
-export function Input({ label = '', errorMessage = '', ...rest }: InputProps) {
-  const { value, maxLength, disabled, required } = rest;
+export function Input({ errorMessage = '', ...rest }: InputProps) {
+  const { maxLength, disabled } = rest;
 
   return (
-    <div
-      className={`${styles.container} ${errorMessage && styles.error} ${
-        disabled && styles.disabled
-      }`}
-    >
-      {label && (
-        <div className={styles.titleWrapper}>
-          <FieldLabel label={label} required={required} />
-          {maxLength && (
-            <span className={styles.count}>
-              {value?.toString()?.length || 0}/{maxLength}
-            </span>
-          )}
-        </div>
-      )}
+    <div className={`${styles.container} ${errorMessage && styles.error} ${disabled && styles.disabled}`}>
       <input
         className={styles.input}
         disabled={disabled}
@@ -33,9 +16,7 @@ export function Input({ label = '', errorMessage = '', ...rest }: InputProps) {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
-      {!disabled && errorMessage && (
-        <p className={styles.errorMessage}>{errorMessage}</p>
-      )}
+      {!disabled && errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 }

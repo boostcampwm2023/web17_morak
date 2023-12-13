@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
-import { FieldLabel } from '@morak/ui';
+import { TextLabel } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/queries';
@@ -35,7 +35,7 @@ export function PostGroupId({
       rules={{ required: true }}
       render={({ field: { onChange } }) => (
         <>
-          <FieldLabel label="그룹" required />
+          <TextLabel label="그룹" required />
           {groups && groups.length > 0 ? (
             <select
               onChange={(event) => onChange(event.target.value)}

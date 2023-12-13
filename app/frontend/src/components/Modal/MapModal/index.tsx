@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
-import { Input, Button } from '@morak/ui';
+import { Button } from '@morak/ui';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
+import { FormInput } from '@/components';
 import { useDebounce } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
@@ -91,7 +92,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
         </div>
         <div className={styles.addressWrapper}>
           <div className={styles.inputWrapper}>
-            <Input
+            <FormInput
               label="장소 검색"
               list="address-input"
               value={searchKeyword}

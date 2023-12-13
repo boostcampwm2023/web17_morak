@@ -1,11 +1,11 @@
 import * as styles from './index.css';
 
-type InputProps = {
+type TextLabelProps = {
   label: string;
   required?: boolean;
 };
 
-export function FieldLabel({ label, required = false }: InputProps) {
+export function TextLabel({ label, required = false }: TextLabelProps) {
   return (
     <span className={styles.label}>
       {label}
