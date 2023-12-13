@@ -4,20 +4,21 @@ import { vars } from '@/styles';
 import { sansRegular16 } from '@/styles/font.css';
 
 const { grayscale200, grayscale500, grayscale50 } = vars.color;
+const { bold } = vars.font.weight;
 
 export const container = style({
   display: 'flex',
-  gap: '1.2rem',
   justifyContent: 'center',
   width: '100%',
 });
 
 globalStyle(`${container} button`, {
-  padding: '0.4rem',
-  borderRadius: '100%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  width: '3.6rem',
+  height: '3.6rem',
+  borderRadius: '100%',
 });
 
 globalStyle(`${container} button:hover`, {
@@ -38,6 +39,7 @@ export const page = style([
     selectors: {
       [`${current}&`]: {
         color: grayscale500,
+        fontWeight: bold,
       },
     },
 

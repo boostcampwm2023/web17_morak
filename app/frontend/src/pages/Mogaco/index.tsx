@@ -1,6 +1,6 @@
+import { Pagination } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { Pagination } from '@/components';
 import { usePagination } from '@/hooks';
 import { queryKeys } from '@/queries';
 
