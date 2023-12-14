@@ -96,7 +96,7 @@
 - [Docker Registry 설정](https://www.notion.so/61b9b8ab5f1440eeb738248832cfaaba?pvs=21) by 서지원
 
 
-> 이 외에도 [모락 팀의 개발 일지](https://www.notion.so/ttaerrim/50a6652038d04e61920dbf8faecb80db?v=5eec47d4350b45b8b10da4c1ec7dc5d6)를 구경해 보세요!
+> 이 외에도 [모락 팀의 개발 일지](https://www.notion.so/ttaerrim/be56a4fcbd3f4fe9a6f29525b492ab0c?pvs=4)를 구경해 보세요!
 
 
 ## 기술 스택
