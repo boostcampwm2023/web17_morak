@@ -78,10 +78,10 @@ export function DetailInfo({ id, latitude, longitude }: DetailInfoProps) {
       </div>
       <time
         className={styles.infoItem}
-        dateTime={dayjs(mogacoData.date).format('YYYY-MM-DD HH:MM')}
+        dateTime={dayjs(mogacoData.date).format('YYYY-MM-DD HH:mm')}
       >
         <Calendar width={24} height={24} fill={vars.color.grayscale200} />
-        <span>{dayjs(mogacoData.date).format('YYYY-MM-DD HH:MM~')}</span>
+        <span>{dayjs(mogacoData.date).format('YYYY-MM-DD HH:mm~')}</span>
       </time>
       <address className={styles.infoItem}>
         <Map width={24} height={24} fill={vars.color.grayscale200} />
