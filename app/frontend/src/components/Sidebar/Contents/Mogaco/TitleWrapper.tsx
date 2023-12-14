@@ -1,6 +1,5 @@
 import { ResponseMogacoDto } from '@morak/apitype';
-
-import { Label } from '@/components';
+import { Label } from '@morak/ui';
 
 import * as styles from './index.css';
 

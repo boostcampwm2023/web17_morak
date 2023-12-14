@@ -4,7 +4,7 @@ import { vars } from '@/styles';
 import * as styles from './index.css';
 
 type UserChipProps = {
-  username: string;
+  username?: string;
   profileSrc?: string;
 };
 
@@ -22,7 +22,9 @@ export function UserChip({ username, profileSrc }: UserChipProps) {
           <Profile width={24} height={24} fill={vars.color.morakGreen} />
         )}
       </div>
-      <span className={styles.nickname}>{username}</span>
+      <span className={`${styles.nickname} ${!username && styles.unknown}`}>
+        {username || '(알 수 없음)'}
+      </span>
     </div>
   );
 }

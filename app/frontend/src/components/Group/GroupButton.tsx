@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@morak/ui';
 
 import { useGroupJoinAndLeave } from './hooks/useGroupJoinLeave';
 import { useGroupModal } from './hooks/useGroupModal';

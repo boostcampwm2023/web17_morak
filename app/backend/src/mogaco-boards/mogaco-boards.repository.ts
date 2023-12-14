@@ -39,13 +39,17 @@ export class MogacoRepository {
     return participantsCount;
   }
 
-  async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
+  private async getUserGroupIds(member: Member): Promise<bigint[]> {
     const userGroups = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       select: { groupId: true },
     });
 
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    return userGroups.map((group) => group.groupId);
+  }
+
+  async getAllMogaco(member: Member, page?: number): Promise<MogacoDto[]> {
+    const userGroupIds = await this.getUserGroupIds(member);
     let mogacos;
 
     if (page) {
@@ -62,6 +66,9 @@ export class MogacoRepository {
         include: {
           group: true,
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
         skip,
         take: pageSize,
       });
@@ -75,6 +82,9 @@ export class MogacoRepository {
         },
         include: {
           group: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       });
     }
@@ -106,12 +116,7 @@ export class MogacoRepository {
   }
 
   async getMogacoByDate(date: string, member: Member): Promise<MogacoDto[]> {
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     let startDate: Date;
     let endDate: Date;
@@ -170,6 +175,43 @@ export class MogacoRepository {
     }));
   }
 
+  async getMyMogacos(member: Member): Promise<MogacoDto[]> {
+    const mogacos = await this.prisma.participant.findMany({
+      where: {
+        userId: member.id,
+      },
+      include: {
+        mogaco: {
+          include: {
+            group: true,
+          },
+        },
+      },
+    });
+
+    const mappedMogacos = mogacos.map((participant) => ({
+      id: participant.mogaco.id.toString(),
+      groupId: participant.mogaco.group.id.toString(),
+      title: participant.mogaco.title,
+      contents: participant.mogaco.contents,
+      date: participant.mogaco.date,
+      maxHumanCount: participant.mogaco.maxHumanCount,
+      address: participant.mogaco.address,
+      latitude: Number(participant.mogaco.latitude),
+      longitude: Number(participant.mogaco.longitude),
+      status: participant.mogaco.status,
+      createdAt: participant.mogaco.createdAt,
+      updatedAt: participant.mogaco.updatedAt,
+      deletedAt: participant.mogaco.deletedAt,
+      group: {
+        id: participant.mogaco.group.id.toString(),
+        title: participant.mogaco.group.title,
+      },
+    }));
+
+    return mappedMogacos;
+  }
+
   async getMogacoById(id: number, member: Member): Promise<MogacoWithMemberDto> {
     const mogaco = await this.prisma.mogaco.findUnique({
       where: { id, deletedAt: null },
@@ -184,12 +226,7 @@ export class MogacoRepository {
     }
 
     // 231204 ldhbenecia | 특정 게시물 조회 시 해당 사용자가 가입한 그룹의 게시글이 아닐 시 오류 처리
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     if (!userGroupIds.includes(mogaco.group.id)) {
       throw new ForbiddenException(`User does not have access to Mogaco with id ${id}`);
@@ -230,12 +267,7 @@ export class MogacoRepository {
   async createMogaco(createMogacoDto: CreateMogacoDto, member: Member): Promise<Mogaco> {
     const { groupId, title, contents, maxHumanCount, address, latitude, longitude, date } = createMogacoDto;
 
-    const userGroups = await this.prisma.groupToUser.findMany({
-      where: { userId: member.id },
-      select: { groupId: true },
-    });
-
-    const userGroupIds = userGroups.map((group) => group.groupId);
+    const userGroupIds = await this.getUserGroupIds(member);
 
     if (userGroupIds.length === 0 || !userGroupIds.includes(BigInt(groupId))) {
       throw new NotFoundException(`Group with id ${groupId} not found.`);

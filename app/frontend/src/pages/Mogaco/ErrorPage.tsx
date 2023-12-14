@@ -1,6 +1,5 @@
-import { Button, MessageWrapper } from '@/components';
-
-import * as styles from './ErrorPage.css';
+import { MessageWrapper } from '@/components';
+import * as styles from '@/styles/message.css';
 
 export function ErrorPage() {
   const onClickRefresh = () => {
@@ -11,14 +10,13 @@ export function ErrorPage() {
     <MessageWrapper>
       <p className={styles.text}>
         정보를 불러오는 데에 실패했습니다.
-        <Button
-          theme="primary"
-          shape="line"
-          size="large"
+        <button
+          type="button"
+          className={styles.button}
           onClick={onClickRefresh}
         >
           새로고침
-        </Button>
+        </button>
       </p>
     </MessageWrapper>
   );

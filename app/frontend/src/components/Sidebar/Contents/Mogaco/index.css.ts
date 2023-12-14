@@ -1,7 +1,12 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansBold16, sansBold24, sansRegular14 } from '@/styles/font.css';
+import {
+  sansBold16,
+  sansBold24,
+  sansRegular14,
+  sansRegular16,
+} from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -11,6 +16,14 @@ export const container = style({
   color: vars.color.grayscaleBlack,
   padding: '2rem',
 });
+
+export const contents = style([
+  sansRegular16,
+  {
+    lineHeight: 1.4,
+    wordBreak: 'break-all',
+  },
+]);
 
 export const group = style([
   sansBold16,

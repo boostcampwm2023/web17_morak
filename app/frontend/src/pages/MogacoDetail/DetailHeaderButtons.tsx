@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Button } from '@morak/ui';
 import { useQueries } from '@tanstack/react-query';
 
-import { Button, Error, LoadingIndicator } from '@/components';
+import { Error, LoadingIndicator } from '@/components';
 import { MoreButton } from '@/components/Button/MoreButton';
 import { queryKeys } from '@/queries';
 import {

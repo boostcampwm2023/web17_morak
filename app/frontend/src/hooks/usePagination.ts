@@ -17,6 +17,7 @@ export const usePagination = () => {
     const searchParams = new URLSearchParams(location.search);
     const page = searchParams.get('page');
     setCurrentPage(page ? Number(page) : 1);
+    window.scrollTo({ top: 0 });
   }, [location]);
 
   const onClickNext = () => {

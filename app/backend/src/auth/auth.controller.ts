@@ -24,6 +24,8 @@ import { GoogleOauthGuard } from './guards/google-oauth.guard';
 import { LogoutDto } from './dto/user.dto';
 import { getSecret } from '@morak/vault';
 
+const isProduction = getSecret('NODE_ENV') === 'production';
+
 @ApiTags('Oauth API')
 @Controller('auth')
 export class AuthController {
@@ -81,9 +83,16 @@ export class AuthController {
 
       res.setHeader('Authorization', 'Bearer ' + [tokens.access_token, tokens.refresh_token]);
 
-      res.cookie('access_token', tokens.access_token, { httpOnly: false, maxAge: getSecret('MAX_AGE_ACCESS_TOKEN') });
+      res.cookie('access_token', tokens.access_token, {
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
+        maxAge: getSecret('MAX_AGE_ACCESS_TOKEN'),
+      });
       res.cookie('refresh_token', tokens.refresh_token, {
         httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
         maxAge: getSecret('MAX_AGE_REFRESH_TOKEN'),
       });
 
@@ -119,14 +128,24 @@ export class AuthController {
 
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
-        httpOnly: false,
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
         maxAge: getSecret('MAX_AGE_ACCESS_TOKEN'),
       });
 
       res.json({ newAccessToken });
     } catch (err) {
-      res.clearCookie('access_token', { httpOnly: false });
-      res.clearCookie('refresh_token', { httpOnly: false });
+      res.clearCookie('access_token', {
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
+      });
+      res.clearCookie('refresh_token', {
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
+      });
       throw new UnauthorizedException('Failed to refresh token');
     }
   }
@@ -149,8 +168,16 @@ export class AuthController {
       const { providerId } = body;
       await this.authService.logout(providerId);
 
-      res.clearCookie('access_token', { httpOnly: false });
-      res.clearCookie('refresh_token', { httpOnly: false });
+      res.clearCookie('access_token', {
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
+      });
+      res.clearCookie('refresh_token', {
+        httpOnly: true,
+        secure: isProduction ? true : false,
+        sameSite: 'lax',
+      });
     } catch (error) {
       console.error('Logout error:', error);
       throw new UnauthorizedException('Failed to logout');

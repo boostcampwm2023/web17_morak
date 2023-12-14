@@ -1,7 +1,5 @@
 import { ResponseMogacoWithMemberDto } from '@morak/apitype';
-
-import { Button } from '@/components';
-import { sansRegular16 } from '@/styles/font.css';
+import { Button } from '@morak/ui';
 
 import { GroupWrapper } from './GroupWrapper';
 import * as styles from './index.css';
@@ -38,7 +36,7 @@ export function MogacoInfo({
           maxHumanCount={maxHumanCount}
           address={address}
         />
-        <p className={sansRegular16}>{contents}</p>
+        <p className={styles.contents}>{contents}</p>
       </div>
       <Button
         fullWidth

@@ -2,7 +2,7 @@ import { TMapLatLng, TMap, TMapSize } from './tmap';
 
 declare global {
   interface Window {
-    Tmapv2: {
+    Tmapv3: {
       Map: new (
         element: HTMLElement | string,
         options?: {
@@ -20,6 +20,8 @@ declare global {
         position: TMapLatLng;
         iconHTML?: string;
         iconSize?: TMapSize;
+        label?: string;
+        icon?: string;
       }) => TMapMarker;
       Size: new (width: number, height: number) => TMapSize;
     };

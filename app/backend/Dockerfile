@@ -59,4 +59,4 @@ RUN chmod +x /docker-entrypoint.sh
 RUN sed -i 's/\r//' /wait-for-it.sh
 RUN sed -i 's/\r//' /docker-entrypoint.sh
 
-CMD ["/wait-for-it.sh", "db:3306", "--", "/docker-entrypoint.sh"]
+CMD ["/wait-for-it.sh", "--", "/docker-entrypoint.sh"]

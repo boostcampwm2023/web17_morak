@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import { ChattingSidebar, Divider, Error, Loading } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
-import { sansRegular14 } from '@/styles/font.css';
 
 import { DetailHeader } from './DetailHeader';
 import { DetailInfo } from './DetailInfo';
@@ -52,16 +51,16 @@ export function MogacoDetailPage() {
         title={mogacoData.title}
         participants={mogacoData.participants}
       />
-      <div className={styles.container}>
+      <main className={styles.container}>
         <DetailHeader id={id} openChatting={openChatting} />
         <DetailInfo
           id={id}
           latitude={mogacoData.latitude}
           longitude={mogacoData.longitude}
         />
-        <div className={sansRegular14}>{mogacoData.contents}</div>
+        <div className={styles.contents}>{mogacoData.contents}</div>
         <Divider />
-      </div>
+      </main>
     </div>
   );
 }

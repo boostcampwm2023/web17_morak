@@ -1,5 +1,13 @@
-import * as styles from './NotificationItem.css';
+import { memo } from 'react';
 
-export function NotificationItem() {
-  return <div className={styles.container} />;
+import * as styles from './ChatItem.css';
+
+type NotificationItemProps = {
+  contents: string;
+};
+
+function NotificationItem({ contents }: NotificationItemProps) {
+  return <li className={styles.notification}>{contents}</li>;
 }
+
+export const MemorizedNotificationItem = memo(NotificationItem);

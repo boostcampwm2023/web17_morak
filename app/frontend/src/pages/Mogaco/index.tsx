@@ -1,6 +1,6 @@
+import { Pagination } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { Pagination } from '@/components';
 import { usePagination } from '@/hooks';
 import { queryKeys } from '@/queries';
 
@@ -18,22 +18,21 @@ export function MogacoPage() {
   );
   const { data: allMogacoList } = useQuery(queryKeys.mogaco.list());
 
-  const maxPage = Math.floor((allMogacoList?.length || 0) / PAGE_UNIT + 1);
-
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <MogacoListHeader />
       <MogacoList currentPage={currentPage} />
       {mogacoList?.length !== 0 && (
         <Pagination
           className={styles.pagination}
           currentPage={currentPage}
-          pageCount={maxPage}
+          postPerPage={PAGE_UNIT}
+          postCount={allMogacoList?.length || 0}
           onClickItem={onClickItem}
           onClickNext={onClickNext}
           onClickPrev={onClickPrev}
         />
       )}
-    </div>
+    </main>
   );
 }

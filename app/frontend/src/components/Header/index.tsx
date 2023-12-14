@@ -10,31 +10,36 @@ export function Header() {
   const { SIDE_MENU } = useMenu();
   const { pathname } = useLocation();
 
-  const { onClickMenu } = useClickMenu();
+  const { onClickMenu, onEnterMenu } = useClickMenu();
 
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <div className={styles.header}>
-        <NavLink to="/" className={styles.title}>
+        <NavLink to="/" className={styles.title} aria-label="홈으로">
           <Logo className={styles.logo} />
           <div className={styles.logoTitle}>morak</div>
         </NavLink>
-        <ul className={styles.sideMenu}>
-          {SIDE_MENU.map((menu) => (
-            <li
-              role="menuitem"
-              key={menu.pathname}
-              onClick={() => onClickMenu(menu.pathname)}
-              onKeyDown={() => onClickMenu(menu.pathname)}
-              className={`${styles.sideMenuButton} ${
-                pathname === `/${menu.pathname}` ? styles.active : ''
-              }`}
-            >
-              {menu.value}
-            </li>
-          ))}
-        </ul>
+        <nav>
+          <ul className={styles.sideMenu} role="menubar" data-cy="header-menu">
+            {SIDE_MENU.map((menu) => (
+              <li
+                tabIndex={0}
+                key={menu.pathname}
+                onClick={() => onClickMenu(menu.pathname)}
+                onKeyDown={(e) => onEnterMenu(e, menu.pathname)}
+                className={`${styles.sideMenuButton} ${
+                  pathname === `/${menu.pathname}` ? styles.active : ''
+                }`}
+                role="menuitem"
+                aria-label={menu.ariaLabel}
+                data-cy="header-menu-item"
+              >
+                {menu.value}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 }

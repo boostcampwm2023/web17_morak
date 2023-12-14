@@ -2,7 +2,7 @@ import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
-import { Input, MapModal } from '@/components';
+import { FormInput, MapModal } from '@/components';
 import { MOGACO_POST } from '@/constants';
 import { useModal } from '@/hooks';
 
@@ -33,7 +33,7 @@ export function PostAddress({ control, setValue }: PostAddressProps) {
       name="address"
       rules={{ required: true }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <Input
+        <FormInput
           label={MOGACO_POST.ADDRESS.LABEL}
           placeholder={MOGACO_POST.ADDRESS.REQUIRED}
           required

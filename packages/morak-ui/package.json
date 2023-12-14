@@ -1,0 +1,21 @@
+{
+  "name": "@morak/ui",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo No build required for @morak/ui",
+    "prettier": "prettier --write ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "latest"
+  },
+  "peerDependencies": {
+    "@vanilla-extract/css": "^1.14.0",
+    "react": "^18.2.0"
+  }
+}

@@ -17,11 +17,11 @@ export function Group({ id, owned = false, name, joined = false }: GroupProps) {
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
-        {owned && <Crown />}
-        <div className={styles.title}>{name}</div>
-        <div className={styles.desktop}>
-          <GroupButton id={id} owned={owned} joined={joined} />
+        <div className={styles.nameWrapper}>
+          {owned && <Crown />}
+          <div className={styles.title}>{name}</div>
         </div>
+        <GroupButton id={id} owned={owned} joined={joined} />
       </div>
       {/* <div className={styles.count}>
         <Count width={16} height={16} fill={grayscale200} />
@@ -37,9 +37,6 @@ export function Group({ id, owned = false, name, joined = false }: GroupProps) {
             <button type="button" className={styles.copyButton}>
               <Copy width={24} height={24} fill={grayscale200} />
             </button>
-          </div>
-          <div className={styles.mobile}>
-            <GroupButton id={id} owned={owned} joined={joined} />
           </div>
         </div>
       )} */}

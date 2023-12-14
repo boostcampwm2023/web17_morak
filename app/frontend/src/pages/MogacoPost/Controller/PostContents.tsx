@@ -2,7 +2,7 @@ import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
-import { Textarea } from '@/components';
+import { FormTextarea } from '@/components';
 import { MOGACO_POST } from '@/constants';
 
 type PostContentsProps = {
@@ -22,8 +22,9 @@ export function PostContents({ control }: PostContentsProps) {
         },
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <Textarea
+        <FormTextarea
           label={MOGACO_POST.CONTENTS.LABEL}
+          aria-label="내용"
           placeholder={MOGACO_POST.CONTENTS.REQUIRED}
           rows={MOGACO_POST.CONTENTS.ROWS}
           maxLength={MOGACO_POST.CONTENTS.MAX_LENGTH}

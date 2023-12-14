@@ -1,8 +1,10 @@
+import { Button } from '@morak/ui';
+
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
-import MAIN_IMAGE from '@/assets/images/main.png';
-import { Button } from '@/components';
+import MAIN_IMAGE_PNG from '@/assets/images/main.png';
+import MAIN_IMAGE_WEBP from '@/assets/images/main.webp';
 import { URL } from '@/constants';
-import { getCookies } from '@/utils';
+import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
 
 import * as styles from './index.css';
 
@@ -11,7 +13,7 @@ export function MainPage() {
     window.location.href = `${URL.API}/auth/google/login`;
   };
 
-  const isLogin = getCookies('access_token');
+  const { isLoading, isLogin } = useGetLoginBasedMyInfoQuery();
 
   return (
     <div className={styles.container}>
@@ -22,8 +24,8 @@ export function MainPage() {
           <br />
           모락과 함께하세요
         </div>
-        <div className={styles.login}>
-          {!isLogin && (
+        <div className={styles.login} data-cy="login-button">
+          {!isLoading && !isLogin && (
             <Button
               type="button"
               theme="primary"
@@ -37,7 +39,18 @@ export function MainPage() {
           )}
         </div>
       </div>
-      <img src={MAIN_IMAGE} alt="main" className={styles.mainImage} />
+      <picture>
+        <source
+          type="image/webp"
+          srcSet={MAIN_IMAGE_WEBP}
+          className={styles.mainImage}
+        />
+        <img
+          src={MAIN_IMAGE_PNG}
+          alt="메인 이미지"
+          className={styles.mainImage}
+        />
+      </picture>
     </div>
   );
 }

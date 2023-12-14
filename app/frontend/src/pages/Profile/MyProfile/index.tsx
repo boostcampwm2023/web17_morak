@@ -1,6 +1,7 @@
+import { Button } from '@morak/ui';
 import { useMutation } from '@tanstack/react-query';
 
-import { Button, Error, Loading } from '@/components';
+import { Error, Loading } from '@/components';
 import { useGetMyInfoQuery } from '@/queries/hooks';
 import { auth } from '@/services';
 import { sansBold36 } from '@/styles/font.css';

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useCallback, useEffect, useState } from 'react';
 
 import { Marker } from '@/components/Map/Marker';
@@ -5,10 +6,12 @@ import {
   DEFAULT_ZOOM_LEVEL,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
+  INITIAL_LATITUDE,
+  INITIAL_LONGITUDE,
 } from '@/constants';
 import { TMap, TMapMarker } from '@/types';
 
-const { Tmapv2 } = window;
+const { Tmapv3 } = window;
 
 export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
@@ -19,7 +22,8 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
       return;
     }
 
-    const map = new Tmapv2.Map('map', {
+    const map = new Tmapv3.Map('map', {
+      center: new Tmapv3.LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE),
       zoom: DEFAULT_ZOOM_LEVEL,
       zoomControl: false,
     });
@@ -32,6 +36,7 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
     (
       coord: { latitude: number | null; longitude: number | null },
       theme: 'green' | 'red',
+      labelText?: string,
     ) => {
       const { latitude, longitude } = coord;
       if (!(latitude && longitude) || !mapInstance) {
@@ -40,21 +45,23 @@ export const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
 
       if (currentMarker) {
         const currMarker = currentMarker.getPosition();
-        const prevLatitude = currMarker.lat();
-        const prevLongitude = currMarker.lng();
+        const prevLatitude = currMarker._lat;
+        const prevLongitude = currMarker._lng;
         if (prevLatitude === latitude && prevLongitude === longitude) {
-          mapInstance?.setCenter(new Tmapv2.LatLng(latitude, longitude));
+          mapInstance?.setCenter(new Tmapv3.LatLng(latitude, longitude));
           mapInstance?.setZoom(DEFAULT_ZOOM_LEVEL);
           return;
         }
       }
 
       currentMarker?.setMap(null);
-      const position = new Tmapv2.LatLng(latitude, longitude);
+      const position = new Tmapv3.LatLng(latitude, longitude);
+
       const marker = Marker({
         mapContent: mapInstance,
         position,
         theme,
+        labelText,
       });
       setCurrentMarker(marker);
       mapInstance?.setCenter(position);

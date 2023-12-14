@@ -22,3 +22,6 @@ lerna-debug.log*
 
 # turbo
 .turbo
+
+# testing
+**/coverage

@@ -13,7 +13,9 @@
     "preview": "vite preview --host 0.0.0.0",
     "prepare": "cd ../.. && husky install app/frontend/.husky",
     "lint-front": "lint-staged",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
@@ -31,6 +33,7 @@
     "@lukemorales/query-key-factory": "^1.3.2",
     "@morak/apitype": "*",
     "@morak/chat": "^1.0.0",
+    "@morak/ui": "*",
     "@tanstack/react-query": "^5.8.1",
     "@tanstack/react-query-devtools": "^5.8.1",
     "@vanilla-extract/css": "^1.14.0",
@@ -40,7 +43,6 @@
     "dayjs": "^1.11.10",
     "jotai": "^2.5.1",
     "react": "^18.2.0",
-    "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-router-dom": "^6.18.0",
@@ -56,6 +58,8 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vanilla-extract/vite-plugin": "^3.9.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cypress": "^13.6.1",
+    "cypress-image-snapshot": "^4.0.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",

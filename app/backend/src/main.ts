@@ -14,7 +14,10 @@ async function bootstrap() {
     origin: getSecret(`DOMAIN`),
     credentials: true,
   });
-  setupSwagger(app);
+
+  if (getSecret('NODE_ENV') === 'development') {
+    setupSwagger(app);
+  }
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
   await app.listen(getSecret('PORT'));

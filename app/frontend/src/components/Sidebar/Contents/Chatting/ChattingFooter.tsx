@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-import { Button, Textarea } from '@/components';
+import { Textarea, Button } from '@morak/ui';
 
 import * as styles from './index.css';
 
 type ChattingFooterProps = {
-  sendMessage: (message: string) => void;
+  userId: string;
+  sendMessage: (message: string, userId: string) => void;
 };
 
-export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
+export function ChattingFooter({ userId, sendMessage }: ChattingFooterProps) {
   const [message, setMessage] = useState('');
 
   const onChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -17,7 +18,7 @@ export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
 
   const handleSendMessage = () => {
     if (/\S+/.test(message)) {
-      sendMessage(message);
+      sendMessage(message, userId);
       setMessage('');
     }
   };
@@ -28,7 +29,7 @@ export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
   };
 
   const onKeydownTextarea = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -37,6 +38,7 @@ export function ChattingFooter({ sendMessage }: ChattingFooterProps) {
   return (
     <form className={styles.footer} onSubmit={onSubmit}>
       <Textarea
+        aria-label="메시지 입력"
         value={message}
         maxLength={300}
         fullWidth

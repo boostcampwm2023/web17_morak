@@ -3,7 +3,7 @@ import { Controller, Control } from 'react-hook-form';
 import { RequestCreateMogacoDto } from '@morak/apitype';
 import dayjs from 'dayjs';
 
-import { Input } from '@/components';
+import { FormInput } from '@/components';
 import { MOGACO_POST } from '@/constants';
 
 type PostDateProps = {
@@ -26,7 +26,7 @@ export function PostDate({ control, isEdit = false }: PostDateProps) {
         },
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <Input
+        <FormInput
           label={MOGACO_POST.DATE.LABEL}
           type="datetime-local"
           disabled={isEdit}

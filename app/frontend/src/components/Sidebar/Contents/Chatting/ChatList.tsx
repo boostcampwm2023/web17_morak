@@ -6,6 +6,7 @@ import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 import { useObserver } from '@/hooks/useObserver';
 
 import * as styles from './index.css';
+import { MemorizedNotificationItem } from './NotificationItem';
 import { MemorizedTalkItem } from './TalkItem';
 
 type ChatListProps = {
@@ -23,7 +24,7 @@ export function ChatList({
 }: ChatListProps) {
   const prevScrollHeightRef = useRef(0);
   const listElemRef = useRef<HTMLUListElement>(null);
-  const observableRef = useRef<HTMLDivElement | null>(null);
+  const observableRef = useRef<HTMLLIElement | null>(null);
   const exposed = useObserver(observableRef);
 
   useEffect(() => {
@@ -32,10 +33,18 @@ export function ChatList({
     }
 
     const { scrollTop, clientHeight, scrollHeight } = listElemRef.current;
+
+    if (scrollHeight === prevScrollHeightRef.current) {
+      return;
+    }
+
     if (exposed) {
       listElemRef.current.scrollTo({
         top: scrollHeight - prevScrollHeightRef.current,
       });
+      prevScrollHeightRef.current = scrollHeight;
+
+      return;
     }
 
     if (
@@ -45,9 +54,8 @@ export function ChatList({
       listElemRef.current.scrollTo({
         top: scrollHeight - clientHeight,
       });
+      prevScrollHeightRef.current = scrollHeight;
     }
-
-    prevScrollHeightRef.current = scrollHeight;
   }, [chatItems, exposed]);
 
   useEffect(() => {
@@ -58,19 +66,24 @@ export function ChatList({
 
   return (
     <ul className={styles.chatList} ref={listElemRef}>
-      <div ref={observableRef} />
+      <li ref={observableRef} />
       {chatItems.map((chatItem) => {
         const participantInfo = participants.find(
           (participant) => participant.id === chatItem.user,
         );
-        return (
+        return chatItem.messageType === 'talk' ? (
           <MemorizedTalkItem
             key={chatItem.date.toString()}
-            nickname={participantInfo?.nickname || ''}
-            profilePicture={participantInfo?.profilePicture || ''}
+            nickname={participantInfo?.nickname}
+            profilePicture={participantInfo?.profilePicture}
             contents={chatItem.contents}
             date={chatItem.date}
             isMine={chatItem.user === userId}
+          />
+        ) : (
+          <MemorizedNotificationItem
+            key={chatItem.date.toString()}
+            contents={chatItem.contents}
           />
         );
       })}

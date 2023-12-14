@@ -29,14 +29,19 @@ export const container = style({
   borderRadius: '0.8rem',
   border: `1px solid ${grayscale200}`,
   backgroundColor: grayscaleWhite,
-  padding: '2rem',
-  paddingBottom: '1.6rem',
+  padding: '2rem 1.6rem',
   gap: '0.8rem',
   cursor: 'pointer',
 
   selectors: {
     [`&:hover`]: {
       backgroundColor: grayscale50,
+    },
+  },
+
+  '@media': {
+    'screen and (max-width:768px)': {
+      padding: '1.2rem',
     },
   },
 });
@@ -61,16 +66,6 @@ export const count = style([
   },
 ]);
 
-export const desktop = style({
-  display: 'flex',
-
-  '@media': {
-    'screen and (max-width:768px)': {
-      display: 'none',
-    },
-  },
-});
-
 export const detail = style({
   display: 'flex',
   justifyContent: 'space-between',
@@ -91,17 +86,28 @@ export const mobile = style({
     },
   },
 });
+export const nameWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+});
 
 export const title = style([
   sansBold20,
   {
     color: grayscaleBlack,
+
+    '@media': {
+      'screen and (max-width:768px)': {
+        fontSize: '1.6rem',
+      },
+    },
   },
 ]);
 
 export const titleWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'start',
+  alignItems: 'center',
   gap: '0.8rem',
 });

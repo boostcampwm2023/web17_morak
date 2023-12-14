@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles';
-import { sansRegular16 } from '@/styles/font.css';
 
 export const closeButton = style({
   display: 'flex',
@@ -27,31 +26,37 @@ export const closed = style({
   transform: 'translateX(calc(-100% + 2.4rem))',
 });
 
-export const flip = style({
-  transform: 'rotate(180deg)',
-});
-
-export const notParticipated = style([
-  sansRegular16,
-  {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    color: vars.color.grayscale200,
-    lineHeight: '1.4',
-    textAlign: 'center',
-  },
-]);
-
-export const panel = style({
+const panel = style({
   display: 'flex',
   flexGrow: '1',
+  zIndex: 10,
   maxWidth: 'calc(100% - 2.4rem)',
   height: '100%',
   borderRight: `1px solid ${vars.color.grayscale100}`,
   background: vars.color.grayscaleWhite,
 });
+
+export const emptyPanel = style([
+  panel,
+  {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 5,
+    width: '100%',
+    background: vars.color.grayscale50,
+  },
+]);
+
+export const flip = style({
+  transform: 'rotate(180deg)',
+});
+
+export const hidden = style({
+  visibility: 'hidden',
+});
+
+export { panel };
 
 export const wrapper = style({
   display: 'flex',

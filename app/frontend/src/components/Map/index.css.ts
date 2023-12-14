@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, globalStyle } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 import { vars, fontStyle } from '@/styles';
@@ -19,9 +19,10 @@ export const label = recipe({
       padding: '0.2rem',
       color: grayscaleWhite,
       borderRadius: '0.5rem',
-      top: '-6.5rem',
+      top: '-5.5rem',
       left: '50%',
       transform: 'translate(-50%)',
+      whiteSpace: 'pre',
     },
   ],
   variants: {
@@ -69,4 +70,10 @@ export const myLocation = style({
   borderRadius: '0.8rem',
   boxShadow: '0px 0px 8px 0px rgba(0 0 0 / 0.25)',
   zIndex: '10',
+});
+
+globalStyle('.marker-image', {
+  width: '5rem',
+  height: '5rem',
+  zIndex: '1',
 });

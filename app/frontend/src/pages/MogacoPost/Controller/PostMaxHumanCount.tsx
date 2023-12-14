@@ -2,7 +2,7 @@ import { Controller, Control } from 'react-hook-form';
 
 import { RequestCreateMogacoDto } from '@morak/apitype';
 
-import { Input } from '@/components';
+import { FormInput } from '@/components';
 import { MOGACO_POST } from '@/constants';
 
 type PostMaxHumanCountProps = {
@@ -34,7 +34,7 @@ export function PostMaxHumanCount({
         },
       }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <Input
+        <FormInput
           label={MOGACO_POST.COUNT.LABEL}
           type="number"
           placeholder={MOGACO_POST.COUNT.REQUIRED}
