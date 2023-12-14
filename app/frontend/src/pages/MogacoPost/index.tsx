@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RequestCreateMogacoDto } from '@morak/apitype';
 import { Button } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
 import { queryKeys } from '@/queries';
 import { useSubmitEdit, useSubmitPost } from '@/queries/hooks/post';
@@ -67,7 +68,7 @@ export function MogacoPostPage() {
           latitude,
           longitude,
           contents,
-          date: date.toString(),
+          date: dayjs(date).format('YYYY-MM-DD HH:mm'),
           maxHumanCount,
           status,
         },
