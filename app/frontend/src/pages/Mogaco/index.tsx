@@ -18,8 +18,6 @@ export function MogacoPage() {
   );
   const { data: allMogacoList } = useQuery(queryKeys.mogaco.list());
 
-  const maxPage = Math.floor((allMogacoList?.length || 0) / PAGE_UNIT + 1);
-
   return (
     <main className={styles.container}>
       <MogacoListHeader />
@@ -28,7 +26,8 @@ export function MogacoPage() {
         <Pagination
           className={styles.pagination}
           currentPage={currentPage}
-          pageCount={maxPage}
+          postPerPage={PAGE_UNIT}
+          postCount={allMogacoList?.length || 0}
           onClickItem={onClickItem}
           onClickNext={onClickNext}
           onClickPrev={onClickPrev}
