@@ -8,7 +8,7 @@
 <a href='https://www.notion.so/e55bfedb723443adb14dfa0e3910cc42?pvs=21'>🖋️ 그라운드 룰</a> | 
 <a href='https://www.notion.so/af66c77dc0f648ce9317a33a37510f24?pvs=21'>📜 기획서</a> | 
 <a href='https://www.figma.com/file/ekdMdDQqhXwJBAf2bus6xJ/%EB%B6%80%EC%8A%A4%ED%8A%B8%EC%BA%A0%ED%94%84-%EB%AA%A8%EB%9D%BD?type=design&node-id=2-1066&mode=design&t=8trPIWAnQYrLKd6J-0'>🎨 디자인</a> | 
-<a href='https://github.com/boostcampwm2023/web17_morak/wik'>🔍 위키</a>
+<a href='https://github.com/boostcampwm2023/web17_morak/wiki'>🔍 위키</a>
 </p>
 
 # 모락 | Morak
@@ -46,12 +46,58 @@
 
 ## 🧑‍💻 기술적 도전
 
-| 분류 | 내용                                                                                                    |
-| :------------: | :------------------------------------------------------------------------------------------------------------- |
-| **Common**   | • Monorepo <br/>• socket.io 채팅                                                                               |
-| **FrontEnd** | • Test Code 작성 <br/>• 성능 최적화 <br/>• 패키지 배포                                                         |
-| **BackEnd**  | • OAuth, 인증・인가 <br/>• Unit Test Code 작성                                                                 |
-| **Infra**    | • Github Action CI/CD 구축 <br/>• VPN 서버 구축 <br/>• Nginx 서버 구축 <br/>• Docker Registry, Vault 서버 구축 |
+
+### **Monorepo With Turborepo**
+
+- 모노레포를 도입하여 코드 공유, 일관된 코드 스타일, 빌드 및 테스트 캐싱을 통해 효율성을 올렸습니다.
+    - 모노레포의 내부 패키지 사용으로 다음과 같은 이점을 얻었습니다.
+        - FrontEnd/BackEnd 간 타입 불일치 문제를 예방하고 인터페이스 변경에 신속하고 정확하게 대응할 수 있도록 공통 타입을 사용합니다.
+        - 공통 컴포넌트를 패키지화하여 컴포넌트의 재사용성을 높입니다.
+        - configuration 파일 재사용으로 초기 세팅 비용을 줄입니다.
+    - Turborepo의 캐싱 기능을 Docker 이미지 빌드에 적용하여 빌드 시간을 단축했습니다.
+    - [TurboRepo 설정](https://www.notion.so/fe9bbfaed0cd411e9a5d0aae7550a863?pvs=21) by 서지원
+
+### **Test Code**
+
+- 보다 더 효율적인 개발과 QA 방식을 위한 테스트 코드 작성에 대해 고민했습니다.
+    - [UI 테스트를 할 수 있는 방법은? (시각적 회귀 테스트)](https://www.notion.so/UI-ee39d501d6b6498a9583859cc64e8a38?pvs=21) by 이태림
+
+### **지도**
+
+- TMap API를 사용하여 사용자와 상호작용할 수 있는 지도 페이지를 개발했습니다.
+- 좋은 사용자 경험을 주기 위해 Vector와 Raster 지도 SDK를 개발자 도구 성능 탭으로 비교해 보고, 선택한 과정을 담았습니다.
+    - [Tmap API로 지도 렌더링](https://www.notion.so/TMap-API-06c9e324d093465ea8da56777d338aaa?pvs=21) by 이지원
+    - [폼 작성 시 장소 선택 TMap API 적용하기](https://www.notion.so/TMAP-API-1645d224b33d4f968ee81dca843bd8ae?pvs=21) by 이태림
+    - [느림의 미학 (feat. TMap 지도 성능 측정)](https://www.notion.so/TMap-063aa40efb0e4d0a95c61a990a188f45?pvs=21) by 이지원, 이태림
+
+### **채팅**
+
+- socket.io를 기반으로 사용자들이 실시간으로 대화를 나눌 수 있는 채팅 기능을 개발했습니다.
+- FE에서 채팅 구현 중 겪은 여러 문제 상황과 해결 과정에 대하여 기록하였습니다.
+    - [FE 채팅 기능 구현과 트러블슈팅](https://www.notion.so/9c866a10d5754c81bf86850a881486ef?pvs=21) by 맹지승
+
+### **OAuth2.0과 인증/인가**
+
+- NestJS에서 소셜 로그인에 대한 인증과 사용자 정보를 인지하여 인가 처리를 기록하였습니다.
+- 로그인을 통해 해당 사용자의 정보를 추출해내어 사용하는 방법을 기록하였습니다.
+    - [지금 접속한 당신 정체가 무엇이오?](https://www.notion.so/67f910a8f32140ccb43bf9d9622c8b84?pvs=21) by 임동혁
+    - [인증(Authentication)과 인가(Authorization)](https://www.notion.so/Cookie-ea27c771aeef406aadc02709f587c99e?pvs=21) by 임동혁
+
+### 기타
+
+- [assets는 왜, 어디에서 관리해야 할까요? public? src?](https://www.notion.so/assets-9b3e50f913cb4fdbabce2c0b5a06851f?pvs=21) by 이태림
+- [react-query와 컴포넌트 props 전달](https://www.notion.so/a86d59c0a6924b27b764e589df34af41?pvs=21) by 맹지승
+- [NestJS 빡치는 라우팅 시스템에 대해 알아보자](https://www.notion.so/f3d7e301dd5040d2950f423ca211ecae?pvs=21) by 임동혁
+- [Jest 경로를 일일히 지정해야 한다고?](https://www.notion.so/433965335b5845878257813e3e733cac?pvs=21) by 임동혁
+- [Jotai vs. Zustand](https://www.notion.so/Jotai-vs-Zustand-e0837b29d53e4fe2a3793dee1a6487c9?pvs=21) by 맹지승
+- [놀랍고 재미있는 접근성 개선](https://www.notion.so/5e26158dc5254aba9b6bff2d706be07d?pvs=21) by 맹지승
+- [모바일에서 폼 입력 시 화면이 확대되는 현상… 접근성과 관련 있다고?](https://www.notion.so/6f3bad0053f04f84afed52d562d78be6?pvs=21) by 이태림
+- [Nginx 설정](https://www.notion.so/dd2c18bdc779419b8928424f1a97048e?pvs=21) by 서지원
+- [Docker Registry 설정](https://www.notion.so/61b9b8ab5f1440eeb738248832cfaaba?pvs=21) by 서지원
+
+
+> 이 외에도 [모락 팀의 개발 일지](https://www.notion.so/ttaerrim/50a6652038d04e61920dbf8faecb80db?v=5eec47d4350b45b8b10da4c1ec7dc5d6)를 구경해 보세요!
+
 
 ## 기술 스택
 
@@ -74,19 +120,6 @@
 1. upstream에서는 `main` 브랜치와 `develop` 브랜치만 관리한다.
 2. 개발 feature는 `develop` 브랜치에서 따서 작업 후 `develop` 브랜치로 머지한다.
 3. 협업으로 인한 추가 브랜치가 필요한 경우 upstream에서 `develop` 기준 `feature` 브랜치를 생성하여 2와 같은 방식으로 작업한다.
-
-## 개발 일지
-
-|    작성자|내용                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 이태림 | • [assets는 어디에 두어야 할까요?](https://www.notion.so/assets-9b3e50f913cb4fdbabce2c0b5a06851f?pvs=21)<br/>• [폼 작성 시 장소 선택 TMAP API 적용하기](https://www.notion.so/1645d224b33d4f968ee81dca843bd8ae?pvs=21)<br/>• [UI 테스트를 할 수 있는 방법은? (시각적 회귀 테스트)](https://www.notion.so/ttaerrim/UI-ee39d501d6b6498a9583859cc64e8a38)                                                                                                                                                                                                                                                 |
-| 맹지승 | • [FE 채팅 기능 구현과 트러블슈팅](https://www.notion.so/FE-9c866a10d5754c81bf86850a881486ef?pvs=21)<br/>• [react-query와 컴포넌트 props 전달](https://www.notion.so/a86d59c0a6924b27b764e589df34af41?pvs=21)                                                                                                                                                                                                                                                                        |
-| 임동혁 | • [NestJS JWT 유저 정보 반환](https://www.notion.so/NestJS-JWT-67f910a8f32140ccb43bf9d9622c8b84?pvs=4)<br/>• [NestJS의 복잡한 라우팅 시스템에 대해 알아보자](https://www.notion.so/NestJS-f3d7e301dd5040d2950f423ca211ecae?pvs=4)<br/>• [인증(Authentication)과 인가(Authorization)](https://www.notion.so/Cookie-HttpOnly-Secure-ea27c771aeef406aadc02709f587c99e?pvs=4)<br/>• [Jest path alios 설정](https://www.notion.so/Jest-path-alios-433965335b5845878257813e3e733cac?pvs=4) |
-| 이지원 | • [Tmap API로 지도 렌더링](https://www.notion.so/Tmap-API-06c9e324d093465ea8da56777d338aaa?pvs=21)                                                                                                                                                                                                                                                                                                                                                                                   |
-| 서지원 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 공동   | • [Jotai vs. Zustand](https://www.notion.so/Jotai-vs-Zustand-e0837b29d53e4fe2a3793dee1a6487c9?pvs=21)                                                                                                                                                                                                                                                                                                                                                                                |
-
-이 외에도 [모락 팀의 개발 일지](https://www.notion.so/ttaerrim/50a6652038d04e61920dbf8faecb80db?v=5eec47d4350b45b8b10da4c1ec7dc5d6)를 구경해 보세요!
 
 ## 🧑🏻‍💻 `command`
 
