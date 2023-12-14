@@ -66,6 +66,9 @@ export class MogacoRepository {
         include: {
           group: true,
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
         skip,
         take: pageSize,
       });
@@ -79,6 +82,9 @@ export class MogacoRepository {
         },
         include: {
           group: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       });
     }
