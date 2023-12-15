@@ -30,7 +30,7 @@ export const container = style({
     },
     '&:before': {
       position: 'absolute',
-      top: '-1.2rem',
+      top: '-1rem',
       content: '',
       border: '0.6rem solid transparent',
       borderBottom: `0.6rem solid ${vars.color.grayscaleWhite}`,

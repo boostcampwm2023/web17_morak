@@ -1,7 +1,8 @@
 import { ResponseParticipant } from '@morak/apitype';
+import { Popover } from '@morak/ui';
 
 import { ReactComponent as People } from '@/assets/icons/people.svg';
-import { Popover, UserChip } from '@/components';
+import { UserChip } from '@/components';
 import { vars } from '@/styles';
 
 import * as styles from './index.css';
