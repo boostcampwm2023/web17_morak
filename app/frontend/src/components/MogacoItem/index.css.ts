@@ -109,6 +109,6 @@ export const title = style([
 export const titleArea = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '0.4rem',
+  gap: '0.8rem',
   width: '100%',
 });
