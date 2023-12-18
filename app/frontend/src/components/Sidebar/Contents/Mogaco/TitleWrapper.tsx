@@ -9,7 +9,11 @@ export function TitleWrapper({
 }: Pick<ResponseMogacoDto, 'title' | 'status'>) {
   return (
     <div className={styles.titleWrapper}>
-      <Label theme="primary" shape="fill">
+      <Label
+        theme={status === '모집 중' ? 'primary' : 'danger'}
+        shape="fill"
+        disabled={status === '모집 마감'}
+      >
         {status}
       </Label>
       <span className={styles.title}>{title}</span>
