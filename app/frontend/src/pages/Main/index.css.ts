@@ -17,6 +17,10 @@ export const login = style({
   alignItems: 'center',
 });
 
+export const loginButton = style({
+  width: '20rem',
+});
+
 export const mainImage = style({
   width: '100%',
   maxWidth: '69.7rem',

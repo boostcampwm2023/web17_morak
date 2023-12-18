@@ -3,8 +3,10 @@ import { Button } from '@morak/ui';
 import { ReactComponent as GoogleIcon } from '@/assets/icons/google.svg';
 import MAIN_IMAGE_PNG from '@/assets/images/main.png';
 import MAIN_IMAGE_WEBP from '@/assets/images/main.webp';
+import { Loading } from '@/components';
 import { URL } from '@/constants';
 import { useGetLoginBasedMyInfoQuery } from '@/queries/hooks';
+import { vars } from '@/styles';
 
 import * as styles from './index.css';
 
@@ -25,16 +27,23 @@ export function MainPage() {
           모락과 함께하세요
         </div>
         <div className={styles.login} data-cy="login-button">
-          {!isLoading && !isLogin && (
+          {!isLogin && (
             <Button
               type="button"
               theme="primary"
               shape="line"
               size="large"
               onClick={onClickGoogleLogin}
+              className={styles.loginButton}
             >
-              <GoogleIcon />
-              Google로 시작하기
+              {!isLoading ? (
+                <Loading color={vars.color.morakGreen} text="정보 확인 중..." />
+              ) : (
+                <>
+                  <GoogleIcon />
+                  Google로 시작하기
+                </>
+              )}
             </Button>
           )}
         </div>
