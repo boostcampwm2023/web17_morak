@@ -15,7 +15,7 @@ export function LoadingIndicator({
   className,
 }: LoadingIndicatorProps) {
   return (
-    <div className={className}>
+    <div className={`${styles.container} ${className}`}>
       <Progress
         fill={color}
         width={size}

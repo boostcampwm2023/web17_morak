@@ -33,10 +33,10 @@ export function MainPage() {
               theme="primary"
               shape="line"
               size="large"
-              onClick={onClickGoogleLogin}
+              onClick={!isLoading ? onClickGoogleLogin : undefined}
               className={styles.loginButton}
             >
-              {!isLoading ? (
+              {isLoading ? (
                 <Loading color={vars.color.morakGreen} text="정보 확인 중..." />
               ) : (
                 <>
