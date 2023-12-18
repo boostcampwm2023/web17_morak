@@ -23,8 +23,11 @@ export const login = style({
 export const loginButton = style({
   width: '20rem',
   height: '4rem',
-  [`${isLoading}&`]: {
-    pointerEvents: 'none',
+
+  selectors: {
+    [`${isLoading}&`]: {
+      pointerEvents: 'none',
+    },
   },
 });
 
