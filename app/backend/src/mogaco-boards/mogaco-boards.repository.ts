@@ -179,6 +179,9 @@ export class MogacoRepository {
     const mogacos = await this.prisma.participant.findMany({
       where: {
         userId: member.id,
+        mogaco: {
+          deletedAt: null,
+        },
       },
       include: {
         mogaco: {
