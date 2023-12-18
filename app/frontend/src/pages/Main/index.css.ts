@@ -11,6 +11,8 @@ export const container = style({
   background: vars.color.grayscaleWhite,
 });
 
+export const isLoading = style({});
+
 export const login = style({
   display: 'flex',
   justifyContent: 'center',
@@ -20,6 +22,10 @@ export const login = style({
 
 export const loginButton = style({
   width: '20rem',
+  height: '4rem',
+  [`${isLoading}&`]: {
+    pointerEvents: 'none',
+  },
 });
 
 export const mainImage = style({

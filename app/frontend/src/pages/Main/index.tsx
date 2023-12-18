@@ -34,7 +34,9 @@ export function MainPage() {
               shape="line"
               size="large"
               onClick={!isLoading ? onClickGoogleLogin : undefined}
-              className={styles.loginButton}
+              className={`${isLoading && styles.isLoading} ${
+                styles.loginButton
+              }`}
             >
               {isLoading ? (
                 <Loading color={vars.color.morakGreen} text="정보 확인 중..." />
