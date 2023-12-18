@@ -15,6 +15,7 @@ export const login = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  height: '4rem',
 });
 
 export const loginButton = style({
