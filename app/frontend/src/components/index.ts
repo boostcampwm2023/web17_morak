@@ -15,7 +15,6 @@ export * from './Modal/InputModal';
 export * from './Modal/MapModal';
 export * from './Modal/ModalContainer';
 export * from './MogacoItem';
-export * from './Popover';
 export * from './Sidebar';
 export * from './Sidebar/Contents/Chatting';
 export * from './Sidebar/Contents/Mogaco';
