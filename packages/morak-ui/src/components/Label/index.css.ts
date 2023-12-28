@@ -6,10 +6,11 @@ const { grayscale50, morakGreen, morakRed, grayscale200 } = vars.color;
 export const container = recipe({
   base: {
     display: 'inline-flex',
+    flexShrink: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    minWidth: '3.5rem',
-    padding: '0.4rem 1.5rem',
+    minWidth: '3.6rem',
+    padding: '0.4rem 1.4rem',
     borderRadius: '100rem',
     whiteSpace: 'pre',
   },

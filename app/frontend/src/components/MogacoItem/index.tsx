@@ -30,7 +30,11 @@ export function MogacoItem({
   status,
 }: MogacoProps) {
   const MogacoLabel = (
-    <Label theme="primary" shape="fill" disabled={status === '마감'}>
+    <Label
+      theme={status === '모집 중' ? 'primary' : 'danger'}
+      shape="fill"
+      disabled={status === '모집 마감'}
+    >
       {status}
     </Label>
   );
