@@ -35,10 +35,10 @@ type UpdateMarker = (
   labelText: string,
 ) => void;
 
-const setMyLocation = (updateMarker: UpdateMarker) => {
+const setMyLocation = (makeMarker: UpdateMarker) => {
   const onSuccess = (position: Geolocation) => {
     const { latitude, longitude } = position.coords;
-    updateMarker({ latitude, longitude }, 'red', '현 위치');
+    makeMarker({ latitude, longitude }, 'red', '현 위치');
   };
   navigator.geolocation.getCurrentPosition(onSuccess);
 };
@@ -46,10 +46,10 @@ const setMyLocation = (updateMarker: UpdateMarker) => {
 export function Map({ onClickMarker, closeSidebar }: MapProps) {
   const { data: mogacoList } = useQuery(queryKeys.mogaco.list());
   const mapRef = useRef<HTMLDivElement>(null);
-  const { mapInstance, updateMarker } = useMap(mapRef);
+  const { mapInstance, makeMarker } = useMap(mapRef);
   const onClickMyLocation = () => {
     closeSidebar();
-    setMyLocation(updateMarker);
+    setMyLocation(makeMarker);
   };
 
   useEffect(() => {

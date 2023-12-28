@@ -5,13 +5,12 @@ import { Button } from '@morak/ui';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { FormInput } from '@/components';
-import { useDebounce } from '@/hooks';
+import { useDebounce, useMap } from '@/hooks';
 import { queryKeys } from '@/queries';
 import { useModalAtom } from '@/stores';
 import { sansBold14, sansRegular12, sansRegular14 } from '@/styles/font.css';
 
 import * as styles from './index.css';
-import { useMap } from './useMap';
 
 type MapModalProps = {
   saveAddress: ({
@@ -35,7 +34,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
     setCoord,
     currentAddress: selectedAddress,
     initMapModal,
-  } = useMap(mapRef);
+  } = useMap(mapRef, true);
 
   const { data: tmapResponse } = useQuery({
     ...queryKeys.tmap.searchAddress({
