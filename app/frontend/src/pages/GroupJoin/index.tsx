@@ -15,7 +15,7 @@ export function GroupJoin() {
 
   return (
     <div className={styles.container}>
-      <section className={styles.section}>
+      <section className={`${styles.section} completed`}>
         <h2 className={sansBold36}>그룹 참여</h2>
         <h3 className={sansBold24}>1. 참여 방법 선택</h3>
         <p className={sansRegular18}>어떤 방법으로 그룹에 참여할까요?</p>
@@ -36,7 +36,7 @@ export function GroupJoin() {
           </NavLink>
         </div>
       </section>
-      <section className={styles.section}>
+      <section className={`${styles.section}`}>
         <h3 className={sansBold24}>2. 참여 코드 입력</h3>
         <p className={sansRegular18}>참여 코드를 입력해 주세요.</p>
         <Input />
@@ -49,7 +49,7 @@ export function GroupJoin() {
           </Button>
         </div>
       </section>
-      <section className={styles.section}>
+      <section className={`${styles.section} disabled`}>
         <h3 className={sansBold24}>3. 가입 신청 확인</h3>
         <div className={styles.group}>
           <span className={sansBold20}>부스트캠프 웹·모바일 9기</span>
