@@ -1,8 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-import { vars } from '@/styles';
-import { sansBold16 } from '@/styles/font.css';
-
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
@@ -26,16 +23,9 @@ export const loading = style({
   justifyContent: 'center',
 });
 
-export const navLinkButton = style([
-  sansBold16,
-  {
-    display: 'flex',
-    gap: 0,
-    alignItems: 'center',
-    alignSelf: 'end',
-    color: vars.color.morakGreen,
-  },
-]);
+export const navLinkButton = style({
+  width: '100%',
+});
 
 export const rotateArrow = style({
   transform: 'rotate(180deg)',
