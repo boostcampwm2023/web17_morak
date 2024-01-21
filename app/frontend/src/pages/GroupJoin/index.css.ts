@@ -20,7 +20,11 @@ export const group = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '1.6rem',
+  gap: '0.8rem',
+  border: `1px solid ${vars.color.morakGreen}`,
+  padding: '1.6rem',
+  borderRadius: '0.8rem',
+  color: vars.color.morakGreen,
 });
 
 export const navLinkButton = style({
@@ -33,6 +37,7 @@ export const participants = style([
     display: 'flex',
     gap: '0.4rem',
     alignItems: 'center',
+    color: vars.color.grayscale200,
   },
 ]);
 
@@ -55,7 +60,7 @@ export const section = style({
       width: '100%',
       height: '100%',
       background: vars.color.grayscaleWhite,
-      opacity: 0.5,
+      opacity: 0.75,
       content: '',
     },
     '&.disabled': {

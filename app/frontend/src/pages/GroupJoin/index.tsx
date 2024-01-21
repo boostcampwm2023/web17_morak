@@ -83,7 +83,7 @@ export function GroupJoin() {
         </div>
       </section>
       <section className={`${styles.section} ${getCurrentState(3)}`}>
-        <h3 className={sansBold24}>3. 가입 신청 확인</h3>
+        <h3 className={sansBold24}>3. 그룹 확인 및 가입 신청</h3>
         <div className={styles.group}>
           <span className={sansBold20}>부스트캠프 웹·모바일 9기</span>
           <span className={styles.participants}>
