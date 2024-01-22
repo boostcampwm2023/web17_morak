@@ -3,16 +3,13 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, Input } from '@morak/ui';
 
-import { ReactComponent as People } from '@/assets/icons/people.svg';
-import { fontStyle, vars } from '@/styles';
+import { GroupInfo } from '@/components/GroupInfo';
+import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
 
 export function GroupJoinPage() {
-  const {
-    color: { grayscale200 },
-  } = vars;
-  const { sansBold36, sansBold24, sansBold20, sansRegular18 } = fontStyle;
+  const { sansBold36, sansBold24, sansRegular18 } = fontStyle;
 
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -84,13 +81,7 @@ export function GroupJoinPage() {
       </section>
       <section className={`${styles.section} ${getCurrentState(3)}`}>
         <h3 className={sansBold24}>3. 그룹 확인 및 가입 신청</h3>
-        <div className={styles.group}>
-          <span className={sansBold20}>부스트캠프 웹·모바일 9기</span>
-          <span className={styles.participants}>
-            <People width={24} height={24} fill={grayscale200} />
-            160
-          </span>
-        </div>
+        <GroupInfo title="부스트캠프 웹·모바일 9기" participantsCount={160} />
         <p className={sansRegular18}>이 그룹에 가입 신청할까요?</p>
         <div className={styles.confirmButtons}>
           <Button
