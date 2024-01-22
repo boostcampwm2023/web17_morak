@@ -80,9 +80,9 @@ export function GroupJoinPage() {
         </div>
       </section>
       <section className={`${styles.section} ${getCurrentState(3)}`}>
-        <h3 className={sansBold24}>3. 그룹 확인 및 가입 신청</h3>
+        <h3 className={sansBold24}>3. 그룹 확인 및 참여</h3>
         <GroupInfo title="부스트캠프 웹·모바일 9기" participantsCount={160} />
-        <p className={sansRegular18}>이 그룹에 가입 신청할까요?</p>
+        <p className={sansRegular18}>이 그룹에 참여할까요?</p>
         <div className={styles.confirmButtons}>
           <Button
             theme="primary"
@@ -94,7 +94,7 @@ export function GroupJoinPage() {
             이전으로
           </Button>
           <Button theme="primary" shape="fill" size="large" fullWidth>
-            가입 신청
+            참여하기
           </Button>
         </div>
       </section>
