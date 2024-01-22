@@ -3,14 +3,17 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles';
 import { sansRegular16 } from '@/styles/font.css';
 
-export const group = style({
+export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: '0.8rem',
-  border: `1px solid ${vars.color.morakGreen}`,
+  width: '100%',
   padding: '1.6rem',
+  border: `1px solid ${vars.color.morakGreen}`,
   borderRadius: '0.8rem',
+  textAlign: 'center',
+  wordBreak: 'break-all',
   color: vars.color.morakGreen,
 });
 

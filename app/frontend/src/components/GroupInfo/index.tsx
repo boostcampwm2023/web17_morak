@@ -13,7 +13,7 @@ export function GroupInfo({ title, participantsCount }: GroupInfoProps) {
   const { sansBold20 } = fontStyle;
 
   return (
-    <div className={styles.group}>
+    <div className={styles.container}>
       <span className={sansBold20}>{title}</span>
       <span className={styles.participants}>
         <People width={24} height={24} fill={grayscale200} />
