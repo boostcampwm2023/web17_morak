@@ -12,7 +12,7 @@ import {
   ProfilePage,
   NotFound,
 } from '@/pages';
-import { GroupJoin } from '@/pages/GroupJoin';
+import { GroupJoinPage } from '@/pages/Group/Join';
 
 export const useRouter = () =>
   createBrowserRouter([
@@ -53,7 +53,7 @@ export const useRouter = () =>
         },
         {
           path: 'group/join',
-          element: <GroupJoin />,
+          element: <GroupJoinPage />,
         },
       ],
     },

@@ -8,7 +8,7 @@ import { fontStyle, vars } from '@/styles';
 
 import * as styles from './index.css';
 
-export function GroupJoin() {
+export function GroupJoinPage() {
   const {
     color: { grayscale200 },
   } = vars;
