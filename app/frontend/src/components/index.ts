@@ -4,6 +4,7 @@ export * from './Error';
 export * from './FormInput';
 export * from './FormInput/Textarea';
 export * from './Group';
+export * from './GroupInfo';
 export * from './Header';
 export * from './Layout';
 export * from './Loading';

@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { Button, Input } from '@morak/ui';
 
-import { GroupInfo } from '@/components/GroupInfo';
-import { Stepper } from '@/components/Stepper';
+import { GroupInfo, Stepper } from '@/components';
 import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';

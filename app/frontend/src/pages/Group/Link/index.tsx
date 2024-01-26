@@ -1,6 +1,6 @@
 import { Button } from '@morak/ui';
 
-import { GroupInfo } from '@/components/GroupInfo';
+import { GroupInfo } from '@/components';
 import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
