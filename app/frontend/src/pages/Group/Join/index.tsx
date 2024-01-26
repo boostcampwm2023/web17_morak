@@ -8,9 +8,9 @@ import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
 
-export function GroupJoinPage() {
-  const { sansBold36, sansBold24, sansRegular18 } = fontStyle;
+const { sansBold36, sansBold24, sansRegular18 } = fontStyle;
 
+export function GroupJoinPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const getCurrentState = (step: number) => {

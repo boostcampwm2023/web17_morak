@@ -5,9 +5,9 @@ import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
 
-export function GroupLinkPage() {
-  const { sansBold36, sansRegular16 } = fontStyle;
+const { sansBold36, sansRegular16 } = fontStyle;
 
+export function GroupLinkPage() {
   const goBack = () => window.history.back();
 
   return (
