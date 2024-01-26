@@ -9,11 +9,11 @@ import {
   Calendar,
   MapLayout,
   Groups,
+  GroupJoinPage,
+  GroupLinkPage,
   ProfilePage,
   NotFound,
 } from '@/pages';
-import { GroupJoinPage } from '@/pages/Group/Join';
-import { GroupLinkPage } from '@/pages/Group/Link';
 
 export const useRouter = () =>
   createBrowserRouter([
