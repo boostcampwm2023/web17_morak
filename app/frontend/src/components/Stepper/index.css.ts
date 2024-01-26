@@ -30,6 +30,7 @@ export const step = style([
     height: '3.2rem',
     background: morakGreen,
     color: grayscaleWhite,
+    transition: 'background 0.2s',
 
     selectors: {
       '&.prev': {
