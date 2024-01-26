@@ -10,9 +10,15 @@ export const confirmButtons = style({
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '3.6rem',
+  gap: '2.4rem',
   maxWidth: '80rem',
   margin: '0 auto',
+});
+
+export const header = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 });
 
 export const navLinkButton = style({

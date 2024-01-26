@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Button, Input } from '@morak/ui';
 
 import { GroupInfo } from '@/components/GroupInfo';
+import { Stepper } from '@/components/Stepper';
 import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
@@ -15,7 +16,10 @@ export function GroupJoinPage() {
 
   return (
     <div className={styles.container}>
-      <h2 className={sansBold36}>그룹 참여</h2>
+      <div className={styles.header}>
+        <h2 className={sansBold36}>그룹 참여</h2>
+        <Stepper currentStep={currentStep} maxStep={3} />
+      </div>
       {currentStep === 1 && (
         <section className={styles.section}>
           <h3 className={sansBold24}>1. 참여 방법 선택</h3>
