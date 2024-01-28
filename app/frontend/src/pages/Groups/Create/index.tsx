@@ -9,7 +9,7 @@ import * as styles from './index.css';
 type GroupJoin = 'need-approve' | 'need-code';
 type GroupCreate = {
   name: string;
-  type: 'public-group' | 'private-group';
+  type: 'public' | 'private';
   joinType: GroupJoin[];
 };
 export function GroupCreatePage() {
@@ -20,7 +20,7 @@ export function GroupCreatePage() {
   } = useForm<GroupCreate>({
     defaultValues: {
       name: '',
-      type: 'public-group',
+      type: 'public',
       joinType: ['need-approve'],
     },
     mode: 'all',
@@ -39,26 +39,22 @@ export function GroupCreatePage() {
             name="type"
             render={({ field: { onChange, value } }) => (
               <>
-                <label className={styles.inputField} htmlFor="public-group">
-                  <input
-                    type="radio"
-                    name="group"
-                    id="public-group"
-                    checked={value === 'public-group'}
-                    onChange={(e) => onChange(e.target.id)}
-                  />
-                  공개 그룹
-                </label>
-                <label className={styles.inputField} htmlFor="private-group">
-                  <input
-                    type="radio"
-                    name="group"
-                    id="private-group"
-                    checked={value === 'private-group'}
-                    onChange={(e) => onChange(e.target.id)}
-                  />
-                  비공개 그룹
-                </label>
+                {['public', 'private'].map((type) => (
+                  <label
+                    key={type}
+                    className={styles.inputField}
+                    htmlFor={type}
+                  >
+                    <input
+                      type="radio"
+                      name="group"
+                      id={type}
+                      checked={value === type}
+                      onChange={(e) => onChange(e.target.id)}
+                    />
+                    {type === 'public' ? '공개' : '비공개'} 그룹
+                  </label>
+                ))}
               </>
             )}
           />
