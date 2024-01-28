@@ -8,9 +8,8 @@ import {
   MogacoPostPage,
   Calendar,
   MapLayout,
-  Groups,
+  GroupListPage,
   GroupJoinPage,
-  GroupLinkPage,
   ProfilePage,
   NotFound,
 } from '@/pages';
@@ -50,15 +49,11 @@ export const useRouter = () =>
         },
         {
           path: 'groups',
-          element: <Groups />,
+          element: <GroupListPage />,
         },
         {
-          path: 'group/join',
+          path: 'groups/:id/join',
           element: <GroupJoinPage />,
-        },
-        {
-          path: 'group/:id',
-          element: <GroupLinkPage />,
         },
       ],
     },

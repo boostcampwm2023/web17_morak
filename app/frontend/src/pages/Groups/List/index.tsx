@@ -7,7 +7,7 @@ import { sansBold36 } from '@/styles/font.css';
 
 import * as styles from './index.css';
 
-export function Groups() {
+export function GroupListPage() {
   const { data: groupList, isLoading } = useQuery({
     ...queryKeys.group.all(),
     staleTime: Infinity,

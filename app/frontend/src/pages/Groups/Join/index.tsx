@@ -7,7 +7,7 @@ import * as styles from './index.css';
 
 const { sansBold36, sansRegular16 } = fontStyle;
 
-export function GroupLinkPage() {
+export function GroupJoinPage() {
   const goBack = () => window.history.back();
 
   return (

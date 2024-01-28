@@ -41,7 +41,7 @@ export function MyGroup() {
         )}
       </ul>
       <div className={styles.groupButtons}>
-        <NavLink to="/group/join" className={styles.navLinkButton}>
+        <NavLink to="/groups" className={styles.navLinkButton}>
           <Button
             type="button"
             theme="primary"

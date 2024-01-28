@@ -1,5 +1,4 @@
 export * from './Calendar';
-export * from './Group';
 export * from './Groups';
 export * from './Main';
 export * from './Map';
