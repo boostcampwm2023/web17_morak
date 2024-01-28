@@ -1,25 +1,35 @@
 import { ReactComponent as Crown } from '@/assets/icons/crown.svg';
+import { ReactComponent as Lock } from '@/assets/icons/lock.svg';
+import { vars } from '@/styles';
 // import { ReactComponent as Count } from '@/assets/icons/people.svg';
-// import { vars } from '@/styles';
 
 import { GroupButton } from './GroupButton';
 import * as styles from './index.css';
 
-// const { grayscale200 } = vars.color;
+const { grayscale200 } = vars.color;
 
 type GroupProps = {
   id: string;
   owned?: boolean;
   joined?: boolean;
+  closed?: boolean;
   name: string;
 };
-export function Group({ id, owned = false, name, joined = false }: GroupProps) {
+
+export function Group({
+  id,
+  owned = false,
+  joined = false,
+  closed = false,
+  name,
+}: GroupProps) {
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
         <div className={styles.nameWrapper}>
           {owned && <Crown />}
           <div className={styles.title}>{name}</div>
+          {closed && <Lock width={24} height={24} fill={grayscale200} />}
         </div>
         <GroupButton id={id} owned={owned} joined={joined} />
       </div>

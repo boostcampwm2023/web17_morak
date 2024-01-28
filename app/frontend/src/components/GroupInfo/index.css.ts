@@ -26,3 +26,9 @@ export const participants = style([
     color: vars.color.grayscale200,
   },
 ]);
+
+export const title = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+});
