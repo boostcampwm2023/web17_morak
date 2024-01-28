@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { Button } from '@morak/ui';
 
 import { useGroupJoinAndLeave } from './hooks/useGroupJoinLeave';
@@ -10,13 +12,11 @@ type GroupButtonProps = {
 };
 
 export function GroupButton({ id, owned, joined }: GroupButtonProps) {
-  const { handleLeave, handleJoin } = useGroupJoinAndLeave();
-  const { openLeaveModal, openJoinModal } = useGroupModal();
+  const { handleLeave } = useGroupJoinAndLeave();
+  const { openLeaveModal } = useGroupModal();
 
   const onClickLeave = () =>
     openLeaveModal({ onClickConfirm: () => handleLeave(id) });
-  const onClickJoin = () =>
-    openJoinModal({ onClickConfirm: () => handleJoin(id) });
 
   return (
     <>
@@ -37,15 +37,11 @@ export function GroupButton({ id, owned, joined }: GroupButtonProps) {
             나가기
           </Button>
         ) : (
-          <Button
-            type="button"
-            theme="primary"
-            shape="fill"
-            size="medium"
-            onClick={onClickJoin}
-          >
-            참여하기
-          </Button>
+          <NavLink to={`/groups/${id}/join`}>
+            <Button type="button" theme="primary" shape="fill" size="medium">
+              참여하기
+            </Button>
+          </NavLink>
         ))}
     </>
   );

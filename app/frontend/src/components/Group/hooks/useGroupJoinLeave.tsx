@@ -1,11 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/queries';
 import { useJoinGroupQuery, useLeaveGroupQuery } from '@/queries/hooks/group';
 
-import { Modal } from '../../Modal';
-
 export const useGroupJoinAndLeave = () => {
+  const navigate = useNavigate();
   const { mutate: leaveGroup } = useLeaveGroupQuery();
   const { mutate: joinGroup } = useJoinGroupQuery();
 
@@ -20,7 +21,9 @@ export const useGroupJoinAndLeave = () => {
     if (joinedGroupId) {
       leaveGroup(joinedGroupId);
     }
+
     joinGroup(id);
+    navigate('/groups');
   };
 
   const handleLeave = (id: string) => {

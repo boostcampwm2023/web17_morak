@@ -25,7 +25,7 @@ export const useGroupModal = () => {
   }) => {
     openModal(
       <Modal
-        title="그룹에서 참여하시겠습니까?"
+        title="그룹에 참여하시겠습니까?"
         content={`현재 속해 있는 그룹이 있다면,\n그 그룹에서 자동으로 나가게 됩니다.`}
         buttonType="double"
         onClickConfirm={onClickConfirm}

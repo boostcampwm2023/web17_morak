@@ -1,8 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '@morak/ui';
 
 import { GroupInfo } from '@/components';
+import { useGroupJoinAndLeave } from '@/components/Group/hooks/useGroupJoinLeave';
+import { useGroupModal } from '@/components/Group/hooks/useGroupModal';
+import { EmptyPage } from '@/pages/Mogaco/EmptyPage';
 import { fontStyle } from '@/styles';
 
 import * as styles from './index.css';
@@ -11,9 +14,20 @@ const { sansBold36, sansRegular16 } = fontStyle;
 
 export function GroupJoinPage() {
   const navigate = useNavigate();
-  const groupType: string = 'private';
+  const { id } = useParams();
+  const { openJoinModal } = useGroupModal();
+  const { handleJoin } = useGroupJoinAndLeave();
+
+  const groupType: string = 'public';
+
+  if (!id) {
+    return <EmptyPage />;
+  }
 
   const goBack = () => navigate(-1);
+
+  const onClickJoin = () =>
+    openJoinModal({ onClickConfirm: () => handleJoin(id) });
 
   return (
     <div className={styles.container}>
@@ -30,7 +44,12 @@ export function GroupJoinPage() {
             취소
           </Button>
           {groupType === 'public' ? (
-            <Button theme="primary" shape="fill" size="large">
+            <Button
+              theme="primary"
+              shape="fill"
+              size="large"
+              onClick={onClickJoin}
+            >
               참여하기
             </Button>
           ) : (
