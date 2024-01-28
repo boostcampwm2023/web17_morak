@@ -72,6 +72,7 @@
     "msw": "^2.0.8",
     "prettier": "^3.0.3",
     "vite": "^4.4.5",
+    "vite-plugin-pwa": "^0.17.5",
     "vite-plugin-svgr": "^3.2.0",
     "vitest": "^0.34.6"
   }
