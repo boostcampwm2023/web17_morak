@@ -33,7 +33,11 @@ export function GroupJoinPage() {
     <div className={styles.container}>
       <h2 className={sansBold36}>그룹 참여</h2>
       <div className={styles.group}>
-        <GroupInfo title="부스트캠프 웹·모바일 9기" participantsCount={160} />
+        <GroupInfo
+          title="부스트캠프 웹·모바일 9기"
+          participantsCount={160}
+          closed={groupType === 'private'}
+        />
         <span className={sansRegular16}>
           {groupType === 'public'
             ? '이 그룹에 참여할까요?'
