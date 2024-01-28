@@ -21,5 +21,4 @@ export * from './Sidebar/Contents/Chatting';
 export * from './Sidebar/Contents/Mogaco';
 export * from './Sidebar/Wrapper/ChattingSidebar';
 export * from './Sidebar/Wrapper/MogacoSidebar';
-export * from './Stepper';
 export * from './UserChip';
