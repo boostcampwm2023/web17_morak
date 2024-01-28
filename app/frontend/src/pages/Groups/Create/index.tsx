@@ -17,6 +17,7 @@ export function GroupCreatePage() {
     control,
     handleSubmit,
     formState: { isValid },
+    watch,
   } = useForm<GroupCreate>({
     defaultValues: {
       name: '',
@@ -25,6 +26,9 @@ export function GroupCreatePage() {
     },
     mode: 'all',
   });
+
+  const groupType = watch('type');
+
   return (
     <form
       className={styles.container}
@@ -60,48 +64,52 @@ export function GroupCreatePage() {
           />
         </div>
       </div>
-      <div className={styles.inputWrapper}>
-        <TextLabel label="가입 방식" required />
-        <Controller
-          control={control}
-          name="joinType"
-          render={({ field: { onChange, value } }) => (
-            <>
-              {['approve', 'code'].map((type) => {
-                const onChangeCheckbox = (
-                  e: React.ChangeEvent<HTMLInputElement>,
-                ) => {
-                  const joinType = e.target.id as GroupJoin;
-                  if (value.includes(joinType)) {
-                    const newValue = value.filter((item) => item !== joinType);
-                    onChange(newValue);
-                  } else {
-                    onChange([...value, joinType]);
-                  }
-                };
-                return (
-                  <label
-                    key={type}
-                    className={styles.inputField}
-                    htmlFor={type}
-                  >
-                    <input
-                      type="checkbox"
-                      id={type}
-                      name={type}
-                      checked={value.includes(type as GroupJoin)}
-                      onChange={onChangeCheckbox}
-                    />
-                    {type === 'approve'
-                      ? '그룹장의 가입 승인 필요'
-                      : '참여 코드로 바로 가입'}
-                  </label>
-                );
-              })}
-            </>
-          )}
-        />
-      </div>
+      {groupType === 'private' && (
+        <div className={styles.inputWrapper}>
+          <TextLabel label="가입 방식" required />
+          <Controller
+            control={control}
+            name="joinType"
+            render={({ field: { onChange, value } }) => (
+              <>
+                {['approve', 'code'].map((type) => {
+                  const onChangeCheckbox = (
+                    e: React.ChangeEvent<HTMLInputElement>,
+                  ) => {
+                    const joinType = e.target.id as GroupJoin;
+                    if (value.includes(joinType)) {
+                      const newValue = value.filter(
+                        (item) => item !== joinType,
+                      );
+                      onChange(newValue);
+                    } else {
+                      onChange([...value, joinType]);
+                    }
+                  };
+                  return (
+                    <label
+                      key={type}
+                      className={styles.inputField}
+                      htmlFor={type}
+                    >
+                      <input
+                        type="checkbox"
+                        id={type}
+                        name={type}
+                        checked={value.includes(type as GroupJoin)}
+                        onChange={onChangeCheckbox}
+                      />
+                      {type === 'approve'
+                        ? '그룹장의 가입 승인 필요'
+                        : '참여 코드로 바로 가입'}
+                    </label>
+                  );
+                })}
+              </>
+            )}
+          />
+        </div>
+      )}
       <Button
         type="submit"
         theme="primary"
