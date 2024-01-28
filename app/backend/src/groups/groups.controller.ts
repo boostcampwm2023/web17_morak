@@ -26,7 +26,19 @@ export class GroupsController {
     return this.groupsService.getAllGroups();
   }
 
-  @Get('/:id/groups')
+  @Get('/:id')
+  @ApiOperation({
+    summary: '특정 그룹 정보 조회',
+    description: '특정 그룹의 정보를 조회합니다.',
+  })
+  @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
+  async getGroups(@Param('id', ParseIntPipe) id: number): Promise<Group & { membersCount: number }> {
+    return this.groupsService.getGroups(id);
+  }
+
+  @Get('/:id/members')
   @ApiOperation({
     summary: '특정 그룹 소속 인원 조회',
     description: '특정 그룹의 Id 값으로 해당 그룹의 소속 인원을 조회합니다.',
@@ -40,8 +52,8 @@ export class GroupsController {
 
   @Post('/')
   @ApiOperation({
-    summary: '그룹 개설',
-    description: '새로운 모각코를 개설합니다.',
+    summary: '그룹 생성',
+    description: '새로운 그룹을 생성합니다.',
   })
   @ApiBody({ type: CreateGroupsDto })
   @ApiResponse({ status: 201, description: 'Successfully created', type: CreateGroupsDto })

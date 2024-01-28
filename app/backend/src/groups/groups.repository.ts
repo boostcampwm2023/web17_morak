@@ -27,6 +27,21 @@ export class GroupsRepository {
     return Promise.all(groupPromises);
   }
 
+  async getGroups(id: number): Promise<Group & { membersCount: number }> {
+    const group = await this.prisma.group.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!group) {
+      throw new NotFoundException(`Group with ID ${id} not found.`);
+    }
+
+    const membersCount = await this.getGroupMembersCount(id);
+    return { ...group, membersCount };
+  }
+
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
     const groupToUsers = await this.prisma.groupToUser.findMany({
       where: {

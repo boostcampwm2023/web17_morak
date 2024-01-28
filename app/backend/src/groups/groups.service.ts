@@ -12,6 +12,10 @@ export class GroupsService {
     return this.groupsRepository.getAllGroups();
   }
 
+  async getGroups(id: number): Promise<Group & { membersCount: number }> {
+    return this.groupsRepository.getGroups(id);
+  }
+
   async getAllMembersOfGroup(id: number): Promise<MemberInformationDto[]> {
     return this.groupsRepository.getAllMembersOfGroup(id);
   }
