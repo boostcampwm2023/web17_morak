@@ -7,14 +7,21 @@ type GroupJoin = 'approve' | 'code';
 
 export function GroupJoinTypeCheckbox({
   control,
+  required,
 }: {
   control: Control<GroupCreate>;
+  required: boolean;
 }) {
   const {
     field: { value, onChange },
   } = useController({
     name: 'joinType',
     control,
+    rules: {
+      validate: {
+        moreThanOne: (v) => required && v.length > 0,
+      },
+    },
   });
 
   const onChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
