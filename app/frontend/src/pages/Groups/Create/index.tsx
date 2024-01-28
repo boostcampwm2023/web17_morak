@@ -6,7 +6,7 @@ import { FormInput } from '@/components';
 
 import * as styles from './index.css';
 
-type GroupJoin = 'need-approve' | 'need-code';
+type GroupJoin = 'approve' | 'code';
 type GroupCreate = {
   name: string;
   type: 'public' | 'private';
@@ -21,7 +21,7 @@ export function GroupCreatePage() {
     defaultValues: {
       name: '',
       type: 'public',
-      joinType: ['need-approve'],
+      joinType: ['approve'],
     },
     mode: 'all',
   });
@@ -62,14 +62,45 @@ export function GroupCreatePage() {
       </div>
       <div className={styles.inputWrapper}>
         <TextLabel label="가입 방식" required />
-        <label className={styles.inputField} htmlFor="need-approve">
-          <input type="checkbox" id="need-approve" name="need-approve" />
-          그룹장의 가입 승인 필요
-        </label>
-        <label className={styles.inputField} htmlFor="need-code">
-          <input type="checkbox" id="need-code" name="need-code" />
-          참여 코드로 바로 가입
-        </label>
+        <Controller
+          control={control}
+          name="joinType"
+          render={({ field: { onChange, value } }) => (
+            <>
+              {['approve', 'code'].map((type) => {
+                const onChangeCheckbox = (
+                  e: React.ChangeEvent<HTMLInputElement>,
+                ) => {
+                  const joinType = e.target.id as GroupJoin;
+                  if (value.includes(joinType)) {
+                    const newValue = value.filter((item) => item !== joinType);
+                    onChange(newValue);
+                  } else {
+                    onChange([...value, joinType]);
+                  }
+                };
+                return (
+                  <label
+                    key={type}
+                    className={styles.inputField}
+                    htmlFor={type}
+                  >
+                    <input
+                      type="checkbox"
+                      id={type}
+                      name={type}
+                      checked={value.includes(type as GroupJoin)}
+                      onChange={onChangeCheckbox}
+                    />
+                    {type === 'approve'
+                      ? '그룹장의 가입 승인 필요'
+                      : '참여 코드로 바로 가입'}
+                  </label>
+                );
+              })}
+            </>
+          )}
+        />
       </div>
       <Button
         type="submit"
