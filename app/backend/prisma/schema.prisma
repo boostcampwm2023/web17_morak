@@ -67,8 +67,8 @@ model Group {
 }
 
 model GroupAccessCode {
-  accessCode String @id @db.VarChar(256)
-  groupId    BigInt @db.BigInt
+  accessCode String @id @map("access_code") @db.VarChar(256)
+  groupId    BigInt @map("group_id") @db.BigInt
 
   groupAccessCodes Group @relation(fields: [groupId], references: [id])
 
