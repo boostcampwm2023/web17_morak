@@ -21,10 +21,10 @@ model Member {
   users              GroupToUser[]
   members            Participant[]
   mogacos            Mogaco[]
-  groupOwner         Group[]
+  groupOwners        Group[]
   membershipRequests MembershipRequest[]
 
-  @@map("Member")
+  @@map("member")
 }
 
 model Mogaco {
@@ -47,32 +47,32 @@ model Mogaco {
   group  Group  @relation(fields: [groupId], references: [id])
   member Member @relation(fields: [memberId], references: [id])
 
-  @@map("Mogaco")
+  @@map("mogaco")
 }
 
 model Group {
-  id         BigInt @id @default(autoincrement()) @db.BigInt
-  title      String @db.VarChar(191)
-  groupOwner BigInt @map("group_owner") @db.BigInt
-  groupType  Int    @db.TinyInt
+  id           BigInt @id @default(autoincrement()) @db.BigInt
+  title        String @db.VarChar(191)
+  groupOwnerId BigInt @map("group_owner_id") @db.BigInt
+  groupTypeId  Int    @map("group_type_id") @db.TinyInt
 
   groups             GroupToUser[]
   mogacos            Mogaco[]
   groupAccessCodes   GroupAccessCode[]
   membershipRequests MembershipRequest[]
 
-  group_owner Member @relation(fields: [groupOwner], references: [id])
+  member Member @relation(fields: [groupOwnerId], references: [id])
 
-  @@map("Group")
+  @@map("group")
 }
 
 model GroupAccessCode {
-  accessCode String @id @db.VarChar(256)
-  groupId    BigInt @db.BigInt
+  accessCode String @id @map("access_code") @db.VarChar(256)
+  groupId    BigInt @map("group_id") @db.BigInt
 
   groupAccessCodes Group @relation(fields: [groupId], references: [id])
 
-  @@map("GroupAccessCode")
+  @@map("group_access_code")
 }
 
 model MembershipRequest {
@@ -86,7 +86,7 @@ model MembershipRequest {
   group Group  @relation(fields: [groupId], references: [id])
   user  Member @relation(fields: [userId], references: [id])
 
-  @@map("MembershipRequest")
+  @@map("membership_request")
 }
 
 model GroupToUser {
@@ -97,7 +97,7 @@ model GroupToUser {
   user  Member @relation(fields: [userId], references: [id])
 
   @@id([groupId, userId])
-  @@map("GroupToUser")
+  @@map("group_to_user")
 }
 
 model Participant {
@@ -108,5 +108,5 @@ model Participant {
   member Member @relation(fields: [userId], references: [id])
 
   @@id([postId, userId])
-  @@map("Participant")
+  @@map("participant")
 }
