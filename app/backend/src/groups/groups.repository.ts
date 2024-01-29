@@ -60,13 +60,17 @@ export class GroupsRepository {
     }));
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto): Promise<Group> {
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<Group> {
     try {
-      const { title } = createGroupsDto;
+      const { title, groupTypeId } = createGroupsDto;
 
       const group = await this.prisma.group.create({
         data: {
-          title,
+          title: title,
+          groupTypeId: groupTypeId,
+          member: {
+            connect: { id: Number(member.id) },
+          },
         },
       });
 

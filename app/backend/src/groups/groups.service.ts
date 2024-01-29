@@ -20,8 +20,8 @@ export class GroupsService {
     return this.groupsRepository.getAllMembersOfGroup(id);
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto): Promise<Group> {
-    return this.groupsRepository.createGroups(createGroupsDto);
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<Group> {
+    return this.groupsRepository.createGroups(createGroupsDto, member);
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {
