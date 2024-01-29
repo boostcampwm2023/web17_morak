@@ -11,16 +11,18 @@ datasource db {
 }
 
 model Member {
-  id             BigInt        @id @default(autoincrement()) @db.BigInt
-  providerId     String        @unique @map("provider_id") @db.VarChar(191)
-  email          String        @unique @db.VarChar(191)
-  nickname       String        @db.VarChar(191)
-  profilePicture String        @map("profile_picture") @db.VarChar(191)
-  socialType     String        @map("social_type") @db.VarChar(191)
-  createdAt      DateTime      @default(now()) @map("created_at")
-  users          GroupToUser[]
-  members        Participant[]
-  mogacos        Mogaco[]
+  id                 BigInt              @id @default(autoincrement()) @db.BigInt
+  providerId         String              @unique @map("provider_id") @db.VarChar(191)
+  email              String              @unique @db.VarChar(191)
+  nickname           String              @db.VarChar(191)
+  profilePicture     String              @map("profile_picture") @db.VarChar(191)
+  socialType         String              @map("social_type") @db.VarChar(191)
+  createdAt          DateTime            @default(now()) @map("created_at")
+  users              GroupToUser[]
+  members            Participant[]
+  mogacos            Mogaco[]
+  groupOwner         Group[]
+  membershipRequests MembershipRequest[]
 
   @@map("Member")
 }
@@ -49,12 +51,42 @@ model Mogaco {
 }
 
 model Group {
-  id      BigInt        @id @default(autoincrement()) @db.BigInt
-  title   String        @db.VarChar(191)
-  groups  GroupToUser[]
-  mogacos Mogaco[]
+  id         BigInt @id @default(autoincrement()) @db.BigInt
+  title      String @db.VarChar(191)
+  groupOwner BigInt @map("group_owner") @db.BigInt
+  groupType  Int    @db.TinyInt
+
+  groups             GroupToUser[]
+  mogacos            Mogaco[]
+  groupAccessCodes   GroupAccessCode[]
+  membershipRequests MembershipRequest[]
+
+  group_owner Member @relation(fields: [groupOwner], references: [id])
 
   @@map("Group")
+}
+
+model GroupAccessCode {
+  accessCode String @id @db.VarChar(256)
+  groupId    BigInt @db.BigInt
+
+  groupAccessCodes Group @relation(fields: [groupId], references: [id])
+
+  @@map("GroupAccessCode")
+}
+
+model MembershipRequest {
+  id        BigInt    @id @db.BigInt
+  groupId   BigInt    @map("group_id") @db.BigInt
+  userId    BigInt    @map("user_id") @db.BigInt
+  status    Int       @db.TinyInt
+  createdAt DateTime  @map("created_at") @db.DateTime
+  updatedAt DateTime? @updatedAt() @map("updated_at")
+
+  group Group  @relation(fields: [groupId], references: [id])
+  user  Member @relation(fields: [userId], references: [id])
+
+  @@map("MembershipRequest")
 }
 
 model GroupToUser {
