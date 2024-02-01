@@ -103,7 +103,7 @@ export function MapModal({ saveAddress }: MapModalProps) {
               <ul id="address-input" className={styles.list}>
                 {addressData.map((address) => {
                   const fullAddress =
-                    address.newAddressList.newAddress[0].fullAddressRoad;
+                    address.newAddressList.newAddress[0]?.fullAddressRoad;
                   const addressName = address.name;
                   const { noorLat: lat, noorLon: lon } = address;
                   return (
