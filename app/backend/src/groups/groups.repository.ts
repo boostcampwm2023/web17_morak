@@ -3,6 +3,7 @@ import { PrismaService } from 'prisma/prisma.service';
 import { Group, Member } from '@prisma/client';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class GroupsRepository {
@@ -71,6 +72,14 @@ export class GroupsRepository {
           member: {
             connect: { id: Number(member.id) },
           },
+        },
+      });
+
+      const accessCode = uuidv4();
+      await this.prisma.groupAccessCode.create({
+        data: {
+          accessCode,
+          groupId: group.id,
         },
       });
 
