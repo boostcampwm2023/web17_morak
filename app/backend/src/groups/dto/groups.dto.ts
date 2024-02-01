@@ -8,6 +8,12 @@ export class GroupsDto implements ResponseGroupsDto {
 
   @ApiProperty({ description: 'title of the Group', example: '부스트캠프 웹・모바일 8기' })
   title: string;
+
+  @ApiProperty({ description: 'GroupOwner Id', example: '1' })
+  groupOwnerId: Bigint;
+
+  @ApiProperty({ description: 'Group Type Id', example: '1' })
+  groupTypeId: number;
 }
 
 export class GroupsWithMemberCountDto implements ResponseGroupsWithMemberCountDto {
