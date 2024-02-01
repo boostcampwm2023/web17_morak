@@ -171,6 +171,8 @@ export class MogacoRepository {
       group: {
         id: mogaco.group.id.toString(),
         title: mogaco.group.title,
+        groupOwnerId: mogaco.group.groupOwnerId.toString(),
+        groupTypeId: mogaco.group.groupTypeId,
       },
     }));
   }
@@ -209,6 +211,8 @@ export class MogacoRepository {
       group: {
         id: participant.mogaco.group.id.toString(),
         title: participant.mogaco.group.title,
+        groupOwnerId: participant.mogaco.group.groupOwnerId.toString(),
+        groupTypeId: participant.mogaco.group.groupTypeId,
       },
     }));
 
