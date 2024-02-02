@@ -34,7 +34,6 @@ export class GroupsController {
   @ApiQuery({ name: 'access-code', description: '참가할 그룹의 승인 코드' })
   @ApiResponse({ status: 201, description: 'Successfully retrieved group information' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Group not found for the provided access code' })
   async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { membersCount: number }> {
     return this.groupsService.getGroupByAccessCode(accessCode);
@@ -101,7 +100,6 @@ export class GroupsController {
   @ApiParam({ name: 'id', description: '참가를 취소할 그룹의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully leaved join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);
