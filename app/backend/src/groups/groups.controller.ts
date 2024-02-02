@@ -72,7 +72,10 @@ export class GroupsController {
   @ApiBody({ type: CreateGroupsDto })
   @ApiResponse({ status: 201, description: 'Successfully created', type: CreateGroupsDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async createGroups(@Body() createGroupsDto: CreateGroupsDto, @GetUser() member: Member): Promise<Group> {
+  async createGroups(
+    @Body() createGroupsDto: CreateGroupsDto,
+    @GetUser() member: Member,
+  ): Promise<{ group: Group; accessCode: string }> {
     return this.groupsService.createGroups(createGroupsDto, member);
   }
 

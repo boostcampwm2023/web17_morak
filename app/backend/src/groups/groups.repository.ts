@@ -82,7 +82,7 @@ export class GroupsRepository {
     }));
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<Group> {
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<{ group: Group; accessCode: string }> {
     try {
       const { title, groupTypeId } = createGroupsDto;
 
@@ -104,7 +104,9 @@ export class GroupsRepository {
         },
       });
 
-      return group;
+      await this.joinGroup(Number(group.id), member);
+
+      return { group, accessCode };
     } catch (error) {
       throw new Error(`Failed to create group: ${error.message}`);
     }
