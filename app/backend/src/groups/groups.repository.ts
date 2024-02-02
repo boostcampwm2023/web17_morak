@@ -28,6 +28,27 @@ export class GroupsRepository {
     return Promise.all(groupPromises);
   }
 
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+    const groupAccessCode = await this.prisma.groupAccessCode.findUnique({
+      where: {
+        accessCode: accessCode,
+      },
+      include: {
+        groupAccessCodes: true,
+      },
+    });
+
+    if (!groupAccessCode) {
+      throw new NotFoundException('Group not found for the provided access code');
+    }
+
+    const membersCount = await this.getGroupMembersCount(Number(groupAccessCode.groupId));
+    return {
+      ...groupAccessCode.groupAccessCodes,
+      membersCount,
+    };
+  }
+
   async getGroups(id: number): Promise<Group & { membersCount: number }> {
     const group = await this.prisma.group.findUnique({
       where: {

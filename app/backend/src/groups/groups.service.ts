@@ -12,6 +12,10 @@ export class GroupsService {
     return this.groupsRepository.getAllGroups();
   }
 
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+    return this.groupsRepository.getGroupByAccessCode(accessCode);
+  }
+
   async getGroups(id: number): Promise<Group & { membersCount: number }> {
     return this.groupsRepository.getGroups(id);
   }
