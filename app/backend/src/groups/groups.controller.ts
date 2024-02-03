@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
@@ -24,6 +24,19 @@ export class GroupsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
     return this.groupsService.getAllGroups();
+  }
+
+  @Get('/info')
+  @ApiOperation({
+    summary: '승인코드를 사용하여 그룹 정보 추출',
+    description: '승인 코드를 사용하여 특정 그룹 정보를 추출합니다.',
+  })
+  @ApiQuery({ name: 'access-code', description: '참가할 그룹의 승인 코드' })
+  @ApiResponse({ status: 201, description: 'Successfully retrieved group information' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Group not found for the provided access code' })
+  async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { membersCount: number }> {
+    return this.groupsService.getGroupByAccessCode(accessCode);
   }
 
   @Get('/:id')
@@ -58,7 +71,10 @@ export class GroupsController {
   @ApiBody({ type: CreateGroupsDto })
   @ApiResponse({ status: 201, description: 'Successfully created', type: CreateGroupsDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async createGroups(@Body() createGroupsDto: CreateGroupsDto, @GetUser() member: Member): Promise<Group> {
+  async createGroups(
+    @Body() createGroupsDto: CreateGroupsDto,
+    @GetUser() member: Member,
+  ): Promise<{ group: Group; accessCode: string }> {
     return this.groupsService.createGroups(createGroupsDto, member);
   }
 
@@ -84,7 +100,6 @@ export class GroupsController {
   @ApiParam({ name: 'id', description: '참가를 취소할 그룹의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully leaved join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);

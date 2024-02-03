@@ -3,6 +3,7 @@ import { PrismaService } from 'prisma/prisma.service';
 import { Group, Member } from '@prisma/client';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class GroupsRepository {
@@ -25,6 +26,27 @@ export class GroupsRepository {
     });
 
     return Promise.all(groupPromises);
+  }
+
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+    const groupAccessCode = await this.prisma.groupAccessCode.findUnique({
+      where: {
+        accessCode: accessCode,
+      },
+      include: {
+        groupAccessCodes: true,
+      },
+    });
+
+    if (!groupAccessCode) {
+      throw new NotFoundException('Group not found for the provided access code');
+    }
+
+    const membersCount = await this.getGroupMembersCount(Number(groupAccessCode.groupId));
+    return {
+      ...groupAccessCode.groupAccessCodes,
+      membersCount,
+    };
   }
 
   async getGroups(id: number): Promise<Group & { membersCount: number }> {
@@ -60,24 +82,30 @@ export class GroupsRepository {
     }));
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<Group> {
-    try {
-      const { title, groupTypeId } = createGroupsDto;
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<{ group: Group; accessCode: string }> {
+    const { title, groupTypeId } = createGroupsDto;
 
-      const group = await this.prisma.group.create({
-        data: {
-          title: title,
-          groupTypeId: groupTypeId,
-          member: {
-            connect: { id: Number(member.id) },
-          },
+    const group = await this.prisma.group.create({
+      data: {
+        title: title,
+        groupTypeId: groupTypeId,
+        member: {
+          connect: { id: Number(member.id) },
         },
-      });
+      },
+    });
 
-      return group;
-    } catch (error) {
-      throw new Error(`Failed to create group: ${error.message}`);
-    }
+    const accessCode = uuidv4();
+    await this.prisma.groupAccessCode.create({
+      data: {
+        accessCode,
+        groupId: group.id,
+      },
+    });
+
+    await this.joinGroup(Number(group.id), member);
+
+    return { group, accessCode };
   }
 
   async joinGroup(id: number, member: Member): Promise<void> {

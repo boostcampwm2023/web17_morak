@@ -12,6 +12,10 @@ export class GroupsService {
     return this.groupsRepository.getAllGroups();
   }
 
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+    return this.groupsRepository.getGroupByAccessCode(accessCode);
+  }
+
   async getGroups(id: number): Promise<Group & { membersCount: number }> {
     return this.groupsRepository.getGroups(id);
   }
@@ -20,7 +24,7 @@ export class GroupsService {
     return this.groupsRepository.getAllMembersOfGroup(id);
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<Group> {
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<{ group: Group; accessCode: string }> {
     return this.groupsRepository.createGroups(createGroupsDto, member);
   }
 
