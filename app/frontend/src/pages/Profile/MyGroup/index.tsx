@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
+import { Button } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
 import { Error, Group, LoadingIndicator } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
@@ -40,16 +40,30 @@ export function MyGroup() {
           <Error message="현재 속한 그룹이 없습니다. 그룹에 참여해 주세요." />
         )}
       </ul>
-      <NavLink to="/groups" className={styles.navLinkButton}>
-        <ArrowLeft
-          fill={vars.color.morakGreen}
-          width={24}
-          height={24}
-          className={styles.rotateArrow}
-        />
-        그룹 리스트 보기
-      </NavLink>
-      <div className={styles.groupButtons}>{/* <Button /> */}</div>
+      <div className={styles.groupButtons}>
+        <NavLink to="/groups" className={styles.groupButton}>
+          <Button
+            type="button"
+            theme="primary"
+            shape="line"
+            size="large"
+            fullWidth
+          >
+            그룹 참여
+          </Button>
+        </NavLink>
+        <NavLink to="/group/new" className={styles.groupButton}>
+          <Button
+            type="button"
+            theme="primary"
+            shape="line"
+            size="large"
+            fullWidth
+          >
+            새 그룹 생성
+          </Button>
+        </NavLink>
+      </div>
     </section>
   );
 }
