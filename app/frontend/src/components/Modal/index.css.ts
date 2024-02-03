@@ -74,4 +74,5 @@ export const textArea = style({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '0.8rem',
+  lineHeight: 'normal',
 });
