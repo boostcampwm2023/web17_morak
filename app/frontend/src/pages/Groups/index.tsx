@@ -36,6 +36,7 @@ export function Groups() {
               name={group.title}
               id={group.id}
               joined={group.id === joinedGroup?.id}
+              closed={group.groupTypeId === 1}
             />
           ))
         )}
