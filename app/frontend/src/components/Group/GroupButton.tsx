@@ -5,18 +5,25 @@ import { useGroupModal } from './hooks/useGroupModal';
 
 type GroupButtonProps = {
   id: string;
-  owned: boolean;
+  closed: boolean;
   joined: boolean;
+  owned: boolean;
 };
 
-export function GroupButton({ id, owned, joined }: GroupButtonProps) {
+export function GroupButton({ id, closed, joined, owned }: GroupButtonProps) {
   const { handleLeave, handleJoin } = useGroupJoinAndLeave();
-  const { openLeaveModal, openJoinModal } = useGroupModal();
+  const { openLeaveModal, openJoinModal, openApplyModal } = useGroupModal();
 
   const onClickLeave = () =>
     openLeaveModal({ onClickConfirm: () => handleLeave(id) });
   const onClickJoin = () =>
     openJoinModal({ onClickConfirm: () => handleJoin(id) });
+  const onClickApply = () =>
+    openApplyModal({
+      onClickConfirm: () => {
+        // 가입 신청 API 연동
+      },
+    });
 
   return (
     <>
@@ -42,9 +49,9 @@ export function GroupButton({ id, owned, joined }: GroupButtonProps) {
             theme="primary"
             shape="fill"
             size="medium"
-            onClick={onClickJoin}
+            onClick={closed ? onClickApply : onClickJoin}
           >
-            참여하기
+            {closed ? '가입 신청' : '참여하기'}
           </Button>
         ))}
     </>

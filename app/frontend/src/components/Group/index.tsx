@@ -23,7 +23,7 @@ export function Group({ id, name, closed, joined, owned = false }: GroupProps) {
           <div className={styles.title}>{name}</div>
           {closed && <Lock width={24} height={24} fill={grayscale200} />}
         </div>
-        <GroupButton id={id} owned={owned} joined={joined} />
+        <GroupButton id={id} closed={closed} joined={joined} owned={owned} />
       </div>
       {/* <div className={styles.count}>
         <Count width={16} height={16} fill={grayscale200} />
